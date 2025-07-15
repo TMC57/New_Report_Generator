@@ -7227,3 +7227,45 @@
         ], 'startIndex': 0, 'endIndex': 58, 'itemCount': 58
     }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1752503535335
 }
+
+
+
+
+
+    
+{'statusCode': 'SUCCESS', 'data': {'results': [
+            {'_id': 27240, 'facilityId': 27240, 'facilityName': 'TECMAT SERVICE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 204231, 'productId': 204231, 'name': 'WNC70 SAINT-PRIEST', 'qty': 99881, 'price': 0.0, 'cur': 'eu', 'gr': 99881, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-05-02', 'qty': 19419
+                            },
+                            {'date': '2025-05-06', 'qty': 4752
+                            },
+                            {'date': '2025-05-07', 'qty': 5007
+                            },
+                            {'date': '2025-05-09', 'qty': 3481
+                            },
+                            {'date': '2025-05-12', 'qty': 16385
+                            },
+                            {'date': '2025-05-14', 'qty': 4647
+                            },
+                            {'date': '2025-05-15', 'qty': 2148
+                            },
+                            {'date': '2025-05-16', 'qty': 8073
+                            },
+                            {'date': '2025-05-19', 'qty': 6782
+                            },
+                            {'date': '2025-05-22', 'qty': 8739
+                            },
+                            {'date': '2025-05-23', 'qty': 5076
+                            },
+                            {'date': '2025-05-26', 'qty': 10970
+                            },
+                            {'date': '2025-05-27', 'qty': 4402
+                            }
+                        ]
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1748304000000'
+            }
+        ], 'startIndex': 0, 'endIndex': 1, 'itemCount': 1
+    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1752506832502
+}

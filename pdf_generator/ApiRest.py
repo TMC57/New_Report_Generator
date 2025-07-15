@@ -1,7 +1,7 @@
 
 from typing import Optional
 from fastapi import FastAPI
-from pdfGen import create_pdf
+from pdfGen import generate_pdfs_by_facility
 from bodys import body_total_qty_report
 from model import model
 from app import get_total_qty_every_days
@@ -34,16 +34,13 @@ def  Total_Quantity_Report_grouped_by_facilities(
     to_date_plus_one = to_date_obj.strftime("%Y-%m-%d")
 
     endpoint, headers, params =  body_total_qty_report(from_date=from_date, to_date=to_date_plus_one)    
-    # model(endpoint, headers, params)
     response = model(endpoint, headers, params)
-
-    get_total_qty_every_days(response.json(), from_date, to_date)  
+    NewJson = get_total_qty_every_days(response.json(), from_date, to_date)  
+    generate_pdfs_by_facility(NewJson, from_date, to_date)
 
     # create_pdf(response.text)
 
-
-    # create_pdf(my_app(from_date=from_date, to_date=to_date))
-    return {"ok "} 
+    return {"ok"} 
 
 
 @app.get("/total_list_of_facilities")
