@@ -2,8 +2,7 @@
 from typing import Optional
 from fastapi import FastAPI
 from pdfGen import generate_pdfs_by_facility
-from bodys import body_total_qty_report
-from model import model
+from model import model, body_total_qty_report
 from app import get_total_qty_every_days
 import logging
 from datetime import datetime, timedelta

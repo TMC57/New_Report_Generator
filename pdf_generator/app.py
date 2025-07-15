@@ -1,7 +1,5 @@
-from model import model
+from model import model, body_total_qty_report
 from datetime import datetime, timedelta
-from bodys import body_total_qty_report
-
 
 def get_total_qty_every_days(Json_to_fill, from_date, to_date):
     current_date = datetime.strptime(from_date, "%Y-%m-%d")
