@@ -1,96 +1,105 @@
 from reportlab.lib.pagesizes import A4
-from reportlab.pdfgen import canvas
+from reportlab.platypus import (
+    SimpleDocTemplate,
+    Paragraph,
+    Spacer,
+    Image,
+    PageBreak,
+)
+from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
+from reportlab.lib.utils import ImageReader
+from reportlab.lib.pagesizes import landscape, A4
+
+import matplotlib
+matplotlib.use("Agg")
 import os
 import re
-import matplotlib   
-matplotlib.use("Agg")   
-from reportlab.lib.utils import ImageReader
-
-from tables    import generate_table_chart
+from tables import generate_table
 from BarCharts import generate_bar_chart
 from PieCharts import generate_pie_chart
 
 
+def distribute_elements_by_page(pages_dict: dict[int, list]):
+    """
+    Distribue les éléments sur les pages spécifiées dans pages_dict.
+    Exemple : {1: [titre], 2: [graphique]} → met les éléments à la bonne page avec les PageBreak nécessaires.
+    """
+    final_elements = []
+    current_page = 1
+    sorted_pages = sorted(pages_dict.keys())
+
+    for i, target_page in enumerate(sorted_pages):
+        # Ajoute des pages vides si on saute des numéros
+        while current_page < target_page:
+            final_elements.append(PageBreak())
+            current_page += 1
+
+        # Ajoute les éléments de la page
+        final_elements.extend(pages_dict[target_page])
+        
+        # Si ce n’est pas la dernière page, ajoute un saut
+        if i < len(sorted_pages) - 1:
+            final_elements.append(PageBreak())
+        
+        current_page += 1
+
+    return final_elements
 
 
 def sanitize_filename(name: str) -> str:
-    # Supprime les caractères interdits dans les noms de fichiers Windows
     return re.sub(r'[<>:"/\\|?*]', '_', name)
 
 def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
-
     """
     Génère un PDF par facilityId dans le dossier 'reports/'.
-    Affiche en titre le nom de la facility, la période et insère un graphique.
+    Affiche en titre le nom de la facility, la période et insère un graphique + un tableau.
     """
-    os.makedirs("reports", exist_ok=True)   
+    os.makedirs("reports", exist_ok=True)
+    os.makedirs("pictures", exist_ok=True)
+
+    styles = getSampleStyleSheet()
+    title_style = styles["Title"]
+    subtitle_style = styles["Heading2"]
+    normal_style = styles["Normal"]
 
     for facility in json_data["data"]["results"]:
         facility_name = facility["facilityName"]
         facility_id = facility["facilityId"]
-
         sanitized_name = sanitize_filename(facility_name)
         pdf_path = f"reports/rapport_{sanitized_name}_{facility_id}.pdf"
 
-        # Créer le PDF
-        c = canvas.Canvas(pdf_path, pagesize=A4)
-        width, height = A4
 
-        # Titre
-        c.setFont("Helvetica-Bold", 16)
-        c.drawCentredString(width / 2, height - 3 * cm, facility_name)
 
-        # Sous-titre
-        c.setFont("Helvetica", 12)
-        c.drawCentredString(width / 2, height - 4 * cm, f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}")
+        # Crée les composants
+        title = Paragraph(facility_name, title_style)
+        subtitle = Paragraph(f"RAPPORT DU {from_date} AU {to_date}", title_style)
 
-        # ================= Générer le graphique ===============================
+        bar_chart = Image(generate_bar_chart(facility, from_date, to_date), width=22*cm, height=12*cm)
+        pie_chart = Image(generate_pie_chart(facility, from_date, to_date), width=14*cm, height=14*cm)
 
-        bar_chart_buffer = generate_bar_chart(facility, from_date, to_date)
-        image = ImageReader(bar_chart_buffer)
+        tables = generate_table(facility, from_date, to_date)  # liste de 1 ou 2 tableaux
 
-        image_width = width - 4 * cm
-        iw, ih = image.getSize()
-        aspect = ih / iw
-        image_height = image_width * aspect
+        # Page planning
+        pages = {
+            1: [title, Spacer(1, 0.5*cm), subtitle, Spacer(1, 0.5*cm), bar_chart],
+            2: [title, Spacer(1, 3*cm), bar_chart],
+            3: [title, Spacer(1, 1*cm), pie_chart],
+            4: [title, Spacer(1, 2*cm)] + tables + [Spacer(1, 0.5 * cm)],  # tous les tableaux sur une seule page
+        }
 
-        c.drawImage(
-                image,
-                x=2 * cm,
-                y=height - 4 * cm - image_height - 1 * cm,  # En dessous du sous-titre
-                width=image_width,
-                height=image_height
+        elements = distribute_elements_by_page(pages)
+
+        # Crée le PDF
+        doc = SimpleDocTemplate(
+            pdf_path,
+            pagesize=landscape(A4),
+            rightMargin=2*cm,
+            leftMargin=2*cm,
+            topMargin=2*cm,
+            bottomMargin=2*cm
         )
-
-        # ================= Générer le camembert ===============================
-
-        pie_chart_buffer = generate_pie_chart(facility, from_date, to_date)
-        image = ImageReader(pie_chart_buffer)
-
-        # Affiche l'image centrée
-        img_width = 400
-        img_height = 400
-        x = (width - img_width) / 2
-        y = height - 800  # Position verticale ajustable
-
-        c.drawImage(image, x, y, width=img_width, height=img_height)
-
-        # ================= Générer le tableau ===============================
-
-        table_consumption_month = generate_table_chart(facility, from_date, to_date)
-        image = ImageReader(table_consumption_month)
-
-                # Affiche l'image centrée
-        img_width = 300
-        img_height = 300
-        x = (width - img_width) / 2
-        y = height - 500  # Position verticale ajustable
-
-        c.drawImage(image, 50   , y, width=500, height=100)
-
-        c.showPage()
-        c.save()
+        doc.build(elements)
 
     print("PDFs générés dans le dossier 'reports/'")
-    return(0)
+    return 0

@@ -12,8 +12,8 @@ def get_total_qty_every_days(Json_to_fill, from_date, to_date):
 
         # Appel API pour ce jour
         endpoint, headers, params = body_total_qty_report(
-            from_date=date_str,
-            to_date=date_str_to
+            date_str,
+            date_str_to
         )
         response = model(endpoint, headers, params)
 

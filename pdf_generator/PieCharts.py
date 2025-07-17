@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from io import BytesIO
+import os
 
 
 def generate_pie_chart(facility, from_date: str, to_date: str):
@@ -34,7 +35,7 @@ def generate_pie_chart(facility, from_date: str, to_date: str):
         return f"{value_l:.1f} L"
 
     # ✅ Figure plus large pour placer les deux éléments côte à côte
-    fig = plt.figure(figsize=(7, 7))
+    fig = plt.figure(figsize=(8, 8))
 
     # ✅ Axe du camembert (à gauche)
     pie_ax = fig.add_axes([0.05, 0.1, 0.55, 0.8])  # [left, bottom, width, height]
@@ -64,6 +65,7 @@ def generate_pie_chart(facility, from_date: str, to_date: str):
 
     buf = BytesIO()
     fig.savefig(buf, format='png')
+
     plt.close(fig)  
     buf.seek(0)
 
