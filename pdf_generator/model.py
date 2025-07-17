@@ -10,7 +10,7 @@ def body_total_qty_report(**kwargs):
     params = {
             #"limit": 1,
             "pageNumber": 1,
-            "pageSize": 3,
+            "pageSize": 2,
             "fromDate": date_tsd(kwargs["from_date"], "%Y-%m-%d"),
             "thruDate": date_tsd(kwargs["to_date"], "%Y-%m-%d"),
             "reportType": "total-qty-facility", 
