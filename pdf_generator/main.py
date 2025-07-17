@@ -32,9 +32,9 @@ def  Total_Quantity_Report_grouped_by_facilities(
     to_date_obj = datetime.strptime(to_date, "%Y-%m-%d") + timedelta(days=1)
     to_date_plus_one = to_date_obj.strftime("%Y-%m-%d")
 
-    endpoint, headers, params =  body_total_qty_report(from_date, to_date_plus_one)    
+    endpoint, headers, params =  body_total_qty_report(from_date, to_date_plus_one, facility_id)    
     response = model(endpoint, headers, params)
-    NewJson = get_total_qty_every_days(response.json(), from_date, to_date)
+    NewJson = get_total_qty_every_days(response.json(), from_date, to_date, facility_id)
     generate_pdfs_by_facility(NewJson, from_date, to_date)
 
     # create_pdf(response.text)

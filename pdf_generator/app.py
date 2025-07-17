@@ -1,7 +1,7 @@
 from model import model, body_total_qty_report
 from datetime import datetime, timedelta
 
-def get_total_qty_every_days(Json_to_fill, from_date, to_date):
+def get_total_qty_every_days(Json_to_fill, from_date, to_date, facilityId=None):
     current_date = datetime.strptime(from_date, "%Y-%m-%d")
     end_date = datetime.strptime(to_date, "%Y-%m-%d")
     date_str_to = (current_date + timedelta(days=1)).strftime("%Y-%m-%d")
@@ -13,7 +13,8 @@ def get_total_qty_every_days(Json_to_fill, from_date, to_date):
         # Appel API pour ce jour
         endpoint, headers, params = body_total_qty_report(
             date_str,
-            date_str_to
+            date_str_to,
+            facilityId
         )
         response = model(endpoint, headers, params)
 
