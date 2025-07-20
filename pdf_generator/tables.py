@@ -20,7 +20,7 @@ def generate_table(facility, from_date: str, to_date: str):
             row = [name]
             for i, date in enumerate(date_range_slice):
                 qty_ml = daily_dict.get(date.isoformat(), 0)
-                row.append(f"{qty_ml / 1000:.1f} L")
+                row.append(f"{qty_ml / 10000:.2f} L" if qty_ml != 0 else "") # laisser la cellule vide si 0
             table_data.append(row)
 
         rl_table = Table(table_data, repeatRows=2)

@@ -10,7 +10,7 @@ def body_total_qty_report(from_date, to_date, facility_id=None):
     params = {
             #"limit": 1,
             "pageNumber": 1,
-            "pageSize": 3,
+            "pageSize": 2,
             "fromDate": date_tsd(from_date, "%Y-%m-%d"),
             "thruDate": date_tsd(to_date, "%Y-%m-%d"),
             "reportType": "total-qty-facility", 
