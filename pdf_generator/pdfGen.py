@@ -46,6 +46,17 @@ def distribute_elements_by_page(pages_dict: dict[int, list]):
 
     return final_elements
 
+def defineNbrZone(FacilityData):
+
+    zone_set = set()
+    
+    for product in FacilityData.get("products", []):
+        name = product.get("name", "")
+        match = re.search(r'\bZone\s*(\d+)', name, re.IGNORECASE)
+        if match:
+            zone_number = match.group(1)
+            zone_set.add(zone_number)
+    return len(zone_set)
 
 def sanitize_filename(name: str) -> str:
     return re.sub(r'[<>:"/\\|?*]', '_', name)
@@ -70,6 +81,8 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         pdf_path = f"reports/rapport_{sanitized_name}_{facility_id}.pdf"
 
 
+        ZoneNbr = defineNbrZone(facility)
+
 
         # Crée les composants
         title = Paragraph(facility_name, title_style)
@@ -87,6 +100,14 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
             3: [title, Spacer(1, 1*cm), pie_chart],
             4: [title, Spacer(1, 2*cm)] + tables + [Spacer(1, 0.5 * cm)],  # tous les tableaux sur une seule page
         }
+
+        # Générer les blocs à partir de la page 2
+        page_number = 2
+        for i in range(ZoneNbr):
+            pages[page_number] = [title, Spacer(1, 3*cm), bar_chart]
+            pages[page_number + 1] = [title, Spacer(1, 1*cm), pie_chart]
+            pages[page_number + 2] = [title, Spacer(1, 2*cm)] + tables + [Spacer(1, 0.5*cm)]
+            page_number += 3
 
         elements = distribute_elements_by_page(pages)
 
