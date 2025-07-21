@@ -12,7 +12,7 @@ base_url = "https://api.webflow.com/v2"
 url = f"{base_url}/collections/{collection_id}/items/{item_id}/live"
 
 # En-têtes
-headers = {
+headers = { 
     "Authorization": f"Bearer {token}",
     "accept-version": "1.0.0",
     "Content-Type": "application/json"
