@@ -31,7 +31,7 @@ def generate_pie_chart(facility, from_date: str, to_date: str):
     def format_liters(pct, all_vals):
         total_ml = sum(all_vals)
         value_ml = pct * total_ml / 100
-        value_l = value_ml / 1000
+        value_l = value_ml / 10000
         return f"{value_l:.1f} L"
 
     # ✅ Figure plus large pour placer les deux éléments côte à côte

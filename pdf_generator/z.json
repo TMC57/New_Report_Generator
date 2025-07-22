@@ -1118,7 +1118,7 @@
                     }
                 ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1748649600000'
             },
-            {'_id': 29806, 'facilityId': 29806, 'facilityName': 'ETS TOUQUET', 'lq': 0, 'lQty': 0, 'products': [
+            {'_id': 29806, 'facilityId': 29806, 'facilityName': '   ', 'lq': 0, 'lQty': 0, 'products': [
                     {'_id': 227539, 'productId': 227539, 'name': 'WNC40 TOUQUET 1', 'qty': 88529, 'price': 0.0, 'cur': 'eu', 'gr': 88529, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
                             {'date': '2025-05-02', 'qty': 6394
                             },
@@ -7268,4 +7268,19 @@
             }
         ], 'startIndex': 0, 'endIndex': 1, 'itemCount': 1
     }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1752506832502
+}
+
+
+{'facilities': [
+        {'facilityId': 27240, 'facilityName': 'TECMAT SERVICE', 'cover_picture': '', 'inventory_monitoring_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+            }, 'customer_technical_relay_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+            }, 'file_referent': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+            }, 'primary_company_brand': ''
+        },
+        {'facilityId': 272640, 'facilityName': 'TECMAT SERVICE', 'cover_picture': '', 'inventory_monitoring_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+            }, 'customer_technical_relay_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+            }, 'file_referent': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+            }, 'primary_company_brand': ''
+        }
+    ]
 }
