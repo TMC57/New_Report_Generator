@@ -1,3 +1,5 @@
+import json
+
 def transform_facility_json(input_json):
     facilities = input_json.get("data", {}).get("results", [])
     output = []
@@ -25,5 +27,9 @@ def transform_facility_json(input_json):
             "primary_company_brand": ""
         }
         output.append(entry)
+    
+        with open("configJson.json", "w", encoding="utf-8") as f:
+            json.dump(output, f, ensure_ascii=False, indent=4)
+
 
     return {"facilities": output}

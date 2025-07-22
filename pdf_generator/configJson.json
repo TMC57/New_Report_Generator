@@ -1,0 +1,23 @@
+[
+    {
+        "facilityId": 28605,
+        "facilityName": "ECA - Evry Corbeil Automobile",
+        "cover_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    }
+]

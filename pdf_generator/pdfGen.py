@@ -6,7 +6,11 @@ from reportlab.platypus import (
     Image,
     PageBreak,
     Table,
-    TableStyle
+    TableStyle,
+    BaseDocTemplate,
+    PageTemplate,
+    Frame,
+    FrameBreak
 )
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
@@ -21,6 +25,7 @@ import re
 from tables import generate_table
 from BarCharts import generate_bar_chart
 from PieCharts import generate_pie_chart
+from Json_parameter import transform_facility_json
 
 
 def get_footer_table():
@@ -55,12 +60,13 @@ def get_footer_table():
 
     return table
 
+
 def distribute_elements_by_page(pages_dict: dict[int, list]):
     """
     Distribue les éléments sur les pages spécifiées dans pages_dict.
     Exemple : {1: [titre], 2: [graphique]} → met les éléments à la bonne page avec les PageBreak nécessaires.
     """
-    final_elements = []
+    final_elements = [] 
     current_page = 1
     sorted_pages = sorted(pages_dict.keys())
 
@@ -97,10 +103,7 @@ def sanitize_filename(name: str) -> str:
     return re.sub(r'[<>:"/\\|?*]', '_', name)
 
 def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
-    """
-    Génère un PDF par facilityId dans le dossier 'reports/'.
-    Affiche en titre le nom de la facility, la période et insère un graphique + un tableau.
-    """
+    import os
     os.makedirs("reports", exist_ok=True)
     os.makedirs("pictures", exist_ok=True)
 
@@ -110,6 +113,8 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
     normal_style = styles["Normal"]
 
 
+    JsonConfigData = transform_facility_json(json_data)
+
 
     for facility in json_data["data"]["results"]:
         facility_name = facility["facilityName"]
@@ -117,54 +122,50 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         sanitized_name = sanitize_filename(facility_name)
         pdf_path = f"reports/rapport_{sanitized_name}_{facility_id}.pdf"
 
-
         ZoneNbr = defineNbrZone(facility)
 
 
-        # Crée les composants
+        # Crée les composants (exemple)
         facility_title = Paragraph(facility_name, title_style)
         report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}", title_style)
-
-        bar_chart = Image(generate_bar_chart(facility, ZoneNbr, from_date, to_date), width=22*cm, height=12*cm)
-        pie_chart = Image(generate_pie_chart(facility, from_date, to_date), width=14*cm, height=14*cm)
-
-        tables = generate_table(facility, from_date, to_date)  # liste de 1 ou 2 tableaux
-
+        page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {from_date} ", title_style)
+        bar_chart = Image(generate_bar_chart(facility, ZoneNbr, from_date, to_date), width=25*cm, height=12*cm)
+        pie_chart = Image(generate_pie_chart(facility, from_date, to_date), width=10*cm, height=10*cm)
+        tables = generate_table(facility, from_date, to_date)  # liste de tableaux
         TMH_logo_path = "images/Logo - Orsy e wash.png"
-        TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)  # ajuste les dimensions si nécessaire
+        TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)
 
-        # WURTH_logo_path = "images/Würth_logo.png"
-        # WURTH_logo_img = Image(WURTH_logo_path, width=14.06593406593407*cm, height=3*cm)  # ajuste les dimensions si nécessaire
-
-        # Page planning
+        # Construction pages (exemple simplifié)
         pages = {
-            1: [TMH_logo_img, Spacer(1, 0.5*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
-            2: [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 3*cm), bar_chart],
-            3: [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm), pie_chart],
-            4: [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables + [Spacer(1, 0.5 * cm)],  # tous les tableaux sur une seule page
+            1: [TMH_logo_img, Spacer(1, 0.5*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.2*cm)],
+            2: [TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm)],
+            3: [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
+            4: [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart],
+            5: [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 2*cm)] + tables,
         }
-
-        # Générer les blocs à partir de la page 2
-        page_number = 2
+        page_number = 3
         for i in range(ZoneNbr):
-            pages[page_number] = [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 3*cm), bar_chart, Spacer(1, 0.5*cm), get_footer_table()]
-            pages[page_number + 1] = [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm), pie_chart]
-            pages[page_number + 2] = [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 2*cm)] + tables + [Spacer(1, 0.5*cm)]
+            pages[page_number] = [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart]
+            pages[page_number + 1] = [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart]
+            pages[page_number + 2] = [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 2*cm)] + tables
             page_number += 3
+
+        # Maintenant on ajoute le footer (tableau) dans chaque page où on veut le footer
+        # Pour l’exemple, je vais juste l’ajouter sur toutes les pages générées :
+        for key in pages:
+            pages[key].append(FrameBreak())        # Basculer dans la frame footer
+            pages[key].append(get_footer_table())  # Ton tableau footer
 
         elements = distribute_elements_by_page(pages)
 
-        # Crée le PDF
-        doc = SimpleDocTemplate(
-            pdf_path,
-            pagesize=landscape(A4),
-            rightMargin=2*cm,
-            leftMargin=2*cm,
-            topMargin=0.5*cm,
-            bottomMargin=0  # Aucune marge en bas
-        )
+        # Création du BaseDocTemplate avec 2 frames
+        PAGE_WIDTH, PAGE_HEIGHT = landscape(A4)
+
+        main_frame = Frame(2*cm, 3*cm, PAGE_WIDTH - 4*cm, PAGE_HEIGHT - 4*cm, id='main_frame')
+        footer_frame = Frame(2*cm, -0.2*cm, PAGE_WIDTH - 4*cm, 3*cm, id='footer_frame')
 
         def draw_bottom_right_logo(canvas, doc):
+            from reportlab.lib.utils import ImageReader
             logo_path = "images/Würth_logo.png"
             logo = ImageReader(logo_path)
 
@@ -172,13 +173,25 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
             logo_height = 1*cm
 
             page_width, page_height = doc.pagesize
-            x = page_width - logo_width - 0.8*cm  # marge de la droite
-            y = 1 * cm  # marge dud bas
+            x = page_width - logo_width - 0.8*cm
+            y = 1 * cm
 
             canvas.drawImage(logo, x, y, logo_width, logo_height, preserveAspectRatio=True, mask='auto')
 
+        page_template = PageTemplate(id='TwoFrames', frames=[main_frame, footer_frame], onPage=draw_bottom_right_logo)
 
-        doc.build(elements, onFirstPage=draw_bottom_right_logo, onLaterPages=draw_bottom_right_logo)
+        doc = BaseDocTemplate(
+            pdf_path,
+            pagesize=landscape(A4),
+            rightMargin=2*cm,
+            leftMargin=2*cm,
+            topMargin=0.5*cm,
+            bottomMargin=0
+        )
+        doc.addPageTemplates([page_template])
+
+        doc.build(elements)
+
 
     print("PDFs générés dans le dossier 'reports/'")
     return 0

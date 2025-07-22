@@ -1,9 +1,6 @@
-
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from io import BytesIO
-import os
-
 
 def generate_pie_chart(facility, from_date: str, to_date: str):
     start = datetime.strptime(from_date, "%Y-%m-%d")
@@ -34,11 +31,8 @@ def generate_pie_chart(facility, from_date: str, to_date: str):
         value_l = value_ml / 10000
         return f"{value_l:.1f} L"
 
-    # ✅ Figure plus large pour placer les deux éléments côte à côte
-    fig = plt.figure(figsize=(8, 8))
+    fig, pie_ax = plt.subplots(figsize=(5, 5), constrained_layout=True)
 
-    # ✅ Axe du camembert (à gauche)
-    pie_ax = fig.add_axes([0.05, 0.1, 0.55, 0.8])  # [left, bottom, width, height]
     wedges, texts, autotexts = pie_ax.pie(
         filtered_totals,
         labels=None,
@@ -49,24 +43,22 @@ def generate_pie_chart(facility, from_date: str, to_date: str):
         normalize=True
     )
     pie_ax.set_aspect('equal')
+    pie_ax.margins(0)
 
-    # ✅ Axe de la légende (à droite, centré verticalement)
-    legend_ax = fig.add_axes([0.65, 0.1, 0.3, 0.8])
-    legend_ax.axis('off')
-    legend_ax.legend(
-        wedges,
-        filtered_names,
-        loc='center',
-        fontsize=11,
-        frameon=False
-    )
-
-    fig.suptitle("CONSOMMATION TOTALE MENSUELLE", fontsize=14, y=0.85)
+    # Légende sous le graphique
+    # pie_ax.legend(
+    #     wedges,
+    #     filtered_names,
+    #     loc='upper center',
+    #     bbox_to_anchor=(0.5, -0.1),  # centre sous le camembert
+    #     fontsize=11,
+    #     frameon=False,
+    #     ncol=3  # nombre de colonnes pour la légende
+    # )
 
     buf = BytesIO()
-    fig.savefig(buf, format='png')
-
-    plt.close(fig)  
+    fig.savefig(buf, format='png', bbox_inches='tight')
+    plt.close(fig)
     buf.seek(0)
 
     return buf

@@ -7271,13 +7271,25 @@
 }
 
 
+Transformed JSON: [
+    {'facilityId': 28194, 'facilityName': 'ALTIS VANNES', 'cover_picture': '', 'inventory_monitoring_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+        }, 'customer_technical_relay_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+        }, 'file_referent': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+        }, 'primary_company_brand': ''
+    },
+    {'facilityId': 34735, 'facilityName': 'BAYERN POITIERS', 'cover_picture': '', 'inventory_monitoring_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+        }, 'customer_technical_relay_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+        }, 'file_referent': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+        }, 'primary_company_brand': ''
+    }
+]
 {'facilities': [
-        {'facilityId': 27240, 'facilityName': 'TECMAT SERVICE', 'cover_picture': '', 'inventory_monitoring_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+        {'facilityId': 28194, 'facilityName': 'ALTIS VANNES', 'cover_picture': '', 'inventory_monitoring_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
             }, 'customer_technical_relay_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
             }, 'file_referent': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
             }, 'primary_company_brand': ''
         },
-        {'facilityId': 272640, 'facilityName': 'TECMAT SERVICE', 'cover_picture': '', 'inventory_monitoring_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
+        {'facilityId': 34735, 'facilityName': 'BAYERN POITIERS', 'cover_picture': '', 'inventory_monitoring_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
             }, 'customer_technical_relay_manager': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
             }, 'file_referent': {'full_name': '', 'mail_adresse': '', 'phone_number': ''
             }, 'primary_company_brand': ''
