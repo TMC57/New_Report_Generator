@@ -105,7 +105,6 @@ def sanitize_filename(name: str) -> str:
 def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
     import os
     os.makedirs("reports", exist_ok=True)
-    os.makedirs("pictures", exist_ok=True)
 
     styles = getSampleStyleSheet()
     title_style = styles["Title"]
@@ -137,17 +136,17 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
 
         # Construction pages (exemple simplifié)
         pages = {
-            1: [TMH_logo_img, Spacer(1, 0.5*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.2*cm)],
-            2: [TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm)],
-            3: [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
-            4: [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart],
-            5: [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 2*cm)] + tables,
+            1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.2*cm)],
+            2: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm)],
+            3: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
+            4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart],
+            5: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables,
         }
         page_number = 3
         for i in range(ZoneNbr):
-            pages[page_number] = [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart]
-            pages[page_number + 1] = [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart]
-            pages[page_number + 2] = [TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 2*cm)] + tables
+            pages[page_number] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart]
+            pages[page_number + 1] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart]
+            pages[page_number + 2] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables
             page_number += 3
 
         # Maintenant on ajoute le footer (tableau) dans chaque page où on veut le footer
@@ -161,8 +160,8 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         # Création du BaseDocTemplate avec 2 frames
         PAGE_WIDTH, PAGE_HEIGHT = landscape(A4)
 
-        main_frame = Frame(2*cm, 3*cm, PAGE_WIDTH - 4*cm, PAGE_HEIGHT - 4*cm, id='main_frame')
-        footer_frame = Frame(2*cm, -0.2*cm, PAGE_WIDTH - 4*cm, 3*cm, id='footer_frame')
+        main_frame = Frame(2*cm, 3*cm, PAGE_WIDTH - 3*cm, PAGE_HEIGHT - 3*cm, id='main_frame')
+        footer_frame = Frame(2*cm, -0.2*cm, PAGE_WIDTH - 3*cm, 3*cm, id='footer_frame')
 
         def draw_bottom_right_logo(canvas, doc):
             from reportlab.lib.utils import ImageReader
