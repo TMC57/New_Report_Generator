@@ -12,6 +12,7 @@ from reportlab.platypus import (
     Frame,
     FrameBreak
 )
+import tempfile
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
 from reportlab.lib.utils import ImageReader
@@ -24,7 +25,7 @@ import os
 import re
 from tables import generate_table
 from BarCharts import generate_bar_chart
-from PieCharts import generate_pie_chart
+from PieCharts import generate_pie_chart_and_legend
 from Json_parameter import transform_facility_json
 
 
@@ -130,8 +131,24 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {from_date} ", title_style)
 
         bar_chart = Image(generate_bar_chart(facility, ZoneNbr, from_date, to_date), width=25*cm, height=12*cm)
-        pie_chart = Image(generate_pie_chart(facility, from_date, to_date), width=10*cm, height=10*cm)
-        
+
+
+        buf_pie, buf_legend = generate_pie_chart_and_legend(facility, from_date, to_date)
+
+        # Sauvegarder en fichiers temporaires
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f_pie, \
+            tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f_leg:
+
+            f_pie.write(buf_pie.getbuffer())
+            f_pie.flush()
+
+            f_leg.write(buf_legend.getbuffer())
+            f_leg.flush()
+
+            # Créer les images reportlab
+            pie_chart_img = Image(f_pie.name, width=10*cm, height=10*cm)
+            legend_img = Image(f_leg.name, width=20*cm, height=3*cm)
+
         tables = generate_table(facility, from_date, to_date)  # liste de tableaux
         TMH_logo_path = "images/Logo - Orsy e wash.png"
         TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)
@@ -141,13 +158,13 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
             1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.2*cm)],
             2: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm)],
             3: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
-            4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart],
+            4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img],
             5: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables,
         }
         page_number = 3
         for i in range(ZoneNbr):
             pages[page_number] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart]
-            pages[page_number + 1] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart]
+            pages[page_number + 1] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img]
             pages[page_number + 2] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables
             page_number += 3
 
