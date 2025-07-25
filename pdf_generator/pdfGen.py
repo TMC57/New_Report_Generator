@@ -23,7 +23,7 @@ import matplotlib
 matplotlib.use("Agg")
 import os   
 import re
-from tables import generate_table
+from tables import generate_table, generate_monthly_table
 from BarCharts import generate_bar_chart
 from PieCharts import generate_pie_chart_and_legend
 from Json_parameter import transform_facility_json
@@ -150,6 +150,8 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
             legend_img = Image(f_leg.name, width=20*cm, height=3*cm)
 
         tables = generate_table(facility, from_date, to_date)  # liste de tableaux
+        tables_year = generate_monthly_table(facility)  # liste de tableaux
+
         TMH_logo_path = "images/Logo - Orsy e wash.png"
         TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)
 
@@ -160,13 +162,15 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
             3: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
             4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img],
             5: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables,
+            6: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables_year,
         }
-        page_number = 3
-        for i in range(ZoneNbr):
-            pages[page_number] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart]
-            pages[page_number + 1] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img]
-            pages[page_number + 2] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables
-            page_number += 3
+        # page_number = 3
+        # for i in range(ZoneNbr):
+        #     pages[page_number] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart]
+        #     pages[page_number + 1] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img]
+        #     pages[page_number + 2] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables
+        #     pages[page_number + 2] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables_year
+        #     page_number += 4
 
         # Maintenant on ajoute le footer (tableau) dans chaque page où on veut le footer
         # Pour l’exemple, je vais juste l’ajouter sur toutes les pages générées :

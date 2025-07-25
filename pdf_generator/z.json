@@ -7296,3 +7296,60 @@ Transformed JSON: [
         }
     ]
 }
+
+
+{'statusCode': 'SUCCESS', 'data': {'results': [
+            {'_id': 27240, 'facilityId': 27240, 'facilityName': 'TECMAT SERVICE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 204231, 'productId': 204231, 'name': 'WNC70 SAINT-PRIEST', 'qty': 199749, 'price': 0.0, 'cur': 'eu', 'gr': 199749, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-06-02', 'qty': 21633
+                            },
+                            {'date': '2025-06-03', 'qty': 14139
+                            },
+                            {'date': '2025-06-05', 'qty': 8747
+                            },
+                            {'date': '2025-06-06', 'qty': 4302
+                            },
+                            {'date': '2025-06-10', 'qty': 8711
+                            },
+                            {'date': '2025-06-11', 'qty': 2662
+                            },
+                            {'date': '2025-06-13', 'qty': 12601
+                            },
+                            {'date': '2025-06-16', 'qty': 8113
+                            },
+                            {'date': '2025-06-17', 'qty': 20242
+                            },
+                            {'date': '2025-06-18', 'qty': 6012
+                            },
+                            {'date': '2025-06-20', 'qty': 21211
+                            },
+                            {'date': '2025-06-23', 'qty': 35275
+                            },
+                            {'date': '2025-06-24', 'qty': 8325
+                            },
+                            {'date': '2025-06-25', 'qty': 5937
+                            },
+                            {'date': '2025-06-26', 'qty': 11063
+                            },
+                            {'date': '2025-06-27', 'qty': 10776
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-01-31', 'qty': 648409
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-02-28', 'qty': 113161
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-03-31', 'qty': 163248
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-04-30', 'qty': 245019
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-05-31', 'qty': 99881
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-06-30', 'qty': 199749
+                            }
+                        ]
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1750982400000'
+            }
+        ], 'startIndex': 0, 'endIndex': 1, 'itemCount': 1
+    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1753458414045
+}
