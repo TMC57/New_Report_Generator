@@ -128,8 +128,10 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         facility_title = Paragraph(facility_name, title_style)
         report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}", title_style)
         page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {from_date} ", title_style)
+
         bar_chart = Image(generate_bar_chart(facility, ZoneNbr, from_date, to_date), width=25*cm, height=12*cm)
         pie_chart = Image(generate_pie_chart(facility, from_date, to_date), width=10*cm, height=10*cm)
+        
         tables = generate_table(facility, from_date, to_date)  # liste de tableaux
         TMH_logo_path = "images/Logo - Orsy e wash.png"
         TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)

@@ -1,7 +1,70 @@
 [
     {
-        "facilityId": 28605,
-        "facilityName": "ECA - Evry Corbeil Automobile",
+        "facilityId": 28194,
+        "facilityName": "ALTIS VANNES",
+        "cover_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    },
+    {
+        "facilityId": 34735,
+        "facilityName": "BAYERN POITIERS",
+        "cover_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    },
+    {
+        "facilityId": 29112,
+        "facilityName": "BMW BAYERN AVENUE",
+        "cover_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    },
+    {
+        "facilityId": 23960,
+        "facilityName": "BRUSCHET AUTOMOBILES SA",
         "cover_picture": "",
         "inventory_monitoring_manager": {
             "full_name": "",

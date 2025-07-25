@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drag and Drop Upload</title>
+  <style>
+    #drop-zone {
+      width: 300px;
+      height: 200px;
+      border: 2px dashed #ccc;
+      border-radius: 20px;
+      text-align: center;
+      line-height: 200px;
+      font-family: sans-serif;
+      color: #aaa;
+      margin: 50px auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="drop-zone">Déposez votre image ici</div>
+
+  <script>
+    const dropZone = document.getElementById("drop-zone");
+
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.style.borderColor = "#333";
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.style.borderColor = "#ccc";
+    });
+
+    dropZone.addEventListener("drop", async (e) => {
+      e.preventDefault();
+      dropZone.style.borderColor = "#ccc";
+
+      const file = e.dataTransfer.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("/upload-image", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+      alert("Fichier envoyé : " + result.filename);
+    });
+  </script>
+</body>
+</html>
