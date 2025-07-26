@@ -10,6 +10,10 @@ from datetime import datetime, timedelta
 from Json_parameter import transform_facility_json
 import os
 import shutil
+import json
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from typing import List
 
 logger = logging.getLogger("uvicorn.error")
 
@@ -27,6 +31,10 @@ app = FastAPI(
 # @app.get("/", tags=["Raports"])
 # def read_root():
 #     return {"message": "API opérationnelle"}
+
+@app.get("/")
+def get_home():
+    return FileResponse("static/table.html")
 
 @app.get("/Reports_generation", tags=["Rapports"])
 def  Total_Quantity_Report_grouped_by_facilities(
@@ -52,7 +60,7 @@ def  Total_Quantity_Report_grouped_by_facilities(
     NewJson = get_total_qty_every_days(response.json(), from_date, to_date, facility_id)
     NewJson = get_total_qty_every_month(NewJson, to_date, facility_id)
     # ======================================================
-    
+
     transform_facility_json(NewJson)
 
     generate_pdfs_by_facility(NewJson, from_date, to_date)
@@ -78,30 +86,33 @@ def total_list_of_facilities(
     
     return {"ok"}
 
+from fastapi import UploadFile, File
 
+DATA_FILE = "configJson.json"  # Ton fichier JSON
 
-# Crée le dossier 'uploads' s'il n'existe pas
-os.makedirs("uploads", exist_ok=True)
-
-# Crée le dossier 'static' s'il n'existe pas (pour la page HTML)
+# --- Static files (HTML) + uploads (images) ---
 os.makedirs("static", exist_ok=True)
-
-# Monter les fichiers statiques (HTML, CSS, etc.)
+os.makedirs("uploads", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
+@app.get("/items")
+def get_items():
+    """Retourne le contenu du JSON."""
+    with open(DATA_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
 
-@app.post("/upload-image", tags=["Upload"])
-async def upload_image(file: UploadFile = File(...)):
-    upload_dir = "uploads"
-    file_location = os.path.join(upload_dir, file.filename)
+@app.put("/items")
+def save_items(items: List[dict]):
+    with open(DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(items, f, ensure_ascii=False, indent=2)
+    return {"saved": len(items)}
 
-    with open(file_location, "wb") as buffer:
+# --- Upload ---
+@app.post("/upload")
+async def upload(file: UploadFile = File(...)):
+    dst_path = os.path.join("uploads", file.filename)
+    with open(dst_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-
-    return {"filename": file.filename}
-
-
-@app.get("/dragdrop", response_class=HTMLResponse, include_in_schema=False)
-def drag_drop_page():
-    with open("static/dragdrop.html", "r", encoding="utf-8") as f:
-        return f.read()
+    # On retourne un chemin web-accessible pour l'afficher directement (<img src="/uploads/...">)
+    return {"path": f"/uploads/{file.filename}"}

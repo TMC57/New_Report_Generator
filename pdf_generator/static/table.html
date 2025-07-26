@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tableau JSON Éditable</title>
+  <style>
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; vertical-align: top; }
+    input[type="text"] { width: 95%; padding: 4px; }
+    .drop-zone {
+      border: 2px dashed #aaa; border-radius: 4px; padding: 10px; text-align: center;
+      color: #777; cursor: pointer; min-height: 80px; display: flex; flex-direction: column; gap: 6px; justify-content: center;
+    }
+    .drop-zone.dragover { border-color: #333; color: #000; background: #f5f5f5; }
+    .thumb { max-width: 120px; max-height: 120px; object-fit: contain; display: block; margin: 0 auto; }
+    #actions { margin: 16px 0; display: flex; gap: 8px; }
+  </style>
+</head>
+<body>
+  <h2>Tableau généré depuis JSON</h2>
+
+  <div id="actions">
+    <button id="save">💾 Sauvegarder le JSON</button>
+    <span id="status"></span>
+  </div>
+
+  <table id="jsonTable"></table>
+
+  <script>
+    let data = [];
+    let columns = [];
+
+    async function init() {
+      const res = await fetch("/items");
+      data = await res.json();
+      if (!Array.isArray(data) || data.length === 0) {
+        document.getElementById("status").textContent = "JSON vide ou invalide";
+        return;
+      }
+      columns = Object.keys(data[0]);
+      buildTable();
+    }
+
+    function buildTable() {
+      const table = document.getElementById("jsonTable");
+      table.innerHTML = "";
+
+      // Header
+      const thead = document.createElement("thead");
+      const headerRow = document.createElement("tr");
+      columns.forEach(key => {
+        const th = document.createElement("th");
+        th.textContent = key;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+
+      // Body
+      const tbody = document.createElement("tbody");
+      data.forEach((row, rowIndex) => {
+        const tr = document.createElement("tr");
+        columns.forEach(col => {
+          const td = document.createElement("td");
+
+          // Colonnes NON éditables
+          if (["ID", "facilityId", "facilityName"].includes(col)) {
+            td.textContent = row[col] ?? "";
+          }
+          // Colonnes avec drag & drop images
+          else if (["cover_picture", "materialPicture", "primary_company_brand"].includes(col)) {
+            const dropZone = document.createElement("div");
+            dropZone.className = "drop-zone";
+            dropZone.textContent = "Déposez une image ici ou cliquez";
+            dropZone.dataset.row = rowIndex;
+            dropZone.dataset.field = col;
+
+            if (row[col]) {
+              const img = document.createElement("img");
+              img.src = row[col];
+              img.className = "thumb";
+              dropZone.appendChild(img);
+            }
+
+            addDragDropEvents(dropZone);
+            td.appendChild(dropZone);
+          }
+          // Colonnes éditables classiques (input texte)
+          else {
+            const input = document.createElement("input");
+            input.type = "text";
+            input.value = row[col] ?? "";
+            input.dataset.row = rowIndex;
+            input.dataset.field = col;
+            input.addEventListener("input", (e) => {
+              data[rowIndex][col] = e.target.value;
+            });
+            td.appendChild(input);
+          }
+
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      table.appendChild(tbody);
+    }
+
+    function addDragDropEvents(dropZone) {
+      dropZone.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = () => {
+          const file = input.files[0];
+          if (file) handleFile(dropZone, file);
+        };
+        input.click();
+      });
+
+      dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("dragover");
+      });
+
+      dropZone.addEventListener("dragleave", () => {
+        dropZone.classList.remove("dragover");
+      });
+
+      dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(dropZone, file);
+      });
+    }
+
+    async function handleFile(dropZone, file) {
+      const rowIndex = dropZone.dataset.row;
+      const field = dropZone.dataset.field;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        dropZone.innerHTML = "";
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.className = "thumb";
+        dropZone.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+
+      const formData = new FormData();
+      formData.append("file", file);
+      const resp = await fetch("/upload", {
+        method: "POST",
+        body: formData
+      });
+      const { path } = await resp.json();
+
+      data[rowIndex][field] = path;
+
+      setTimeout(() => {
+        dropZone.innerHTML = "";
+        const img = document.createElement("img");
+        img.src = path;
+        img.className = "thumb";
+        dropZone.appendChild(img);
+      }, 300);
+    }
+
+    document.getElementById("save").addEventListener("click", async () => {
+      const res = await fetch("/items", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json();
+      document.getElementById("status").textContent = `✅ Sauvegardé (${json.saved} éléments)`;
+      setTimeout(() => (document.getElementById("status").textContent = ""), 3000);
+    });
+
+    init();
+  </script>
+</body>
+</html>

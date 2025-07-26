@@ -1,48 +1,36 @@
 [
-    {
-        "ID": 28194,
-        "facilityId": 28194,
-        "facilityName": "ALTIS VANNES",
-        "cover_picture": "",
-        "materialPicture": "",
-        "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "file_referent": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "primary_company_brand": ""
-    },
-    {
-        "ID": 34735,
-        "facilityId": 34735,
-        "facilityName": "BAYERN POITIERS",
-        "cover_picture": "",
-        "materialPicture": "",
-        "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "file_referent": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "primary_company_brand": ""
-    }
+  {
+    "ID": 34735,
+    "facilityId": 34735,
+    "facilityName": "BAYERN POITIERS de pd",
+    "cover_picture": "/uploads/sample_bf2e17d87b9f2658ebba9c5339dbe2bc.jpg",
+    "materialPicture": "/uploads/sample_a4da11f8142137d29d5f982f2316dc2f.jpg",
+    "primary_company_brand": "/uploads/sample_002c1e388fc13453e15d9b49ab18c4b3.jpg",
+    "inventory_monitoring_manager_full_name": "PANDRA",
+    "inventory_monitoring_manager_mail_adresse": "PANDRA",
+    "inventory_monitoring_manager_phone_number": "PANDRA",
+    "customer_technical_relay_manager_full_name": "",
+    "customer_technical_relay_manager_mail_adresse": "PANDRA",
+    "customer_technical_relay_manager_phone_number": "",
+    "file_referent_full_name": "",
+    "file_referent_mail_adresse": "",
+    "file_referent_phone_number": ""
+  },
+  {
+    "ID": 28194,
+    "facilityId": 28194,
+    "facilityName": "ALTIS VANNES",
+    "cover_picture": "/uploads/2dacd39e6cd521658fad2649ef2aa79f.jpeg",
+    "materialPicture": "/uploads/sample_1bd7fd7482afbed108bdc54024ae423c.jpg",
+    "primary_company_brand": "/uploads/2dacd39e6cd521658fad2649ef2aa79f.jpeg",
+    "inventory_monitoring_manager_full_name": "NARUTO",
+    "inventory_monitoring_manager_mail_adresse": "HINATA AIME LA SODOMIE",
+    "inventory_monitoring_manager_phone_number": "",
+    "customer_technical_relay_manager_full_name": "",
+    "customer_technical_relay_manager_mail_adresse": "",
+    "customer_technical_relay_manager_phone_number": "",
+    "file_referent_full_name": "",
+    "file_referent_mail_adresse": "",
+    "file_referent_phone_number": ""
+  }
 ]
