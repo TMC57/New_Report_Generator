@@ -26,6 +26,7 @@ def transform_facility_json(input_json):
                 "facilityId": facility_id,
                 "facilityName": facility.get("facilityName"),
                 "cover_picture": "",
+                "materialPicture": "",
                 "inventory_monitoring_manager": {
                     "full_name": "",
                     "mail_adresse": "",

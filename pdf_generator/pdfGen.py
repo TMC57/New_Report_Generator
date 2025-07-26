@@ -113,7 +113,7 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
     normal_style = styles["Normal"]
 
 
-    JsonConfigData = transform_facility_json(json_data)
+    # JsonConfigData = transform_facility_json(json_data)
 
 
     for facility in json_data["data"]["results"]:
@@ -157,12 +157,12 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
 
         # Construction pages (exemple simplifié)
         pages = {
-            1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.2*cm)],
+            1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.2*cm)],
             2: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm)],
-            3: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
-            4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img],
-            5: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables,
-            6: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 0.5*cm), facility_title, Spacer(1, 1*cm)] + tables_year,
+            3: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
+            4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img],
+            5: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 1*cm)] + tables,
+            6: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 1*cm)] + tables_year,
         }
         # page_number = 3
         # for i in range(ZoneNbr):

@@ -52,10 +52,11 @@ def  Total_Quantity_Report_grouped_by_facilities(
     NewJson = get_total_qty_every_days(response.json(), from_date, to_date, facility_id)
     NewJson = get_total_qty_every_month(NewJson, to_date, facility_id)
     # ======================================================
+    
+    transform_facility_json(NewJson)
 
     generate_pdfs_by_facility(NewJson, from_date, to_date)
 
-    # print(transform_facility_json(NewJson))
 
     # create_pdf(response.text)
 
