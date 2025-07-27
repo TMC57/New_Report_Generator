@@ -26,7 +26,9 @@ import re
 from tables import generate_table, generate_monthly_table
 from BarCharts import generate_bar_chart
 from PieCharts import generate_pie_chart_and_legend
-from Json_parameter import transform_facility_json
+import warnings
+import json
+
 
 
 def get_footer_table():
@@ -104,7 +106,8 @@ def sanitize_filename(name: str) -> str:
     return re.sub(r'[<>:"/\\|?*]', '_', name)
 
 def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
-    import os
+
+
     os.makedirs("reports", exist_ok=True)
 
     styles = getSampleStyleSheet()
@@ -112,6 +115,8 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
     subtitle_style = styles["Heading2"]
     normal_style = styles["Normal"]
 
+    with open("configJson.json", "r", encoding="utf-8") as f:
+        config_data = json.load(f)
 
     # JsonConfigData = transform_facility_json(json_data)
 
@@ -129,6 +134,17 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         facility_title = Paragraph(facility_name, title_style)
         report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}", title_style)
         page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {from_date} ", title_style)
+
+        config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
+        cover_picture_path = config_item["cover_picture"] if config_item else "images/full.png"
+        # cover_picture_path = cover_picture_path.replace("\\", "/")
+
+        if cover_picture_path.startswith("/"):
+            cover_picture_path = cover_picture_path[1:]
+
+        cover_picture = Image(cover_picture_path, width=20*cm, height=12*cm)
+
+
 
         bar_chart = Image(generate_bar_chart(facility, ZoneNbr, from_date, to_date), width=25*cm, height=12*cm)
 
@@ -157,7 +173,7 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
 
         # Construction pages (exemple simplifié)
         pages = {
-            1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.2*cm)],
+            1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.2*cm), cover_picture],
             2: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm)],
             3: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
             4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img],

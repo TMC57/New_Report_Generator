@@ -71,21 +71,6 @@ def  Total_Quantity_Report_grouped_by_facilities(
     return {"ok"} 
 
 
-@app.get("/total_list_of_facilities", tags=["Rapports"])
-def total_list_of_facilities(
-    pageNumber: int,
-    pageSize: int,
-    from_date: str,
-    to_date: str,
-    facility_id: Optional[int] = None,
-    DeviceId: Optional[int] = None
-):
-    """
-    TEST
-    """
-    
-    return {"ok"}
-
 from fastapi import UploadFile, File
 
 DATA_FILE = "configJson.json"  # Ton fichier JSON

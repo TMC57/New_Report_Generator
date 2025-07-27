@@ -26,17 +26,23 @@ def transform_facility_json(input_json):
                 "facilityId": facility_id,
                 "facilityName": facility.get("facilityName"),
                 "cover_picture": "",
-                "materialPicture": "",
-                "primary_company_brand": "",
-                "inventory_monitoring_manager_full_name": "",
-                "inventory_monitoring_manager_mail_adresse": "",
-                "inventory_monitoring_manager_phone_number": "",
-                "customer_technical_relay_manager_full_name": "",
-                "customer_technical_relay_manager_mail_adresse": "",
-                "customer_technical_relay_manager_phone_number": "",
-                "file_referent_full_name": "",
-                "file_referent_mail_adresse": "",
-                "file_referent_phone_number": "",
+                "material_picture": "",
+                "inventory_monitoring_manager": {
+                    "full_name": "",
+                    "mail_adresse": "",
+                    "phone_number": ""
+                },
+                "customer_technical_relay_manager": {
+                    "full_name": "",
+                    "mail_adresse": "",
+                    "phone_number": ""
+                },
+                "file_referent": {
+                    "full_name": "",
+                    "mail_adresse": "",
+                    "phone_number": ""
+                },
+                "primary_company_brand": ""
             }
             output.append(entry)
 
