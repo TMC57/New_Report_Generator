@@ -28,18 +28,73 @@ from BarCharts import generate_bar_chart
 from PieCharts import generate_pie_chart_and_legend
 import warnings
 import json
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.enums import TA_CENTER
 
 
 
-def get_footer_table():
+def get_footer_table(facility_id, config_data):
     """
     Retourne un tableau de 3 colonnes à insérer en bas de page.
     Le contenu est du texte sélectionnable dans le PDF.
     """
+    config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
+    if config_item:
+        facility_config = {
+            "primary_company_brand": config_item.get("primary_company_brand"),
+            "cover_picture": config_item.get("cover_picture"),
+            "material_picture": config_item.get("material_picture"),
+            "inventory_monitoring_manager": config_item.get("inventory_monitoring_manager", {}),
+            "customer_technical_relay_manager": config_item.get("customer_technical_relay_manager", {}),
+            "file_referent": config_item.get("file_referent", {}),
+        }
+    else:
+        facility_config = {}  # ou un dict par défaut
+
+    customer_manager = facility_config.get("customer_technical_relay_manager", {})
+    inventory_manager = facility_config.get("inventory_monitoring_manager", {})
+    file_referent = facility_config.get("file_referent", {})
+
+
+    # print(f"\nvoici le nom du mail : {mail}\n")
+
+
+    def make_email_link(email):
+        if email and email != "N/A":
+            return f'<font color="blue"><u><a href="mailto:{email}">{email}</a></u></font>'
+        return "N/A"
+
+    def make_email_link(email):
+        if email and email != "N/A":
+            return f'<font color="blue"><u><a href="mailto:{email}">{email}</a></u></font>'
+        return "N/A"
+    
+    centered_style = ParagraphStyle(name="centered_style", alignment=TA_CENTER, fontSize=10)
+
     data = [
-        ["Responsable suivi des stocks\nWürth\nSylvestre Wodi\nWodi.Sylvestre@wurth.fr\n06 86 38 50 20",
-         "Responsable relais technique\nclient\nMaman Adrien\namaman@citroencorbeil.fr",
-         "Référent dossier Würth\nDavid Darfeuille\ndavid.darfeuille@wurth.fr\n06 17 15 71 49"]
+        [
+            Paragraph(
+                f"Responsable suivi des stocks<br/>Würth<br/>"
+                f"<b>{inventory_manager.get('full_name', 'N/A')}</b><br/>"
+                f"{make_email_link(inventory_manager.get('mail_adresse', 'N/A'))}<br/>"
+                f"<b>{inventory_manager.get('phone_number', 'N/A')}</b>",
+                centered_style
+            ),
+            Paragraph(
+                f"Responsable relais technique<br/>client<br/>"
+                f"<b>{customer_manager.get('full_name', 'N/A')}</b><br/>"
+                f"{make_email_link(customer_manager.get('mail_adresse', 'N/A'))}<br/>"
+                f"<b>{customer_manager.get('phone_number', 'N/A')}</b>",
+                centered_style
+            ),
+            Paragraph(
+                f"Référent dossier Würth<br/>"
+                f"<b>{file_referent.get('full_name', 'N/A')}</b><br/>"
+                f"{make_email_link(file_referent.get('mail_adresse', 'N/A'))}<br/>"
+                f"<b>{file_referent.get('phone_number', 'N/A')}</b>",
+                centered_style 
+            )
+        ]
     ]
 
     col_widths = [6 * cm, 6 * cm, 6 * cm]
@@ -135,20 +190,19 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}", title_style)
         page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {from_date} ", title_style)
 
+
         config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
         cover_picture_path = config_item["cover_picture"] if config_item else "images/full.png"
+        if cover_picture_path == "":
+            cover_picture_path = r"images\upload-error.png"
         # cover_picture_path = cover_picture_path.replace("\\", "/")
-
         if cover_picture_path.startswith("/"):
             cover_picture_path = cover_picture_path[1:]
-
-        cover_picture = Image(cover_picture_path, width=20*cm, height=12*cm)
+        cover_picture = Image(cover_picture_path, width=18*cm, height=10*cm)
 
 
 
         bar_chart = Image(generate_bar_chart(facility, ZoneNbr, from_date, to_date), width=25*cm, height=12*cm)
-
-
         buf_pie, buf_legend = generate_pie_chart_and_legend(facility, from_date, to_date)
 
         # Sauvegarder en fichiers temporaires
@@ -173,7 +227,7 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
 
         # Construction pages (exemple simplifié)
         pages = {
-            1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.2*cm), cover_picture],
+            1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.5*cm), cover_picture],
             2: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm)],
             3: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
             4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img],
@@ -192,7 +246,7 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         # Pour l’exemple, je vais juste l’ajouter sur toutes les pages générées :
         for key in pages:
             pages[key].append(FrameBreak())        # Basculer dans la frame footer
-            pages[key].append(get_footer_table())  # Ton tableau footer
+            pages[key].append(get_footer_table(facility_id, config_data))  # Ton tableau footer
 
         elements = distribute_elements_by_page(pages)
 

@@ -3,22 +3,22 @@
         "ID": 28194,
         "facilityId": 28194,
         "facilityName": "ALTIS VANNES",
-        "cover_picture": "/uploads/pr91uckpxa7f1.jpeg",
+        "cover_picture": "",
         "material_picture": "",
         "inventory_monitoring_manager": {
-            "full_name": "Jean-Philippe Pardon",
-            "mail_adresse": "jean-philippe.pardon@wurth.fr",
-            "phone_number": "07 60 12 43 57"
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
         },
         "customer_technical_relay_manager": {
-            "full_name": "Christophe Williot",
-            "mail_adresse": "cwilliot@groupehbi.com",
-            "phone_number": "06 42 42 07 36"
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
         },
         "file_referent": {
-            "full_name": "Sergey Beloussov",
-            "mail_adresse": "sergey.beloussov@wurth.fr",
-            "phone_number": "06 22 10 03 39"
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
         },
         "primary_company_brand": ""
     },
@@ -98,19 +98,19 @@
         "cover_picture": "",
         "material_picture": "",
         "inventory_monitoring_manager": {
-            "full_name": "Jean-Philippe Pardon 2",
-            "mail_adresse": "jean-philippe.pardon@wurth.fr2",
-            "phone_number": "07 60 12 43 572"
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
         },
         "customer_technical_relay_manager": {
-            "full_name": "Christophe Williot2",
-            "mail_adresse": "cwilliot@groupehbi.com2",
-            "phone_number": "06 42 42 07 362"
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
         },
         "file_referent": {
-            "full_name": "Sergey Beloussov2",
-            "mail_adresse": "sergey.beloussov@wurth.fr2",
-            "phone_number": "06 22 10 03 392"
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
         },
         "primary_company_brand": ""
     },
@@ -1153,121 +1153,6 @@
         "ID": 13283,
         "facilityId": 13283,
         "facilityName": "WURTH France VL",
-        "cover_picture": "",
-        "material_picture": "",
-        "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "file_referent": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "primary_company_brand": ""
-    },
-    {
-        "ID": 35438,
-        "facilityId": 35438,
-        "facilityName": "By My Car | CAVAILLON",
-        "cover_picture": "",
-        "material_picture": "",
-        "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "file_referent": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "primary_company_brand": ""
-    },
-    {
-        "ID": 32486,
-        "facilityId": 32486,
-        "facilityName": "FRAMATEQ 63",
-        "cover_picture": "",
-        "material_picture": "",
-        "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "file_referent": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "primary_company_brand": ""
-    },
-    {
-        "ID": 35450,
-        "facilityId": 35450,
-        "facilityName": "SAS ALIANTIS | Audi MONTROUGE",
-        "cover_picture": "",
-        "material_picture": "",
-        "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "file_referent": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "primary_company_brand": ""
-    },
-    {
-        "ID": 35447,
-        "facilityId": 35447,
-        "facilityName": "SAS ALIANTIS | Espace PARIS SUD",
-        "cover_picture": "",
-        "material_picture": "",
-        "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "file_referent": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
-        },
-        "primary_company_brand": ""
-    },
-    {
-        "ID": 32882,
-        "facilityId": 32882,
-        "facilityName": "WURTH GULF",
         "cover_picture": "",
         "material_picture": "",
         "inventory_monitoring_manager": {
