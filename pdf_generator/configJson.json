@@ -49,17 +49,17 @@
         "ID": 29112,
         "facilityId": 29112,
         "facilityName": "BMW BAYERN AVENUE",
-        "cover_picture": "",
+        "cover_picture": "/uploads/sample_f8468fb0988e50f550af6216df8bc293.jpg",
         "material_picture": "",
         "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
+            "full_name": "Jean-Philippe Pardon 3",
+            "mail_adresse": "jean-philippe.pardon@wurth.fr 3",
+            "phone_number": "06 42 42 07 362"
         },
         "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
+            "full_name": "Jean-Philippe Pardon 3",
+            "mail_adresse": "jean-philippe.pardon@wurth.fr 3",
+            "phone_number": "06 42 42 07 362"
         },
         "file_referent": {
             "full_name": "",

@@ -1,4 +1,4 @@
-from reportlab.lib.pagesizes import A4
+from reportlab.lib.pagesizes import A4, landscape
 from reportlab.platypus import (
     SimpleDocTemplate,
     Paragraph,
@@ -10,26 +10,28 @@ from reportlab.platypus import (
     BaseDocTemplate,
     PageTemplate,
     Frame,
-    FrameBreak
+    FrameBreak,
 )
-import tempfile
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.units import cm
 from reportlab.lib.utils import ImageReader
-from reportlab.lib.pagesizes import landscape, A4
 from reportlab.lib import colors
 
 import matplotlib
 matplotlib.use("Agg")
-import os   
+
+import os
 import re
+import warnings
+import json
+
 from tables import generate_table, generate_monthly_table
 from BarCharts import generate_bar_chart
 from PieCharts import generate_pie_chart_and_legend
-import warnings
-import json
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.enums import TA_CENTER
+
+import tempfile
+
 
 
 
@@ -173,9 +175,6 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
     with open("configJson.json", "r", encoding="utf-8") as f:
         config_data = json.load(f)
 
-    # JsonConfigData = transform_facility_json(json_data)
-
-
     for facility in json_data["data"]["results"]:
         facility_name = facility["facilityName"]
         facility_id = facility["facilityId"]
@@ -183,7 +182,6 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         pdf_path = f"reports/rapport_{sanitized_name}_{facility_id}.pdf"
 
         ZoneNbr = defineNbrZone(facility)
-
 
         # Crée les composants (exemple)
         facility_title = Paragraph(facility_name, title_style)
@@ -194,11 +192,11 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
         cover_picture_path = config_item["cover_picture"] if config_item else "images/full.png"
         if cover_picture_path == "":
-            cover_picture_path = r"images\upload-error.png"
+            cover_picture_path = "images/upload-error.png"
         # cover_picture_path = cover_picture_path.replace("\\", "/")
         if cover_picture_path.startswith("/"):
             cover_picture_path = cover_picture_path[1:]
-        cover_picture = Image(cover_picture_path, width=18*cm, height=10*cm)
+        cover_picture = Image(cover_picture_path, width=19.2*cm, height=10.8*cm)
 
 
 
