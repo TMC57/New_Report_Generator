@@ -59,6 +59,7 @@ def  Total_Quantity_Report_grouped_by_facilities(
     # ================= Data Transformation ================
     NewJson = get_total_qty_every_days(response.json(), from_date, to_date, facility_id)
     NewJson = get_total_qty_every_month(NewJson, to_date, facility_id)
+    # print(NewJson)
     # ======================================================
 
     transform_facility_json(NewJson)

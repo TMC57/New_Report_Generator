@@ -51,8 +51,8 @@ def generate_table(facility, from_date: str, to_date: str):
         first_part = date_range[:15]
         second_part = date_range[15:]
 
-        table1 = build_table(f"{facility_name} – Jours 1 à 15", first_part, 0)
-        table2 = build_table(f"{facility_name} – Jours 16 à {len(date_range)}", second_part, 16)
+        table1 = build_table(f"Consommation quotidienne jours 1 à 15", first_part, 0)
+        table2 = build_table(f"Consommation quotidienne jours 16 à {len(date_range)}", second_part, 16)
 
         return [table1, table2]
     else:
@@ -123,7 +123,7 @@ def generate_monthly_table(facility, split_every: int = 12):
     # Génération (avec découpage si nécessaire)
     tables = []
     for months_chunk in chunk(months, split_every):
-        title = (f"{facility_name} – Consommation mensuelle "
+        title = (f"Consommation mensuelle "
                  f"{datetime.strptime(months_chunk[0], '%Y-%m').strftime('%m/%Y')} → "
                  f"{datetime.strptime(months_chunk[-1], '%Y-%m').strftime('%m/%Y')}")
         tables.append(build_table(title, months_chunk))

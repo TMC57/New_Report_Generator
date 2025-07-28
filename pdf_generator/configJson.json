@@ -3,8 +3,8 @@
         "ID": 28194,
         "facilityId": 28194,
         "facilityName": "ALTIS VANNES",
-        "cover_picture": "/uploads/pr91uckpxa7f1.jpeg",
-        "material_picture": "",
+        "cover_picture": "/uploads/wallpaperflare.com_wallpaper.jpg",
+        "material_picture": "/uploads/meilleur-chronographe-omega-speedmaster-super-racing-spirate.jpg",
         "inventory_monitoring_manager": {
             "full_name": "Jean-Philippe Pardon",
             "mail_adresse": "jean-philippe.pardon@wurth.fr",
@@ -13,7 +13,7 @@
         "customer_technical_relay_manager": {
             "full_name": "Christophe Williot",
             "mail_adresse": "cwilliot@groupehbi.com",
-            "phone_number": "06 42 42 07 36"
+            "phone_number": ""
         },
         "file_referent": {
             "full_name": "Sergey Beloussov",
@@ -49,7 +49,7 @@
         "ID": 29112,
         "facilityId": 29112,
         "facilityName": "BMW BAYERN AVENUE",
-        "cover_picture": "/uploads/sample_f8468fb0988e50f550af6216df8bc293.jpg",
+        "cover_picture": "",
         "material_picture": "",
         "inventory_monitoring_manager": {
             "full_name": "Jean-Philippe Pardon 3",
@@ -1268,6 +1268,144 @@
         "ID": 32882,
         "facilityId": 32882,
         "facilityName": "WURTH GULF",
+        "cover_picture": "",
+        "material_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    },
+    {
+        "ID": 23960,
+        "facilityId": 23960,
+        "facilityName": "BRUSCHET AUTOMOBILES SA",
+        "cover_picture": "",
+        "material_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    },
+    {
+        "ID": 37465,
+        "facilityId": 37465,
+        "facilityName": "1071214929 ENERGY CAR WASH SAS",
+        "cover_picture": "",
+        "material_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    },
+    {
+        "ID": 35939,
+        "facilityId": 35939,
+        "facilityName": "INTENZ POITOU BY AUTOSPHERE",
+        "cover_picture": "",
+        "material_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    },
+    {
+        "ID": 37777,
+        "facilityId": 37777,
+        "facilityName": "JM Automobiles | Belleville sur Meuse",
+        "cover_picture": "",
+        "material_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    },
+    {
+        "ID": 35444,
+        "facilityId": 35444,
+        "facilityName": "SAS ALIANTIS | PARIS OUEST",
+        "cover_picture": "",
+        "material_picture": "",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": ""
+    },
+    {
+        "ID": 35756,
+        "facilityId": 35756,
+        "facilityName": "1071168149\tJEANNIN SMDA LAVAGE VSD",
         "cover_picture": "",
         "material_picture": "",
         "inventory_monitoring_manager": {

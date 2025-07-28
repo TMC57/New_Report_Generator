@@ -53,7 +53,7 @@ def generate_bar_chart(facility, ZoneNbr, from_date: str, to_date: str):
     # ➤ Formater l’axe Y avec une décimale et unité dynamique
     ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f"{x:.1f} L"))
 
-    ax.set_title(f"{facility['facilityName']} – Consommation quotidienne")
+    # ax.set_title(f"{facility['facilityName']} – Consommation quotidienne")
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=5, frameon=False)
     ax.yaxis.grid(True, linestyle='-', alpha=0.5)
     plt.tight_layout()

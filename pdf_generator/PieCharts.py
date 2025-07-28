@@ -31,8 +31,8 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
         value_l = value_ml / 10000
         return f"{value_l:.1f} L"
 
-    # --- Image du camembert sans légende ---
-    fig_pie, pie_ax = plt.subplots(figsize=(5, 5), constrained_layout=True)
+    # --- Image du camembert sans légende ---   
+    fig_pie, pie_ax = plt.subplots(figsize=(4, 4), constrained_layout=True)
 
     wedges, texts, autotexts = pie_ax.pie(
         filtered_totals,

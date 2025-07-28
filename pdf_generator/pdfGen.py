@@ -120,6 +120,25 @@ def get_footer_table(facility_id, config_data):
 
     return table
 
+def get_cover_picture_path(facility_id, config_data):
+    config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
+    cover_picture_path = config_item["cover_picture"] if config_item else "images/full.png"
+    if cover_picture_path == "":
+        cover_picture_path = "images/upload-error.png"
+    # cover_picture_path = cover_picture_path.replace("\\", "/")
+    if cover_picture_path.startswith("/"):
+        cover_picture_path = cover_picture_path[1:]
+    return cover_picture_path
+
+def get_material_picture_path(facility_id, config_data):
+    config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
+    material_picture_path = config_item["material_picture"] if config_item else "images/full.png"
+    if material_picture_path == "":
+        material_picture_path = "images/upload-error.png"
+    # material_picture_path = material_picture_path.replace("\\", "/")
+    if material_picture_path.startswith("/"):
+        material_picture_path = material_picture_path[1:]
+    return material_picture_path
 
 def distribute_elements_by_page(pages_dict: dict[int, list]):
     """
@@ -187,18 +206,25 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         facility_title = Paragraph(facility_name, title_style)
         report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}", title_style)
         page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {from_date} ", title_style)
+        bar_chart_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS - ZONE X", title_style)
+        pie_chart_title = Paragraph(f"CONSOMMATION TOTALE MENSUELLE - ZONE X", title_style)
+        pie_chart_title = Paragraph(f"CONSOMMATION MOYENNE QUOTIDIENNE QXXXXX", title_style)
 
+        cover_picture = Image(get_cover_picture_path(facility_id, config_data), width=19.2*cm, height=10.8*cm)
+        material_picture = Image(get_material_picture_path(facility_id, config_data), width=10*cm, height=11*cm)
 
-        config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
-        cover_picture_path = config_item["cover_picture"] if config_item else "images/full.png"
-        if cover_picture_path == "":
-            cover_picture_path = "images/upload-error.png"
-        # cover_picture_path = cover_picture_path.replace("\\", "/")
-        if cover_picture_path.startswith("/"):
-            cover_picture_path = cover_picture_path[1:]
-        cover_picture = Image(cover_picture_path, width=19.2*cm, height=10.8*cm)
+        material_picture_left = Table([[material_picture]], hAlign='LEFT')
+        texte_droite = Table([[Paragraph("• PRESSION D’EAU RELEVÉ :<br/> 3,1 BARS<br/><br/>• WNC: 3,9%<br/>Buse Jaune", subtitle_style)]], hAlign='RIGHT')
 
+        row = [material_picture_left, texte_droite]
+        image_text_table = Table([row], colWidths=[8*cm, 12*cm])  # ajuste les largeurs
 
+        image_text_table.setStyle(TableStyle([
+            ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+            ("ALIGN", (1, 0), (1, 0), "LEFT"),
+            ("LEFTPADDING", (1, 0), (1, 0), 80),  # 👈 espace entre l'image et le texte
+            ("RIGHTPADDING", (1, 0), (1, 0), 6),
+        ]))
 
         bar_chart = Image(generate_bar_chart(facility, ZoneNbr, from_date, to_date), width=25*cm, height=12*cm)
         buf_pie, buf_legend = generate_pie_chart_and_legend(facility, from_date, to_date)
@@ -214,8 +240,8 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
             f_leg.flush()
 
             # Créer les images reportlab
-            pie_chart_img = Image(f_pie.name, width=10*cm, height=10*cm)
-            legend_img = Image(f_leg.name, width=20*cm, height=3*cm)
+            pie_chart_img = Image(f_pie.name, width=9*cm, height=9*cm)
+            legend_img = Image(f_leg.name, width=15*cm, height=2.5*cm)
 
         tables = generate_table(facility, from_date, to_date)  # liste de tableaux
         tables_year = generate_monthly_table(facility)  # liste de tableaux
@@ -226,11 +252,12 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         # Construction pages (exemple simplifié)
         pages = {
             1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.5*cm), cover_picture],
-            2: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm)],
-            3: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 0.5*cm), bar_chart],
-            4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 0.2*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img],
-            5: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 1*cm)] + tables,
-            6: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), facility_title, Spacer(1, 1*cm)] + tables_year,
+            2: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm), image_text_table],
+            3: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm), bar_chart_title, Spacer(1, 0.3*cm), bar_chart],
+            4: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm), bar_chart_title, Spacer(1, 0.3*cm), bar_chart],
+            5: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm), pie_chart_title, Spacer(1, 0.3*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img],
+            6: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 3*cm)] + tables,
+            7: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 3*cm)] + tables_year,
         }
         # page_number = 3
         # for i in range(ZoneNbr):
@@ -255,7 +282,6 @@ def generate_pdfs_by_facility(json_data: dict, from_date: str, to_date: str):
         footer_frame = Frame(2*cm, -0.2*cm, PAGE_WIDTH - 3*cm, 3*cm, id='footer_frame')
 
         def draw_bottom_right_logo(canvas, doc):
-            from reportlab.lib.utils import ImageReader
             logo_path = "images/Würth_logo.png"
             logo = ImageReader(logo_path)
 
