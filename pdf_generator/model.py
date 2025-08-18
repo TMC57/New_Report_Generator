@@ -10,7 +10,7 @@ def body_total_qty_report(from_date, to_date, facility_id=None):
     params = {
             #"limit": 1,
             "pageNumber": 1,
-            "pageSize": 10000000,
+            "pageSize": 100000,
             "fromDate": date_tsd(from_date, "%Y-%m-%d"),
             "thruDate": date_tsd(to_date, "%Y-%m-%d"),
             "reportType": "total-qty-facility", 
@@ -25,6 +25,27 @@ def body_total_qty_report(from_date, to_date, facility_id=None):
     return(
         endpoint,
         headers,
+        params
+    )
+
+
+def body_devices_list(facility_id=None):
+    api_key = "eyJhbGciOiJIUzI1NiJ9.eyJmcm9tRGF0ZSI6MTc1MTg5NzQ3MTI2MywibW9kZWwiOiJwYXJ0eSIsImlkIjo0MzUwfQ.XDDPirczrQmymN3nXIwPb03JlipsNUXo_jbR053fqaQ"
+    headers = {
+            "Authorization" : f"Bearer {api_key}"
+        }
+    
+    params = {
+            "facilityId": None      # optionnel
+        }
+    if facility_id is not None:
+        params["facilityId"] = facility_id
+    
+    endpoint = "/installation-sites/devices"
+
+    return(
+        endpoint,
+        headers,    
         params
     )   
 

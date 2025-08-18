@@ -1,19 +1,19 @@
-from typing import Optional
-from fastapi import FastAPI, UploadFile, File
-from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
-from pdfGen import generate_pdfs_by_facility
-from model import model, body_total_qty_report
-from app import get_total_qty_every_days, get_total_qty_every_month
+import os
+import json
+import shutil
 import logging
 from datetime import datetime, timedelta
-from Json_parameter import transform_facility_json
-import os
-import shutil
-import json
+from typing import List, Optional
+
+from fastapi import FastAPI, UploadFile, File
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from typing import List
+
+from model import model, body_total_qty_report, body_devices_list
+from DataTransform import get_total_qty_every_days, get_total_qty_every_month
+from pdfGen import generate_pdfs_by_facility
+from Json_parameter import transform_facility_json
+
 
 logger = logging.getLogger("uvicorn.error")
 
@@ -54,25 +54,23 @@ def  Total_Quantity_Report_grouped_by_facilities(
     to_date_plus_one = to_date_obj.strftime("%Y-%m-%d")
 
     endpoint, headers, params =  body_total_qty_report(from_date, to_date_plus_one, facility_id)    
-    response = model(endpoint, headers, params)
+    total_qty = model(endpoint, headers, params)
 
-    # ================= Data Transformation ================
-    NewJson = get_total_qty_every_days(response.json(), from_date, to_date, facility_id)
-    NewJson = get_total_qty_every_month(NewJson, to_date, facility_id)
-    # print(NewJson)
-    # ======================================================
+    endpoint, headers, params = body_devices_list(facility_id)
+    devices_list = model(endpoint, headers, params).json()
 
-    transform_facility_json(NewJson)
+    # print(devices_list.json())
 
-    generate_pdfs_by_facility(NewJson, from_date, to_date)
+    # # ================= Data Transformation ================
+    total_qty_Json = get_total_qty_every_days(total_qty.json(), from_date, to_date, facility_id)
+    total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
 
+    # # ======================================================
+    transform_facility_json(total_qty_Json)
+    generate_pdfs_by_facility(total_qty_Json, devices_list, from_date, to_date)
 
-    # create_pdf(response.text)
 
     return {"ok"} 
-
-
-from fastapi import UploadFile, File
 
 DATA_FILE = "configJson.json"  # Ton fichier JSON
 

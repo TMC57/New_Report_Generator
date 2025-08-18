@@ -100,7 +100,7 @@ def get_total_qty_every_month(Json_to_fill, to_date, facilityId=None):
 
         # Formats YYYY-MM-DD
         date_from = start_of_month.strftime("%Y-%m-%d")
-        # date_to   = end_of_month.strftime("%Y-%m-%d") 
+        # On ajoute un jour pour couvrir le dernier jour du mois
         date_to = (end_of_month + timedelta(days=1)).strftime("%Y-%m-%d")
 
         # Appel API

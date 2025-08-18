@@ -6,6 +6,7 @@ import matplotlib.ticker as ticker
 def generate_bar_chart(facility, ZoneNbr, from_date: str, to_date: str):
     start = datetime.strptime(from_date, "%Y-%m-%d")
     end = datetime.strptime(to_date, "%Y-%m-%d")
+
     date_range = [(start + timedelta(days=i)).date() for i in range((end - start).days + 1)]
     date_labels = [d.strftime("%d/%m") for d in date_range]
 
@@ -22,16 +23,6 @@ def generate_bar_chart(facility, ZoneNbr, from_date: str, to_date: str):
             daily_data.append(qty_ml / 10000) # to divide per 1000 eventualy
         max_qty = max(max_qty, max(daily_data, default=0))
         data_by_product.append(daily_data)
-
-    # Déterminer l’unité adaptée
-    # if max_qty >= 1_000_000:
-    #     divisor, unit = 1_000_000, "kL"
-    # elif max_qty >= 10_000:
-    #     divisor, unit = 1000, "L"
-    # elif max_qty >= 100:
-    #     divisor, unit = 100, "dL"
-    # else:
-    #     divisor, unit = 1, "mL"
 
     # Appliquer la conversion
     for i in range(len(data_by_product)):
@@ -56,6 +47,11 @@ def generate_bar_chart(facility, ZoneNbr, from_date: str, to_date: str):
     # ax.set_title(f"{facility['facilityName']} – Consommation quotidienne")
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=5, frameon=False)
     ax.yaxis.grid(True, linestyle='-', alpha=0.5)
+
+    # Supprimer les bordures
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
     plt.tight_layout()
 
     buf = BytesIO()

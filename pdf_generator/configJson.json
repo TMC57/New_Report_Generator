@@ -3,8 +3,8 @@
         "ID": 28194,
         "facilityId": 28194,
         "facilityName": "ALTIS VANNES",
-        "cover_picture": "/uploads/wallpaperflare.com_wallpaper.jpg",
-        "material_picture": "/uploads/meilleur-chronographe-omega-speedmaster-super-racing-spirate.jpg",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "Jean-Philippe Pardon",
             "mail_adresse": "jean-philippe.pardon@wurth.fr",
@@ -26,22 +26,22 @@
         "ID": 34735,
         "facilityId": 34735,
         "facilityName": "BAYERN POITIERS",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
+            "full_name": "Thomas Moreau",
+            "mail_adresse": "thomas.moreau@epitech.eu",
+            "phone_number": "0606060606"
         },
         "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
+            "full_name": "Thomas Moreau",
+            "mail_adresse": "thomas.moreau@epitech.eu",
+            "phone_number": "060606060606"
         },
         "file_referent": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
+            "full_name": "Thomas Moreau",
+            "mail_adresse": "thomas.moreau@epitech.eu",
+            "phone_number": "070707070707"
         },
         "primary_company_brand": ""
     },
@@ -49,8 +49,8 @@
         "ID": 29112,
         "facilityId": 29112,
         "facilityName": "BMW BAYERN AVENUE",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "Jean-Philippe Pardon 3",
             "mail_adresse": "jean-philippe.pardon@wurth.fr 3",
@@ -72,8 +72,8 @@
         "ID": 34637,
         "facilityId": 34637,
         "facilityName": "By My Car | AVIGNON",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -95,8 +95,8 @@
         "ID": 34640,
         "facilityId": 34640,
         "facilityName": "By My Car | CARPENTRAS",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "Jean-Philippe Pardon 2",
             "mail_adresse": "jean-philippe.pardon@wurth.fr2",
@@ -118,8 +118,8 @@
         "ID": 34643,
         "facilityId": 34643,
         "facilityName": "By My Car | ORANGE",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -141,8 +141,8 @@
         "ID": 28605,
         "facilityId": 28605,
         "facilityName": "ECA - Evry Corbeil Automobile",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -164,8 +164,8 @@
         "ID": 29806,
         "facilityId": 29806,
         "facilityName": "ETS TOUQUET",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -187,8 +187,8 @@
         "ID": 32015,
         "facilityId": 32015,
         "facilityName": "Espace Bienvenue | Angoulême",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -210,8 +210,8 @@
         "ID": 32012,
         "facilityId": 32012,
         "facilityName": "Espace Bienvenue | Rochefort",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -233,8 +233,8 @@
         "ID": 32018,
         "facilityId": 32018,
         "facilityName": "Espace Bienvenue | St Georges de Didonne",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -256,8 +256,8 @@
         "ID": 33653,
         "facilityId": 33653,
         "facilityName": "Etoile Autobernard | EPERNAY",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -279,8 +279,8 @@
         "ID": 33656,
         "facilityId": 33656,
         "facilityName": "Etoile Autobernard | SAINT QUENTIN",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/download.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -302,8 +302,8 @@
         "ID": 33659,
         "facilityId": 33659,
         "facilityName": "Etoile Autobernard | SOISSONS",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/download.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -325,8 +325,8 @@
         "ID": 31862,
         "facilityId": 31862,
         "facilityName": "Etoile Autobernard | THILLOIS",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
             "full_name": "",
             "mail_adresse": "",
@@ -647,22 +647,22 @@
         "ID": 27789,
         "facilityId": 27789,
         "facilityName": "Groupe ROSSI AUTOMOBILES",
-        "cover_picture": "",
-        "material_picture": "",
+        "cover_picture": "/uploads/davefils.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
         "inventory_monitoring_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
+            "full_name": "oui",
+            "mail_adresse": "oui",
+            "phone_number": "0651068371"
         },
         "customer_technical_relay_manager": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
+            "full_name": "oui2",
+            "mail_adresse": "oui2@oui",
+            "phone_number": "0651068371"
         },
         "file_referent": {
-            "full_name": "",
-            "mail_adresse": "",
-            "phone_number": ""
+            "full_name": "thomas",
+            "mail_adresse": "moreau@oui",
+            "phone_number": "0651068371"
         },
         "primary_company_brand": ""
     },
