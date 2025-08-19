@@ -66,7 +66,7 @@ def  Total_Quantity_Report_grouped_by_facilities(
     total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
     total_qty_Json = enrich_json_with_zone(total_qty_Json)
 
-    print(total_qty_Json)
+    # print(total_qty_Json)
 
     # # ======================================================
     transform_facility_json(total_qty_Json)

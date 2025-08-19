@@ -23,19 +23,41 @@ import matplotlib
 matplotlib.use("Agg")
 
 import os
-import re
-import warnings
+import re   
 import json
 
 from tables import generate_table, generate_monthly_table
 from BarCharts import generate_bar_chart
 from PieCharts import generate_pie_chart_and_legend
 
-import tempfile
-
-
-
 import copy
+
+
+def _img(buf, w, h):
+    if buf is None:
+        return Paragraph("Aucun graphique disponible")
+    try:
+        buf.seek(0)
+    except Exception:
+        pass
+    return Image(buf, width=w, height=h)
+
+
+def _split_products_by_eau(facility: dict):
+    """
+    Retourne (eau_products, other_products) selon la présence de 'EAU' (insensible à la casse)
+    dans le champ 'name'. Chaque produit est classé dans un seul des deux groupes.
+    """
+    prods = facility.get("products", [])
+    eau, autres = [], []
+    for p in prods:
+        name = (p.get("name") or "")
+        if "EAU" in name.upper():
+            eau.append(p)
+        else:
+            autres.append(p)
+    return eau, autres
+
 
 def _natural_zone_key(z: str):
     m = re.search(r'(\d+)', z or "")
@@ -54,19 +76,19 @@ def _detect_zones_for_facility(facility: dict) -> list[str]:
     return ["GLOBAL"]
 
 def filter_facility_by_zone(facility: dict, zone: str) -> dict:
-    """
-    Copie 'facility' en ne gardant que les produits de la zone donnée.
-    - 'GLOBAL' => produits sans champ 'zone' ou zone vide.
-    """
+    """Retourne une copie de la facility avec uniquement les produits de la zone donnée.
+       - 'GLOBAL' => TOUS les produits (pas seulement ceux sans zone)."""
     z = (zone or "GLOBAL").strip().upper()
     new_fac = copy.deepcopy(facility)
-    def belongs(p):
-        pz = (p.get("zone") or "").strip().upper()
-        return (pz == z) if z != "GLOBAL" else (pz == "")
-    new_fac["products"] = [p for p in facility.get("products", []) if belongs(p)]
+
+    if z == "GLOBAL":
+        new_fac["products"] = facility.get("products", [])
+    else:
+        new_fac["products"] = [
+            p for p in facility.get("products", [])
+            if (p.get("zone") or "").strip().upper() == z
+        ]
     return new_fac
-
-
 
 
 def get_footer_table(facility_id, config_data):
@@ -92,7 +114,7 @@ def get_footer_table(facility_id, config_data):
     file_referent = facility_config.get("file_referent", {})
 
 
-    # print(f"\nvoici le nom du mail : {mail}\n")
+    # print(f"\nvoici le nom du mail : {mail}\n")       
 
 
     def make_email_link(email):
@@ -253,9 +275,6 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
     with open("configJson.json", "r", encoding="utf-8") as f:
         config_data = json.load(f)
 
-    # Liste configurable des motifs de zones
-    zone_patterns = [r"zone\s*(\d+)", r"z(\d+)"]  # tu peux en rajouter ici
-
     for facility in json_data["data"]["results"]:
         facility_id = facility["facilityId"]
         sanitized_name = sanitize_filename(facility["facilityName"])
@@ -264,13 +283,13 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
         # 🔹 Détection simplifiée via champ JSON 'zone'
         zones_to_process = _detect_zones_for_facility(facility)
         print(f"{facility['facilityName']} → zones : {zones_to_process}")
+        is_global_only = (len(zones_to_process) == 1 and zones_to_process[0].upper() == "GLOBAL")
+
 
         # --- Création des composants communs (inchangé) ---
         facility_title = Paragraph(facility["facilityName"], title_style)
         report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}", title_style)
         page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {from_date} ", title_style)
-        bar_chart_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS", title_style)
-        pie_chart_title = Paragraph(f"CONSOMMATION MOYENNE QUOTIDIENNE", title_style)
 
         cover_picture_path, final_width, final_height = get_picture_path(facility_id, config_data, "cover_picture")
         material_picture_path,final_width, final_height = get_picture_path(facility_id, config_data, "material_picture")
@@ -294,66 +313,79 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
             ("RIGHTPADDING", (1, 0), (1, 0), 0),    
         ])) 
 
-        
-        # bar_chart = Image(generate_bar_chart(facility, from_date, to_date), width=25*cm, height=12*cm)
-        # buf_pie, buf_legend = generate_pie_chart_and_legend(facility, from_date, to_date)
-        # with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f_pie, tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f_leg:
-        #     f_pie.write(buf_pie.getbuffer())
-        #     f_leg.write(buf_legend.getbuffer())
-        #     pie_chart_img = Image(f_pie.name, width=9*cm, height=9*cm)
-        #     legend_img = Image(f_leg.name, width=15*cm, height=2.5*cm)
+        # dictionnaire des pages
+        pages = {}
 
-        # tables = generate_table(facility, from_date, to_date)
-        # tables_year = generate_monthly_table(facility)
+        pages[1] = [
+            Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm),
+            report_title, Spacer(1, 0.2*cm), facility_title,
+            Spacer(1, 0.5*cm), cover_picture
+        ]
 
+        pages[2] = [
+            Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm),
+            page_2_title, Spacer(1, 0.5*cm), image_text_table
+        ]
 
-        # 🔹 Pages fixes 1 & 2 (inchangé)
-        pages = {
-            1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.5*cm), cover_picture],
-            2: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm), image_text_table],
-        }
-
-        # 👉 NE PAS créer les graphiques/tables ici (ils seront zone-spécifiques)
-
-        # 🔹 Ajout dynamique à partir de la page 3 selon les zones
         current_page = 3
         for zone in zones_to_process:
             fac_z = filter_facility_by_zone(facility, zone)
+            # --- BAR CHART(S) : split EAU vs hors EAU ---
+            eau_products, other_products = _split_products_by_eau(fac_z)
+            print(f"[DEBUG] Zone {zone} → EAU={len(eau_products)} / HORS_EAU={len(other_products)}")
 
-            # --- Graphique barres (zone) ---
-            buf_bar = generate_bar_chart(fac_z, from_date, to_date)  # BytesIO
-            buf_bar.seek(0)
-            bar_chart_img = Image(buf_bar, width=25*cm, height=12*cm)
+            # 1) EAU uniquement si présent
+            if eau_products:
+                fac_eau = {**fac_z, "products": eau_products}
+                buf_bar_eau = generate_bar_chart(fac_eau, from_date, to_date)
+                if buf_bar_eau:
+                    bar_chart_img_eau = _img(buf_bar_eau, 25*cm, 12*cm)
+                    pages[current_page] = [
+                        Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                        Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS - {zone} (EAU)", title_style),
+                        Spacer(1, 0.3*cm), bar_chart_img_eau
+                    ]
+                    current_page += 1
 
-            # --- Camembert + légende (zone) ---
-            buf_pie, buf_legend = generate_pie_chart_and_legend(fac_z, from_date, to_date)  # BytesIO, BytesIO
-            buf_pie.seek(0); buf_legend.seek(0)
-            pie_chart_img = Image(buf_pie, width=9*cm, height=9*cm)
-            legend_img    = Image(buf_legend, width=15*cm, height=2.5*cm)
+            # 2) HORS EAU uniquement si présent
+            if other_products:
+                fac_autres = {**fac_z, "products": other_products}
+                buf_bar_autres = generate_bar_chart(fac_autres, from_date, to_date)
+                if buf_bar_autres:
+                    bar_chart_img_autres = _img(buf_bar_autres, 25*cm, 12*cm)
+                    pages[current_page] = [
+                        Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                        Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS - {zone} (hors EAU)", title_style),
+                        Spacer(1, 0.3*cm), bar_chart_img_autres
+                    ]
+                    current_page += 1
 
+            # 3) Si aucune des deux catégories n’a de données
+            if not eau_products and not other_products:
+                pages[current_page] = [
+                    Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                    Paragraph(f"Aucune donnée pour {zone}", title_style)
+                ]
+                current_page += 1
 
-            # --- Tableaux (zone) ---
-            tables = generate_table(fac_z, from_date, to_date)               # ➜ filtré :contentReference[oaicite:7]{index=7}
-            tables_year = generate_monthly_table(fac_z)                       # ➜ filtré :contentReference[oaicite:8]{index=8}
+            # --- PIE CHART + LEGEND (zone entière) ---
+            buf_pie, buf_legend = generate_pie_chart_and_legend(fac_z, from_date, to_date)
+            pie_chart_img = _img(buf_pie, 9*cm, 9*cm)
+            legend_img    = _img(buf_legend, 15*cm, 2.5*cm)
 
-            # --- Pages de sortie (zone) ---
             pages[current_page] = [
                 Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
-                Paragraph(f"{bar_chart_title.getPlainText()} - {zone}", title_style),
-                Spacer(1, 0.3*cm), bar_chart_img
-            ]
-            current_page += 1
-
-            pages[current_page] = [
-                Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
-                Paragraph(f"{pie_chart_title.getPlainText()} - {zone}", title_style),
+                Paragraph(f"RÉPARTITION DES CONSOMMATIONS - {zone}", title_style),
                 Spacer(1, 0.3*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img
             ]
             current_page += 1
 
+            # --- TABLES ---
+            tables = generate_table(fac_z, from_date, to_date)
             pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 3*cm)] + tables
             current_page += 1
 
+            tables_year = generate_monthly_table(fac_z)
             pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 3*cm)] + tables_year
             current_page += 1
 
