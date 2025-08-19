@@ -1,6 +1,8 @@
 from model import model, body_total_qty_report
 from datetime import datetime, timedelta
 from calendar import monthrange
+import re
+from collections import OrderedDict
 
 def get_total_qty_every_days(Json_to_fill, from_date, to_date, facilityId=None):
     current_date = datetime.strptime(from_date, "%Y-%m-%d")
@@ -157,3 +159,25 @@ def get_total_qty_every_month(Json_to_fill, to_date, facilityId=None):
         current = add_months(current, 1)
 
     return Json_to_fill
+
+
+
+def enrich_json_with_zone(json_data):
+    zone_patterns = [
+        r"zone\s*(\d+)",  # "zone 1", "Zone 2"
+        r"z(\d+)",        # "z1", "Z2"
+    ]
+
+    for facility in json_data["data"]["results"]:
+        for product in facility.get("products", []):
+            name = product.get("name", "").lower()
+            product["zone"] = None  # valeur par défaut
+            for pattern in zone_patterns:
+                match = re.search(pattern, name, re.IGNORECASE)
+                if match:
+                    product["zone"] = f"ZONE {match.group(1)}"
+                    break  # on garde la première correspondance
+            if product["zone"] is None:
+                product["zone"] = "GLOBAL"  # si aucune zone trouvée
+
+    return json_data

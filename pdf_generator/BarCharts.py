@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from io import BytesIO
 import matplotlib.ticker as ticker
 
-def generate_bar_chart(facility, ZoneNbr, from_date: str, to_date: str):
+def generate_bar_chart(facility, from_date: str, to_date: str):
     start = datetime.strptime(from_date, "%Y-%m-%d")
     end = datetime.strptime(to_date, "%Y-%m-%d")
 

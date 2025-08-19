@@ -35,6 +35,39 @@ import tempfile
 
 
 
+import copy
+
+def _natural_zone_key(z: str):
+    m = re.search(r'(\d+)', z or "")
+    return (int(m.group(1)) if m else 0, z or "")
+
+def _detect_zones_for_facility(facility: dict) -> list[str]:
+    # Priorité au champ JSON 'zone'
+    explicit = {
+        (p.get("zone") or "").strip().upper()
+        for p in facility.get("products", [])
+        if p.get("zone")
+    }
+    if explicit:
+        return sorted(explicit, key=_natural_zone_key)
+    # fallback compat : pas de zone -> une seule page "GLOBAL"
+    return ["GLOBAL"]
+
+def filter_facility_by_zone(facility: dict, zone: str) -> dict:
+    """
+    Copie 'facility' en ne gardant que les produits de la zone donnée.
+    - 'GLOBAL' => produits sans champ 'zone' ou zone vide.
+    """
+    z = (zone or "GLOBAL").strip().upper()
+    new_fac = copy.deepcopy(facility)
+    def belongs(p):
+        pz = (p.get("zone") or "").strip().upper()
+        return (pz == z) if z != "GLOBAL" else (pz == "")
+    new_fac["products"] = [p for p in facility.get("products", []) if belongs(p)]
+    return new_fac
+
+
+
 
 def get_footer_table(facility_id, config_data):
     """
@@ -191,25 +224,6 @@ def get_serial_numbers(devices_list):
 def sanitize_filename(name: str) -> str:
     return re.sub(r'[<>:"/\\|?*]', '_', name)
 
-def page_manager(**kwargs):
-    pages = {
-        1: [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 1*cm), kwargs.get("report_title"), Spacer(1, 0.2*cm), kwargs.get("facility_title"), Spacer(1, 0.5*cm), kwargs.get("cover_picture")],
-        2: [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 1*cm), kwargs.get("page_2_title"), Spacer(1, 0.5*cm), kwargs.get("image_text_table")],
-        3: [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 2*cm), kwargs.get("bar_chart_title"), Spacer(1, 0.3*cm), kwargs.get("bar_chart")],
-        4: [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 2*cm), kwargs.get("bar_chart_title"), Spacer(1, 0.3*cm), kwargs.get("bar_chart")],
-        5: [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 2*cm), kwargs.get("pie_chart_title"), Spacer(1, 0.3*cm), kwargs.get("pie_chart_img"), Spacer(1, 0.2*cm), kwargs.get("legend_img")],
-        6: [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 3*cm)] + kwargs.get("tables"),
-        7: [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 3*cm)] + kwargs.get("tables_year"),
-    }
-    page_number = 3
-    for i in range(kwargs.get("RouterNbr")):
-        pages[page_number] = [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 0.5*cm), kwargs.get("bar_chart_title"), Spacer(1, 0.5*cm), kwargs.get("bar_chart")]
-        pages[page_number + 1] = [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 0.5*cm), kwargs.get("pie_chart_title"), Spacer(1, 0.2*cm), kwargs.get("pie_chart_img"), Spacer(1, 0.2*cm), kwargs.get("legend_img")]
-        pages[page_number + 2] = [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 0.5*cm)] + kwargs.get("tables")
-        pages[page_number + 2] = [Spacer(1, 0.1*cm), kwargs.get("TMH_logo_img"), Spacer(1, 0.5*cm)] + kwargs.get("tables_year")
-        page_number += 4
-    return pages
-
 def draw_bottom_right_logo(canvas, doc):
     logo_path = "images/Würth_logo.png"
     logo = ImageReader(logo_path)
@@ -223,11 +237,12 @@ def draw_bottom_right_logo(canvas, doc):
 
     canvas.drawImage(logo, x, y, logo_width, logo_height, preserveAspectRatio=True, mask='auto')
 
+
+
+
 def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_date: str):
 
     os.makedirs("reports", exist_ok=True)
-
-
     RouterNbr = defineRouterNbr(devices_list)
 
     styles = getSampleStyleSheet()
@@ -238,24 +253,33 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
     with open("configJson.json", "r", encoding="utf-8") as f:
         config_data = json.load(f)
 
+    # Liste configurable des motifs de zones
+    zone_patterns = [r"zone\s*(\d+)", r"z(\d+)"]  # tu peux en rajouter ici
+
     for facility in json_data["data"]["results"]:
         facility_id = facility["facilityId"]
         sanitized_name = sanitize_filename(facility["facilityName"])
         pdf_path = f"reports/rapport_{sanitized_name}_{facility_id}.pdf"
 
+        # 🔹 Détection simplifiée via champ JSON 'zone'
+        zones_to_process = _detect_zones_for_facility(facility)
+        print(f"{facility['facilityName']} → zones : {zones_to_process}")
 
-        # Crée les composants (exemple)
+        # --- Création des composants communs (inchangé) ---
         facility_title = Paragraph(facility["facilityName"], title_style)
         report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}", title_style)
         page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {from_date} ", title_style)
-        bar_chart_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS - ZONE X", title_style)
-        pie_chart_title = Paragraph(f"CONSOMMATION MOYENNE QUOTIDIENNE QXXXXX", title_style)
+        bar_chart_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS", title_style)
+        pie_chart_title = Paragraph(f"CONSOMMATION MOYENNE QUOTIDIENNE", title_style)
 
         cover_picture_path, final_width, final_height = get_picture_path(facility_id, config_data, "cover_picture")
         material_picture_path,final_width, final_height = get_picture_path(facility_id, config_data, "material_picture")
 
         cover_picture = Image(cover_picture_path, final_width, final_height)
         material_picture = Image(material_picture_path, final_width, final_height)
+
+        TMH_logo_path = "images/Logo - Orsy e wash.png"
+        TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)
 
         material_picture_left = Table([[material_picture]], hAlign='LEFT')
         texte_droite = Table([[Paragraph("• PRESSION D’EAU RELEVÉ :<br/> 3,1 BARS<br/><br/>• WNC: 3,9%<br/>Buse Jaune", subtitle_style)]], hAlign='RIGHT')
@@ -268,41 +292,76 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
             ("ALIGN", (1, 0), (1, 0), "LEFT"),  
             ("LEFTPADDING", (1, 0), (1, 0), 150),  # 👈 espace entre l'image et le texte
             ("RIGHTPADDING", (1, 0), (1, 0), 0),    
-        ]))
+        ])) 
+
+        
+        # bar_chart = Image(generate_bar_chart(facility, from_date, to_date), width=25*cm, height=12*cm)
+        # buf_pie, buf_legend = generate_pie_chart_and_legend(facility, from_date, to_date)
+        # with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f_pie, tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f_leg:
+        #     f_pie.write(buf_pie.getbuffer())
+        #     f_leg.write(buf_legend.getbuffer())
+        #     pie_chart_img = Image(f_pie.name, width=9*cm, height=9*cm)
+        #     legend_img = Image(f_leg.name, width=15*cm, height=2.5*cm)
+
+        # tables = generate_table(facility, from_date, to_date)
+        # tables_year = generate_monthly_table(facility)
 
 
-        bar_chart = Image(generate_bar_chart(facility, RouterNbr, from_date, to_date), width=25*cm, height=12*cm)
-        buf_pie, buf_legend = generate_pie_chart_and_legend(facility, from_date, to_date)
+        # 🔹 Pages fixes 1 & 2 (inchangé)
+        pages = {
+            1: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), report_title, Spacer(1, 0.2*cm), facility_title, Spacer(1, 0.5*cm), cover_picture],
+            2: [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), page_2_title, Spacer(1, 0.5*cm), image_text_table],
+        }
 
-        # Sauvegarder en fichiers temporaires
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f_pie, tempfile.NamedTemporaryFile(delete=False, suffix=".png") as f_leg:
+        # 👉 NE PAS créer les graphiques/tables ici (ils seront zone-spécifiques)
 
-            f_pie.write(buf_pie.getbuffer())
-            f_pie.flush()
+        # 🔹 Ajout dynamique à partir de la page 3 selon les zones
+        current_page = 3
+        for zone in zones_to_process:
+            fac_z = filter_facility_by_zone(facility, zone)
 
-            f_leg.write(buf_legend.getbuffer())
-            f_leg.flush()
+            # --- Graphique barres (zone) ---
+            buf_bar = generate_bar_chart(fac_z, from_date, to_date)  # BytesIO
+            buf_bar.seek(0)
+            bar_chart_img = Image(buf_bar, width=25*cm, height=12*cm)
 
-            # Créer les images reportlab
-            pie_chart_img = Image(f_pie.name, width=9*cm, height=9*cm)
-            legend_img = Image(f_leg.name, width=15*cm, height=2.5*cm)
+            # --- Camembert + légende (zone) ---
+            buf_pie, buf_legend = generate_pie_chart_and_legend(fac_z, from_date, to_date)  # BytesIO, BytesIO
+            buf_pie.seek(0); buf_legend.seek(0)
+            pie_chart_img = Image(buf_pie, width=9*cm, height=9*cm)
+            legend_img    = Image(buf_legend, width=15*cm, height=2.5*cm)
 
-        tables = generate_table(facility, from_date, to_date)  # liste de tableaux
-        tables_year = generate_monthly_table(facility)  # liste de tableaux
 
-        TMH_logo_path = "images/Logo - Orsy e wash.png"
-        TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)
+            # --- Tableaux (zone) ---
+            tables = generate_table(fac_z, from_date, to_date)               # ➜ filtré :contentReference[oaicite:7]{index=7}
+            tables_year = generate_monthly_table(fac_z)                       # ➜ filtré :contentReference[oaicite:8]{index=8}
 
-        pages = page_manager(TMH_logo_img=TMH_logo_img,report_title=report_title, facility_title=facility_title, cover_picture=cover_picture,
-                            page_2_title=page_2_title, image_text_table=image_text_table, bar_chart_title=bar_chart_title,
-                            bar_chart=bar_chart, pie_chart_title=pie_chart_title, pie_chart_img=pie_chart_img, legend_img=legend_img,
-                            tables=tables, tables_year=tables_year, RouterNbr=RouterNbr)
+            # --- Pages de sortie (zone) ---
+            pages[current_page] = [
+                Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                Paragraph(f"{bar_chart_title.getPlainText()} - {zone}", title_style),
+                Spacer(1, 0.3*cm), bar_chart_img
+            ]
+            current_page += 1
 
-        # Maintenant on ajoute le footer (tableau) dans chaque page où on veut le footer
-        # Pour l’exemple, je vais juste l’ajouter sur toutes les pages générées :
+            pages[current_page] = [
+                Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                Paragraph(f"{pie_chart_title.getPlainText()} - {zone}", title_style),
+                Spacer(1, 0.3*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img
+            ]
+            current_page += 1
+
+            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 3*cm)] + tables
+            current_page += 1
+
+            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 3*cm)] + tables_year
+            current_page += 1
+
+
+        # 🔹 Ajouter le footer à chaque page
         for key in pages:
-            pages[key].append(FrameBreak())        # Basculer dans la frame footer
-            pages[key].append(get_footer_table(facility_id, config_data))  # Ton tableau footer
+            pages[key].append(FrameBreak())
+            pages[key].append(get_footer_table(facility_id, config_data))
 
         elements = distribute_elements_by_page(pages)
 

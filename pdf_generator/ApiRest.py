@@ -10,7 +10,7 @@ from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from model import model, body_total_qty_report, body_devices_list
-from DataTransform import get_total_qty_every_days, get_total_qty_every_month
+from DataTransform import get_total_qty_every_days, get_total_qty_every_month, enrich_json_with_zone
 from pdfGen import generate_pdfs_by_facility
 from Json_parameter import transform_facility_json
 
@@ -64,13 +64,16 @@ def  Total_Quantity_Report_grouped_by_facilities(
     # # ================= Data Transformation ================
     total_qty_Json = get_total_qty_every_days(total_qty.json(), from_date, to_date, facility_id)
     total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
+    total_qty_Json = enrich_json_with_zone(total_qty_Json)
+
+    print(total_qty_Json)
 
     # # ======================================================
     transform_facility_json(total_qty_Json)
     generate_pdfs_by_facility(total_qty_Json, devices_list, from_date, to_date)
 
 
-    return {"ok"} 
+    return {"ok"}
 
 DATA_FILE = "configJson.json"  # Ton fichier JSON
 
