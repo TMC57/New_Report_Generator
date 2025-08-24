@@ -9,10 +9,11 @@ from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from model import model, body_total_qty_report, body_devices_list
+from model import model, body_total_qty_report, body_devices_list, body_stock_levels
 from DataTransform import get_total_qty_every_days, get_total_qty_every_month, enrich_json_with_zone
 from pdfGen import generate_pdfs_by_facility
 from Json_parameter import transform_facility_json
+from getDebit import login_session_cm2w
 
 
 logger = logging.getLogger("uvicorn.error")
@@ -59,6 +60,9 @@ def  Total_Quantity_Report_grouped_by_facilities(
     endpoint, headers, params = body_devices_list(facility_id)
     devices_list = model(endpoint, headers, params).json()
 
+    endpoint, headers, params = body_stock_levels(facility_id)
+    stock_levels = model(endpoint, headers, params).json()
+
     # print(devices_list.json())
 
     # # ================= Data Transformation ================
@@ -70,7 +74,7 @@ def  Total_Quantity_Report_grouped_by_facilities(
 
     # # ======================================================
     transform_facility_json(total_qty_Json)
-    generate_pdfs_by_facility(total_qty_Json, devices_list, from_date, to_date)
+    generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)
 
 
     return {"ok"}

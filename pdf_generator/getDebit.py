@@ -1,38 +1,29 @@
-import os, requests
-from datetime import datetime
-from zoneinfo import ZoneInfo  # Python 3.9+
+import os, requests, time, json, base64
 
-BASE = "https://sh1.cm2w.net/"
-LOGIN_URL  = f"{BASE}/cm2w-api/v2/users/login/"
+BASE = "https://sh1.cm2w.net"
+LOGIN_URL  = f"{BASE}/cm2w-api/v2/users/login"
 EVENTS_URL = f"{BASE}/cm2w-api/v2/events"
 
 EMAIL = "e-service@tmh-corporation.com"
 PASSWORD = "Jer160276@"
-TDFP = os.environ.get("CM2W_TDFP")  # facultatif si l'API l'exige
+TDFP = os.environ.get("CM2W_TDFP")  # si requis par l'API
 
-def paris_ms(y, m, d, hh=0, mm=0, ss=0):
-    dt = datetime(y, m, d, hh, mm, ss)
-    return int(dt.timestamp() * 1000)
-
-with requests.Session() as s:
+def login_session_cm2w():
+    s = requests.Session()
     s.headers.update({
         "Accept": "application/json",
         "Content-Type": "application/json",
-        # Optionnel si le serveur le demande :
-        # "Origin": "https://app.cm2w.net/",
+        # Si nécessaire (WAF) :
+        # "Origin": "https://app.cm2w.net",
         # "Referer": "https://app.cm2w.net/",
+        # "User-Agent": "Mozilla/5.0",
     })
     payload = {"email": EMAIL, "password": PASSWORD}
     if TDFP:
         payload["tdfp"] = TDFP
-
     r = s.post(LOGIN_URL, json=payload, timeout=30)
     r.raise_for_status()
 
-    # 1) Cookie de session ?
-    got_cookie = "JSESSIONID" in s.cookies
-
-    # 2) Token dans la réponse ?
     token = None
     try:
         data = r.json()
@@ -42,19 +33,30 @@ with requests.Session() as s:
     if token:
         s.headers["Authorization"] = f"Bearer {token}"
 
-    if not got_cookie and not token:
-        raise RuntimeError("Aucun JSESSIONID ni token après login. Vérifie l’endpoint et la charge utile.")
+    if "JSESSIONID" not in s.cookies and not token:
+        raise RuntimeError("Pas de JSESSIONID ni de token après login.")
+    return s, token
 
+def get_events(session, device_id, from_ms, thru_ms, page=1, size=5000):
     params = {
-        "deviceId": "56753",
+        "deviceId": str(device_id),
         "reportType": "flowrate",
-        "fromDate": 1748728800000,
-        "thruDate": 1751234400000,
-        "pageNumber": "1",
-        "pageSize": "5000",  # pagine plutôt que 2^31-1
+        "fromDate": str(from_ms),
+        "thruDate": str(thru_ms),
+        "pageNumber": str(page),
+        "pageSize": str(size),
         "endPoint": "events",
     }
-    resp = s.get(EVENTS_URL, params=params, timeout=60)
+    resp = session.get(EVENTS_URL, params=params, timeout=60)
+    if resp.status_code == 401:
+        raise PermissionError("401 sur /events : token/cookie invalide ou expiré.")
     resp.raise_for_status()
-    events = resp.json()
-    print("OK, événements récupérés :", (len(events) if isinstance(events, list) else "objet JSON"))
+    return resp.json()
+
+# --- Utilisation ---
+# 1) On s'authentifie UNE fois
+session, token = login_session_cm2w()
+
+# 2) Plus tard, on réutilise LA MÊME session
+events = get_events(session, device_id=56753, from_ms=1751320800000, thru_ms=1753912800000)
+print("events:", type(events), len(events) if isinstance(events, list) else "json")

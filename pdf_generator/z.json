@@ -6944,3 +6944,357 @@
 ], 'startIndex': 0, 'endIndex': 1, 'itemCount': 1
 }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1755596328704
 }
+
+
+
+
+
+
+
+
+
+{'statusCode': 'SUCCESS', 'data': [
+{'facilityId': 28194, 'facilityName': '1070133631\tALTIS VANNES', 'facilityCity': 'VANNES', 'facilityAddress': 'rue de Gertude Bell', 'facilityZipCode': '56000', 'facilityCountry': 'France', 'owner': 'Wurth', 'devices': [
+    {'deviceId': 48204, 'deviceName': '1070133631\tALTIS VANNES', 'serialNumber': 'Q221BF', 'facilityId': 28194, 'createDate': 1700662352000, 'lastEventDate': 1755957758052, 'connectionType': '2G', 'firmwareVersion': '3.9', 'simIccid': '89430103022096009314', 'networkName': ' 20801  (GSM)', 'isOnline': False
+    }
+]
+}
+], 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756060629529
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{'statusCode': 'SUCCESS', 'data': {'results': [
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20270.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751381186000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1926.4285714285713, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20270.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20270.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751383025000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 116.45454545454545, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20270.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20271.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751469434000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 144.0, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20271.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20271.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751469658000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1904.3636363636363, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20271.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20272.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751554954000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1788.8181818181818, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20272.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20272.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751555843000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 140.26666666666668, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20272.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20273.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751642109000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1951.5833333333333, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20273.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20273.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751645852000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 124.39285714285714, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20273.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20274.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751720847000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1940.5, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20274.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20274.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751721460000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 132.2, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20274.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20276.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751893831000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1564.25, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20276.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20276.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751899109000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 128.53846153846155, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20276.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20277.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751984590000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1924.6666666666667, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20277.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20277.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1751984590000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 119.80952380952381, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20277.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20278.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752075482000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1927.6923076923076, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20278.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20278.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752075482000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 127.95833333333333, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20278.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20279.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752155225000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1949.8, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20279.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20279.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752164117000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 132.89285714285714, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20279.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20280.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752246916000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1847.2666666666667, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20280.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20280.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752246926000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 143.0, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20280.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20284.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752591960000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1788.6666666666667, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20284.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20284.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752592560000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 131.29166666666666, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20284.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20285.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752678538000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1937.5, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20285.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20285.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752678968000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 161.5, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20285.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20286.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752767328000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1925.4, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20286.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20286.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752768978000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 128.8148148148148, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20286.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20287.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752852762000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1772.125, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20287.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20287.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1752855387000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 131.58064516129033, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20287.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20290.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1753111442000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1923.1666666666667, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20290.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20290.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1753114613000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 137.06896551724137, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20290.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20291.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1753195584000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1923.4285714285713, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20291.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20291.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1753197420000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 157.84615384615384, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20291.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20292.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1753282569000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1763.421052631579, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20292.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20292.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1753283829000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 136.47368421052633, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20292.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20293.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1753373274000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1778.2222222222222, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20293.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20293.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': 'Mercedes auto Bernard saint Quentin ', 'serialNumber': 'Q22199', 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'eventDate': 1753373274000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 141.04347826086956, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20293.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20294.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'serialNumber': 'Q22199', 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'eventDate': 1753456947000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1817.764705882353, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20294.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20294.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'serialNumber': 'Q22199', 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'eventDate': 1753456947000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 152.97297297297297, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20294.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20297.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'serialNumber': 'Q22199', 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'eventDate': 1753715294000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1938.3333333333333, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20297.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20297.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'serialNumber': 'Q22199', 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'eventDate': 1753715689000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 142.75, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20297.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20298.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'serialNumber': 'Q22199', 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'eventDate': 1753797897000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1868.5, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20298.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20298.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'serialNumber': 'Q22199', 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'eventDate': 1753802098000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 155.84, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20298.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 1, 'day': 20299.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'serialNumber': 'Q22199', 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'eventDate': 1753888401000, 'pumpIdx': 1, 'productName': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'flowRate': 1885.25, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=1, day=20299.0
+        }
+    }'
+},
+{'_id': {'deviceId': 56753, 'pumpIdx': 0, 'day': 20299.0
+    }, 'deviceId': 56753, 'facilityId': 33656, 'deviceName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'serialNumber': 'Q22199', 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'eventDate': 1753892107000, 'pumpIdx': 0, 'productName': 'WNC40 UC SHAMPOING', 'flowRate': 120.78125, '_idHex': 'Document{
+        {deviceId=56753, pumpIdx=0, day=20299.0
+        }
+    }'
+}
+], 'startIndex': 0, 'endIndex': 43, 'itemCount': 22
+}, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756063261177
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{'statusCode': 'SUCCESS', 'data': [
+{'facilityId': 27789, 'facilityName': '1070747601\tARAVIS ROSSI AUTO', 'facilityCity': 'ANNECY', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
+    {'productId': 212451, 'productName': 'WNC50 BMW ZONE 1', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-219.0251 L', 'averageDailyConsumption': '2.1433 L', 'remainingDays': -102, 'currency': 'EUR'
+    },
+    {'productId': 212454, 'productName': 'EAU ZONE 1 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '54239.3429 L', 'averageDailyConsumption': '277.8725 L', 'remainingDays': 195, 'currency': 'EUR'
+    },
+    {'productId': 212466, 'productName': 'AUTO SÉCHANT UC BMW ZONE 3', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-106.1105 L', 'averageDailyConsumption': '1.1523 L', 'remainingDays': -92, 'currency': 'EUR'
+    },
+    {'productId': 212484, 'productName': 'EAU ZONE 2 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-156882.4489 L', 'averageDailyConsumption': '129.578 L', 'remainingDays': -1210, 'currency': 'EUR'
+    },
+    {'productId': 212487, 'productName': 'WNC40 ZONE 2 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '10.7642 L', 'averageDailyConsumption': '0.8395 L', 'remainingDays': 12, 'currency': 'EUR'
+    },
+    {'productId': 212490, 'productName': 'AUTO SÉCHANT ZONE 2 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-71.1436 L', 'averageDailyConsumption': '0.8346 L', 'remainingDays': -85, 'currency': 'EUR'
+    },
+    {'productId': 212640, 'productName': 'EAU BMW ANNECY ZONE 3', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-15891.9154 L', 'averageDailyConsumption': '7.4401 L', 'remainingDays': -2135, 'currency': 'EUR'
+    },
+    {'productId': 212643, 'productName': 'autoséchant ZONE 1 BMW ANNECY', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '134.4262 L', 'averageDailyConsumption': '0.0039 L', 'remainingDays': 34468, 'currency': 'EUR'
+    },
+    {'productId': 212646, 'productName': 'WNC40 UC ZONE 3 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '17.6507 L', 'averageDailyConsumption': '0.0314 L', 'remainingDays': 562, 'currency': 'EUR'
+    }
+]
+}
+], 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756065761227
+}

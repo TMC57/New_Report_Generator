@@ -25,10 +25,13 @@ matplotlib.use("Agg")
 import os
 import re   
 import json
+from datetime import datetime, timedelta
+
 
 from tables import generate_table, generate_monthly_table
 from BarCharts import generate_bar_chart
 from PieCharts import generate_pie_chart_and_legend
+from getDebit import login_session_cm2w, get_events
 
 import copy
 
@@ -260,12 +263,91 @@ def draw_bottom_right_logo(canvas, doc):
     canvas.drawImage(logo, x, y, logo_width, logo_height, preserveAspectRatio=True, mask='auto')
 
 
+def get_serial_numbers_for_facility(devices_list, facility_id):
+    serials = [
+        dev["serialNumber"]
+        for site in devices_list.get("data", [])
+        if site.get("facilityId") == facility_id
+        for dev in site.get("devices", [])
+        if "serialNumber" in dev
+    ]
+    return list(dict.fromkeys(serials))  # supprime les doublons, préserve l’ordre
+
+def get_deviceID_for_facility(devices_list, facility_id):
+    serials = [
+        dev["deviceId"]
+        for site in devices_list.get("data", [])
+        if site.get("facilityId") == facility_id
+        for dev in site.get("devices", [])
+        if "deviceId" in dev
+    ]
+    return list(dict.fromkeys(serials))  # supprime les doublons, préserve l’ordre
+
+def _normalize_name(s: str) -> str:
+    return re.sub(r"\s+", " ", (s or "")).strip().upper()
 
 
-def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_date: str):
+def build_stock_table_for_facility_zone(facility_id: int, fac_z: dict, stock_levels: dict):
+    """Construit un tableau ReportLab des stocks pour les produits présents dans fac_z (rouge si stock <= 0)."""
+    data_root = (stock_levels or {}).get("data", [])
+    facility_entry = next((x for x in data_root if x.get("facilityId") == facility_id), None)
+    if not facility_entry:
+        return Paragraph("Aucun stock disponible pour ce site.", getSampleStyleSheet()["Normal"])
+
+    fac_products = fac_z.get("products", [])
+    names_in_table = {_normalize_name(p.get("name")) for p in fac_products}
+    stock_products = facility_entry.get("products", [])
+
+    rows = []
+    for sp in stock_products:
+        pname = sp.get("productName")
+        if _normalize_name(pname) in names_in_table:
+            remaining = sp.get("remainingQuantity", "")
+            avg = sp.get("averageDailyConsumption", "")
+            days = sp.get("remainingDays", "")
+            rows.append([pname or "", remaining, avg, days])
+
+    if not rows:
+        return Paragraph("Aucun stock correspondant aux produits du tableau.", getSampleStyleSheet()["Normal"])
+
+    data_tbl = [["Produit", "Stock restant", "Conso/jour moy.", "Jours restants"]] + rows
+    tbl = Table(data_tbl, repeatRows=1, colWidths=[9*cm, 4*cm, 4*cm, 3*cm])
+
+    style_cmds = [
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, -1), 8),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+        ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+    ]
+
+    # Colorer en rouge chaque "Stock restant" <= 0 (colonne 1)
+    for i, row in enumerate(rows, start=1):  # +1 car il y a l'en-tête
+        val = str(row[1])
+        try:
+            # retirer " L", espaces, etc.
+            num = float(val.replace("L", "").replace(" ", "").replace(",", "."))
+            if num <= 0:
+                style_cmds.append(('TEXTCOLOR', (1, i), (1, i), colors.red))
+        except Exception as e:
+            pass  # si ça ne se convertit pas → on ignore
+
+
+    tbl.setStyle(TableStyle(style_cmds))
+    return tbl
+
+
+
+
+def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_date: str, to_date: str):
+    print(stock_levels['currentTime'])
 
     os.makedirs("reports", exist_ok=True)
-    RouterNbr = defineRouterNbr(devices_list)
+
+    # session, token = login_session_cm2w()
+    # events = get_events(session, device_id=56753, from_ms=1751320800000, thru_ms=1753912800000)
+    # print(events)
 
     styles = getSampleStyleSheet()
     title_style = styles["Title"]
@@ -280,10 +362,18 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
         sanitized_name = sanitize_filename(facility["facilityName"])
         pdf_path = f"reports/rapport_{sanitized_name}_{facility_id}.pdf"
 
+        serial_numbers = get_serial_numbers_for_facility(devices_list, facility_id)
+        devices_serial_numbers = Paragraph(f"N°ROUTEUR(S): " + " / ".join(serial_numbers), title_style)
+
+
+        get_deviceID_for_facility
+
+
+
         # 🔹 Détection simplifiée via champ JSON 'zone'
         zones_to_process = _detect_zones_for_facility(facility)
         print(f"{facility['facilityName']} → zones : {zones_to_process}")
-        is_global_only = (len(zones_to_process) == 1 and zones_to_process[0].upper() == "GLOBAL")
+        # is_global_only = (len(zones_to_process) == 1 and zones_to_process[0].upper() == "GLOBAL")
 
 
         # --- Création des composants communs (inchangé) ---
@@ -321,6 +411,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
         pages[1] = [
             Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm),
             report_title, Spacer(1, 0.2*cm), facility_title,
+            Spacer(1, 0.2*cm), devices_serial_numbers,
             Spacer(1, 0.5*cm), cover_picture
         ]
 
@@ -385,12 +476,25 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
             current_page += 1
 
             # ==================== TABLES ====================
-            tables = generate_table(fac_z, from_date, to_date)
-            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 3*cm)] + tables
+            tables = generate_table(fac_z, from_date, to_date)  # renvoie [table] ou [table1, table2]
+            table_page_title = Paragraph(f"CONSOMMATION QUOTIDIENNE DE PRODUITS", title_style)
+            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_page_title, Spacer(1, 0.5*cm)] + tables
+
+            # ---- Titre "ÉTAT DES STOCKS AU {date}" + tableau des stocks
+            stocks_title = f"ÉTAT DES STOCKS AU {datetime.fromtimestamp(int(stock_levels['currentTime']) / 1000).strftime('%d/%m/%Y')}"
+
+            pages[current_page] += [
+                Spacer(1, 0.5*cm),
+                Paragraph(stocks_title, title_style),
+                Spacer(1, 0.2*cm),
+                build_stock_table_for_facility_zone(facility_id, fac_z, stock_levels)
+            ]
+
             current_page += 1
 
             tables_year = generate_monthly_table(fac_z)
-            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 3*cm)] + tables_year
+            table_month_page_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS", title_style)
+            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_month_page_title, Spacer(1, 1*cm)] + tables_year
             current_page += 1
 
 
