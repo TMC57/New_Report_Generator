@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from io import BytesIO
+import numpy as np
 
 def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     start = datetime.strptime(from_date, "%Y-%m-%d")
@@ -32,37 +33,121 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
         return f"{value_l:.1f} L"
 
     # --- Image du camembert sans légende ---   
-    fig_pie, pie_ax = plt.subplots(figsize=(4, 4), constrained_layout=True)
+    fig_pie, pie_ax = plt.subplots(figsize=(5, 5), constrained_layout=True)
 
     wedges, texts, autotexts = pie_ax.pie(
         filtered_totals,
-        labels=None,
+        labels=None,  # noms mis dans la légende
         autopct=lambda pct: format_liters(pct, filtered_totals),
         startangle=90,
         counterclock=False,
         wedgeprops={'edgecolor': 'black', 'linewidth': 0.2},
-        normalize=True
+        normalize=True,
+        pctdistance=0.50,            # éloigne les nombres du centre
+        textprops={'fontsize': 14},  # nombres plus gros
     )
     pie_ax.set_aspect('equal')
     pie_ax.margins(0)
 
-    buf_pie = BytesIO()
-    fig_pie.savefig(buf_pie, format='png', bbox_inches='tight')
-    plt.close(fig_pie)
-    buf_pie.seek(0)
 
-    # --- Image de la légende seule ---
-    fig_legend, legend_ax = plt.subplots(figsize=(5, 1.5))
-    legend_ax.axis('off')  # pas d'axes visibles
+    # --- paramètres centrés ---
+    SMALL_PCT = 4.0     # petite tranche
+    BASE_R    = 0.50    # position "proche du centre"
+    PUSH_R    = 0.75    # un peu plus loin si petite tranche ou voisine
+    R_MIN     = 0.50    # ne pas rentrer plus que ça
+    R_MAX     = 0.90    # ne pas sortir plus que ça (reste visuellement "dedans")
+    DR_OUT    = 0.03    # pas de poussée vers l’extérieur
+    DR_IN     = 0.01    # petit pas vers l’intérieur (pour l’autre étiquette)
+    GAP_PX    = 6       # écart mini entre boîtes
+    MAX_IT    = 100     # itérations max
 
-    # Création d'une légende en utilisant les wedges et noms filtrés
-    legend = legend_ax.legend(
-        wedges, filtered_names,
-        loc='center',
-        fontsize=11,
-        frameon=False,
-        ncol=3
-    )
+    # --- % par tranche ---
+    total = float(sum(filtered_totals)) if filtered_totals else 1.0
+    pcts  = [100.0 * v / total for v in filtered_totals]
+    n     = len(wedges)
+
+    # 1) placement initial, proche du centre
+    for i, (w, t) in enumerate(zip(wedges, autotexts)):
+        if not t.get_text():
+            continue
+        theta = np.deg2rad((w.theta1 + w.theta2) * 0.5)
+        left_small  = pcts[(i - 1) % n] < SMALL_PCT
+        self_small  = pcts[i]           < SMALL_PCT
+        right_small = pcts[(i + 1) % n] < SMALL_PCT
+        r0 = PUSH_R if (self_small or left_small or right_small) else BASE_R
+        r  = min(max(r0, R_MIN), R_MAX)
+        x, y = r * np.cos(theta), r * np.sin(theta)
+        t.set_position((x, y))
+        t.set_ha('center'); t.set_va('center')
+        t.set_bbox(dict(boxstyle="round,pad=0.25", fc="white", ec="none", alpha=0.65))
+
+    # 2) anti-chevauchement itératif (pousse la plus petite vers l'extérieur, l’autre un poil vers l’intérieur)
+    fig_pie.canvas.draw()
+    renderer = fig_pie.canvas.get_renderer()
+
+    def bboxes_px(texts):
+        out = []
+        for tt in texts:
+            if not tt.get_text():
+                out.append(None); continue
+            out.append(tt.get_window_extent(renderer=renderer))
+        return out
+
+    def overlap(a, b, gap=0):
+        return not (a.x1 + gap <= b.x0 or b.x1 + gap <= a.x0 or
+                    a.y1 + gap <= b.y0 or b.y1 + gap <= a.y0)
+
+    thetas = [np.deg2rad((w.theta1 + w.theta2) * 0.5) for w in wedges]
+
+    iters = 0
+    changed = True
+    while changed and iters < MAX_IT:
+        changed = False
+        bbs = bboxes_px(autotexts)
+        for i in range(n):
+            if not autotexts[i].get_text() or bbs[i] is None: continue
+            for j in range(i+1, n):
+                if not autotexts[j].get_text() or bbs[j] is None: continue
+                if overlap(bbs[i], bbs[j], GAP_PX):
+                    # index de la plus petite et de la plus grande des deux
+                    k_small = i if pcts[i] < pcts[j] else j
+                    k_big   = j if k_small == i else i
+
+                    # pousse la petite vers l’extérieur (jusqu’à R_MAX)
+                    xk, yk = autotexts[k_small].get_position()
+                    rk = min(np.hypot(xk, yk) + DR_OUT, R_MAX)
+                    autotexts[k_small].set_position((rk*np.cos(thetas[k_small]), rk*np.sin(thetas[k_small])))
+
+                    # et rentre très légèrement la grande (jusqu’à R_MIN)
+                    xb, yb = autotexts[k_big].get_position()
+                    rb = max(np.hypot(xb, yb) - DR_IN, R_MIN)
+                    autotexts[k_big].set_position((rb*np.cos(thetas[k_big]), rb*np.sin(thetas[k_big])))
+
+                    changed = True
+        if changed:
+            fig_pie.canvas.draw()
+        iters += 1
+
+        # améliore la lisibilité (optionnel)
+        t.set_bbox(dict(boxstyle="round,pad=0.25", fc="white", ec="none", alpha=0.6))
+
+        buf_pie = BytesIO()
+        fig_pie.savefig(buf_pie, format='png', bbox_inches='tight')
+        plt.close(fig_pie)
+        buf_pie.seek(0)
+
+        # --- Image de la légende seule ---
+        fig_legend, legend_ax = plt.subplots(figsize=(5, 1.5))
+        legend_ax.axis('off')  # pas d'axes visibles
+
+        # Création d'une légende en utilisant les wedges et noms filtrés
+        legend = legend_ax.legend(
+            wedges, filtered_names,
+            loc='center',
+            fontsize=11,
+            frameon=False,
+            ncol=3
+        )
 
     buf_legend = BytesIO()
     fig_legend.savefig(buf_legend, format='png', bbox_inches='tight')

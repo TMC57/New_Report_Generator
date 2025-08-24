@@ -316,6 +316,8 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
         # dictionnaire des pages
         pages = {}
 
+        # ==================== pages fixes ====================
+
         pages[1] = [
             Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm),
             report_title, Spacer(1, 0.2*cm), facility_title,
@@ -327,6 +329,8 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
             page_2_title, Spacer(1, 0.5*cm), image_text_table
         ]
 
+        # ==================== pages dynamiques ====================
+
         current_page = 3
         for zone in zones_to_process:
             fac_z = filter_facility_by_zone(facility, zone)
@@ -334,7 +338,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
             eau_products, other_products = _split_products_by_eau(fac_z)
             print(f"[DEBUG] Zone {zone} → EAU={len(eau_products)} / HORS_EAU={len(other_products)}")
 
-            # 1) EAU uniquement si présent
+            # 1) ==================== EAU uniquement si présent ====================
             if eau_products:
                 fac_eau = {**fac_z, "products": eau_products}
                 buf_bar_eau = generate_bar_chart(fac_eau, from_date, to_date)
@@ -347,7 +351,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
                     ]
                     current_page += 1
 
-            # 2) HORS EAU uniquement si présent
+            # 2) ==================== HORS EAU uniquement si présent =================================
             if other_products:
                 fac_autres = {**fac_z, "products": other_products}
                 buf_bar_autres = generate_bar_chart(fac_autres, from_date, to_date)
@@ -360,7 +364,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
                     ]
                     current_page += 1
 
-            # 3) Si aucune des deux catégories n’a de données
+            # 3) ==================== Si aucune des deux catégories n’a de données ====================
             if not eau_products and not other_products:
                 pages[current_page] = [
                     Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
@@ -368,7 +372,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
                 ]
                 current_page += 1
 
-            # --- PIE CHART + LEGEND (zone entière) ---
+            # ==================== PIE CHART + LEGEND (zone entière) ====================
             buf_pie, buf_legend = generate_pie_chart_and_legend(fac_z, from_date, to_date)
             pie_chart_img = _img(buf_pie, 9*cm, 9*cm)
             legend_img    = _img(buf_legend, 15*cm, 2.5*cm)
@@ -380,7 +384,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
             ]
             current_page += 1
 
-            # --- TABLES ---
+            # ==================== TABLES ====================
             tables = generate_table(fac_z, from_date, to_date)
             pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 3*cm)] + tables
             current_page += 1
@@ -390,14 +394,16 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
             current_page += 1
 
 
-        # 🔹 Ajouter le footer à chaque page
+        # 🔹 ==================== Ajouter le footer à chaque page ====================
         for key in pages:
             pages[key].append(FrameBreak())
             pages[key].append(get_footer_table(facility_id, config_data))
 
         elements = distribute_elements_by_page(pages)
 
-        # Création du BaseDocTemplate avec 2 frames
+
+
+        # ==================== Création du BaseDocTemplate avec 2 frames ====================
         PAGE_WIDTH, PAGE_HEIGHT = landscape(A4)
         main_frame = Frame(2*cm, 3*cm, PAGE_WIDTH - 3*cm, PAGE_HEIGHT - 3*cm, id='main_frame')
         footer_frame = Frame(2*cm, -0.2*cm, PAGE_WIDTH - 3*cm, 3*cm, id='footer_frame')
@@ -416,3 +422,4 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, from_date: str, to_
 
     print("PDFs générés dans le dossier 'reports/'")
     return 0
+
