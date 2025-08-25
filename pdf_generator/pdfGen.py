@@ -32,6 +32,7 @@ from tables import generate_table, generate_monthly_table
 from BarCharts import generate_bar_chart
 from PieCharts import generate_pie_chart_and_legend
 from getDebit import login_session_cm2w, get_events
+from MyTime import date_tsd
 
 import copy
 
@@ -180,31 +181,43 @@ def get_footer_table(facility_id, config_data):
     return table
 
 def get_picture_path(facility_id, config_data, picture_name):
+    # Récup chemin comme avant
     config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
     picture_path = config_item[picture_name] if config_item else "images/full.png"
     if picture_path == "":
         picture_path = "images/upload-error.png"
-    # picture_path = picture_path.replace("\\", "/")
     if picture_path.startswith("/"):
         picture_path = picture_path[1:]
-    with PILImage.open(picture_path) as img:
-        original_width, original_height = img.size
 
-    ratio = original_width / original_height
+    # Lire dimensions et DPI
+    try:
+        with PILImage.open(picture_path) as img:
+            orig_w_px, orig_h_px = img.size
+            dpi = img.info.get("dpi", (72, 72))
+            dpi_x = dpi[0] if isinstance(dpi, (tuple, list)) and len(dpi) >= 1 else 72
+            dpi_y = dpi[1] if isinstance(dpi, (tuple, list)) and len(dpi) >= 2 else 72
+    except Exception as e:
+        # fallback si image illisible
+        orig_w_px, orig_h_px = (800, 600)
+        dpi_x = dpi_y = 72
 
-    max_width = 20*cm
-    max_height = 11*cm    
+    # Dimensions "naturelles" en points (ReportLab)
+    nat_w_pts = (orig_w_px * 72.0) / float(dpi_x)
+    nat_h_pts = (orig_h_px * 72.0) / float(dpi_y)
 
-    if max_width / max_height > ratio:
-    # Limite hauteur
-        final_height = max_height
-        final_width = max_height * ratio
-    else:
-        # Limite largeur
-        final_width = max_width
-        final_height = max_width / ratio
+    # Boîte max (comme avant, en points via *cm)
+    max_width  = 20 * cm
+    max_height = 11 * cm
+
+    # Facteur d’échelle qui respecte le ratio et ne dépasse pas la boîte
+    # + n’agrandit pas l’image (min(..., 1.0))
+    scale = min(max_width / nat_w_pts, max_height / nat_h_pts, 1.0)
+
+    final_width  = nat_w_pts * scale
+    final_height = nat_h_pts * scale
 
     return picture_path, final_width, final_height
+
 
 def get_configJson_text_info(facility_id, config_data, fieldName):
     config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
@@ -341,11 +354,8 @@ def build_stock_table_for_facility_zone(facility_id: int, fac_z: dict, stock_lev
         except Exception:
             pass  # si non numérique, on ne colore pas
 
-
-
     tbl.setStyle(TableStyle(style_cmds))
     return tbl
-
 
 
 
@@ -353,9 +363,14 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
 
     os.makedirs("reports", exist_ok=True)
 
-    # session, token = login_session_cm2w()
-    # events = get_events(session, device_id=56753, from_ms=1751320800000, thru_ms=1753912800000)
-    # print(events)
+    session, token = login_session_cm2w()
+
+    newto = date_tsd(from_date, "%Y-%m-%d")
+    newfrom = date_tsd(to_date, "%Y-%m-%d")
+
+
+    events = get_events(session, device_id=56753, from_ms=newto, thru_ms=newfrom)
+    print(events)
 
     styles = getSampleStyleSheet()
     title_style = styles["Title"]
@@ -387,11 +402,11 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}", title_style)
         page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {date_last_intervention} ", title_style)
 
-        cover_picture_path, final_width, final_height = get_picture_path(facility_id, config_data, "cover_picture")
-        material_picture_path,final_width, final_height = get_picture_path(facility_id, config_data, "material_picture")
+        cover_picture_path, cover_final_width, cover_final_height = get_picture_path(facility_id, config_data, "cover_picture")
+        material_picture_path, material_final_width, material_final_height = get_picture_path(facility_id, config_data, "material_picture")
 
-        cover_picture = Image(cover_picture_path, final_width, final_height)
-        material_picture = Image(material_picture_path, final_width, final_height)
+        cover_picture = Image(cover_picture_path, cover_final_width, cover_final_height)
+        material_picture = Image(material_picture_path, material_final_width, material_final_height)
 
         TMH_logo_path = "images/Logo - Orsy e wash.png"
         TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)

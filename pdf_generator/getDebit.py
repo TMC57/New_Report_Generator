@@ -55,8 +55,8 @@ def get_events(session, device_id, from_ms, thru_ms, page=1, size=5000):
 
 # --- Utilisation ---
 # 1) On s'authentifie UNE fois
-session, token = login_session_cm2w()
+# session, token = login_session_cm2w()
 
 # 2) Plus tard, on réutilise LA MÊME session
-events = get_events(session, device_id=56753, from_ms=1751320800000, thru_ms=1753912800000)
+# events = get_events(session, device_id=56753, from_ms=1751320800000, thru_ms=1753912800000)
 # print("events:", type(events), len(events) if isinstance(events, list) else "json")
