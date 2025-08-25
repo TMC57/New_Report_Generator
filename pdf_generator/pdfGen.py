@@ -400,12 +400,12 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         texte_droite = Table([[Paragraph(buses_infos, subtitle_style)]], hAlign='RIGHT')
 
         row = [material_picture_left, texte_droite]
-        image_text_table = Table([row], colWidths=[8*cm, 12*cm])  # ajuste les largeurs
+        image_text_table = Table([row], colWidths=[8*cm, 16*cm])  # ajuste les largeurs
 
         image_text_table.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "MIDDLE"), 
             ("ALIGN", (1, 0), (1, 0), "LEFT"),  
-            ("LEFTPADDING", (1, 0), (1, 0), 150),  # 👈 espace entre l'image et le texte
+            ("LEFTPADDING", (1, 0), (1, 0), 120),  # 👈 espace entre l'image et le texte
             ("RIGHTPADDING", (1, 0), (1, 0), 0),    
         ])) 
 
