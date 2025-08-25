@@ -13,7 +13,6 @@ from model import model, body_total_qty_report, body_devices_list, body_stock_le
 from DataTransform import get_total_qty_every_days, get_total_qty_every_month, enrich_json_with_zone
 from pdfGen import generate_pdfs_by_facility
 from Json_parameter import transform_facility_json
-from getDebit import login_session_cm2w
 
 
 logger = logging.getLogger("uvicorn.error")

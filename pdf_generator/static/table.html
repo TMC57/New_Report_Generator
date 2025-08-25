@@ -47,75 +47,83 @@
       buildTable();
     }
 
-    function buildTable() {
-      const table = document.getElementById("jsonTable");
-      table.innerHTML = "";
+      function buildTable() {
+    const table = document.getElementById("jsonTable");
+    table.innerHTML = "";
 
-      // Header
-      const thead = document.createElement("thead");
-      const headerRow = document.createElement("tr");
-      columns.forEach(key => {
-        const th = document.createElement("th");
-        th.textContent = key;
-        headerRow.appendChild(th);
-      });
-      thead.appendChild(headerRow);
-      table.appendChild(thead);
+    // Header
+    const thead = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+    columns.forEach(key => {
+      const th = document.createElement("th");
+      th.textContent = key;
+      headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
 
-      // Body
-      const tbody = document.createElement("tbody");
-      data.forEach((row, rowIndex) => {
-        const tr = document.createElement("tr");
-        columns.forEach(col => {
-          const td = document.createElement("td");
-          const cellValue = row[col];
+    // Body
+    const tbody = document.createElement("tbody");
+    data.forEach((row, rowIndex) => {
+      const tr = document.createElement("tr");
+      columns.forEach(col => {
+        const td = document.createElement("td");
+        const cellValue = row[col];
 
-          // 1) Non éditables
-          if (READONLY_FIELDS.includes(col)) {
+        // 1) Non éditables
+        if (READONLY_FIELDS.includes(col)) {
           td.textContent = cellValue ?? "";
-          }
-          // 2) Champs image (drag & drop)
-          else if (IMAGE_FIELDS.includes(col)) {
-            const dropZone = createDropZone(rowIndex, col, cellValue);
-            td.appendChild(dropZone);
-          }
-          // 3) Objets imbriqués -> mini-formulaire dans la cellule
-          else if (isPlainObject(cellValue)) {
-            const container = document.createElement("div");
-            container.className = "subfield-container";
+        }
+        // 2) Champs image (drag & drop)
+        else if (IMAGE_FIELDS.includes(col)) {
+          const dz = createDropZone(rowIndex, col, cellValue);
+          td.appendChild(dz);
+        }
+        // 3) Objets imbriqués
+        // 3) Objets imbriqués  ➜ inputs avec placeholder = nom du sous-champ
+        else if (isPlainObject(cellValue)) {
+          const container = document.createElement("div");
+          container.className = "subfield-container";
 
-            Object.keys(cellValue).forEach(subKey => {
-                const input = document.createElement("input");
-                input.type = "text";
-                input.placeholder = subKey; // Affiche le nom du champ dans le input
-                input.value = cellValue[subKey] ?? "";
-                input.addEventListener("input", (e) => {
-                data[rowIndex][col][subKey] = e.target.value;
-                });
-                container.appendChild(input);
-
-            });
-
-            td.appendChild(container);
-          }
-          // 4) Champs texte classiques
-          else {
+          Object.keys(cellValue).forEach(subKey => {
             const input = document.createElement("input");
             input.type = "text";
-            input.value = cellValue ?? "";
+            input.placeholder = subKey;         // <<--- nom du champ DANS le champ
+            input.title = subKey;               // tooltip au survol (optionnel)
+            input.value = cellValue[subKey] ?? "";
             input.addEventListener("input", (e) => {
-              data[rowIndex][col] = e.target.value;
+              data[rowIndex][col][subKey] = e.target.value;
             });
-            td.appendChild(input);
+            container.appendChild(input);
+          });
+
+          td.appendChild(container);
+        }
+
+        // 4) Champs texte classiques (+ textarea pour "relevés buses")
+        else {
+          let input;
+          if (col === "relevés buses") {
+            input = document.createElement("textarea");
+            input.rows = 3;
+          } else {
+            input = document.createElement("input");
+            input.type = "text";
           }
+          input.value = cellValue ?? "";
+          input.addEventListener("input", (e) => {
+            data[rowIndex][col] = e.target.value;
+          });
+          td.appendChild(input);
+        }
 
-          tr.appendChild(td);
-        });
-        tbody.appendChild(tr);
+        tr.appendChild(td);
       });
+      tbody.appendChild(tr);
+    });
 
-      table.appendChild(tbody);
-    }
+    table.appendChild(tbody);
+  }
 
     function isPlainObject(value) {
       return typeof value === "object" && value !== null && !Array.isArray(value);
