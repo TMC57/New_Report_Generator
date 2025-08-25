@@ -205,6 +205,11 @@ def get_picture_path(facility_id, config_data, picture_name):
         final_height = max_width / ratio
 
     return picture_path, final_width, final_height
+
+def get_configJson_text_info(facility_id, config_data, fieldName):
+    config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
+    date = config_item[fieldName] if config_item else "no data found"
+    return date
     
 
 def distribute_elements_by_page(pages_dict: dict[int, list]):
@@ -368,21 +373,19 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         serial_numbers = get_serial_numbers_for_facility(devices_list, facility_id)
         devices_serial_numbers = Paragraph(f"N°ROUTEUR(S): " + " / ".join(serial_numbers), title_style)
 
-
-        # get_deviceID_for_facility
-
-
-
         # 🔹 Détection simplifiée via champ JSON 'zone'
         zones_to_process = _detect_zones_for_facility(facility)
         # print(f"{facility['facilityName']} → zones : {zones_to_process}")
         # is_global_only = (len(zones_to_process) == 1 and zones_to_process[0].upper() == "GLOBAL")
 
-
         # --- Création des composants communs (inchangé) ---
+        date_last_intervention = get_configJson_text_info(facility_id, config_data, "dernière intervention")
+        buses_infos = get_configJson_text_info(facility_id, config_data, "relevés buses")
+        buses_infos = buses_infos.replace("\n", "<br/>")
+
         facility_title = Paragraph(facility["facilityName"], title_style)
         report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_date} AU {to_date}", title_style)
-        page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {from_date} ", title_style)
+        page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {date_last_intervention} ", title_style)
 
         cover_picture_path, final_width, final_height = get_picture_path(facility_id, config_data, "cover_picture")
         material_picture_path,final_width, final_height = get_picture_path(facility_id, config_data, "material_picture")
@@ -394,7 +397,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)
 
         material_picture_left = Table([[material_picture]], hAlign='LEFT')
-        texte_droite = Table([[Paragraph("• PRESSION D’EAU RELEVÉ :<br/> 3,1 BARS<br/><br/>• WNC: 3,9%<br/>Buse Jaune", subtitle_style)]], hAlign='RIGHT')
+        texte_droite = Table([[Paragraph(buses_infos, subtitle_style)]], hAlign='RIGHT')
 
         row = [material_picture_left, texte_droite]
         image_text_table = Table([row], colWidths=[8*cm, 12*cm])  # ajuste les largeurs
