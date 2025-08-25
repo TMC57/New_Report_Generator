@@ -323,15 +323,19 @@ def build_stock_table_for_facility_zone(facility_id: int, fac_z: dict, stock_lev
     ]
 
     # Colorer en rouge chaque "Stock restant" <= 0 (colonne 1)
+    # Colorer "Stock restant" : rouge si <= 0, vert si > 0 (colonne 1)
     for i, row in enumerate(rows, start=1):  # +1 car il y a l'en-tête
         val = str(row[1])
         try:
-            # retirer " L", espaces, etc.
+            # retirer " L", espaces, etc. pour convertir en float
             num = float(val.replace("L", "").replace(" ", "").replace(",", "."))
             if num <= 0:
                 style_cmds.append(('TEXTCOLOR', (1, i), (1, i), colors.red))
-        except Exception as e:
-            pass  # si ça ne se convertit pas → on ignore
+            else:
+                style_cmds.append(('TEXTCOLOR', (1, i), (1, i), colors.green))
+        except Exception:
+            pass  # si non numérique, on ne colore pas
+
 
 
     tbl.setStyle(TableStyle(style_cmds))
@@ -341,7 +345,6 @@ def build_stock_table_for_facility_zone(facility_id: int, fac_z: dict, stock_lev
 
 
 def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_date: str, to_date: str):
-    print(stock_levels['currentTime'])
 
     os.makedirs("reports", exist_ok=True)
 
@@ -366,13 +369,13 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         devices_serial_numbers = Paragraph(f"N°ROUTEUR(S): " + " / ".join(serial_numbers), title_style)
 
 
-        get_deviceID_for_facility
+        # get_deviceID_for_facility
 
 
 
         # 🔹 Détection simplifiée via champ JSON 'zone'
         zones_to_process = _detect_zones_for_facility(facility)
-        print(f"{facility['facilityName']} → zones : {zones_to_process}")
+        # print(f"{facility['facilityName']} → zones : {zones_to_process}")
         # is_global_only = (len(zones_to_process) == 1 and zones_to_process[0].upper() == "GLOBAL")
 
 
@@ -427,7 +430,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
             fac_z = filter_facility_by_zone(facility, zone)
             # --- BAR CHART(S) : split EAU vs hors EAU ---
             eau_products, other_products = _split_products_by_eau(fac_z)
-            print(f"[DEBUG] Zone {zone} → EAU={len(eau_products)} / HORS_EAU={len(other_products)}")
+            # print(f"[DEBUG] Zone {zone} → EAU={len(eau_products)} / HORS_EAU={len(other_products)}")
 
             # 1) ==================== EAU uniquement si présent ====================
             if eau_products:
@@ -463,19 +466,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
                 ]
                 current_page += 1
 
-            # ==================== PIE CHART + LEGEND (zone entière) ====================
-            buf_pie, buf_legend = generate_pie_chart_and_legend(fac_z, from_date, to_date)
-            pie_chart_img = _img(buf_pie, 9*cm, 9*cm)
-            legend_img    = _img(buf_legend, 15*cm, 2.5*cm)
-
-            pages[current_page] = [
-                Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
-                Paragraph(f"RÉPARTITION DES CONSOMMATIONS - {zone}", title_style),
-                Spacer(1, 0.3*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img
-            ]
-            current_page += 1
-
-            # ==================== TABLES ====================
+            # ==================== TABLES days ====================
             tables = generate_table(fac_z, from_date, to_date)  # renvoie [table] ou [table1, table2]
             table_page_title = Paragraph(f"CONSOMMATION QUOTIDIENNE DE PRODUITS", title_style)
             pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_page_title, Spacer(1, 0.5*cm)] + tables
@@ -492,6 +483,21 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
 
             current_page += 1
 
+
+            # ==================== PIE CHART + LEGEND (zone entière) ====================
+            buf_pie, buf_legend = generate_pie_chart_and_legend(fac_z, from_date, to_date)
+            pie_chart_img = _img(buf_pie, 9*cm, 9*cm)
+            legend_img    = _img(buf_legend, 15*cm, 2.5*cm)
+
+            pages[current_page] = [
+                Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                Paragraph(f"RÉPARTITION DES CONSOMMATIONS - {zone}", title_style),
+                Spacer(1, 0.3*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img
+            ]
+            current_page += 1
+
+
+            # ==================== TABLES Month ====================
             tables_year = generate_monthly_table(fac_z)
             table_month_page_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS", title_style)
             pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_month_page_title, Spacer(1, 1*cm)] + tables_year

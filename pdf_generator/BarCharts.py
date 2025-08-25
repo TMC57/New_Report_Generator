@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from io import BytesIO
 import matplotlib.ticker as ticker
+from colors_map import get_colors_for_products  # <-- AJOUT
 
 def generate_bar_chart(facility, from_date: str, to_date: str):
     start = datetime.strptime(from_date, "%Y-%m-%d")
@@ -12,6 +13,8 @@ def generate_bar_chart(facility, from_date: str, to_date: str):
 
     products = facility["products"]
     product_names = [p.get("name", "Unknown Product") for p in products]
+
+    colors = get_colors_for_products(product_names)
 
     # Préparation des données
     data_by_product = []
@@ -36,7 +39,7 @@ def generate_bar_chart(facility, from_date: str, to_date: str):
 
     for i, daily_data in enumerate(data_by_product):
         offset = [xi + i * width for xi in x]
-        ax.bar(offset, daily_data, width=width, label=product_names[i])
+        ax.bar(offset, daily_data, width=width, label=product_names[i], color=colors[i])    
 
     ax.set_xticks([xi + width * (len(products) / 2) for xi in x])
     ax.set_xticklabels(date_labels, rotation=45)

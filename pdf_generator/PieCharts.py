@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from io import BytesIO
 import numpy as np
+from colors_map import get_colors_for_products  # <-- AJOUT
 
 def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     start = datetime.strptime(from_date, "%Y-%m-%d")
@@ -26,6 +27,9 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
             filtered_names.append(name)
             filtered_totals.append(total)
 
+    # Couleurs cohérentes alignées sur les noms filtrés
+    filtered_colors = get_colors_for_products(filtered_names) 
+
     def format_liters(pct, all_vals):
         total_ml = sum(all_vals)
         value_ml = pct * total_ml / 100
@@ -37,14 +41,15 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
 
     wedges, texts, autotexts = pie_ax.pie(
         filtered_totals,
-        labels=None,  # noms mis dans la légende
+        labels=None,
         autopct=lambda pct: format_liters(pct, filtered_totals),
         startangle=90,
         counterclock=False,
         wedgeprops={'edgecolor': 'black', 'linewidth': 0.2},
         normalize=True,
-        pctdistance=0.50,            # éloigne les nombres du centre
-        textprops={'fontsize': 14},  # nombres plus gros
+        pctdistance=0.50,
+        textprops={'fontsize': 14},
+        colors=filtered_colors,  # <-- AJOUT
     )
     pie_ax.set_aspect('equal')
     pie_ax.margins(0)
@@ -141,6 +146,8 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
         legend_ax.axis('off')  # pas d'axes visibles
 
         # Création d'une légende en utilisant les wedges et noms filtrés
+
+        # Légende : on réutilise 'wedges' + 'filtered_names' (déjà colorés)
         legend = legend_ax.legend(
             wedges, filtered_names,
             loc='center',
