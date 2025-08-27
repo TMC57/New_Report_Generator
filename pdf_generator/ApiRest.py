@@ -10,10 +10,13 @@ from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from model import model, body_total_qty_report, body_devices_list, body_stock_levels
-from DataTransform import get_total_qty_every_days, get_total_qty_every_month, enrich_json_with_zone
+from DataTransform import get_total_qty_every_days, get_total_qty_every_month, enrich_json_with_zone, group_qty_by_owner_and_facility
 from pdfGen import generate_pdfs_by_facility
 from Json_parameter import transform_facility_json
+from group_parameter import build_group_config_from_devices_list
 
+
+GROUP_FILE = "GroupConfigJson.json"
 
 logger = logging.getLogger("uvicorn.error")
 
@@ -55,10 +58,21 @@ def  Total_Quantity_Report_grouped_by_facilities(
 
     endpoint, headers, params =  body_total_qty_report(from_date, to_date_plus_one, facility_id) 
     total_qty = model(endpoint, headers, params)
-    print(total_qty.json())
+    
+    endpoint, headers, params = body_devices_list(facility_id)
+    devices_list = model(endpoint, headers, params).json()
 
-    # endpoint, headers, params = body_devices_list(facility_id)
-    # devices_list = model(endpoint, headers, params).json()
+    agg = group_qty_by_owner_and_facility(total_qty.json(), devices_list)
+
+
+    # Exemple: afficher le total par owner
+    for o in agg["owners"]:
+        print(o["owner"], "→", o["totalQty"])
+
+
+    build_group_config_from_devices_list(devices_list)
+
+
 
     # endpoint, headers, params = body_stock_levels(facility_id)
     # stock_levels = model(endpoint, headers, params).json()
@@ -67,6 +81,8 @@ def  Total_Quantity_Report_grouped_by_facilities(
     # total_qty_Json = get_total_qty_every_days(total_qty.json(), from_date, to_date, facility_id)
     # total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
     # total_qty_Json = enrich_json_with_zone(total_qty_Json)
+
+    # print(total_qty_Json)
     # # ======================================================
     # transform_facility_json(devices_list)
     # generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)
@@ -102,3 +118,22 @@ async def upload(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
     # On retourne un chemin web-accessible pour l'afficher directement (<img src="/uploads/...">)
     return {"path": f"/uploads/{file.filename}"}
+
+
+@app.get("/group-items", include_in_schema=False)
+def get_group_items():
+    if not os.path.exists(GROUP_FILE):
+        return []
+    with open(GROUP_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+@app.put("/group-items", include_in_schema=False)
+def save_group_items(items: list[dict]):
+    with open(GROUP_FILE, "w", encoding="utf-8") as f:
+        json.dump(items, f, ensure_ascii=False, indent=2)
+    return {"saved": len(items)}
+
+# Page web d’édition des groupes
+@app.get("/group-app", include_in_schema=False)
+def group_app():
+    return FileResponse("static/group_table.html")

@@ -3,6 +3,8 @@ from datetime import datetime, timedelta
 from calendar import monthrange
 import re
 from collections import OrderedDict
+from collections import defaultdict
+from typing import Dict, Any, List
 
 def get_total_qty_every_days(Json_to_fill, from_date, to_date, facilityId=None):
     current_date = datetime.strptime(from_date, "%Y-%m-%d")
@@ -181,3 +183,107 @@ def enrich_json_with_zone(json_data):
                 product["zone"] = "GLOBAL"  # si aucune zone trouvée
 
     return json_data
+
+
+def group_qty_by_owner_and_facility(total_qty_json: Dict[str, Any],
+                                    devices_list_json: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Agrège les quantités consommées par produit, regroupées par owner puis par facility.
+
+    Entrées:
+      - total_qty_json: JSON de "total quantity" (clé data.results avec [{ facilityId, facilityName, products:[{name, qty}, ...] }, ...])
+      - devices_list_json: JSON de "device list" (clé data: [{ owner, facilityId, facilityName, ... }, ...])
+
+    Sortie:
+      {
+        "owners": [
+          {
+            "owner": "...",
+            "totalQty": <somme de toutes les qty du groupe>,
+            "facilities": [
+              {
+                "facilityId": ...,
+                "facilityName": "...",
+                "totalQty": <somme de toutes les qty de la facility>,
+                "products": [
+                  {"name": "...", "qty": <somme>},
+                  ...
+                ]
+              },
+              ...
+            ]
+          },
+          ...
+        ]
+      }
+    """
+    # 1) Dictionnaire: facilityId -> (owner, facilityName)
+    fac_to_owner: Dict[int, Dict[str, str]] = {}
+    for fac in (devices_list_json or {}).get("data", []):
+        fac_to_owner[fac.get("facilityId")] = {
+            "owner": fac.get("owner") or "OWNER_INCONNU",
+            "facilityName": fac.get("facilityName") or ""
+        }
+
+    # 2) Agrégation par owner -> facility -> product
+    owners = defaultdict(lambda: {
+        "owner": None,
+        "totalQty": 0,
+        "facilities": defaultdict(lambda: {
+            "facilityId": None,
+            "facilityName": "",
+            "totalQty": 0,
+            "products": defaultdict(int)  # name -> qty
+        })
+    })
+
+    results: List[Dict[str, Any]] = (total_qty_json or {}).get("data", {}).get("results", []) or []
+    for row in results:
+        fac_id = row.get("facilityId")
+        fac_name = row.get("facilityName") or ""
+        meta = fac_to_owner.get(fac_id, {"owner": "OWNER_INCONNU", "facilityName": fac_name})
+        owner_name = meta["owner"]
+
+        # Initialise structures
+        owner_bucket = owners[owner_name]
+        owner_bucket["owner"] = owner_name
+        fac_bucket = owner_bucket["facilities"][fac_id]
+        fac_bucket["facilityId"] = fac_id
+        fac_bucket["facilityName"] = fac_name or meta.get("facilityName", "")
+
+        # Produits pour cette ligne
+        for p in row.get("products", []) or []:
+            pname = (p.get("name") or "UNKNOWN PRODUCT").strip()
+            qty = p.get("qty") or 0
+            try:
+                qty = float(qty)
+            except Exception:
+                qty = 0.0
+
+            fac_bucket["products"][pname] += qty
+            fac_bucket["totalQty"] += qty
+            owner_bucket["totalQty"] += qty
+
+    # 3) Mise en forme finale (transformer les defaultdict en listes propres)
+    owners_list = []
+    for owner_name, ob in owners.items():
+        facilities_list = []
+        for fac_id, fb in ob["facilities"].items():
+            products_list = [{"name": n, "qty": v} for n, v in sorted(fb["products"].items())]
+            facilities_list.append({
+                "facilityId": fb["facilityId"],
+                "facilityName": fb["facilityName"],
+                "totalQty": fb["totalQty"],
+                "products": products_list
+            })
+        # trier les facilities par nom (ou id)
+        facilities_list.sort(key=lambda x: (x["facilityName"] or "", x["facilityId"] or 0))
+        owners_list.append({
+            "owner": ob["owner"] or owner_name,
+            "totalQty": ob["totalQty"],
+            "facilities": facilities_list
+        })
+
+    # trier les owners par nom
+    owners_list.sort(key=lambda x: x["owner"] or "")
+    return {"owners": owners_list}

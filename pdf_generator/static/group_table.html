@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Group Config Editor</title>
+<style>
+  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin:20px; }
+  table { width:100%; border-collapse: collapse; }
+  th, td { border:1px solid #ddd; padding:8px; vertical-align: top; }
+  th { background:#f5f5f5; position: sticky; top:0; }
+  input[type="text"], textarea { width:95%; padding:4px; box-sizing:border-box; }
+  textarea { resize: vertical; }
+  .dropzone {
+  border: 2px dashed #bbb;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  background: #fafafa;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-direction: column;
+}
+.dropzone .dz-hint { font-weight: 600; color: #666; }
+.dropzone .dz-sub { font-size: 12px; color: #999; }
+.dropzone.dragover {
+  background: #f0f7ff;
+  border-color: #5aa3ff;
+}
+.thumb { max-width: 140px; max-height: 90px; display: block; }
+
+  .thumb { max-width:140px; max-height:90px; display:block; margin:0 auto; }
+  .toolbar { margin-bottom:12px; display:flex; gap:8px; align-items:center; }
+  .readonly { color:#555; }
+</style>
+</head>
+<body>
+  <h1>Configuration des GROUPES (par owner)</h1>
+  <div class="toolbar">
+    <button id="saveBtn">💾 Sauvegarder</button>
+    <span id="status"></span>
+  </div>
+  <table id="jsonTable"></table>
+
+<script>
+const READONLY_FIELDS = ["owner", "facilities"];
+const IMAGE_FIELDS = ["cover_picture"];
+let data = [];
+let columns = [
+  "owner",
+  "facilities",
+  "cover_picture",
+  "inventory_monitoring_manager",
+  "customer_technical_relay_manager",
+  "file_referent",
+  "primary_company_brand"
+];
+
+
+function isPlainObject(o) { return o && typeof o === "object" && !Array.isArray(o); }
+
+async function load() {
+  const res = await fetch("/group-items");
+  data = await res.json();
+  buildTable();
+}
+
+function buildTable() {
+  const table = document.getElementById("jsonTable");
+  table.innerHTML = "";
+
+  // header
+  const thead = document.createElement("thead");
+  const trh = document.createElement("tr");
+  columns.forEach(k => {
+    const th = document.createElement("th");
+    th.textContent = k;
+    trh.appendChild(th);
+  });
+  thead.appendChild(trh);
+  table.appendChild(thead);
+
+  // body
+  const tbody = document.createElement("tbody");
+  data.forEach((row, rowIndex) => {
+    const tr = document.createElement("tr");
+    columns.forEach(col => {
+      const td = document.createElement("td");
+      const cellValue = row[col];
+
+      if (READONLY_FIELDS.includes(col)) {
+        if (col === "facilities") {
+          // afficher la liste en RO
+          const txt = (Array.isArray(cellValue) ? cellValue.map(f => `${f.facilityId} - ${f.facilityName}`).join("\n") : "");
+          const pre = document.createElement("pre");
+          pre.className = "readonly";
+          pre.style.margin = 0;
+          pre.textContent = txt;
+          td.appendChild(pre);
+        } else {
+          td.textContent = cellValue ?? "";
+          td.className = "readonly";
+        }
+      }
+      else if (IMAGE_FIELDS.includes(col)) {
+        td.appendChild(createDropZone(rowIndex, col, cellValue));
+      }
+      else if (isPlainObject(cellValue)) {
+        // sous-champs : placeholders dans l'input
+        const container = document.createElement("div");
+        Object.keys(cellValue).forEach(subKey => {
+          const input = document.createElement("input");
+          input.type = "text";
+          input.placeholder = subKey;
+          input.title = subKey;
+          input.value = cellValue[subKey] ?? "";
+          input.addEventListener("input", e => {
+            data[rowIndex][col][subKey] = e.target.value;
+          });
+          container.appendChild(input);
+        });
+        td.appendChild(container);
+      }
+      else {
+        let input;
+        if (col === "relevés buses") {
+          input = document.createElement("textarea");
+          input.rows = 3;
+        } else {
+          input = document.createElement("input");
+          input.type = "text";
+        }
+        input.value = cellValue ?? "";
+        input.addEventListener("input", e => {
+          data[rowIndex][col] = e.target.value;
+        });
+        td.appendChild(input);
+      }
+
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+}
+
+function createDropZone(rowIndex, col, value) {
+  const dz = document.createElement("div");
+  dz.className = "dropzone";
+
+  const showEmpty = () => {
+    dz.innerHTML = "";
+    const hint = document.createElement("div");
+    hint.className = "dz-hint";
+    hint.textContent = "Déposez une image";
+    const sub = document.createElement("div");
+    sub.className = "dz-sub";
+    sub.textContent = "ou cliquez";
+    dz.appendChild(hint);
+    dz.appendChild(sub);
+  };
+
+  const showPreview = (src) => {
+    dz.innerHTML = "";
+    const img = document.createElement("img");
+    img.src = src;
+    img.className = "thumb";
+    dz.appendChild(img);
+  };
+
+  // ✅ affichage initial: preview si une valeur existe déjà, sinon message "Déposez une image"
+  if (value && typeof value === "string" && value.trim() !== "") {
+    showPreview(value);
+  } else {
+    showEmpty();
+  }
+
+  // Clic → file picker
+  dz.addEventListener("click", () => {
+    const inp = document.createElement("input");
+    inp.type = "file";
+    inp.accept = "image/*";
+    inp.onchange = () => handleFile(inp.files[0], rowIndex, col, dz, showPreview, showEmpty);
+    inp.click();
+  });
+
+  // Drag & drop
+  dz.addEventListener("dragenter", e => { e.preventDefault(); dz.classList.add("dragover"); });
+  dz.addEventListener("dragover",  e => { e.preventDefault(); dz.classList.add("dragover"); });
+  dz.addEventListener("dragleave", e => { dz.classList.remove("dragover"); });
+  dz.addEventListener("drop", async e => {
+    e.preventDefault();
+    dz.classList.remove("dragover");
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file) handleFile(file, rowIndex, col, dz, showPreview, showEmpty);
+  });
+
+  return dz;
+}
+
+async function handleFile(file, rowIndex, col, dz, showPreview, showEmpty) {
+  if (!file) return;
+  const fd = new FormData();
+  fd.append("file", file);
+  try {
+    const res = await fetch("/upload", { method: "POST", body: fd });
+    const js = await res.json();
+    if (js && js.path) {
+      // stocker l'URL web renvoyée par l'API
+      data[rowIndex][col] = js.path;
+      showPreview(js.path);
+    } else {
+      showEmpty();
+    }
+  } catch {
+    showEmpty();
+  }
+}
+
+document.getElementById("saveBtn").addEventListener("click", async () => {
+  const res = await fetch("/group-items", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  const js = await res.json();
+  document.getElementById("status").textContent = `✅ Sauvegardé (${js.saved} groupes)`;
+  setTimeout(() => document.getElementById("status").textContent = "", 2000);
+});
+
+load();
+</script>
+</body>
+</html>

@@ -1,511 +1,510 @@
 {'statusCode': 'SUCCESS', 'data': {'results': [
-            {'_id': 28194, 'facilityId': 28194, 'facilityName': 'ALTIS VANNES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 214059, 'productId': 214059, 'name': 'WNC40 Vannes', 'qty': 252988, 'price': 0.0, 'cur': 'eu', 'gr': 252988, 'isSolid': False, 'ratio': 1.0
+            {'_id': 33656, 'facilityId': 33656, 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 268724, 'productId': 268724, 'name': 'WNC40 UC SHAMPOING', 'qty': 36337, 'price': 0.0, 'cur': 'eu', 'gr': 36337, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 214053, 'productId': 214053, 'name': 'AUTO SÉCHANT VANNES', 'qty': 99755, 'price': 0.0, 'cur': 'eu', 'gr': 99755, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 268721, 'productId': 268721, 'name': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'qty': 183256, 'price': 0.0, 'cur': 'eu', 'gr': 183256, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 34735, 'facilityId': 34735, 'facilityName': 'BAYERN POITIERS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 278672, 'productId': 278672, 'name': 'Auto séchant bmw Bayern Poitiers', 'qty': 35734, 'price': 0.0, 'cur': 'eu', 'gr': 35734, 'isSolid': False, 'ratio': 1.0
+            {'_id': 33659, 'facilityId': 33659, 'facilityName': '1070020163 Etoile Autobernard | SOISSONS', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 268784, 'productId': 268784, 'name': 'AUTO SEC UC SOISSONS', 'qty': 29257, 'price': 0.0, 'cur': 'eu', 'gr': 29257, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 278669, 'productId': 278669, 'name': 'Wnc40 bmw Bayern Poitiers', 'qty': 102685, 'price': 0.0, 'cur': 'eu', 'gr': 102685, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 268787, 'productId': 268787, 'name': 'WNC40 UC SOISSONS', 'qty': 369042, 'price': 0.0, 'cur': 'eu', 'gr': 369042, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 29112, 'facilityId': 29112, 'facilityName': 'BMW BAYERN AVENUE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 237818, 'productId': 237818, 'name': 'WNC40 ZONE 2 CANNES', 'qty': 66385, 'price': 0.0, 'cur': 'eu', 'gr': 66385, 'isSolid': False, 'ratio': 1.0
+            {'_id': 28845, 'facilityId': 28845, 'facilityName': '1070029802\tFIX AUTO BORDEAUX', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 218022, 'productId': 218022, 'name': 'ECO CUBE SECH BORDEAUX', 'qty': 29469, 'price': 0.0, 'cur': 'eu', 'gr': 29469, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 237809, 'productId': 237809, 'name': 'AUTO SÉCHANT ZONE 2 CANNES', 'qty': 136545, 'price': 0.0, 'cur': 'eu', 'gr': 136545, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 237815, 'productId': 237815, 'name': 'WNC40 ZONE 1 CANNES', 'qty': 39469, 'price': 0.0, 'cur': 'eu', 'gr': 39469, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 237806, 'productId': 237806, 'name': 'AUTO SÉCHANT ZONE 1 CANNES', 'qty': 39826, 'price': 0.0, 'cur': 'eu', 'gr': 39826, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 218025, 'productId': 218025, 'name': 'ÉCO CUBE SHAMP BORDEAUX', 'qty': 15691, 'price': 0.0, 'cur': 'eu', 'gr': 15691, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1750291200000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 34640, 'facilityId': 34640, 'facilityName': 'By My Car | CARPENTRAS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 273617, 'productId': 273617, 'name': 'Wnc 40 by my car carpentras', 'qty': 416741, 'price': 0.0, 'cur': 'eu', 'gr': 416741, 'isSolid': False, 'ratio': 1.0
+            {'_id': 28605, 'facilityId': 28605, 'facilityName': '1070094841\tECA', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 215439, 'productId': 215439, 'name': 'Zone 1 WNC50 CORBEIL', 'qty': 300469, 'price': 0.0, 'cur': 'eu', 'gr': 300469, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 273620, 'productId': 273620, 'name': 'Auto séchant by my car carpentras', 'qty': 248069, 'price': 0.0, 'cur': 'eu', 'gr': 248069, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 215550, 'productId': 215550, 'name': 'ZONE 2 WNC50 CORBEIL', 'qty': 220650, 'price': 0.0, 'cur': 'eu', 'gr': 220650, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 215442, 'productId': 215442, 'name': 'ZONE 1 AUTOSECHANT CORBEIL', 'qty': 240291, 'price': 0.0, 'cur': 'eu', 'gr': 240291, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 215547, 'productId': 215547, 'name': 'ZONE 2 AUTOSECHANT CORBEIL', 'qty': 84, 'price': 0.0, 'cur': 'eu', 'gr': 84, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 35438, 'facilityId': 35438, 'facilityName': 'By My Car | CAVAILLON', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 288491, 'productId': 288491, 'name': 'Auto séchant innotec cavaillon', 'qty': 539476, 'price': 0.0, 'cur': 'eu', 'gr': 539476, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 288488, 'productId': 288488, 'name': 'Shampoing innotec cavaillon', 'qty': 318310, 'price': 0.0, 'cur': 'eu', 'gr': 318310, 'isSolid': False, 'ratio': 1.0
+            {'_id': 39556, 'facilityId': 39556, 'facilityName': '1070133566 STARTER 2009', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 343258, 'productId': 343258, 'name': 'AUTOSECHANT AUDI MENTON', 'qty': 52730, 'price': 0.0, 'cur': 'eu', 'gr': 52730, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 34643, 'facilityId': 34643, 'facilityName': 'By My Car | ORANGE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 273632, 'productId': 273632, 'name': 'Auto séchant by my car Orange', 'qty': 31154, 'price': 0.0, 'cur': 'eu', 'gr': 31154, 'isSolid': False, 'ratio': 1.0
+            {'_id': 28194, 'facilityId': 28194, 'facilityName': '1070133631\tALTIS VANNES', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 214059, 'productId': 214059, 'name': 'WNC40 Vannes', 'qty': 121013, 'price': 0.0, 'cur': 'eu', 'gr': 121013, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 273629, 'productId': 273629, 'name': 'Wnc40 by my car Orange', 'qty': 30625, 'price': 0.0, 'cur': 'eu', 'gr': 30625, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 309499, 'productId': 309499, 'name': 'Wnc31 portique orange by my car', 'qty': 3701, 'price': 0.0, 'cur': 'eu', 'gr': 3701, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 214053, 'productId': 214053, 'name': 'AUTO SÉCHANT VANNES', 'qty': 3942, 'price': 0.0, 'cur': 'eu', 'gr': 3942, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 28605, 'facilityId': 28605, 'facilityName': 'ECA - Evry Corbeil Automobile', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 215550, 'productId': 215550, 'name': 'ZONE 2 WNC50 CORBEIL', 'qty': 419367, 'price': 0.0, 'cur': 'eu', 'gr': 419367, 'isSolid': False, 'ratio': 1.0
+            {'_id': 32012, 'facilityId': 32012, 'facilityName': '1070171274 Espace Bienvenue | Rochefort', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 258182, 'productId': 258182, 'name': 'AUTO SEC UC BMW ROCHEFORT', 'qty': 262876, 'price': 0.0, 'cur': 'eu', 'gr': 262876, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 215547, 'productId': 215547, 'name': 'ZONE 2 AUTOSECHANT CORBEIL', 'qty': 83349, 'price': 0.0, 'cur': 'eu', 'gr': 83349, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 258191, 'productId': 258191, 'name': 'WNC50 BMW ROCHEFORT', 'qty': 406557, 'price': 0.0, 'cur': 'eu', 'gr': 406557, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 215442, 'productId': 215442, 'name': 'ZONE 1 AUTOSECHANT CORBEIL', 'qty': 310475, 'price': 0.0, 'cur': 'eu', 'gr': 310475, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 215439, 'productId': 215439, 'name': 'Zone 1 WNC50 CORBEIL', 'qty': 525282, 'price': 0.0, 'cur': 'eu', 'gr': 525282, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 258188, 'productId': 258188, 'name': 'WNC40 UC BMW ROCHEFORT', 'qty': 890, 'price': 0.0, 'cur': 'eu', 'gr': 890, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 37465, 'facilityId': 37465, 'facilityName': 'ENERGY CAR WASH SAS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 312856, 'productId': 312856, 'name': 'Wnc 40 energy car Nîmes Z2', 'qty': 55224, 'price': 0.0, 'cur': 'eu', 'gr': 55224, 'isSolid': False, 'ratio': 1.0
+            {'_id': 39562, 'facilityId': 39562, 'facilityName': '1070262035 GENIN zone 1', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 343396, 'productId': 343396, 'name': 'G1 ZONE 2 SHAMP VALENCE', 'qty': 8124, 'price': 0.0, 'cur': 'eu', 'gr': 8124, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 312847, 'productId': 312847, 'name': 'Auto séchant energy car Nîmes Z4', 'qty': 2169, 'price': 0.0, 'cur': 'eu', 'gr': 2169, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 312859, 'productId': 312859, 'name': 'Wnc 40 energy car Z4', 'qty': 13563, 'price': 0.0, 'cur': 'eu', 'gr': 13563, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 312853, 'productId': 312853, 'name': 'Wnc 40 energy car Nîmes Z1', 'qty': 642, 'price': 0.0, 'cur': 'eu', 'gr': 642, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 312850, 'productId': 312850, 'name': 'Auto séchant energy car Nîmes Z2', 'qty': 162064, 'price': 0.0, 'cur': 'eu', 'gr': 162064, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 321298, 'productId': 321298, 'name': 'Auto séchant energy car Nîmes Z5', 'qty': 1610, 'price': 0.0, 'cur': 'eu', 'gr': 1610, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 321307, 'productId': 321307, 'name': 'Wnc 40 UC energy car Nimes Z5', 'qty': 1220, 'price': 0.0, 'cur': 'eu', 'gr': 1220, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 321310, 'productId': 321310, 'name': 'Wnc 40 UC energy car Nimes Z3', 'qty': 5, 'price': 0.0, 'cur': 'eu', 'gr': 5, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 343390, 'productId': 343390, 'name': 'G1 ZONE 2 AUTOSECHANT VALENCE', 'qty': 3076, 'price': 0.0, 'cur': 'eu', 'gr': 3076, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 29806, 'facilityId': 29806, 'facilityName': 'ETS TOUQUET', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 227545, 'productId': 227545, 'name': 'AUTO SECHANT TOUQUET 1', 'qty': 28553, 'price': 0.0, 'cur': 'eu', 'gr': 28553, 'isSolid': False, 'ratio': 1.0
+            {'_id': 39565, 'facilityId': 39565, 'facilityName': '1070262035 GENIN zone 2', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 343417, 'productId': 343417, 'name': 'G1 ZONE 1  AUTOSECHANT VALENCE', 'qty': 936, 'price': 0.0, 'cur': 'eu', 'gr': 936, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 227539, 'productId': 227539, 'name': 'WNC40 TOUQUET 1', 'qty': 92250, 'price': 0.0, 'cur': 'eu', 'gr': 92250, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 343402, 'productId': 343402, 'name': 'G1 ZONE 2 AUTOSECHANT VALENCE', 'qty': 3353, 'price': 0.0, 'cur': 'eu', 'gr': 3353, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 228499, 'productId': 228499, 'name': 'WNC40 TOUQUET 2', 'qty': 25626, 'price': 0.0, 'cur': 'eu', 'gr': 25626, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 343405, 'productId': 343405, 'name': 'G1 ZONE 2 SHAMP VALENCE', 'qty': 5736, 'price': 0.0, 'cur': 'eu', 'gr': 5736, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 32015, 'facilityId': 32015, 'facilityName': 'Espace Bienvenue | Angoulême', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 250226, 'productId': 250226, 'name': 'WNC50 200l BMW ANGOULÊME', 'qty': 1010779, 'price': 0.0, 'cur': 'eu', 'gr': 1010779, 'isSolid': False, 'ratio': 1.0
+            {'_id': 31097, 'facilityId': 31097, 'facilityName': '1070278349\tMOZART AUTOS', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 243596, 'productId': 243596, 'name': 'WNC40 MOZART NICE', 'qty': 383163, 'price': 0.0, 'cur': 'eu', 'gr': 383163, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 250229, 'productId': 250229, 'name': 'WNC40 UC BMW ANGOULÊME', 'qty': 67170, 'price': 0.0, 'cur': 'eu', 'gr': 67170, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 250223, 'productId': 250223, 'name': 'AUTO sec UC BMW ANGOULÊME', 'qty': 570249, 'price': 0.0, 'cur': 'eu', 'gr': 570249, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 243602, 'productId': 243602, 'name': 'AUTO SÉCHANT MOZART NICE', 'qty': 187153, 'price': 0.0, 'cur': 'eu', 'gr': 187153, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 32012, 'facilityId': 32012, 'facilityName': 'Espace Bienvenue | Rochefort', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 258191, 'productId': 258191, 'name': 'WNC50 BMW ROCHEFORT', 'qty': 271905, 'price': 0.0, 'cur': 'eu', 'gr': 271905, 'isSolid': False, 'ratio': 1.0
+            {'_id': 30058, 'facilityId': 30058, 'facilityName': '1070280831\tGARAGE PARIS BREST PROCUREUR', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 229402, 'productId': 229402, 'name': 'AUTO SÉCHANT ECOCUBE CHARTRES', 'qty': 18880, 'price': 0.0, 'cur': 'eu', 'gr': 18880, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 258182, 'productId': 258182, 'name': 'AUTO SEC UC BMW ROCHEFORT', 'qty': 451364, 'price': 0.0, 'cur': 'eu', 'gr': 451364, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 258188, 'productId': 258188, 'name': 'WNC40 UC BMW ROCHEFORT', 'qty': 227, 'price': 0.0, 'cur': 'eu', 'gr': 227, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 229405, 'productId': 229405, 'name': 'WNC40 ECOCUBE CHARTRES', 'qty': 30518, 'price': 0.0, 'cur': 'eu', 'gr': 30518, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1754870400000'
             },
-            {'_id': 32018, 'facilityId': 32018, 'facilityName': 'Espace Bienvenue | St Georges de Didonne', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 258164, 'productId': 258164, 'name': 'WNC40 UC ST GEORGE', 'qty': 7609, 'price': 0.0, 'cur': 'eu', 'gr': 7609, 'isSolid': False, 'ratio': 1.0
+            {'_id': 35444, 'facilityId': 35444, 'facilityName': '1070309718 SAS ALIANTIS | PARIS OUEST', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 292811, 'productId': 292811, 'name': 'Wnc40 UC Aliantis Paris ouest', 'qty': 83426, 'price': 0.0, 'cur': 'eu', 'gr': 83426, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 258158, 'productId': 258158, 'name': 'AUTO SEC UC BMW ST GEORGE', 'qty': 708001, 'price': 0.0, 'cur': 'eu', 'gr': 708001, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 292808, 'productId': 292808, 'name': 'Auto séchant UC Aliantis Paris ouest', 'qty': 152817, 'price': 0.0, 'cur': 'eu', 'gr': 152817, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 33653, 'facilityId': 33653, 'facilityName': 'Etoile Autobernard | EPERNAY', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 268964, 'productId': 268964, 'name': 'AUTO SEC UC EPENAY', 'qty': 383748, 'price': 0.0, 'cur': 'eu', 'gr': 383748, 'isSolid': False, 'ratio': 1.0
+            {'_id': 35447, 'facilityId': 35447, 'facilityName': '1070327612 SAS ALIANTIS | Espace PARIS SUD', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 289427, 'productId': 289427, 'name': 'Wnc40 UC Audi Paris sud', 'qty': 453771, 'price': 0.0, 'cur': 'eu', 'gr': 453771, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 268967, 'productId': 268967, 'name': 'WNC40 UC EPERNAY', 'qty': 68091, 'price': 0.0, 'cur': 'eu', 'gr': 68091, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 289424, 'productId': 289424, 'name': 'Auto séchant UC Audi Paris sud', 'qty': 358581, 'price': 0.0, 'cur': 'eu', 'gr': 358581, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 33656, 'facilityId': 33656, 'facilityName': 'Etoile Autobernard | SAINT QUENTIN', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 268724, 'productId': 268724, 'name': 'WNC40 UC SHAMPOING', 'qty': 62473, 'price': 0.0, 'cur': 'eu', 'gr': 62473, 'isSolid': False, 'ratio': 1.0
+            {'_id': 32018, 'facilityId': 32018, 'facilityName': '1070379612 Espace Bienvenue | St Georges', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 258167, 'productId': 258167, 'name': 'WNC50 BMW ST GEORGE', 'qty': 35500, 'price': 0.0, 'cur': 'eu', 'gr': 35500, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 268721, 'productId': 268721, 'name': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'qty': 565533, 'price': 0.0, 'cur': 'eu', 'gr': 565533, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 258164, 'productId': 258164, 'name': 'WNC40 UC ST GEORGE', 'qty': 485, 'price': 0.0, 'cur': 'eu', 'gr': 485, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 258158, 'productId': 258158, 'name': 'AUTO SEC UC BMW ST GEORGE', 'qty': 216089, 'price': 0.0, 'cur': 'eu', 'gr': 216089, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 33659, 'facilityId': 33659, 'facilityName': 'Etoile Autobernard | SOISSONS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 268787, 'productId': 268787, 'name': 'WNC40 UC SOISSONS', 'qty': 469633, 'price': 0.0, 'cur': 'eu', 'gr': 469633, 'isSolid': False, 'ratio': 1.0
+            {'_id': 33107, 'facilityId': 33107, 'facilityName': '1070419340\tJEANNIN AUTOMOBILES IO ST ANDRE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 263837, 'productId': 263837, 'name': 'WNC40 UC VERGERS', 'qty': 168352, 'price': 0.0, 'cur': 'eu', 'gr': 168352, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 268784, 'productId': 268784, 'name': 'AUTO SEC UC SOISSONS', 'qty': 22499, 'price': 0.0, 'cur': 'eu', 'gr': 22499, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 263840, 'productId': 263840, 'name': 'AUTO SEC UC VERGERS', 'qty': 92192, 'price': 0.0, 'cur': 'eu', 'gr': 92192, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 31862, 'facilityId': 31862, 'facilityName': 'Etoile Autobernard | THILLOIS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 245876, 'productId': 245876, 'name': 'WNC40 UC BERNARD REIMS', 'qty': 142630, 'price': 0.0, 'cur': 'eu', 'gr': 142630, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+            {'_id': 39151, 'facilityId': 39151, 'facilityName': '1070446250\tGÉNÉRAL AUTOMOBILE ORVAULT', 'lq': 0, 'lQty': 0, 'products': [], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756080000000'
             },
-            {'_id': 29297, 'facilityId': 29297, 'facilityName': 'FAURIE AXESS PREMIUM', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 221114, 'productId': 221114, 'name': 'WNC50 ST AVIT', 'qty': 363788, 'price': 0.0, 'cur': 'eu', 'gr': 363788, 'isSolid': False, 'ratio': 1.0
+            {'_id': 38281, 'facilityId': 38281, 'facilityName': '1070462396 GGE | Les Ulis', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 335800, 'productId': 335800, 'name': 'SHAMPOING MERCEDES ULIS GGE', 'qty': 171807, 'price': 33.50236499999999, 'cur': 'eu', 'gr': 171807, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 221117, 'productId': 221117, 'name': 'WNC40 St AVIT', 'qty': 318509, 'price': 0.0, 'cur': 'eu', 'gr': 318509, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 335806, 'productId': 335806, 'name': 'JANTES MERCEDES ULIS GGE', 'qty': 71330, 'price': 23.18225, 'cur': 'eu', 'gr': 71330, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 221120, 'productId': 221120, 'name': 'Autoséchant  St AVIT', 'qty': 205735, 'price': 0.0, 'cur': 'eu', 'gr': 205735, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 335812, 'productId': 335812, 'name': 'AUTO-SECHANT MERCEDES ULIS GGE', 'qty': 220382, 'price': 51.78977, 'cur': 'eu', 'gr': 220382, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 29743, 'facilityId': 29743, 'facilityName': 'FAURIE AXESS SUD-OUEST DAX', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 227071, 'productId': 227071, 'name': 'Auto séchant UC Saint Paul les Dax', 'qty': 792218, 'price': 0.0, 'cur': 'eu', 'gr': 792218, 'isSolid': False, 'ratio': 1.0
+            {'_id': 28842, 'facilityId': 28842, 'facilityName': '1070505129\tFIX AUTO COLOMIERS', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 217884, 'productId': 217884, 'name': 'ECO CUBE SHAMP COLOMIERS', 'qty': 47477, 'price': 0.0, 'cur': 'eu', 'gr': 47477, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 227065, 'productId': 227065, 'name': 'WNC40 UC Saint Paul Les Dax', 'qty': 787502, 'price': 0.0, 'cur': 'eu', 'gr': 787502, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 227068, 'productId': 227068, 'name': 'WNC50 PRÉLAVAGE', 'qty': 419448, 'price': 0.0, 'cur': 'eu', 'gr': 419448, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 217881, 'productId': 217881, 'name': 'ÉCO CUBE AUTO COLOMIERS', 'qty': 235, 'price': 0.0, 'cur': 'eu', 'gr': 235, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 28779, 'facilityId': 28779, 'facilityName': 'FAURIE Volkswagen Agen', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 217626, 'productId': 217626, 'name': 'AUTO SEC VOLKSWAGEN AGEN', 'qty': 128162, 'price': 0.0, 'cur': 'eu', 'gr': 128162, 'isSolid': False, 'ratio': 1.0
+            {'_id': 33653, 'facilityId': 33653, 'facilityName': '1070510282\tETOILE AUTOBERNARD EPERNAY', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 268967, 'productId': 268967, 'name': 'WNC40 UC EPERNAY', 'qty': 47653, 'price': 0.0, 'cur': 'eu', 'gr': 47653, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 217629, 'productId': 217629, 'name': 'SHAMP VOLKSWAGEN AGEN', 'qty': 1003706, 'price': 0.0, 'cur': 'eu', 'gr': 1003706, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 217632, 'productId': 217632, 'name': 'WNC50 VOLKSWAGEN AGEN', 'qty': 1739, 'price': 0.0, 'cur': 'eu', 'gr': 1739, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 268964, 'productId': 268964, 'name': 'AUTO SEC UC EPENAY', 'qty': 182950, 'price': 0.0, 'cur': 'eu', 'gr': 182950, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 28845, 'facilityId': 28845, 'facilityName': 'FIX AUTO BORDEAUX', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 218022, 'productId': 218022, 'name': 'ECO CUBE SECH BORDEAUX', 'qty': 18569, 'price': 0.0, 'cur': 'eu', 'gr': 18569, 'isSolid': False, 'ratio': 1.0
+            {'_id': 39130, 'facilityId': 39130, 'facilityName': '1070541875\tGGE | Rambouillet', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 335998, 'productId': 335998, 'name': 'Auto séchant Mercedes Rambouillet', 'qty': 361876, 'price': 0.0, 'cur': 'eu', 'gr': 361876, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 218025, 'productId': 218025, 'name': 'ÉCO CUBE SHAMP BORDEAUX', 'qty': 15844, 'price': 0.0, 'cur': 'eu', 'gr': 15844, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 336001, 'productId': 336001, 'name': 'WNC40 Mercedes Rambouillet', 'qty': 322119, 'price': 0.0, 'cur': 'eu', 'gr': 322119, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 28842, 'facilityId': 28842, 'facilityName': 'FIX AUTO COLOMIERS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 217884, 'productId': 217884, 'name': 'ECO CUBE SHAMP COLOMIERS', 'qty': 30199, 'price': 0.0, 'cur': 'eu', 'gr': 30199, 'isSolid': False, 'ratio': 1.0
+            {'_id': 37777, 'facilityId': 37777, 'facilityName': '1070550192 JM Automobiles', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 323884, 'productId': 323884, 'name': 'Wnc 40 UC Ford Jm automobile Belleville sur Meuse', 'qty': 105702, 'price': 0.0, 'cur': 'eu', 'gr': 105702, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 217881, 'productId': 217881, 'name': 'ÉCO CUBE AUTO COLOMIERS', 'qty': 180, 'price': 0.0, 'cur': 'eu', 'gr': 180, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 323881, 'productId': 323881, 'name': 'Nettoyant jante purple Jm automobile Ford Belleville sur Meuse', 'qty': 174540, 'price': 0.0, 'cur': 'eu', 'gr': 174540, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 323878, 'productId': 323878, 'name': 'Auto séchant UC Ford Jm automobile Belleville sur Meuse', 'qty': 282580, 'price': 0.0, 'cur': 'eu', 'gr': 282580, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 28848, 'facilityId': 28848, 'facilityName': 'FIX AUTO LIBOURNE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 218067, 'productId': 218067, 'name': 'ECO CUBE SECH LIBOURNE', 'qty': 1002, 'price': 0.0, 'cur': 'eu', 'gr': 1002, 'isSolid': False, 'ratio': 1.0
+            {'_id': 28839, 'facilityId': 28839, 'facilityName': '1070555222\tFIX AUTO MURET', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 217725, 'productId': 217725, 'name': 'ÉCO CUBE WNC40 MURET', 'qty': 255289, 'price': 0.0, 'cur': 'eu', 'gr': 255289, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 218064, 'productId': 218064, 'name': 'ECO CUBE SHAMP LIBOURNE', 'qty': 303726, 'price': 0.0, 'cur': 'eu', 'gr': 303726, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 217722, 'productId': 217722, 'name': 'AUTO SECH MURET', 'qty': 662, 'price': 0.0, 'cur': 'eu', 'gr': 662, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 28839, 'facilityId': 28839, 'facilityName': 'FIX AUTO MURET', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 217725, 'productId': 217725, 'name': 'ÉCO CUBE WNC40 MURET', 'qty': 493388, 'price': 0.0, 'cur': 'eu', 'gr': 493388, 'isSolid': False, 'ratio': 1.0
+            {'_id': 32015, 'facilityId': 32015, 'facilityName': '1070593314 Espace Bienvenue | Angoulême', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 250229, 'productId': 250229, 'name': 'WNC40 UC BMW ANGOULÊME', 'qty': 41024, 'price': 0.0, 'cur': 'eu', 'gr': 41024, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 217722, 'productId': 217722, 'name': 'AUTO SECH MURET', 'qty': 2237, 'price': 0.0, 'cur': 'eu', 'gr': 2237, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 250223, 'productId': 250223, 'name': 'AUTO sec UC BMW ANGOULÊME', 'qty': 496494, 'price': 0.0, 'cur': 'eu', 'gr': 496494, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 250226, 'productId': 250226, 'name': 'WNC50 200l BMW ANGOULÊME', 'qty': 110496, 'price': 0.0, 'cur': 'eu', 'gr': 110496, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 32486, 'facilityId': 32486, 'facilityName': 'FRAMATEQ 63', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 257555, 'productId': 257555, 'name': 'WNC70 FRAMATECH LEMPDES', 'qty': 90, 'price': 0.0, 'cur': 'eu', 'gr': 90, 'isSolid': False, 'ratio': 1.0
+            {'_id': 33338, 'facilityId': 33338, 'facilityName': '1070637155 OUEST CONCEPT AUTOMOBILES', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 265796, 'productId': 265796, 'name': 'WNC40 BMW BREST', 'qty': 154180, 'price': 0.0, 'cur': 'eu', 'gr': 154180, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 265784, 'productId': 265784, 'name': 'WNC50 BMW BREST', 'qty': 152323, 'price': 0.0, 'cur': 'eu', 'gr': 152323, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 265793, 'productId': 265793, 'name': 'AUTO SECH BMW BREST', 'qty': 6789, 'price': 0.0, 'cur': 'eu', 'gr': 6789, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 265781, 'productId': 265781, 'name': 'WNC31 BMW BREST', 'qty': 200241, 'price': 0.0, 'cur': 'eu', 'gr': 200241, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1750636800000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 29294, 'facilityId': 29294, 'facilityName': 'Faurie Axess Sud Ouest', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 221381, 'productId': 221381, 'name': 'WNC50 VOLKSWAGEN SAINT PIERRE', 'qty': 517698, 'price': 0.0, 'cur': 'eu', 'gr': 517698, 'isSolid': False, 'ratio': 1.0
+            {'_id': 31238, 'facilityId': 31238, 'facilityName': '1070637246 OUEST MOTORS - LANNION', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 241430, 'productId': 241430, 'name': 'WNC40 BMW LANNION', 'qty': 178930, 'price': 0.0, 'cur': 'eu', 'gr': 178930, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 221378, 'productId': 221378, 'name': 'WNC40 VOLKSWAGEN SAINT PIERRE', 'qty': 270849, 'price': 0.0, 'cur': 'eu', 'gr': 270849, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 221375, 'productId': 221375, 'name': 'AUTO SEC VOLKSWAGEN SAINT PIERRE', 'qty': 35816, 'price': 0.0, 'cur': 'eu', 'gr': 35816, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 241433, 'productId': 241433, 'name': 'AUTO SEC BMW LANNION', 'qty': 21174, 'price': 0.0, 'cur': 'eu', 'gr': 21174, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 31862, 'facilityId': 31862, 'facilityName': '1070665393\tETOILE AUTOBERNARD REIMS', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 245876, 'productId': 245876, 'name': 'WNC40 UC BERNARD REIMS', 'qty': 107215, 'price': 0.0, 'cur': 'eu', 'gr': 107215, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 31091, 'facilityId': 31091, 'facilityName': '1070701179\tJEANNIN AUTOMOBILES AUXERRE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 238865, 'productId': 238865, 'name': 'WNC40 UC ZONE 2 AUXERRE', 'qty': 44703, 'price': 0.0, 'cur': 'eu', 'gr': 44703, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 238859, 'productId': 238859, 'name': 'AUTOSECHANT UC ZONE 2 AUXERRE', 'qty': 76496, 'price': 0.0, 'cur': 'eu', 'gr': 76496, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 238862, 'productId': 238862, 'name': 'WNC40 Uc zone 1 AUXERRE', 'qty': 76473, 'price': 0.0, 'cur': 'eu', 'gr': 76473, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 238856, 'productId': 238856, 'name': 'AUTOSECHANT UC ZONE 1 AUXERRE', 'qty': 15999, 'price': 0.0, 'cur': 'eu', 'gr': 15999, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 35939, 'facilityId': 35939, 'facilityName': '1070736691\tINTENZ POITOU BY AUTOSPHERE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 293384, 'productId': 293384, 'name': 'Wnc40 Volkswagen intenz Niort', 'qty': 480927, 'price': 0.0, 'cur': 'eu', 'gr': 480927, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 293381, 'productId': 293381, 'name': 'Auto séchant Volkswagen intenz Niort', 'qty': 254628, 'price': 0.0, 'cur': 'eu', 'gr': 254628, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 31520, 'facilityId': 31520, 'facilityName': '1070737203\tJEANNIN ADVANCED CAR VSD', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 244988, 'productId': 244988, 'name': 'AUTO UC 77 VERT SAINT', 'qty': 80715, 'price': 0.0, 'cur': 'eu', 'gr': 80715, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 244991, 'productId': 244991, 'name': 'WNC40 UC 77 VERT SAINT', 'qty': 110606, 'price': 0.0, 'cur': 'eu', 'gr': 110606, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 27789, 'facilityId': 27789, 'facilityName': '1070747601\tARAVIS ROSSI AUTO', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 212451, 'productId': 212451, 'name': 'WNC50 BMW ZONE 1', 'qty': 768326, 'price': 0.0, 'cur': 'eu', 'gr': 768326, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 212640, 'productId': 212640, 'name': 'EAU BMW ANNECY ZONE 3', 'qty': 1810277, 'price': 0.0, 'cur': 'eu', 'gr': 1810277, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 212490, 'productId': 212490, 'name': 'AUTO SÉCHANT ZONE 2 BMW', 'qty': 221774, 'price': 0.0, 'cur': 'eu', 'gr': 221774, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 212643, 'productId': 212643, 'name': 'autoséchant ZONE 1 BMW ANNECY', 'qty': 554, 'price': 0.0, 'cur': 'eu', 'gr': 554, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 212484, 'productId': 212484, 'name': 'EAU ZONE 2 BMW', 'qty': 35917599, 'price': 0.0, 'cur': 'eu', 'gr': 35917599, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 212646, 'productId': 212646, 'name': 'WNC40 UC ZONE 3 BMW', 'qty': 13309, 'price': 0.0, 'cur': 'eu', 'gr': 13309, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 212454, 'productId': 212454, 'name': 'EAU ZONE 1 BMW', 'qty': 101488360, 'price': 0.0, 'cur': 'eu', 'gr': 101488360, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 212466, 'productId': 212466, 'name': 'AUTO SÉCHANT UC BMW ZONE 3', 'qty': 459634, 'price': 0.0, 'cur': 'eu', 'gr': 459634, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 212487, 'productId': 212487, 'name': 'WNC40 ZONE 2 BMW', 'qty': 215949, 'price': 0.0, 'cur': 'eu', 'gr': 215949, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 39127, 'facilityId': 39127, 'facilityName': '1070749699\tGGE | Montgeron', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 335992, 'productId': 335992, 'name': 'Auto séchant Mercedes Montgeron', 'qty': 317719, 'price': 0.0, 'cur': 'eu', 'gr': 317719, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 335995, 'productId': 335995, 'name': 'WNC 40 Mercedes Montgeron', 'qty': 312424, 'price': 0.0, 'cur': 'eu', 'gr': 312424, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 30379, 'facilityId': 30379, 'facilityName': '1070761951\tVIKING AUTO SA', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 231679, 'productId': 231679, 'name': 'AUTOSECHANT ECOCUBE SA', 'qty': 5010, 'price': 0.0, 'cur': 'eu', 'gr': 5010, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 231676, 'productId': 231676, 'name': 'WNC40 ECOCUBE SA', 'qty': 137748, 'price': 0.0, 'cur': 'eu', 'gr': 137748, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 39553, 'facilityId': 39553, 'facilityName': '1070805390 CASINO GARAGE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 343252, 'productId': 343252, 'name': 'AUTOSECHANT FIAT BEAUSOLEIL', 'qty': 9445, 'price': 0.0, 'cur': 'eu', 'gr': 9445, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 343255, 'productId': 343255, 'name': 'SHAMP WNC40 FIAT BEAUSOLEIL', 'qty': 60395, 'price': 0.0, 'cur': 'eu', 'gr': 60395, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 39547, 'facilityId': 39547, 'facilityName': '1070866213 CASINO GARAGE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 343246, 'productId': 343246, 'name': 'AUTOSECHANT PORSCHE BEAUSOLEIL', 'qty': 6961, 'price': 0.0, 'cur': 'eu', 'gr': 6961, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 343249, 'productId': 343249, 'name': 'WNC40 PORSCHE BEAUSOLEIL', 'qty': 74370, 'price': 0.0, 'cur': 'eu', 'gr': 74370, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 26201, 'facilityId': 26201, 'facilityName': '1070890518\tJEANNIN AUTOMOBILES SENS', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 196884, 'productId': 196884, 'name': 'SHAMPOING CONCENTRÉ VOLKSWAGEN', 'qty': 83254, 'price': 0.0, 'cur': 'eu', 'gr': 83254, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 196881, 'productId': 196881, 'name': 'AUTO SÉCHANT CONCENTRÉ VOLKSWAGEN', 'qty': 99840, 'price': 0.0, 'cur': 'eu', 'gr': 99840, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 39103, 'facilityId': 39103, 'facilityName': '1070910404\tGGE | Viry Chatillon', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 335818, 'productId': 335818, 'name': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'qty': 783029, 'price': 152.690655, 'cur': 'eu', 'gr': 783029, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 335815, 'productId': 335815, 'name': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'qty': 804018, 'price': 188.94423000000006, 'cur': 'eu', 'gr': 804018, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 35450, 'facilityId': 35450, 'facilityName': '1070921980 SAS ALIANTIS | Audi MONTROUGE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 289370, 'productId': 289370, 'name': 'Wnc 40 UC Audi Montrouge', 'qty': 49479, 'price': 0.0, 'cur': 'eu', 'gr': 49479, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 289367, 'productId': 289367, 'name': 'Auto séchant UC Audi Montrouge', 'qty': 148210, 'price': 0.0, 'cur': 'eu', 'gr': 148210, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 39121, 'facilityId': 39121, 'facilityName': '1070943343\tGGE  | Valenton', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 335983, 'productId': 335983, 'name': 'SHAMPOING MERCEDES VALENTON GGE', 'qty': 1342880, 'price': 261.8616, 'cur': 'eu', 'gr': 1342880, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 335977, 'productId': 335977, 'name': 'AUTO SECHANT MERCEDES VALENTON', 'qty': 850931, 'price': 0.0, 'cur': 'eu', 'gr': 850931, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 335980, 'productId': 335980, 'name': 'JANTES MERCEDES VALENTON GGE', 'qty': 248240, 'price': 80.678, 'cur': 'eu', 'gr': 248240, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 29806, 'facilityId': 29806, 'facilityName': '1070972131 ETS TOUQUET', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 228499, 'productId': 228499, 'name': 'WNC40 TOUQUET 2', 'qty': 18150, 'price': 0.0, 'cur': 'eu', 'gr': 18150, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 227539, 'productId': 227539, 'name': 'WNC40 TOUQUET 1', 'qty': 9677, 'price': 0.0, 'cur': 'eu', 'gr': 9677, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 227545, 'productId': 227545, 'name': 'AUTO SECHANT TOUQUET 1', 'qty': 13373, 'price': 0.0, 'cur': 'eu', 'gr': 13373, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 39568, 'facilityId': 39568, 'facilityName': '1070980064\tSTORE MONACO BRUSCHET', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 343771, 'productId': 343771, 'name': 'WNC40 BMW MONACO', 'qty': 95867, 'price': 0.0, 'cur': 'eu', 'gr': 95867, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 343768, 'productId': 343768, 'name': 'AUTO SÉCHANT BMW MONACO', 'qty': 75718, 'price': 0.0, 'cur': 'eu', 'gr': 75718, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756166400000'
+            },
+            {'_id': 39139, 'facilityId': 39139, 'facilityName': '1070985702\tUNIMARK', 'lq': 0, 'lQty': 0, 'products': [], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 28779, 'facilityId': 28779, 'facilityName': '1070989057\tFAURIE APSO BOE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 217629, 'productId': 217629, 'name': 'SHAMP VOLKSWAGEN AGEN', 'qty': 17667632, 'price': 0.0, 'cur': 'eu', 'gr': 17667632, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 217626, 'productId': 217626, 'name': 'AUTO SEC VOLKSWAGEN AGEN', 'qty': 168820, 'price': 0.0, 'cur': 'eu', 'gr': 168820, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 217632, 'productId': 217632, 'name': 'WNC50 VOLKSWAGEN AGEN', 'qty': 242, 'price': 0.0, 'cur': 'eu', 'gr': 242, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 39124, 'facilityId': 39124, 'facilityName': '1071010855\tGGE | Trappes', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 335986, 'productId': 335986, 'name': 'SHAMPOING WNC40 TRAPPES', 'qty': 321752, 'price': 0.0, 'cur': 'eu', 'gr': 321752, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 335989, 'productId': 335989, 'name': 'AUTOSECHANT TRAPPES', 'qty': 466881, 'price': 0.0, 'cur': 'eu', 'gr': 466881, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 31517, 'facilityId': 31517, 'facilityName': '1071030942\tJEANNIN ADVANCED CAR SENS', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 244934, 'productId': 244934, 'name': 'WNC40 UC 89 NISSAN', 'qty': 31920, 'price': 0.0, 'cur': 'eu', 'gr': 31920, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 244931, 'productId': 244931, 'name': 'AUTOSECHANT UC 89 NISSAN', 'qty': 41362, 'price': 0.0, 'cur': 'eu', 'gr': 41362, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 34735, 'facilityId': 34735, 'facilityName': '1071046164 BAYERN | POITIERS', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 278669, 'productId': 278669, 'name': 'Wnc40 bmw Bayern Poitiers', 'qty': 54327, 'price': 0.0, 'cur': 'eu', 'gr': 54327, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 278672, 'productId': 278672, 'name': 'Auto séchant bmw Bayern Poitiers', 'qty': 16892, 'price': 0.0, 'cur': 'eu', 'gr': 16892, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 29294, 'facilityId': 29294, 'facilityName': '1071079265\tFAURIE APSO ST PIERRE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 221381, 'productId': 221381, 'name': 'WNC50 VOLKSWAGEN SAINT PIERRE', 'qty': 364211, 'price': 0.0, 'cur': 'eu', 'gr': 364211, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 221378, 'productId': 221378, 'name': 'WNC40 VOLKSWAGEN SAINT PIERRE', 'qty': 91728, 'price': 0.0, 'cur': 'eu', 'gr': 91728, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 221375, 'productId': 221375, 'name': 'AUTO SEC VOLKSWAGEN SAINT PIERRE', 'qty': 37501, 'price': 0.0, 'cur': 'eu', 'gr': 37501, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 29297, 'facilityId': 29297, 'facilityName': '1071079275\tFAURIE APSO ST AVIT', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 221120, 'productId': 221120, 'name': 'Autoséchant  St AVIT', 'qty': 152579, 'price': 0.0, 'cur': 'eu', 'gr': 152579, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 221114, 'productId': 221114, 'name': 'WNC50 ST AVIT', 'qty': 380210, 'price': 0.0, 'cur': 'eu', 'gr': 380210, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 221117, 'productId': 221117, 'name': 'WNC40 St AVIT', 'qty': 186467, 'price': 0.0, 'cur': 'eu', 'gr': 186467, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 29743, 'facilityId': 29743, 'facilityName': '1071079277\tFAURIE APSO ST PAUL', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 227068, 'productId': 227068, 'name': 'WNC50 PRÉLAVAGE', 'qty': 820336, 'price': 0.0, 'cur': 'eu', 'gr': 820336, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 227071, 'productId': 227071, 'name': 'Auto séchant UC Saint Paul les Dax', 'qty': 607177, 'price': 0.0, 'cur': 'eu', 'gr': 607177, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 227065, 'productId': 227065, 'name': 'WNC40 UC Saint Paul Les Dax', 'qty': 171368, 'price': 0.0, 'cur': 'eu', 'gr': 171368, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 32486, 'facilityId': 32486, 'facilityName': '1071091730\tFRAMATEQ RHONE ALPES', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 257555, 'productId': 257555, 'name': 'WNC70 FRAMATECH LEMPDES', 'qty': 5271, 'price': 0.0, 'cur': 'eu', 'gr': 5271, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1755561600000'
+            },
+            {'_id': 28848, 'facilityId': 28848, 'facilityName': '1071105659\tFIX AUTO LIBOURNE', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 218064, 'productId': 218064, 'name': 'ECO CUBE SHAMP LIBOURNE', 'qty': 155566, 'price': 0.0, 'cur': 'eu', 'gr': 155566, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 39145, 'facilityId': 39145, 'facilityName': '1071107389 BLAV VILLEBON', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 336775, 'productId': 336775, 'name': 'SHAMPOING BLAV', 'qty': 647933, 'price': 0.0, 'cur': 'eu', 'gr': 647933, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 31523, 'facilityId': 31523, 'facilityName': '1071168149\tJEANNIN SMDA LAVAGE VSD', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 245087, 'productId': 245087, 'name': 'WNC40 UC SMADA', 'qty': 198648, 'price': 0.0, 'cur': 'eu', 'gr': 198648, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 245090, 'productId': 245090, 'name': 'AUTO SEC UC SMADA', 'qty': 11185, 'price': 0.0, 'cur': 'eu', 'gr': 11185, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 35756, 'facilityId': 35756, 'facilityName': '1071168149\tJEANNIN SMDA LAVAGE VSD', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 295915, 'productId': 295915, 'name': 'Wnc40 UC smda occasion vert saint Denis', 'qty': 60733, 'price': 0.0, 'cur': 'eu', 'gr': 60733, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 295912, 'productId': 295912, 'name': 'Auto séchant UC smda occasion vert saint Denis', 'qty': 126555, 'price': 0.0, 'cur': 'eu', 'gr': 126555, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            },
+            {'_id': 37465, 'facilityId': 37465, 'facilityName': '1071214929 ENERGY CAR WASH SAS', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 312850, 'productId': 312850, 'name': 'Auto séchant energy car Nîmes Z2', 'qty': 550382, 'price': 0.0, 'cur': 'eu', 'gr': 550382, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 312859, 'productId': 312859, 'name': 'Wnc 40 energy car Z4', 'qty': 730, 'price': 0.0, 'cur': 'eu', 'gr': 730, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 312856, 'productId': 312856, 'name': 'Wnc 40 energy car Nîmes Z2', 'qty': 63327, 'price': 0.0, 'cur': 'eu', 'gr': 63327, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 312847, 'productId': 312847, 'name': 'Auto séchant energy car Nîmes Z4', 'qty': 14, 'price': 0.0, 'cur': 'eu', 'gr': 14, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 321307, 'productId': 321307, 'name': 'Wnc 40 UC energy car Nimes Z5', 'qty': 1, 'price': 0.0, 'cur': 'eu', 'gr': 1, 'isSolid': False, 'ratio': 1.0
+                    },
+                    {'_id': 312853, 'productId': 312853, 'name': 'Wnc 40 energy car Nîmes Z1', 'qty': 12, 'price': 0.0, 'cur': 'eu', 'gr': 12, 'isSolid': False, 'ratio': 1.0
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
             {'_id': 23276, 'facilityId': 23276, 'facilityName': 'GENERAL AUTOMOBILE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 182846, 'productId': 182846, 'name': 'WNC50 PRÉLAVAGE VOLVO ORVAULT', 'qty': 152536, 'price': 0.0, 'cur': 'eu', 'gr': 152536, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 171501, 'productId': 171501, 'name': 'SHAMPOING CARROSSERIE VOLVO ORVAULT', 'qty': 612078, 'price': 0.0, 'cur': 'eu', 'gr': 612078, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 173414, 'productId': 173414, 'name': 'AUTO SECHANT OPEL UNIMARK DECHY', 'qty': 69129, 'price': 0.0, 'cur': 'eu', 'gr': 69129, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 173991, 'productId': 173991, 'name': 'SHAMPOING CAROSSERIE WNC50 CAROSSERIE VOLVO SAUTRON', 'qty': 39167, 'price': 0.0, 'cur': 'eu', 'gr': 39167, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 177869, 'productId': 177869, 'name': 'WNC31 VOLVO ORVAULT PORTIQUE', 'qty': 548666, 'price': 0.0, 'cur': 'eu', 'gr': 548666, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 182846, 'productId': 182846, 'name': 'WNC50 PRÉLAVAGE VOLVO ORVAULT', 'qty': 126335, 'price': 0.0, 'cur': 'eu', 'gr': 126335, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 171504, 'productId': 171504, 'name': 'AUTO SECHANT VOLVO ORVAULT', 'qty': 107579, 'price': 0.0, 'cur': 'eu', 'gr': 107579, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 171504, 'productId': 171504, 'name': 'AUTO SECHANT VOLVO ORVAULT', 'qty': 263245, 'price': 0.0, 'cur': 'eu', 'gr': 263245, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 171618, 'productId': 171618, 'name': 'Auto Séchant Volvo Guerande', 'qty': 59347, 'price': 0.0, 'cur': 'eu', 'gr': 59347, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 173987, 'productId': 173987, 'name': 'AUTO SECHANT CAROSSERIE VOLVO SAUTRON', 'qty': 81099, 'price': 0.0, 'cur': 'eu', 'gr': 81099, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 171615, 'productId': 171615, 'name': 'WNC31 venturi Guerande', 'qty': 180309, 'price': 0.0, 'cur': 'eu', 'gr': 180309, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 171618, 'productId': 171618, 'name': 'Auto Séchant Volvo Guerande', 'qty': 36297, 'price': 0.0, 'cur': 'eu', 'gr': 36297, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 171501, 'productId': 171501, 'name': 'SHAMPOING CARROSSERIE VOLVO ORVAULT', 'qty': 152550, 'price': 0.0, 'cur': 'eu', 'gr': 152550, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 171615, 'productId': 171615, 'name': 'WNC31 venturi Guerande', 'qty': 2889, 'price': 0.0, 'cur': 'eu', 'gr': 2889, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 173408, 'productId': 173408, 'name': 'SHAMPOING OPEL UNIMARK DECHY', 'qty': 384408, 'price': 0.0, 'cur': 'eu', 'gr': 384408, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 174903, 'productId': 174903, 'name': 'WNC31 portique Guerande', 'qty': 144566, 'price': 0.0, 'cur': 'eu', 'gr': 144566, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 173991, 'productId': 173991, 'name': 'SHAMPOING CAROSSERIE WNC50 CAROSSERIE VOLVO SAUTRON', 'qty': 39621, 'price': 0.0, 'cur': 'eu', 'gr': 39621, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 173987, 'productId': 173987, 'name': 'AUTO SECHANT CAROSSERIE VOLVO SAUTRON', 'qty': 75350, 'price': 0.0, 'cur': 'eu', 'gr': 75350, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 178808, 'productId': 178808, 'name': 'WNC60 OPEL UNIMARK DECHY', 'qty': 6, 'price': 0.0, 'cur': 'eu', 'gr': 6, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 174903, 'productId': 174903, 'name': 'WNC31 portique Guerande', 'qty': 70570, 'price': 0.0, 'cur': 'eu', 'gr': 70570, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 27789, 'facilityId': 27789, 'facilityName': 'Groupe ROSSI AUTOMOBILES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 212484, 'productId': 212484, 'name': 'EAU ZONE 2 BMW', 'qty': 85240497, 'price': 0.0, 'cur': 'eu', 'gr': 85240497, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 212454, 'productId': 212454, 'name': 'EAU ZONE 1 BMW', 'qty': 127108717, 'price': 0.0, 'cur': 'eu', 'gr': 127108717, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 212466, 'productId': 212466, 'name': 'AUTO SÉCHANT UC BMW ZONE 3', 'qty': 646072, 'price': 0.0, 'cur': 'eu', 'gr': 646072, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 212487, 'productId': 212487, 'name': 'WNC40 ZONE 2 BMW', 'qty': 484806, 'price': 0.0, 'cur': 'eu', 'gr': 484806, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 212490, 'productId': 212490, 'name': 'AUTO SÉCHANT ZONE 2 BMW', 'qty': 604187, 'price': 0.0, 'cur': 'eu', 'gr': 604187, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 212451, 'productId': 212451, 'name': 'WNC50 BMW ZONE 1', 'qty': 1118659, 'price': 0.0, 'cur': 'eu', 'gr': 1118659, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 212640, 'productId': 212640, 'name': 'EAU BMW ANNECY ZONE 3', 'qty': 2168377, 'price': 0.0, 'cur': 'eu', 'gr': 2168377, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 212646, 'productId': 212646, 'name': 'WNC40 UC ZONE 3 BMW', 'qty': 17279, 'price': 0.0, 'cur': 'eu', 'gr': 17279, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 212643, 'productId': 212643, 'name': 'autoséchant ZONE 1 BMW ANNECY', 'qty': 865, 'price': 0.0, 'cur': 'eu', 'gr': 865, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 35939, 'facilityId': 35939, 'facilityName': 'INTENZ POITOU BY AUTOSPHERE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 293381, 'productId': 293381, 'name': 'Auto séchant Volkswagen intenz Niort', 'qty': 48354, 'price': 0.0, 'cur': 'eu', 'gr': 48354, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 293384, 'productId': 293384, 'name': 'Wnc40 Volkswagen intenz Niort', 'qty': 715124, 'price': 0.0, 'cur': 'eu', 'gr': 715124, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 31091, 'facilityId': 31091, 'facilityName': 'JEANNIN AUTOMOBILES - AUXERRE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 238856, 'productId': 238856, 'name': 'AUTOSECHANT UC ZONE 1 AUXERRE', 'qty': 25569, 'price': 0.0, 'cur': 'eu', 'gr': 25569, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238859, 'productId': 238859, 'name': 'AUTOSECHANT UC ZONE 2 AUXERRE', 'qty': 111887, 'price': 0.0, 'cur': 'eu', 'gr': 111887, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238865, 'productId': 238865, 'name': 'WNC40 UC ZONE 2 AUXERRE', 'qty': 54342, 'price': 0.0, 'cur': 'eu', 'gr': 54342, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238862, 'productId': 238862, 'name': 'WNC40 Uc zone 1 AUXERRE', 'qty': 92835, 'price': 0.0, 'cur': 'eu', 'gr': 92835, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 31094, 'facilityId': 31094, 'facilityName': 'JEANNIN AUTOMOBILES - AVALLON', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 238910, 'productId': 238910, 'name': 'WNC40 UC AVALON', 'qty': 179215, 'price': 0.0, 'cur': 'eu', 'gr': 179215, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238907, 'productId': 238907, 'name': 'AUTOSECHANT UC AVALON', 'qty': 54452, 'price': 0.0, 'cur': 'eu', 'gr': 54452, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1750377600000'
-            },
-            {'_id': 26201, 'facilityId': 26201, 'facilityName': 'JEANNIN AUTOMOBILES - SENS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 196884, 'productId': 196884, 'name': 'SHAMPOING CONCENTRÉ VOLKSWAGEN', 'qty': 113382, 'price': 0.0, 'cur': 'eu', 'gr': 113382, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 196881, 'productId': 196881, 'name': 'AUTO SÉCHANT CONCENTRÉ VOLKSWAGEN', 'qty': 384503, 'price': 0.0, 'cur': 'eu', 'gr': 384503, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
             {'_id': 31088, 'facilityId': 31088, 'facilityName': 'JEANNIN AUTOMOBILES - TROYES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 238460, 'productId': 238460, 'name': 'WNC40 UC ZONE  1 JEANNIN TROYES', 'qty': 20062, 'price': 0.0, 'cur': 'eu', 'gr': 20062, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 238457, 'productId': 238457, 'name': 'AUTOSECHANT UC ZONE 3 JEANNIN TROYES', 'qty': 17396, 'price': 0.0, 'cur': 'eu', 'gr': 17396, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 238463, 'productId': 238463, 'name': 'WNC40 UC ZONE 2 JEANNIN TROYES', 'qty': 3182, 'price': 0.0, 'cur': 'eu', 'gr': 3182, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 238463, 'productId': 238463, 'name': 'WNC40 UC ZONE 2 JEANNIN TROYES', 'qty': 15348, 'price': 0.0, 'cur': 'eu', 'gr': 15348, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 238451, 'productId': 238451, 'name': 'AUTO SEC UC ZONE 2 JEANNIN TROYES', 'qty': 2561, 'price': 0.0, 'cur': 'eu', 'gr': 2561, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 238466, 'productId': 238466, 'name': 'WNC40 UC ZONE 3 JEANNIN TROYES', 'qty': 158777, 'price': 0.0, 'cur': 'eu', 'gr': 158777, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 238466, 'productId': 238466, 'name': 'WNC40 UC ZONE 3 JEANNIN TROYES', 'qty': 8053, 'price': 0.0, 'cur': 'eu', 'gr': 8053, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238454, 'productId': 238454, 'name': 'AUTO UC ZONE 1 JEANNIN TROYES', 'qty': 155337, 'price': 0.0, 'cur': 'eu', 'gr': 155337, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238457, 'productId': 238457, 'name': 'AUTOSECHANT UC ZONE 3 JEANNIN TROYES', 'qty': 3, 'price': 0.0, 'cur': 'eu', 'gr': 3, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 238460, 'productId': 238460, 'name': 'WNC40 UC ZONE  1 JEANNIN TROYES', 'qty': 9703, 'price': 0.0, 'cur': 'eu', 'gr': 9703, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 37777, 'facilityId': 37777, 'facilityName': 'JM Automobiles | Belleville sur Meuse', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 323878, 'productId': 323878, 'name': 'Auto séchant UC Ford Jm automobile Belleville sur Meuse', 'qty': 570348, 'price': 0.0, 'cur': 'eu', 'gr': 570348, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 323881, 'productId': 323881, 'name': 'Nettoyant jante purple Jm automobile Ford Belleville sur Meuse', 'qty': 109453, 'price': 0.0, 'cur': 'eu', 'gr': 109453, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 323884, 'productId': 323884, 'name': 'Wnc 40 UC Ford Jm automobile Belleville sur Meuse', 'qty': 1371861, 'price': 0.0, 'cur': 'eu', 'gr': 1371861, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 31520, 'facilityId': 31520, 'facilityName': 'Jeannin Advanced Car 77', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 244988, 'productId': 244988, 'name': 'AUTO UC 77 VERT SAINT', 'qty': 78426, 'price': 0.0, 'cur': 'eu', 'gr': 78426, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 244991, 'productId': 244991, 'name': 'WNC40 UC 77 VERT SAINT', 'qty': 173194, 'price': 0.0, 'cur': 'eu', 'gr': 173194, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 31517, 'facilityId': 31517, 'facilityName': 'Jeannin Advanced Car 89', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 244934, 'productId': 244934, 'name': 'WNC40 UC 89 NISSAN', 'qty': 79979, 'price': 0.0, 'cur': 'eu', 'gr': 79979, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 244931, 'productId': 244931, 'name': 'AUTOSECHANT UC 89 NISSAN', 'qty': 54176, 'price': 0.0, 'cur': 'eu', 'gr': 54176, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 31523, 'facilityId': 31523, 'facilityName': 'Jeannin SMDA', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 245087, 'productId': 245087, 'name': 'WNC40 UC SMADA', 'qty': 228766, 'price': 0.0, 'cur': 'eu', 'gr': 228766, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 245090, 'productId': 245090, 'name': 'AUTO SEC UC SMADA', 'qty': 11829, 'price': 0.0, 'cur': 'eu', 'gr': 11829, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 31097, 'facilityId': 31097, 'facilityName': 'MOZART AUTOS - LE CANNET', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 243596, 'productId': 243596, 'name': 'WNC40 MOZART NICE', 'qty': 200091, 'price': 0.0, 'cur': 'eu', 'gr': 200091, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 243602, 'productId': 243602, 'name': 'AUTO SÉCHANT MOZART NICE', 'qty': 45459, 'price': 0.0, 'cur': 'eu', 'gr': 45459, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
             {'_id': 26760, 'facilityId': 26760, 'facilityName': 'Mercedes - TECHSTAR POITIERS by AUTOSPHERE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 199851, 'productId': 199851, 'name': 'WNC40 Mercedes Poitiers', 'qty': 728656, 'price': 0.0, 'cur': 'eu', 'gr': 728656, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 199848, 'productId': 199848, 'name': 'AUTO SÉCHANT MERCEDES POITIERS', 'qty': 315273, 'price': 0.0, 'cur': 'eu', 'gr': 315273, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 199848, 'productId': 199848, 'name': 'AUTO SÉCHANT MERCEDES POITIERS', 'qty': 725787, 'price': 0.0, 'cur': 'eu', 'gr': 725787, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 199851, 'productId': 199851, 'name': 'WNC40 Mercedes Poitiers', 'qty': 289654, 'price': 0.0, 'cur': 'eu', 'gr': 289654, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 33338, 'facilityId': 33338, 'facilityName': 'OUEST CONCEPT AUTOMOBILES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 265781, 'productId': 265781, 'name': 'WNC31 BMW BREST', 'qty': 416453, 'price': 0.0, 'cur': 'eu', 'gr': 416453, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 265796, 'productId': 265796, 'name': 'WNC40 BMW BREST', 'qty': 4833, 'price': 0.0, 'cur': 'eu', 'gr': 4833, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 265784, 'productId': 265784, 'name': 'WNC50 BMW BREST', 'qty': 249942, 'price': 0.0, 'cur': 'eu', 'gr': 249942, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 265793, 'productId': 265793, 'name': 'AUTO SECH BMW BREST', 'qty': 366, 'price': 0.0, 'cur': 'eu', 'gr': 366, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 31238, 'facilityId': 31238, 'facilityName': 'OUEST MOTORS - LANNION', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 241430, 'productId': 241430, 'name': 'WNC40 BMW LANNION', 'qty': 229492, 'price': 0.0, 'cur': 'eu', 'gr': 229492, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 241433, 'productId': 241433, 'name': 'AUTO SEC BMW LANNION', 'qty': 9730, 'price': 0.0, 'cur': 'eu', 'gr': 9730, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 35450, 'facilityId': 35450, 'facilityName': 'SAS ALIANTIS | Audi MONTROUGE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 289367, 'productId': 289367, 'name': 'Auto séchant UC Audi Montrouge', 'qty': 97338, 'price': 0.0, 'cur': 'eu', 'gr': 97338, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 289370, 'productId': 289370, 'name': 'Wnc 40 UC Audi Montrouge', 'qty': 65918, 'price': 0.0, 'cur': 'eu', 'gr': 65918, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 35447, 'facilityId': 35447, 'facilityName': 'SAS ALIANTIS | Espace PARIS SUD', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 289424, 'productId': 289424, 'name': 'Auto séchant UC Audi Paris sud', 'qty': 317352, 'price': 0.0, 'cur': 'eu', 'gr': 317352, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 289427, 'productId': 289427, 'name': 'Wnc40 UC Audi Paris sud', 'qty': 68289, 'price': 0.0, 'cur': 'eu', 'gr': 68289, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 35444, 'facilityId': 35444, 'facilityName': 'SAS ALIANTIS | PARIS OUEST', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 292808, 'productId': 292808, 'name': 'Auto séchant UC Aliantis Paris ouest', 'qty': 64589, 'price': 0.0, 'cur': 'eu', 'gr': 64589, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 292811, 'productId': 292811, 'name': 'Wnc40 UC Aliantis Paris ouest', 'qty': 170902, 'price': 0.0, 'cur': 'eu', 'gr': 170902, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 33107, 'facilityId': 33107, 'facilityName': 'SAS JEANNIN AUTOMOBILES 10', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 263840, 'productId': 263840, 'name': 'AUTO SEC UC VERGERS', 'qty': 125156, 'price': 0.0, 'cur': 'eu', 'gr': 125156, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 263837, 'productId': 263837, 'name': 'WNC40 UC VERGERS', 'qty': 265786, 'price': 0.0, 'cur': 'eu', 'gr': 265786, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 35756, 'facilityId': 35756, 'facilityName': 'SAS Jeannin SMDA Occasions | Vert Saint Denis', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 295912, 'productId': 295912, 'name': 'Auto séchant UC smda occasion vert saint Denis', 'qty': 199191, 'price': 0.0, 'cur': 'eu', 'gr': 199191, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 295915, 'productId': 295915, 'name': 'Wnc40 UC smda occasion vert saint Denis', 'qty': 110084, 'price': 0.0, 'cur': 'eu', 'gr': 110084, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 30058, 'facilityId': 30058, 'facilityName': 'SAS Paris-Brest', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 229402, 'productId': 229402, 'name': 'AUTO SÉCHANT ECOCUBE CHARTRES', 'qty': 105116, 'price': 0.0, 'cur': 'eu', 'gr': 105116, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 229405, 'productId': 229405, 'name': 'WNC40 ECOCUBE CHARTRES', 'qty': 219587, 'price': 0.0, 'cur': 'eu', 'gr': 219587, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 33113, 'facilityId': 33113, 'facilityName': 'SASU JEANNIN AUTOPRESTIGE 89', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 263900, 'productId': 263900, 'name': 'WNC40 UC AUXERRE', 'qty': 175105, 'price': 0.0, 'cur': 'eu', 'gr': 175105, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 263897, 'productId': 263897, 'name': 'AUTO SEC UC AUXERRE', 'qty': 43480, 'price': 0.0, 'cur': 'eu', 'gr': 43480, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
             {'_id': 31709, 'facilityId': 31709, 'facilityName': 'SEAT | SKODA - Espace Saint Maximin', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 271976, 'productId': 271976, 'name': 'Eau Skoda saint Maximin', 'qty': 75807936, 'price': 0.0, 'cur': 'eu', 'gr': 75807936, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 262058, 'productId': 262058, 'name': 'WNC40 SAINT MAXIMIN', 'qty': 157331, 'price': 0.0, 'cur': 'eu', 'gr': 157331, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 262058, 'productId': 262058, 'name': 'WNC40 SAINT MAXIMIN', 'qty': 275697, 'price': 0.0, 'cur': 'eu', 'gr': 275697, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 262061, 'productId': 262061, 'name': 'AUTO SÈCHE SAINT MAXIMIN', 'qty': 161292, 'price': 0.0, 'cur': 'eu', 'gr': 161292, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 262061, 'productId': 262061, 'name': 'AUTO SÈCHE SAINT MAXIMIN', 'qty': 280317, 'price': 0.0, 'cur': 'eu', 'gr': 280317, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 271970, 'productId': 271970, 'name': 'Wnc31 portique Skoda saint Maximin', 'qty': 197029, 'price': 0.0, 'cur': 'eu', 'gr': 197029, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 271976, 'productId': 271976, 'name': 'Eau Skoda saint Maximin', 'qty': 69560407, 'price': 0.0, 'cur': 'eu', 'gr': 69560407, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
             {'_id': 33383, 'facilityId': 33383, 'facilityName': 'TAXI RONDET', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 264878, 'productId': 264878, 'name': 'WNC50 TAXI RONDET', 'qty': 59814, 'price': 0.0, 'cur': 'eu', 'gr': 59814, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 264878, 'productId': 264878, 'name': 'WNC50 TAXI RONDET', 'qty': 1233, 'price': 0.0, 'cur': 'eu', 'gr': 1233, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1755820800000'
             },
             {'_id': 31271, 'facilityId': 31271, 'facilityName': 'TECHSTAR OUEST', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 241259, 'productId': 241259, 'name': 'AUTO SÉCH ROCHELLE', 'qty': 392, 'price': 0.0, 'cur': 'eu', 'gr': 392, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 241262, 'productId': 241262, 'name': 'WNC40 MERCEDES ROCHELLE', 'qty': 93258, 'price': 0.0, 'cur': 'eu', 'gr': 93258, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 241262, 'productId': 241262, 'name': 'WNC40 MERCEDES ROCHELLE', 'qty': 17009, 'price': 0.0, 'cur': 'eu', 'gr': 17009, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 241259, 'productId': 241259, 'name': 'AUTO SÉCH ROCHELLE', 'qty': 13, 'price': 0.0, 'cur': 'eu', 'gr': 13, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1755129600000'
             },
             {'_id': 27240, 'facilityId': 27240, 'facilityName': 'TECMAT SERVICE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 204231, 'productId': 204231, 'name': 'WNC70 SAINT-PRIEST', 'qty': 199749, 'price': 0.0, 'cur': 'eu', 'gr': 199749, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 204231, 'productId': 204231, 'name': 'WNC70 SAINT-PRIEST', 'qty': 72094, 'price': 0.0, 'cur': 'eu', 'gr': 72094, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1750982400000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
             {'_id': 26757, 'facilityId': 26757, 'facilityName': 'VW - INTENZ POITOU by AUTOSPHERE - POITIERS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 200178, 'productId': 200178, 'name': 'WNC 40 VOLKSWAGEN POITIERS', 'qty': 1278219, 'price': 0.0, 'cur': 'eu', 'gr': 1278219, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 200178, 'productId': 200178, 'name': 'WNC 40 VOLKSWAGEN POITIERS', 'qty': 202772, 'price': 0.0, 'cur': 'eu', 'gr': 202772, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 200181, 'productId': 200181, 'name': 'AUTO SÉCHANT VOLKSWAGEN POITIERS', 'qty': 33671, 'price': 0.0, 'cur': 'eu', 'gr': 33671, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 200181, 'productId': 200181, 'name': 'AUTO SÉCHANT VOLKSWAGEN POITIERS', 'qty': 6642, 'price': 0.0, 'cur': 'eu', 'gr': 6642, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
-            },
-            {'_id': 30379, 'facilityId': 30379, 'facilityName': 'Viking Auto SA', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 231676, 'productId': 231676, 'name': 'WNC40 ECOCUBE SA', 'qty': 148889, 'price': 0.0, 'cur': 'eu', 'gr': 148889, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 231679, 'productId': 231679, 'name': 'AUTOSECHANT ECOCUBE SA', 'qty': 610, 'price': 0.0, 'cur': 'eu', 'gr': 610, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
             {'_id': 30376, 'facilityId': 30376, 'facilityName': 'Vikings Auto Blet Sud', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 304687, 'productId': 304687, 'name': 'Pré lavage viking auto z2', 'qty': 233930, 'price': 0.0, 'cur': 'eu', 'gr': 233930, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 231286, 'productId': 231286, 'name': 'Autosechant UC BLET Z2', 'qty': 87043, 'price': 0.0, 'cur': 'eu', 'gr': 87043, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 231283, 'productId': 231283, 'name': 'Autosechant UC BLET Z1', 'qty': 60740, 'price': 0.0, 'cur': 'eu', 'gr': 60740, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 304684, 'productId': 304684, 'name': 'Pré lavage viking auto z1', 'qty': 344961, 'price': 0.0, 'cur': 'eu', 'gr': 344961, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 231289, 'productId': 231289, 'name': 'WNC40 UC BLET Z2', 'qty': 180162, 'price': 0.0, 'cur': 'eu', 'gr': 180162, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 304687, 'productId': 304687, 'name': 'Pré lavage viking auto z2', 'qty': 114709, 'price': 0.0, 'cur': 'eu', 'gr': 114709, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 231292, 'productId': 231292, 'name': 'Wnc40 UC BLET Z1', 'qty': 201505, 'price': 0.0, 'cur': 'eu', 'gr': 201505, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 231292, 'productId': 231292, 'name': 'Wnc40 UC BLET Z1', 'qty': 234340, 'price': 0.0, 'cur': 'eu', 'gr': 234340, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 231286, 'productId': 231286, 'name': 'Autosechant UC BLET Z2', 'qty': 25490, 'price': 0.0, 'cur': 'eu', 'gr': 25490, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 231283, 'productId': 231283, 'name': 'Autosechant UC BLET Z1', 'qty': 56358, 'price': 0.0, 'cur': 'eu', 'gr': 56358, 'isSolid': False, 'ratio': 1.0
                     },
-                    {'_id': 304684, 'productId': 304684, 'name': 'Pré lavage viking auto z1', 'qty': 446729, 'price': 0.0, 'cur': 'eu', 'gr': 446729, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 231289, 'productId': 231289, 'name': 'WNC40 UC BLET Z2', 'qty': 88583, 'price': 0.0, 'cur': 'eu', 'gr': 88583, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
             },
-            {'_id': 13283, 'facilityId': 13283, 'facilityName': 'WURTH France VL', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 168018, 'productId': 168018, 'name': 'JANTES MERCEDES VALENTON GGE', 'qty': 2252484, 'price': 801.884304, 'cur': 'eu', 'gr': 2252484, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 190778, 'productId': 190778, 'name': 'WNC40 Mercedes Rambouillet', 'qty': 340660, 'price': 0.0, 'cur': 'eu', 'gr': 340660, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 168027, 'productId': 168027, 'name': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'qty': 1287779, 'price': 330.959203, 'cur': 'eu', 'gr': 1287779, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 167973, 'productId': 167973, 'name': 'JANTES MERCEDES ULIS GGE', 'qty': 294604, 'price': 104.87902400000003, 'cur': 'eu', 'gr': 294604, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 167976, 'productId': 167976, 'name': 'SHAMPOING MERCEDES ULIS GGE', 'qty': 486865, 'price': 125.12430499999996, 'cur': 'eu', 'gr': 486865, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 190832, 'productId': 190832, 'name': 'Auto séchant Mercedes Montgeron', 'qty': 414966, 'price': 0.0, 'cur': 'eu', 'gr': 414966, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 168030, 'productId': 168030, 'name': 'SHAMPOING MERCEDES VALENTON GGE', 'qty': 1966009, 'price': 505.264313, 'cur': 'eu', 'gr': 1966009, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 168009, 'productId': 168009, 'name': 'AUTO SECHANT MERCEDES VALENTON GGE', 'qty': 1190277, 'price': 310.66229699999997, 'cur': 'eu', 'gr': 1190277, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 178586, 'productId': 178586, 'name': 'AUTOSECHANT TRAPPES', 'qty': 889247, 'price': 232.09346699999998, 'cur': 'eu', 'gr': 889247, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 178583, 'productId': 178583, 'name': 'SHAMPOING WNC40 TRAPPES', 'qty': 610348, 'price': 156.859436, 'cur': 'eu', 'gr': 610348, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 168012, 'productId': 168012, 'name': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'qty': 1401905, 'price': 365.897205, 'cur': 'eu', 'gr': 1401905, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 190835, 'productId': 190835, 'name': 'WNC 40 Mercedes Montgeron', 'qty': 252098, 'price': 0.0, 'cur': 'eu', 'gr': 252098, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 171420, 'productId': 171420, 'name': 'SHAMPOING BLAV', 'qty': 464370, 'price': 0.0, 'cur': 'eu', 'gr': 464370, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 190775, 'productId': 190775, 'name': 'Auto séchant Mercedes Rambouillet', 'qty': 506771, 'price': 0.0, 'cur': 'eu', 'gr': 506771, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 167979, 'productId': 167979, 'name': 'AUTO-SECHANT MERCEDES ULIS GGE', 'qty': 794045, 'price': 207.245745, 'cur': 'eu', 'gr': 794045, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 92965, 'productId': 92965, 'name': 'AUTO-SECHANT 200L 0893025650 AXESS BRIVE LA GAILLARDE', 'qty': 1, 'price': 0.0001, 'cur': 'eu', 'gr': 1, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 171414, 'productId': 171414, 'name': 'AUTO-SECHANT BLAV', 'qty': 94, 'price': 0.0, 'cur': 'eu', 'gr': 94, 'isSolid': False, 'ratio': 1.0
+            {'_id': 32882, 'facilityId': 32882, 'facilityName': 'WURTH GULF', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 260360, 'productId': 260360, 'name': 'WNC 70 CLIENT', 'qty': 247, 'price': 0.0, 'cur': 'eu', 'gr': 247, 'isSolid': False, 'ratio': 1.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1751241600000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1754179200000'
             }
-        ], 'startIndex': 0, 'endIndex': 55, 'itemCount': 55
-    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756221761470
+        ], 'startIndex': 0, 'endIndex': 64, 'itemCount': 64
+    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756325807621
 }
