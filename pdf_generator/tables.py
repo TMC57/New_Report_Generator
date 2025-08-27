@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from reportlab.platypus import Table, TableStyle
+from reportlab.platypus import Table, TableStyle, Spacer
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 
@@ -57,10 +57,10 @@ def generate_table(facility, from_date: str, to_date: str):
         first_part = date_range[:15]
         second_part = date_range[15:]
 
-        table1 = build_table(f"CONSOMMATION MENSUELLE jours 1 À 15", first_part, 0)
-        table2 = build_table(f"CONSOMMATION MENSUELLE jours 16 À {len(date_range)}", second_part, 16)
+        table1 = build_table(f"CONSOMMATION MENSUELLE JOUR 1 À 15", first_part, 0)
+        table2 = build_table(f"CONSOMMATION MENSUELLE JOUR 16 À {len(date_range)}", second_part, 16)
 
-        return [table1, table2]
+        return [table1, Spacer(1, 0.5*cm), table2]
     else:
         table = build_table(f"{facility_name} – CONSOMMATION MENSUELLE", date_range, 0)
         return [table]

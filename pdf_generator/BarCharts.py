@@ -49,7 +49,7 @@ def generate_bar_chart(facility, from_date: str, to_date: str):
 
     # ax.set_title(f"{facility['facilityName']} – Consommation quotidienne")
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=5, frameon=False)
-    ax.yaxis.grid(True, linestyle='-', alpha=0.5)
+    ax.grid(True, axis='y', linestyle='-', linewidth=0.8, color='black', alpha=0.3)
 
     # Supprimer les bordures
     for spine in ax.spines.values():

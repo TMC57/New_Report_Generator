@@ -395,7 +395,7 @@ def _get_serial_by_device_id(devices_list: dict, facility_id: int, device_id: in
 
 def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_date: str, to_date: str):
 
-    os.makedirs("reports", exist_ok=True)
+    os.makedirs("../reports", exist_ok=True)
 
     session, token = login_session_cm2w()
 
@@ -411,7 +411,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         facility_id = facility["facilityId"]
 
         sanitized_name = _sanitize_filename(facility.get("facilityName", ""))
-        pdf_path = f"reports/rapport_{sanitized_name}_{facility_id}.pdf"
+        pdf_path = f"../reports/rapport_{sanitized_name}_{facility_id}.pdf"
 
 
         serial_numbers = get_serial_numbers_for_facility(devices_list, facility_id)
@@ -552,17 +552,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
             table_page_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS {zone}", title_style)
             pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_page_title, Spacer(1, 0.5*cm)] + tables
 
-            # stocks_title = f"ÉTAT DES STOCKS AU {datetime.fromtimestamp(int(stock_levels['currentTime']) / 1000).strftime('%d/%m/%Y')}"
-
-            # pages[current_page] += [
-            #     Spacer(1, 0.5*cm),
-            #     Paragraph(stocks_title, title_style),
-            #     Spacer(1, 0.2*cm),
-            #     build_stock_table_for_facility_zone(facility_id, fac_z, stock_levels)
-            # ]
-
             current_page += 1
-
 
             # ==================== PIE CHART + LEGEND (zone entière) ====================
             buf_pie, buf_legend = generate_pie_chart_and_legend(fac_z, from_date, to_date)

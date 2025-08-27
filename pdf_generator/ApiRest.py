@@ -73,19 +73,17 @@ def  Total_Quantity_Report_grouped_by_facilities(
     build_group_config_from_devices_list(devices_list)
 
 
+    endpoint, headers, params = body_stock_levels(facility_id)
+    stock_levels = model(endpoint, headers, params).json()
 
-    # endpoint, headers, params = body_stock_levels(facility_id)
-    # stock_levels = model(endpoint, headers, params).json()
+    # ================= Data Transformation ================
+    total_qty_Json = get_total_qty_every_days(total_qty.json(), from_date, to_date, facility_id)
+    total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
+    total_qty_Json = enrich_json_with_zone(total_qty_Json)
 
-    # # ================= Data Transformation ================
-    # total_qty_Json = get_total_qty_every_days(total_qty.json(), from_date, to_date, facility_id)
-    # total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
-    # total_qty_Json = enrich_json_with_zone(total_qty_Json)
-
-    # print(total_qty_Json)
-    # # ======================================================
-    # transform_facility_json(devices_list)
-    # generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)
+    # ======================================================
+    transform_facility_json(devices_list)
+    generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)
 
 
     return {"ok"}

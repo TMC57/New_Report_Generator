@@ -1,1 +1,12 @@
-[]
+{'statusCode': 'SUCCESS', 'data': [
+        {'facilityId': 28194, 'facilityName': '1070133631\tALTIS VANNES', 'facilityCity': 'VANNES', 'facilityAddress': 'rue de Gertude Bell', 'facilityZipCode': '56000', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
+                {'productId': 214053, 'productName': 'AUTO SÉCHANT VANNES', 'facilityId': 28194, 'price': 0.0, 'remainingQuantity': '87.1257 L', 'averageDailyConsumption': '0.0154 L', 'remainingDays': 5657, 'currency': 'EUR'
+                },
+                {'productId': 214056, 'productName': 'WNC31 VANNES', 'facilityId': 28194, 'price': 0.0, 'remainingQuantity': '49.2081 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 214059, 'productName': 'WNC40 Vannes', 'facilityId': 28194, 'price': 0.0, 'remainingQuantity': '71.6869 L', 'averageDailyConsumption': '0.3937 L', 'remainingDays': 182, 'currency': 'EUR'
+                }
+            ]
+        }
+    ], 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756336486505
+}

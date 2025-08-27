@@ -88,7 +88,7 @@ def generate_device_scatter(events_json: dict, title: str):
     ax.set_title(title)
     # ax.set_xlabel("Date/heure")
     # ax.set_ylabel("Débit")
-    ax.grid(True, linestyle=':', alpha=0.5)
+    ax.grid(True, axis='y', linestyle='-', linewidth=0.8, color='black', alpha=0.3)
     ax.legend(
         loc='upper center',
         bbox_to_anchor=(0.5, -0.15),
@@ -98,6 +98,7 @@ def generate_device_scatter(events_json: dict, title: str):
 
     # X = dates bien lisibles
     ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+    ax.xaxis.set_major_locator(mdates.DayLocator(interval=1))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m")) #\n%H:%M a rajouter si on veut l'heure
     fig.autofmt_xdate()
 
