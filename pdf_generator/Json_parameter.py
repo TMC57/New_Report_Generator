@@ -2,7 +2,7 @@ import json
 import os
 
 def transform_facility_json(input_json):
-    facilities = input_json.get("data", {}).get("results", [])
+    facilities = input_json.get("data", [])
     output = []
 
     # Lire l'existant s'il existe

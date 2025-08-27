@@ -32,7 +32,7 @@ app = FastAPI(
 # def read_root():
 #     return {"message": "API opérationnelle"}
 
-@app.get("/")
+@app.get("/", include_in_schema=False)
 def get_home():
     return FileResponse("static/table.html")
 
@@ -53,27 +53,23 @@ def  Total_Quantity_Report_grouped_by_facilities(
     to_date_obj = datetime.strptime(to_date, "%Y-%m-%d") + timedelta(days=1)
     to_date_plus_one = to_date_obj.strftime("%Y-%m-%d")
 
-    endpoint, headers, params =  body_total_qty_report(from_date, to_date_plus_one, facility_id)    
+    endpoint, headers, params =  body_total_qty_report(from_date, to_date_plus_one, facility_id) 
     total_qty = model(endpoint, headers, params)
+    print(total_qty.json())
 
-    endpoint, headers, params = body_devices_list(facility_id)
-    devices_list = model(endpoint, headers, params).json()
+    # endpoint, headers, params = body_devices_list(facility_id)
+    # devices_list = model(endpoint, headers, params).json()
 
-    endpoint, headers, params = body_stock_levels(facility_id)
-    stock_levels = model(endpoint, headers, params).json()
-
-    # print(devices_list.json())
+    # endpoint, headers, params = body_stock_levels(facility_id)
+    # stock_levels = model(endpoint, headers, params).json()
 
     # # ================= Data Transformation ================
-    total_qty_Json = get_total_qty_every_days(total_qty.json(), from_date, to_date, facility_id)
-    total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
-    total_qty_Json = enrich_json_with_zone(total_qty_Json)
-
-    # print(total_qty_Json)
-
+    # total_qty_Json = get_total_qty_every_days(total_qty.json(), from_date, to_date, facility_id)
+    # total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
+    # total_qty_Json = enrich_json_with_zone(total_qty_Json)
     # # ======================================================
-    transform_facility_json(total_qty_Json)
-    generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)
+    # transform_facility_json(devices_list)
+    # generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)
 
 
     return {"ok"}
@@ -86,20 +82,20 @@ os.makedirs("uploads", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
-@app.get("/items")
+@app.get("/items", include_in_schema=False)
 def get_items():
     """Retourne le contenu du JSON."""
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
-@app.put("/items")
+@app.put("/items", include_in_schema=False)
 def save_items(items: List[dict]):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
     return {"saved": len(items)}
 
 # --- Upload ---
-@app.post("/upload")
+@app.post("/upload", include_in_schema=False)
 async def upload(file: UploadFile = File(...)):
     dst_path = os.path.join("uploads", file.filename)
     with open(dst_path, "wb") as buffer:

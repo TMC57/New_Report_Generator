@@ -45,7 +45,7 @@ def generate_bar_chart(facility, from_date: str, to_date: str):
     ax.set_xticklabels(date_labels, rotation=45)
 
     # ➤ Formater l’axe Y avec une décimale et unité dynamique
-    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f"{x:.1f} L"))
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f"{x:.2f}L"))
 
     # ax.set_title(f"{facility['facilityName']} – Consommation quotidienne")
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=5, frameon=False)
