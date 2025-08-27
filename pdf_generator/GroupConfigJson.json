@@ -1,14 +1,13 @@
 [
   {
-    "owner": "Wurth",
+    "owner": "AUTOSPHERE",
     "facilities": [
       {
-        "facilityId": 28194,
-        "facilityName": "1070133631\tALTIS VANNES"
+        "facilityId": 34735,
+        "facilityName": "1071046164 BAYERN | POITIERS"
       }
     ],
-    "cover_picture": "/uploads/images.jpg",
-    "material_picture": "",
+    "cover_picture": "/uploads/FYhis7BXEAArpZe.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -24,8 +23,84 @@
       "mail_adresse": "",
       "phone_number": ""
     },
-    "primary_company_brand": "/uploads/sample_9b0d4db2d64d881258a0556e1ff9b46b.jpg",
-    "dernière intervention": "",
-    "relevés buses": ""
+    "primary_company_brand": ""
+  },
+  {
+    "owner": "Wurth",
+    "facilities": [
+      {
+        "facilityId": 28194,
+        "facilityName": "1070133631\tALTIS VANNES"
+      }
+    ],
+    "cover_picture": "/uploads/sample_5d8b7955542d08301971b17771738ffe (1).jpg",
+    "inventory_monitoring_manager": {
+      "full_name": "",
+      "mail_adresse": "",
+      "phone_number": ""
+    },
+    "customer_technical_relay_manager": {
+      "full_name": "",
+      "mail_adresse": "",
+      "phone_number": ""
+    },
+    "file_referent": {
+      "full_name": "",
+      "mail_adresse": "",
+      "phone_number": ""
+    },
+    "primary_company_brand": ""
+  },
+  {
+    "owner": "Groupe PRIOD",
+    "facilities": [
+      {
+        "facilityId": 28605,
+        "facilityName": "1070094841\tECA"
+      }
+    ],
+    "cover_picture": "/uploads/sample_22a34f5f9387ffa91a0ca950bf31c442.jpg",
+    "inventory_monitoring_manager": {
+      "full_name": "",
+      "mail_adresse": "",
+      "phone_number": ""
+    },
+    "customer_technical_relay_manager": {
+      "full_name": "",
+      "mail_adresse": "",
+      "phone_number": ""
+    },
+    "file_referent": {
+      "full_name": "",
+      "mail_adresse": "",
+      "phone_number": ""
+    },
+    "primary_company_brand": ""
+  },
+  {
+    "owner": "Espace Bienvenue",
+    "facilities": [
+      {
+        "facilityId": 32015,
+        "facilityName": "1070593314 Espace Bienvenue | Angoulême"
+      }
+    ],
+    "cover_picture": "",
+    "inventory_monitoring_manager": {
+      "full_name": "",
+      "mail_adresse": "",
+      "phone_number": ""
+    },
+    "customer_technical_relay_manager": {
+      "full_name": "",
+      "mail_adresse": "",
+      "phone_number": ""
+    },
+    "file_referent": {
+      "full_name": "",
+      "mail_adresse": "",
+      "phone_number": ""
+    },
+    "primary_company_brand": ""
   }
 ]
