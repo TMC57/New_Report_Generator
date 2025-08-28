@@ -48,7 +48,7 @@ def generate_bar_chart(facility, from_date: str, to_date: str):
     ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f"{x:.2f}L"))
 
     # ax.set_title(f"{facility['facilityName']} – Consommation quotidienne")
-    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=5, frameon=False)
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=4, frameon=False)
     ax.grid(True, axis='y', linestyle='-', linewidth=0.8, color='black', alpha=0.3)
 
     # Supprimer les bordures

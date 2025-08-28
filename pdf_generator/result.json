@@ -1,12 +1,109 @@
-{'statusCode': 'SUCCESS', 'data': [
-        {'facilityId': 28194, 'facilityName': '1070133631\tALTIS VANNES', 'facilityCity': 'VANNES', 'facilityAddress': 'rue de Gertude Bell', 'facilityZipCode': '56000', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
-                {'productId': 214053, 'productName': 'AUTO SÉCHANT VANNES', 'facilityId': 28194, 'price': 0.0, 'remainingQuantity': '87.1257 L', 'averageDailyConsumption': '0.0154 L', 'remainingDays': 5657, 'currency': 'EUR'
-                },
-                {'productId': 214056, 'productName': 'WNC31 VANNES', 'facilityId': 28194, 'price': 0.0, 'remainingQuantity': '49.2081 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
-                },
-                {'productId': 214059, 'productName': 'WNC40 Vannes', 'facilityId': 28194, 'price': 0.0, 'remainingQuantity': '71.6869 L', 'averageDailyConsumption': '0.3937 L', 'remainingDays': 182, 'currency': 'EUR'
-                }
-            ]
-        }
-    ], 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756336486505
+{'statusCode': 'SUCCESS', 'data': {'results': [
+            {'_id': 28194, 'facilityId': 28194, 'facilityName': '1070133631\tALTIS VANNES', 'lq': 0, 'lQty': 0, 'products': [
+                    {'_id': 214059, 'productId': 214059, 'name': 'WNC40 Vannes', 'qty': 121013, 'price': 0.0, 'cur': 'eu', 'gr': 121013, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 17033
+                            },
+                            {'date': '2025-08-02', 'qty': 4340
+                            },
+                            {'date': '2025-08-04', 'qty': 7186
+                            },
+                            {'date': '2025-08-05', 'qty': 22157
+                            },
+                            {'date': '2025-08-06', 'qty': 7521
+                            },
+                            {'date': '2025-08-07', 'qty': 6174
+                            },
+                            {'date': '2025-08-08', 'qty': 1617
+                            },
+                            {'date': '2025-08-12', 'qty': 1874
+                            },
+                            {'date': '2025-08-13', 'qty': 5189
+                            },
+                            {'date': '2025-08-14', 'qty': 4862
+                            },
+                            {'date': '2025-08-18', 'qty': 7022
+                            },
+                            {'date': '2025-08-19', 'qty': 6644
+                            },
+                            {'date': '2025-08-20', 'qty': 1218
+                            },
+                            {'date': '2025-08-21', 'qty': 4488
+                            },
+                            {'date': '2025-08-22', 'qty': 5591
+                            },
+                            {'date': '2025-08-23', 'qty': 7480
+                            },
+                            {'date': '2025-08-25', 'qty': 2172
+                            },
+                            {'date': '2025-08-26', 'qty': 6613
+                            },
+                            {'date': '2025-08-27', 'qty': 1832
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 105071
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 163032
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 143022
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 101787
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 123474
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 141256
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 169044
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 138712
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 252557
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 252988
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 260077
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-08-28', 'qty': 121013
+                            }
+                        ], 'zone': 'GLOBAL'
+                    },
+                    {'_id': 214053, 'productId': 214053, 'name': 'AUTO SÉCHANT VANNES', 'qty': 3942, 'price': 0.0, 'cur': 'eu', 'gr': 3942, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 1653
+                            },
+                            {'date': '2025-08-02', 'qty': 852
+                            },
+                            {'date': '2025-08-14', 'qty': 359
+                            },
+                            {'date': '2025-08-21', 'qty': 1078
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 38948
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 24547
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 24332
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 28316
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 11264
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 67339
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 159840
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 113568
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 99755
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 105656
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-08-28', 'qty': 3942
+                            }
+                        ], 'zone': 'GLOBAL'
+                    },
+                    {'_id': 214056, 'productId': 214056, 'name': 'WNC31 VANNES', 'qty': 0, 'price': 0.0, 'cur': 'eu', 'gr': 0, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [], 'MonthlyQuantities': [], 'zone': 'GLOBAL'
+                    }
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
+            }
+        ], 'startIndex': 0, 'endIndex': 1, 'itemCount': 1
+    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756377372155
 }

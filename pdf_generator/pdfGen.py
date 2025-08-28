@@ -36,6 +36,8 @@ from getDebit import login_session_cm2w, get_events
 from MyTime import date_tsd
 from scatter import generate_device_scatter
 
+import random, time
+
 import copy
 
 
@@ -395,7 +397,8 @@ def _get_serial_by_device_id(devices_list: dict, facility_id: int, device_id: in
 
 def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_date: str, to_date: str):
 
-    os.makedirs("../reports", exist_ok=True)
+    os.makedirs(f"../reports {from_date} to {to_date}", exist_ok=True)
+    dirname = (f"../reports {from_date} to {to_date}")
 
     session, token = login_session_cm2w()
 
@@ -411,7 +414,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         facility_id = facility["facilityId"]
 
         sanitized_name = _sanitize_filename(facility.get("facilityName", ""))
-        pdf_path = f"../reports/rapport_{sanitized_name}_{facility_id}.pdf"
+        pdf_path = f"{dirname}/rapport_{sanitized_name}_{facility_id}.pdf"
 
 
         serial_numbers = get_serial_numbers_for_facility(devices_list, facility_id)
@@ -549,7 +552,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
 
             # ==================== TABLES days ====================
             tables = generate_table(fac_z, from_date, to_date)  # renvoie [table] ou [table1, table2]
-            table_page_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS {zone}", title_style)
+            table_page_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS - {zone}", title_style)
             pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_page_title, Spacer(1, 0.5*cm)] + tables
 
             current_page += 1
@@ -570,7 +573,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
             # ==================== TABLES Month ====================
             tables_year = generate_monthly_table(fac_z)
             table_month_page_title = Paragraph(f"CONSOMMATION ANNUELLE DE PRODUITS - {zone}", title_style)
-            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_month_page_title, Spacer(1, 1*cm)] + tables_year
+            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), table_month_page_title, Spacer(1, 0.7*cm)] + tables_year
             
 
             stocks_title = f"ÉTAT DES STOCKS AU {datetime.fromtimestamp(int(stock_levels['currentTime']) / 1000).strftime('%d/%m/%Y')}"
@@ -611,6 +614,6 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         doc.addPageTemplates([page_template])
         doc.build(elements)
 
-    print("PDFs générés dans le dossier 'reports/'")
+    print(f"PDFs générés dans le dossier ../reports {from_date} to {to_date}")
     return 0
 

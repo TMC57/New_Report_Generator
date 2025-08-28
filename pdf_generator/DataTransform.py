@@ -5,6 +5,7 @@ import re
 from collections import OrderedDict
 from collections import defaultdict
 from typing import Dict, Any, List
+from typing import Dict, Any, Tuple
 
 def get_total_qty_every_days(Json_to_fill, from_date, to_date, facilityId=None):
     current_date = datetime.strptime(from_date, "%Y-%m-%d")
@@ -287,3 +288,99 @@ def group_qty_by_owner_and_facility(total_qty_json: Dict[str, Any],
     # trier les owners par nom
     owners_list.sort(key=lambda x: x["owner"] or "")
     return {"owners": owners_list}
+
+
+
+
+def enrich_qty_with_stock_products(qty_json: Dict[str, Any],
+                                   stock_json: Dict[str, Any]) -> Tuple[Dict[str, Any], int]:
+    """
+    Vérifie, facility par facility, que tous les produits du stock (stock_json)
+    existent dans qty_json. Si un produit manque, on l'ajoute avec un "squelette"
+    de produit conforme à qty (sans dailyQuantities / MonthlyQuantities).
+
+    Retourne: (qty_json_modifié, nb_produits_ajoutés)
+    """
+    def _norm(s):
+        return (s or "").strip().lower()
+
+    # 1) Accès aux sections utiles (tolérant aux absences)
+    qty_root = (qty_json or {}).setdefault("data", {}).setdefault("results", [])
+    stock_root = (stock_json or {}).get("data", []) or []
+
+    # 2) Indexe qty par facilityId
+    fac_index = {item.get("facilityId"): item for item in qty_root}
+
+    added = 0
+
+    for fac in stock_root:
+        fac_id = fac.get("facilityId")
+        fac_name = fac.get("facilityName") or ""
+
+        if fac_id is None:
+            continue
+
+        # a) Récupère (ou crée) l'entrée facility côté qty
+        if fac_id not in fac_index:
+            # Structure calquée sur ton gty.txt (valeurs génériques) :contentReference[oaicite:1]{index=1}
+            new_fac = {
+                "_id": fac_id,
+                "facilityId": fac_id,
+                "facilityName": fac_name,
+                "lq": 0,
+                "lQty": 0,
+                "products": [],
+                "clientPrice": 0,
+                "clientCur": None,
+                # weekly bins (si présents dans tes autres résultats)
+                "w0": 0, "w1": 0, "w2": 0, "w3": 0, "w4": 0, "w5": 0, "w6": 0, "w7": 0, "w8": 0, "w9": 0,
+                # borne temporelle si besoin ; on laisse vide si on ne l’a pas
+                # "tsd": None,
+            }
+            qty_root.append(new_fac)
+            fac_index[fac_id] = new_fac
+
+        qty_fac_entry = fac_index[fac_id]
+        qty_products = qty_fac_entry.setdefault("products", [])
+
+        # b) Ensemble des produits déjà présents (par id et par nom normalisé)
+        existing_ids = set()
+        existing_names = set()
+        for p in qty_products:
+            if p.get("productId") is not None:
+                existing_ids.add(p["productId"])
+            existing_names.add(_norm(p.get("name")))
+
+        # c) Parcourt les produits du stock, et ajoute les manquants
+        for sp in (fac.get("products") or []):
+            pid = sp.get("productId")
+            pname = sp.get("productName") or ""
+
+            # Critères d'existence: productId OU nom normalisé
+            already = (pid in existing_ids) or (_norm(pname) in existing_names)
+            if already:
+                continue
+
+            # Squelette produit calqué sur gty.txt (sans daily/monthly) :contentReference[oaicite:2]{index=2}
+            new_product = {
+                "_id": pid,
+                "productId": pid,
+                "name": pname,
+                "qty": 0,          # quantité totale (brute, en unités "source")
+                "price": 0.0,
+                "cur": "eu",       # cohérent avec tes exemples
+                "gr": 0,
+                "isSolid": False,
+                "ratio": 1.0,
+                "dailyQuantities": [],      # ← vide (pas de données)
+                "MonthlyQuantities": [],    # ← vide (pas de données)
+                "zone": sp.get("zone", ""), # stockLvl ne l’a pas toujours ; on met "" si absent
+            }
+            qty_products.append(new_product)
+            # mets à jour les sets pour éviter doublons au sein de la même facility
+            if pid is not None:
+                existing_ids.add(pid)
+            existing_names.add(_norm(pname))
+            added += 1
+
+    return qty_json#, added

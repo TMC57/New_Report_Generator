@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from io import BytesIO
 import numpy as np
 from colors_map import get_colors_for_products  # <-- AJOUT
+import math
 
 def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     start = datetime.strptime(from_date, "%Y-%m-%d")
@@ -39,21 +40,40 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     # --- Image du camembert sans légende ---   
     fig_pie, pie_ax = plt.subplots(figsize=(5, 5), constrained_layout=True)
 
+    if not filtered_totals or math.isclose(sum(filtered_totals), 0.0, rel_tol=0.0, abs_tol=1e-12):
+        pie_ax.text(0.5, 0.5, "Aucune donnée", ha="center", va="center", fontsize=12)
+        pie_ax.axis("off")
+
+        buf_pie = BytesIO()
+        fig_pie.savefig(buf_pie, format='png', bbox_inches='tight')
+        plt.close(fig_pie)
+        buf_pie.seek(0)
+
+        fig_legend, legend_ax = plt.subplots(figsize=(5, 1.5))
+        legend_ax.axis('off')
+        buf_legend = BytesIO()
+        fig_legend.savefig(buf_legend, format='png', bbox_inches='tight')
+        plt.close(fig_legend)
+        buf_legend.seek(0)
+
+        return buf_pie, buf_legend  
+
+    # ✅ Cas normal : on trace le camembert
     wedges, texts, autotexts = pie_ax.pie(
         filtered_totals,
-        labels=None,
+        labels=None,  # noms mis dans la légende
         autopct=lambda pct: format_liters(pct, filtered_totals),
         startangle=90,
         counterclock=False,
         wedgeprops={'edgecolor': 'black', 'linewidth': 0.2},
         normalize=True,
-        pctdistance=0.50,
-        textprops={'fontsize': 14},
-        colors=filtered_colors,  # <-- AJOUT
+        pctdistance=0.50,            # éloigne les nombres du centre
+        textprops={'fontsize': 14},  # nombres plus gros
+        colors=filtered_colors       # <<< synchro couleurs
     )
+
     pie_ax.set_aspect('equal')
     pie_ax.margins(0)
-
 
     # --- paramètres centrés ---
     SMALL_PCT = 4.0     # petite tranche
@@ -67,11 +87,11 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     MAX_IT    = 100     # itérations max
 
     # --- % par tranche ---
-    total = float(sum(filtered_totals)) if filtered_totals else 1.0
+    total = float(sum(filtered_totals))
     pcts  = [100.0 * v / total for v in filtered_totals]
     n     = len(wedges)
 
-    # 1) placement initial, proche du centre
+    # 1) placement initial, proche du centre (et style bbox pour CHAQUE étiquette)
     for i, (w, t) in enumerate(zip(wedges, autotexts)):
         if not t.get_text():
             continue
@@ -86,7 +106,7 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
         t.set_ha('center'); t.set_va('center')
         t.set_bbox(dict(boxstyle="round,pad=0.25", fc="white", ec="none", alpha=0.65))
 
-    # 2) anti-chevauchement itératif (pousse la plus petite vers l'extérieur, l’autre un poil vers l’intérieur)
+    # 2) anti-chevauchement itératif
     fig_pie.canvas.draw()
     renderer = fig_pie.canvas.get_renderer()
 
@@ -103,18 +123,19 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
                     a.y1 + gap <= b.y0 or b.y1 + gap <= a.y0)
 
     thetas = [np.deg2rad((w.theta1 + w.theta2) * 0.5) for w in wedges]
-
     iters = 0
     changed = True
     while changed and iters < MAX_IT:
         changed = False
         bbs = bboxes_px(autotexts)
         for i in range(n):
-            if not autotexts[i].get_text() or bbs[i] is None: continue
+            if not autotexts[i].get_text() or bbs[i] is None: 
+                continue
             for j in range(i+1, n):
-                if not autotexts[j].get_text() or bbs[j] is None: continue
+                if not autotexts[j].get_text() or bbs[j] is None: 
+                    continue
                 if overlap(bbs[i], bbs[j], GAP_PX):
-                    # index de la plus petite et de la plus grande des deux
+                    # index petite/grande
                     k_small = i if pcts[i] < pcts[j] else j
                     k_big   = j if k_small == i else i
 
@@ -133,28 +154,28 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
             fig_pie.canvas.draw()
         iters += 1
 
-        # améliore la lisibilité (optionnel)
-        t.set_bbox(dict(boxstyle="round,pad=0.25", fc="white", ec="none", alpha=0.6))
+    # (facultatif) repasser un bbox propre sur chaque label après ajustements
+    for t in autotexts:
+        if t.get_text():
+            t.set_bbox(dict(boxstyle="round,pad=0.25", fc="white", ec="none", alpha=0.65))
 
-        buf_pie = BytesIO()
-        fig_pie.savefig(buf_pie, format='png', bbox_inches='tight')
-        plt.close(fig_pie)
-        buf_pie.seek(0)
+    # Export des buffers
+    buf_pie = BytesIO()
+    fig_pie.savefig(buf_pie, format='png', bbox_inches='tight')
+    plt.close(fig_pie)
+    buf_pie.seek(0)
 
-        # --- Image de la légende seule ---
-        fig_legend, legend_ax = plt.subplots(figsize=(5, 1.5))
-        legend_ax.axis('off')  # pas d'axes visibles
+    # --- Image de la légende seule ---
+    fig_legend, legend_ax = plt.subplots(figsize=(5, 1.5))
+    legend_ax.axis('off')  # pas d'axes visibles
 
-        # Création d'une légende en utilisant les wedges et noms filtrés
-
-        # Légende : on réutilise 'wedges' + 'filtered_names' (déjà colorés)
-        legend = legend_ax.legend(
-            wedges, filtered_names,
-            loc='center',
-            fontsize=11,
-            frameon=False,
-            ncol=3
-        )
+    legend = legend_ax.legend(
+        wedges, filtered_names,
+        loc='center',
+        fontsize=11,
+        frameon=False,
+        ncol=3  # ✅ 3 éléments max par ligne
+    )
 
     buf_legend = BytesIO()
     fig_legend.savefig(buf_legend, format='png', bbox_inches='tight')

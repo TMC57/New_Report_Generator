@@ -1,4 +1,5 @@
 import os, requests, time, json, base64
+import random, time
 
 BASE = "https://sh1.cm2w.net"
 LOGIN_URL  = f"{BASE}/cm2w-api/v2/users/login"
@@ -47,6 +48,9 @@ def get_events(session, device_id, from_ms, thru_ms, page=1, size=5000):
         "pageSize": str(size),
         "endPoint": "events",
     }
+
+    time.sleep(1.5 + random.random() * 1.5)  # entre 1.5s et 3s
+
     resp = session.get(EVENTS_URL, params=params, timeout=60)
     if resp.status_code == 401:
         raise PermissionError("401 sur /events : token/cookie invalide ou expiré.")
