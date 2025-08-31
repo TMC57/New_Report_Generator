@@ -1,510 +1,654 @@
 {'statusCode': 'SUCCESS', 'data': {'results': [
-            {'_id': 33656, 'facilityId': 33656, 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 268724, 'productId': 268724, 'name': 'WNC40 UC SHAMPOING', 'qty': 36337, 'price': 0.0, 'cur': 'eu', 'gr': 36337, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 268721, 'productId': 268721, 'name': 'AUTO SECH UC MERCEDES AUTO BERNARD', 'qty': 183256, 'price': 0.0, 'cur': 'eu', 'gr': 183256, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 33659, 'facilityId': 33659, 'facilityName': '1070020163 Etoile Autobernard | SOISSONS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 268784, 'productId': 268784, 'name': 'AUTO SEC UC SOISSONS', 'qty': 29257, 'price': 0.0, 'cur': 'eu', 'gr': 29257, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 268787, 'productId': 268787, 'name': 'WNC40 UC SOISSONS', 'qty': 369042, 'price': 0.0, 'cur': 'eu', 'gr': 369042, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 28845, 'facilityId': 28845, 'facilityName': '1070029802\tFIX AUTO BORDEAUX', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 218022, 'productId': 218022, 'name': 'ECO CUBE SECH BORDEAUX', 'qty': 29469, 'price': 0.0, 'cur': 'eu', 'gr': 29469, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 218025, 'productId': 218025, 'name': 'ÉCO CUBE SHAMP BORDEAUX', 'qty': 15691, 'price': 0.0, 'cur': 'eu', 'gr': 15691, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 28605, 'facilityId': 28605, 'facilityName': '1070094841\tECA', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 215439, 'productId': 215439, 'name': 'Zone 1 WNC50 CORBEIL', 'qty': 300469, 'price': 0.0, 'cur': 'eu', 'gr': 300469, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 215550, 'productId': 215550, 'name': 'ZONE 2 WNC50 CORBEIL', 'qty': 220650, 'price': 0.0, 'cur': 'eu', 'gr': 220650, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 215442, 'productId': 215442, 'name': 'ZONE 1 AUTOSECHANT CORBEIL', 'qty': 240291, 'price': 0.0, 'cur': 'eu', 'gr': 240291, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 215547, 'productId': 215547, 'name': 'ZONE 2 AUTOSECHANT CORBEIL', 'qty': 84, 'price': 0.0, 'cur': 'eu', 'gr': 84, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39556, 'facilityId': 39556, 'facilityName': '1070133566 STARTER 2009', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 343258, 'productId': 343258, 'name': 'AUTOSECHANT AUDI MENTON', 'qty': 52730, 'price': 0.0, 'cur': 'eu', 'gr': 52730, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 28194, 'facilityId': 28194, 'facilityName': '1070133631\tALTIS VANNES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 214059, 'productId': 214059, 'name': 'WNC40 Vannes', 'qty': 121013, 'price': 0.0, 'cur': 'eu', 'gr': 121013, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 214053, 'productId': 214053, 'name': 'AUTO SÉCHANT VANNES', 'qty': 3942, 'price': 0.0, 'cur': 'eu', 'gr': 3942, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 32012, 'facilityId': 32012, 'facilityName': '1070171274 Espace Bienvenue | Rochefort', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 258182, 'productId': 258182, 'name': 'AUTO SEC UC BMW ROCHEFORT', 'qty': 262876, 'price': 0.0, 'cur': 'eu', 'gr': 262876, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 258191, 'productId': 258191, 'name': 'WNC50 BMW ROCHEFORT', 'qty': 406557, 'price': 0.0, 'cur': 'eu', 'gr': 406557, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 258188, 'productId': 258188, 'name': 'WNC40 UC BMW ROCHEFORT', 'qty': 890, 'price': 0.0, 'cur': 'eu', 'gr': 890, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39562, 'facilityId': 39562, 'facilityName': '1070262035 GENIN zone 1', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 343396, 'productId': 343396, 'name': 'G1 ZONE 2 SHAMP VALENCE', 'qty': 8124, 'price': 0.0, 'cur': 'eu', 'gr': 8124, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 343390, 'productId': 343390, 'name': 'G1 ZONE 2 AUTOSECHANT VALENCE', 'qty': 3076, 'price': 0.0, 'cur': 'eu', 'gr': 3076, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39565, 'facilityId': 39565, 'facilityName': '1070262035 GENIN zone 2', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 343417, 'productId': 343417, 'name': 'G1 ZONE 1  AUTOSECHANT VALENCE', 'qty': 936, 'price': 0.0, 'cur': 'eu', 'gr': 936, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 343402, 'productId': 343402, 'name': 'G1 ZONE 2 AUTOSECHANT VALENCE', 'qty': 3353, 'price': 0.0, 'cur': 'eu', 'gr': 3353, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 343405, 'productId': 343405, 'name': 'G1 ZONE 2 SHAMP VALENCE', 'qty': 5736, 'price': 0.0, 'cur': 'eu', 'gr': 5736, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 31097, 'facilityId': 31097, 'facilityName': '1070278349\tMOZART AUTOS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 243596, 'productId': 243596, 'name': 'WNC40 MOZART NICE', 'qty': 383163, 'price': 0.0, 'cur': 'eu', 'gr': 383163, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 243602, 'productId': 243602, 'name': 'AUTO SÉCHANT MOZART NICE', 'qty': 187153, 'price': 0.0, 'cur': 'eu', 'gr': 187153, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 30058, 'facilityId': 30058, 'facilityName': '1070280831\tGARAGE PARIS BREST PROCUREUR', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 229402, 'productId': 229402, 'name': 'AUTO SÉCHANT ECOCUBE CHARTRES', 'qty': 18880, 'price': 0.0, 'cur': 'eu', 'gr': 18880, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 229405, 'productId': 229405, 'name': 'WNC40 ECOCUBE CHARTRES', 'qty': 30518, 'price': 0.0, 'cur': 'eu', 'gr': 30518, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1754870400000'
-            },
-            {'_id': 35444, 'facilityId': 35444, 'facilityName': '1070309718 SAS ALIANTIS | PARIS OUEST', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 292811, 'productId': 292811, 'name': 'Wnc40 UC Aliantis Paris ouest', 'qty': 83426, 'price': 0.0, 'cur': 'eu', 'gr': 83426, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 292808, 'productId': 292808, 'name': 'Auto séchant UC Aliantis Paris ouest', 'qty': 152817, 'price': 0.0, 'cur': 'eu', 'gr': 152817, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 35447, 'facilityId': 35447, 'facilityName': '1070327612 SAS ALIANTIS | Espace PARIS SUD', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 289427, 'productId': 289427, 'name': 'Wnc40 UC Audi Paris sud', 'qty': 453771, 'price': 0.0, 'cur': 'eu', 'gr': 453771, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 289424, 'productId': 289424, 'name': 'Auto séchant UC Audi Paris sud', 'qty': 358581, 'price': 0.0, 'cur': 'eu', 'gr': 358581, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 32018, 'facilityId': 32018, 'facilityName': '1070379612 Espace Bienvenue | St Georges', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 258167, 'productId': 258167, 'name': 'WNC50 BMW ST GEORGE', 'qty': 35500, 'price': 0.0, 'cur': 'eu', 'gr': 35500, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 258164, 'productId': 258164, 'name': 'WNC40 UC ST GEORGE', 'qty': 485, 'price': 0.0, 'cur': 'eu', 'gr': 485, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 258158, 'productId': 258158, 'name': 'AUTO SEC UC BMW ST GEORGE', 'qty': 216089, 'price': 0.0, 'cur': 'eu', 'gr': 216089, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 33107, 'facilityId': 33107, 'facilityName': '1070419340\tJEANNIN AUTOMOBILES IO ST ANDRE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 263837, 'productId': 263837, 'name': 'WNC40 UC VERGERS', 'qty': 168352, 'price': 0.0, 'cur': 'eu', 'gr': 168352, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 263840, 'productId': 263840, 'name': 'AUTO SEC UC VERGERS', 'qty': 92192, 'price': 0.0, 'cur': 'eu', 'gr': 92192, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39151, 'facilityId': 39151, 'facilityName': '1070446250\tGÉNÉRAL AUTOMOBILE ORVAULT', 'lq': 0, 'lQty': 0, 'products': [], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756080000000'
-            },
-            {'_id': 38281, 'facilityId': 38281, 'facilityName': '1070462396 GGE | Les Ulis', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 335800, 'productId': 335800, 'name': 'SHAMPOING MERCEDES ULIS GGE', 'qty': 171807, 'price': 33.50236499999999, 'cur': 'eu', 'gr': 171807, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 335806, 'productId': 335806, 'name': 'JANTES MERCEDES ULIS GGE', 'qty': 71330, 'price': 23.18225, 'cur': 'eu', 'gr': 71330, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 335812, 'productId': 335812, 'name': 'AUTO-SECHANT MERCEDES ULIS GGE', 'qty': 220382, 'price': 51.78977, 'cur': 'eu', 'gr': 220382, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 28842, 'facilityId': 28842, 'facilityName': '1070505129\tFIX AUTO COLOMIERS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 217884, 'productId': 217884, 'name': 'ECO CUBE SHAMP COLOMIERS', 'qty': 47477, 'price': 0.0, 'cur': 'eu', 'gr': 47477, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 217881, 'productId': 217881, 'name': 'ÉCO CUBE AUTO COLOMIERS', 'qty': 235, 'price': 0.0, 'cur': 'eu', 'gr': 235, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 33653, 'facilityId': 33653, 'facilityName': '1070510282\tETOILE AUTOBERNARD EPERNAY', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 268967, 'productId': 268967, 'name': 'WNC40 UC EPERNAY', 'qty': 47653, 'price': 0.0, 'cur': 'eu', 'gr': 47653, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 268964, 'productId': 268964, 'name': 'AUTO SEC UC EPENAY', 'qty': 182950, 'price': 0.0, 'cur': 'eu', 'gr': 182950, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39130, 'facilityId': 39130, 'facilityName': '1070541875\tGGE | Rambouillet', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 335998, 'productId': 335998, 'name': 'Auto séchant Mercedes Rambouillet', 'qty': 361876, 'price': 0.0, 'cur': 'eu', 'gr': 361876, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 336001, 'productId': 336001, 'name': 'WNC40 Mercedes Rambouillet', 'qty': 322119, 'price': 0.0, 'cur': 'eu', 'gr': 322119, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 37777, 'facilityId': 37777, 'facilityName': '1070550192 JM Automobiles', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 323884, 'productId': 323884, 'name': 'Wnc 40 UC Ford Jm automobile Belleville sur Meuse', 'qty': 105702, 'price': 0.0, 'cur': 'eu', 'gr': 105702, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 323881, 'productId': 323881, 'name': 'Nettoyant jante purple Jm automobile Ford Belleville sur Meuse', 'qty': 174540, 'price': 0.0, 'cur': 'eu', 'gr': 174540, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 323878, 'productId': 323878, 'name': 'Auto séchant UC Ford Jm automobile Belleville sur Meuse', 'qty': 282580, 'price': 0.0, 'cur': 'eu', 'gr': 282580, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 28839, 'facilityId': 28839, 'facilityName': '1070555222\tFIX AUTO MURET', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 217725, 'productId': 217725, 'name': 'ÉCO CUBE WNC40 MURET', 'qty': 255289, 'price': 0.0, 'cur': 'eu', 'gr': 255289, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 217722, 'productId': 217722, 'name': 'AUTO SECH MURET', 'qty': 662, 'price': 0.0, 'cur': 'eu', 'gr': 662, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 32015, 'facilityId': 32015, 'facilityName': '1070593314 Espace Bienvenue | Angoulême', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 250229, 'productId': 250229, 'name': 'WNC40 UC BMW ANGOULÊME', 'qty': 41024, 'price': 0.0, 'cur': 'eu', 'gr': 41024, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 250223, 'productId': 250223, 'name': 'AUTO sec UC BMW ANGOULÊME', 'qty': 496494, 'price': 0.0, 'cur': 'eu', 'gr': 496494, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 250226, 'productId': 250226, 'name': 'WNC50 200l BMW ANGOULÊME', 'qty': 110496, 'price': 0.0, 'cur': 'eu', 'gr': 110496, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 33338, 'facilityId': 33338, 'facilityName': '1070637155 OUEST CONCEPT AUTOMOBILES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 265796, 'productId': 265796, 'name': 'WNC40 BMW BREST', 'qty': 154180, 'price': 0.0, 'cur': 'eu', 'gr': 154180, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 265784, 'productId': 265784, 'name': 'WNC50 BMW BREST', 'qty': 152323, 'price': 0.0, 'cur': 'eu', 'gr': 152323, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 265793, 'productId': 265793, 'name': 'AUTO SECH BMW BREST', 'qty': 6789, 'price': 0.0, 'cur': 'eu', 'gr': 6789, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 265781, 'productId': 265781, 'name': 'WNC31 BMW BREST', 'qty': 200241, 'price': 0.0, 'cur': 'eu', 'gr': 200241, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 31238, 'facilityId': 31238, 'facilityName': '1070637246 OUEST MOTORS - LANNION', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 241430, 'productId': 241430, 'name': 'WNC40 BMW LANNION', 'qty': 178930, 'price': 0.0, 'cur': 'eu', 'gr': 178930, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 241433, 'productId': 241433, 'name': 'AUTO SEC BMW LANNION', 'qty': 21174, 'price': 0.0, 'cur': 'eu', 'gr': 21174, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 31862, 'facilityId': 31862, 'facilityName': '1070665393\tETOILE AUTOBERNARD REIMS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 245876, 'productId': 245876, 'name': 'WNC40 UC BERNARD REIMS', 'qty': 107215, 'price': 0.0, 'cur': 'eu', 'gr': 107215, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 31091, 'facilityId': 31091, 'facilityName': '1070701179\tJEANNIN AUTOMOBILES AUXERRE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 238865, 'productId': 238865, 'name': 'WNC40 UC ZONE 2 AUXERRE', 'qty': 44703, 'price': 0.0, 'cur': 'eu', 'gr': 44703, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238859, 'productId': 238859, 'name': 'AUTOSECHANT UC ZONE 2 AUXERRE', 'qty': 76496, 'price': 0.0, 'cur': 'eu', 'gr': 76496, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238862, 'productId': 238862, 'name': 'WNC40 Uc zone 1 AUXERRE', 'qty': 76473, 'price': 0.0, 'cur': 'eu', 'gr': 76473, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238856, 'productId': 238856, 'name': 'AUTOSECHANT UC ZONE 1 AUXERRE', 'qty': 15999, 'price': 0.0, 'cur': 'eu', 'gr': 15999, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 35939, 'facilityId': 35939, 'facilityName': '1070736691\tINTENZ POITOU BY AUTOSPHERE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 293384, 'productId': 293384, 'name': 'Wnc40 Volkswagen intenz Niort', 'qty': 480927, 'price': 0.0, 'cur': 'eu', 'gr': 480927, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 293381, 'productId': 293381, 'name': 'Auto séchant Volkswagen intenz Niort', 'qty': 254628, 'price': 0.0, 'cur': 'eu', 'gr': 254628, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 31520, 'facilityId': 31520, 'facilityName': '1070737203\tJEANNIN ADVANCED CAR VSD', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 244988, 'productId': 244988, 'name': 'AUTO UC 77 VERT SAINT', 'qty': 80715, 'price': 0.0, 'cur': 'eu', 'gr': 80715, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 244991, 'productId': 244991, 'name': 'WNC40 UC 77 VERT SAINT', 'qty': 110606, 'price': 0.0, 'cur': 'eu', 'gr': 110606, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
             {'_id': 27789, 'facilityId': 27789, 'facilityName': '1070747601\tARAVIS ROSSI AUTO', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 212451, 'productId': 212451, 'name': 'WNC50 BMW ZONE 1', 'qty': 768326, 'price': 0.0, 'cur': 'eu', 'gr': 768326, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 212454, 'productId': 212454, 'name': 'EAU ZONE 1 BMW', 'qty': 112700919, 'price': 0.0, 'cur': 'eu', 'gr': 112700919, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 6281394
+                            },
+                            {'date': '2025-08-02', 'qty': 244699
+                            },
+                            {'date': '2025-08-03', 'qty': 190
+                            },
+                            {'date': '2025-08-04', 'qty': 3823126
+                            },
+                            {'date': '2025-08-05', 'qty': 5254838
+                            },
+                            {'date': '2025-08-06', 'qty': 4865101
+                            },
+                            {'date': '2025-08-07', 'qty': 5897450
+                            },
+                            {'date': '2025-08-08', 'qty': 6125099
+                            },
+                            {'date': '2025-08-09', 'qty': 682663
+                            },
+                            {'date': '2025-08-11', 'qty': 7227762
+                            },
+                            {'date': '2025-08-12', 'qty': 7182931
+                            },
+                            {'date': '2025-08-13', 'qty': 5516950
+                            },
+                            {'date': '2025-08-14', 'qty': 9155203
+                            },
+                            {'date': '2025-08-16', 'qty': 4708
+                            },
+                            {'date': '2025-08-18', 'qty': 7621350
+                            },
+                            {'date': '2025-08-19', 'qty': 2129632
+                            },
+                            {'date': '2025-08-20', 'qty': 3929958
+                            },
+                            {'date': '2025-08-21', 'qty': 3176068
+                            },
+                            {'date': '2025-08-22', 'qty': 2581597
+                            },
+                            {'date': '2025-08-23', 'qty': 12471
+                            },
+                            {'date': '2025-08-25', 'qty': 6565228
+                            },
+                            {'date': '2025-08-26', 'qty': 7979497
+                            },
+                            {'date': '2025-08-27', 'qty': 5230445
+                            },
+                            {'date': '2025-08-28', 'qty': 3869883
+                            },
+                            {'date': '2025-08-29', 'qty': 7336953
+                            },
+                            {'date': '2025-08-30', 'qty': 5533
+                            },
+                            {'date': '2025-08-31', 'qty': 190
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 211195261
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 213756157
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 174933224
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 149916233
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 141258438
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 134025132
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 168073640
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 184779302
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 149109404
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 127108717
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 155493052
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 112700919
+                            }
+                        ]
                     },
-                    {'_id': 212640, 'productId': 212640, 'name': 'EAU BMW ANNECY ZONE 3', 'qty': 1810277, 'price': 0.0, 'cur': 'eu', 'gr': 1810277, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 212484, 'productId': 212484, 'name': 'EAU ZONE 2 BMW', 'qty': 41098323, 'price': 0.0, 'cur': 'eu', 'gr': 41098323, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 3923525
+                            },
+                            {'date': '2025-08-02', 'qty': 8514
+                            },
+                            {'date': '2025-08-03', 'qty': 264
+                            },
+                            {'date': '2025-08-04', 'qty': 1828427
+                            },
+                            {'date': '2025-08-05', 'qty': 1495598
+                            },
+                            {'date': '2025-08-06', 'qty': 1166590
+                            },
+                            {'date': '2025-08-07', 'qty': 1235342
+                            },
+                            {'date': '2025-08-08', 'qty': 788664
+                            },
+                            {'date': '2025-08-09', 'qty': 246117
+                            },
+                            {'date': '2025-08-11', 'qty': 2081735
+                            },
+                            {'date': '2025-08-12', 'qty': 1197630
+                            },
+                            {'date': '2025-08-13', 'qty': 1466396
+                            },
+                            {'date': '2025-08-14', 'qty': 2592139
+                            },
+                            {'date': '2025-08-16', 'qty': 4224
+                            },
+                            {'date': '2025-08-18', 'qty': 872461
+                            },
+                            {'date': '2025-08-19', 'qty': 1428968
+                            },
+                            {'date': '2025-08-20', 'qty': 823796
+                            },
+                            {'date': '2025-08-21', 'qty': 2476585
+                            },
+                            {'date': '2025-08-22', 'qty': 3047012
+                            },
+                            {'date': '2025-08-23', 'qty': 421642
+                            },
+                            {'date': '2025-08-25', 'qty': 2510593
+                            },
+                            {'date': '2025-08-26', 'qty': 3296304
+                            },
+                            {'date': '2025-08-27', 'qty': 3005073
+                            },
+                            {'date': '2025-08-28', 'qty': 2086897
+                            },
+                            {'date': '2025-08-29', 'qty': 3087887
+                            },
+                            {'date': '2025-08-30', 'qty': 5742
+                            },
+                            {'date': '2025-08-31', 'qty': 198
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 80183471
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 86545003
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 51671869
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 55133354
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 49352242
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 57083370
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 76200747
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 82831615
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 75965069
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 85240497
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 82289644
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 41098323
+                            }
+                        ]
                     },
-                    {'_id': 212490, 'productId': 212490, 'name': 'AUTO SÉCHANT ZONE 2 BMW', 'qty': 221774, 'price': 0.0, 'cur': 'eu', 'gr': 221774, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 212640, 'productId': 212640, 'name': 'EAU BMW ANNECY ZONE 3', 'qty': 1926376, 'price': 0.0, 'cur': 'eu', 'gr': 1926376, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 140704
+                            },
+                            {'date': '2025-08-02', 'qty': 1897
+                            },
+                            {'date': '2025-08-04', 'qty': 15072
+                            },
+                            {'date': '2025-08-05', 'qty': 16780
+                            },
+                            {'date': '2025-08-06', 'qty': 11694
+                            },
+                            {'date': '2025-08-07', 'qty': 17458
+                            },
+                            {'date': '2025-08-08', 'qty': 20712
+                            },
+                            {'date': '2025-08-09', 'qty': 1896
+                            },
+                            {'date': '2025-08-11', 'qty': 53291
+                            },
+                            {'date': '2025-08-12', 'qty': 11812
+                            },
+                            {'date': '2025-08-13', 'qty': 10961
+                            },
+                            {'date': '2025-08-14', 'qty': 30897
+                            },
+                            {'date': '2025-08-16', 'qty': 1959
+                            },
+                            {'date': '2025-08-18', 'qty': 157526
+                            },
+                            {'date': '2025-08-19', 'qty': 106417
+                            },
+                            {'date': '2025-08-20', 'qty': 12740
+                            },
+                            {'date': '2025-08-21', 'qty': 217096
+                            },
+                            {'date': '2025-08-22', 'qty': 24458
+                            },
+                            {'date': '2025-08-23', 'qty': 2570
+                            },
+                            {'date': '2025-08-25', 'qty': 85065
+                            },
+                            {'date': '2025-08-26', 'qty': 141074
+                            },
+                            {'date': '2025-08-27', 'qty': 728198
+                            },
+                            {'date': '2025-08-28', 'qty': 94829
+                            },
+                            {'date': '2025-08-29', 'qty': 20659
+                            },
+                            {'date': '2025-08-30', 'qty': 611
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 6649424
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 8071057
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 6877974
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 5527260
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 4224613
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 2954686
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 2672060
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 2198021
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 2414942
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 2168377
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 1512594
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 1926376
+                            }
+                        ]
                     },
-                    {'_id': 212643, 'productId': 212643, 'name': 'autoséchant ZONE 1 BMW ANNECY', 'qty': 554, 'price': 0.0, 'cur': 'eu', 'gr': 554, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 212490, 'productId': 212490, 'name': 'AUTO SÉCHANT ZONE 2 BMW', 'qty': 262763, 'price': 0.0, 'cur': 'eu', 'gr': 262763, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 23120
+                            },
+                            {'date': '2025-08-04', 'qty': 13253
+                            },
+                            {'date': '2025-08-05', 'qty': 9891
+                            },
+                            {'date': '2025-08-06', 'qty': 5949
+                            },
+                            {'date': '2025-08-07', 'qty': 8145
+                            },
+                            {'date': '2025-08-08', 'qty': 7969
+                            },
+                            {'date': '2025-08-11', 'qty': 14970
+                            },
+                            {'date': '2025-08-13', 'qty': 12086
+                            },
+                            {'date': '2025-08-14', 'qty': 24045
+                            },
+                            {'date': '2025-08-18', 'qty': 5060
+                            },
+                            {'date': '2025-08-19', 'qty': 4713
+                            },
+                            {'date': '2025-08-20', 'qty': 8773
+                            },
+                            {'date': '2025-08-21', 'qty': 18456
+                            },
+                            {'date': '2025-08-22', 'qty': 19273
+                            },
+                            {'date': '2025-08-23', 'qty': 2153
+                            },
+                            {'date': '2025-08-25', 'qty': 11891
+                            },
+                            {'date': '2025-08-26', 'qty': 13038
+                            },
+                            {'date': '2025-08-27', 'qty': 18989
+                            },
+                            {'date': '2025-08-28', 'qty': 19455
+                            },
+                            {'date': '2025-08-29', 'qty': 21534
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 379572
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 466439
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 318348
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 416296
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 275734
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 460676
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 619087
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 594429
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 470767
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 604187
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 576982
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 262763
+                            }
+                        ]
                     },
-                    {'_id': 212484, 'productId': 212484, 'name': 'EAU ZONE 2 BMW', 'qty': 35917599, 'price': 0.0, 'cur': 'eu', 'gr': 35917599, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 212466, 'productId': 212466, 'name': 'AUTO SÉCHANT UC BMW ZONE 3', 'qty': 511669, 'price': 0.0, 'cur': 'eu', 'gr': 511669, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 29772
+                            },
+                            {'date': '2025-08-04', 'qty': 20877
+                            },
+                            {'date': '2025-08-05', 'qty': 27403
+                            },
+                            {'date': '2025-08-06', 'qty': 20594
+                            },
+                            {'date': '2025-08-07', 'qty': 33340
+                            },
+                            {'date': '2025-08-08', 'qty': 31502
+                            },
+                            {'date': '2025-08-11', 'qty': 34524
+                            },
+                            {'date': '2025-08-12', 'qty': 37005
+                            },
+                            {'date': '2025-08-13', 'qty': 21183
+                            },
+                            {'date': '2025-08-14', 'qty': 46666
+                            },
+                            {'date': '2025-08-18', 'qty': 34564
+                            },
+                            {'date': '2025-08-19', 'qty': 10126
+                            },
+                            {'date': '2025-08-20', 'qty': 12823
+                            },
+                            {'date': '2025-08-21', 'qty': 12059
+                            },
+                            {'date': '2025-08-22', 'qty': 11092
+                            },
+                            {'date': '2025-08-25', 'qty': 29494
+                            },
+                            {'date': '2025-08-26', 'qty': 22915
+                            },
+                            {'date': '2025-08-27', 'qty': 23695
+                            },
+                            {'date': '2025-08-28', 'qty': 20177
+                            },
+                            {'date': '2025-08-29', 'qty': 31858
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 1013308
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 1067145
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 928104
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 848147
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 827389
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 901116
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 1112158
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 1025871
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 738646
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 646072
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 721559
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 511669
+                            }
+                        ]
                     },
-                    {'_id': 212646, 'productId': 212646, 'name': 'WNC40 UC ZONE 3 BMW', 'qty': 13309, 'price': 0.0, 'cur': 'eu', 'gr': 13309, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 212451, 'productId': 212451, 'name': 'WNC50 BMW ZONE 1', 'qty': 841737, 'price': 0.0, 'cur': 'eu', 'gr': 841737, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 47218
+                            },
+                            {'date': '2025-08-04', 'qty': 32874
+                            },
+                            {'date': '2025-08-05', 'qty': 52993
+                            },
+                            {'date': '2025-08-06', 'qty': 47310
+                            },
+                            {'date': '2025-08-07', 'qty': 52083
+                            },
+                            {'date': '2025-08-08', 'qty': 57135
+                            },
+                            {'date': '2025-08-09', 'qty': 1239
+                            },
+                            {'date': '2025-08-11', 'qty': 61640
+                            },
+                            {'date': '2025-08-12', 'qty': 62210
+                            },
+                            {'date': '2025-08-13', 'qty': 40242
+                            },
+                            {'date': '2025-08-14', 'qty': 73554
+                            },
+                            {'date': '2025-08-18', 'qty': 66598
+                            },
+                            {'date': '2025-08-19', 'qty': 14855
+                            },
+                            {'date': '2025-08-20', 'qty': 24252
+                            },
+                            {'date': '2025-08-21', 'qty': 25211
+                            },
+                            {'date': '2025-08-22', 'qty': 19117
+                            },
+                            {'date': '2025-08-25', 'qty': 47908
+                            },
+                            {'date': '2025-08-26', 'qty': 24471
+                            },
+                            {'date': '2025-08-27', 'qty': 17416
+                            },
+                            {'date': '2025-08-28', 'qty': 22593
+                            },
+                            {'date': '2025-08-29', 'qty': 50818
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 1150012
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 1063924
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 1173482
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 1101143
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 1011619
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 927350
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 1316799
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 1236499
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 1130401
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 1118659
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 1241506
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 841737
+                            }
+                        ]
                     },
-                    {'_id': 212454, 'productId': 212454, 'name': 'EAU ZONE 1 BMW', 'qty': 101488360, 'price': 0.0, 'cur': 'eu', 'gr': 101488360, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 212487, 'productId': 212487, 'name': 'WNC40 ZONE 2 BMW', 'qty': 241878, 'price': 0.0, 'cur': 'eu', 'gr': 241878, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 18669
+                            },
+                            {'date': '2025-08-04', 'qty': 11416
+                            },
+                            {'date': '2025-08-05', 'qty': 8183
+                            },
+                            {'date': '2025-08-06', 'qty': 12344
+                            },
+                            {'date': '2025-08-07', 'qty': 7175
+                            },
+                            {'date': '2025-08-08', 'qty': 4292
+                            },
+                            {'date': '2025-08-09', 'qty': 2648
+                            },
+                            {'date': '2025-08-11', 'qty': 13394
+                            },
+                            {'date': '2025-08-12', 'qty': 9778
+                            },
+                            {'date': '2025-08-13', 'qty': 8903
+                            },
+                            {'date': '2025-08-14', 'qty': 25556
+                            },
+                            {'date': '2025-08-18', 'qty': 6113
+                            },
+                            {'date': '2025-08-19', 'qty': 8721
+                            },
+                            {'date': '2025-08-20', 'qty': 6341
+                            },
+                            {'date': '2025-08-21', 'qty': 14187
+                            },
+                            {'date': '2025-08-22', 'qty': 21056
+                            },
+                            {'date': '2025-08-23', 'qty': 2347
+                            },
+                            {'date': '2025-08-25', 'qty': 10403
+                            },
+                            {'date': '2025-08-26', 'qty': 12346
+                            },
+                            {'date': '2025-08-27', 'qty': 12077
+                            },
+                            {'date': '2025-08-28', 'qty': 12639
+                            },
+                            {'date': '2025-08-29', 'qty': 13290
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 527134
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 455356
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 270624
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 276526
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 228236
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 297955
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 415894
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 451047
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 428959
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 484806
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 436813
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 241878
+                            }
+                        ]
                     },
-                    {'_id': 212466, 'productId': 212466, 'name': 'AUTO SÉCHANT UC BMW ZONE 3', 'qty': 459634, 'price': 0.0, 'cur': 'eu', 'gr': 459634, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 212646, 'productId': 212646, 'name': 'WNC40 UC ZONE 3 BMW', 'qty': 13717, 'price': 0.0, 'cur': 'eu', 'gr': 13717, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 390
+                            },
+                            {'date': '2025-08-05', 'qty': 829
+                            },
+                            {'date': '2025-08-11', 'qty': 856
+                            },
+                            {'date': '2025-08-14', 'qty': 271
+                            },
+                            {'date': '2025-08-18', 'qty': 746
+                            },
+                            {'date': '2025-08-19', 'qty': 400
+                            },
+                            {'date': '2025-08-21', 'qty': 925
+                            },
+                            {'date': '2025-08-22', 'qty': 130
+                            },
+                            {'date': '2025-08-25', 'qty': 842
+                            },
+                            {'date': '2025-08-26', 'qty': 206
+                            },
+                            {'date': '2025-08-27', 'qty': 7714
+                            },
+                            {'date': '2025-08-28', 'qty': 249
+                            },
+                            {'date': '2025-08-29', 'qty': 159
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 43221
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 59134
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 35839
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 25604
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 25328
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 25905
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 15863
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 15019
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 16943
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 17279
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 11085
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 13717
+                            }
+                        ]
                     },
-                    {'_id': 212487, 'productId': 212487, 'name': 'WNC40 ZONE 2 BMW', 'qty': 215949, 'price': 0.0, 'cur': 'eu', 'gr': 215949, 'isSolid': False, 'ratio': 1.0
+                    {'_id': 212643, 'productId': 212643, 'name': 'autoséchant ZONE 1 BMW ANNECY', 'qty': 556, 'price': 0.0, 'cur': 'eu', 'gr': 556, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
+                            {'date': '2025-08-01', 'qty': 272
+                            },
+                            {'date': '2025-08-18', 'qty': 102
+                            },
+                            {'date': '2025-08-21', 'qty': 176
+                            },
+                            {'date': '2025-08-26', 'qty': 1
+                            },
+                            {'date': '2025-08-27', 'qty': 3
+                            },
+                            {'date': '2025-08-28', 'qty': 2
+                            }
+                        ], 'MonthlyQuantities': [
+                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 7165
+                            },
+                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 5733
+                            },
+                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 8151
+                            },
+                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 8146
+                            },
+                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 3493
+                            },
+                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 914
+                            },
+                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 1667
+                            },
+                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 1056
+                            },
+                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 966
+                            },
+                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 865
+                            },
+                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 320
+                            },
+                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 556
+                            }
+                        ]
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39127, 'facilityId': 39127, 'facilityName': '1070749699\tGGE | Montgeron', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 335992, 'productId': 335992, 'name': 'Auto séchant Mercedes Montgeron', 'qty': 317719, 'price': 0.0, 'cur': 'eu', 'gr': 317719, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 335995, 'productId': 335995, 'name': 'WNC 40 Mercedes Montgeron', 'qty': 312424, 'price': 0.0, 'cur': 'eu', 'gr': 312424, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 30379, 'facilityId': 30379, 'facilityName': '1070761951\tVIKING AUTO SA', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 231679, 'productId': 231679, 'name': 'AUTOSECHANT ECOCUBE SA', 'qty': 5010, 'price': 0.0, 'cur': 'eu', 'gr': 5010, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 231676, 'productId': 231676, 'name': 'WNC40 ECOCUBE SA', 'qty': 137748, 'price': 0.0, 'cur': 'eu', 'gr': 137748, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39553, 'facilityId': 39553, 'facilityName': '1070805390 CASINO GARAGE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 343252, 'productId': 343252, 'name': 'AUTOSECHANT FIAT BEAUSOLEIL', 'qty': 9445, 'price': 0.0, 'cur': 'eu', 'gr': 9445, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 343255, 'productId': 343255, 'name': 'SHAMP WNC40 FIAT BEAUSOLEIL', 'qty': 60395, 'price': 0.0, 'cur': 'eu', 'gr': 60395, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39547, 'facilityId': 39547, 'facilityName': '1070866213 CASINO GARAGE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 343246, 'productId': 343246, 'name': 'AUTOSECHANT PORSCHE BEAUSOLEIL', 'qty': 6961, 'price': 0.0, 'cur': 'eu', 'gr': 6961, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 343249, 'productId': 343249, 'name': 'WNC40 PORSCHE BEAUSOLEIL', 'qty': 74370, 'price': 0.0, 'cur': 'eu', 'gr': 74370, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 26201, 'facilityId': 26201, 'facilityName': '1070890518\tJEANNIN AUTOMOBILES SENS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 196884, 'productId': 196884, 'name': 'SHAMPOING CONCENTRÉ VOLKSWAGEN', 'qty': 83254, 'price': 0.0, 'cur': 'eu', 'gr': 83254, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 196881, 'productId': 196881, 'name': 'AUTO SÉCHANT CONCENTRÉ VOLKSWAGEN', 'qty': 99840, 'price': 0.0, 'cur': 'eu', 'gr': 99840, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39103, 'facilityId': 39103, 'facilityName': '1070910404\tGGE | Viry Chatillon', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 335818, 'productId': 335818, 'name': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'qty': 783029, 'price': 152.690655, 'cur': 'eu', 'gr': 783029, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 335815, 'productId': 335815, 'name': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'qty': 804018, 'price': 188.94423000000006, 'cur': 'eu', 'gr': 804018, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 35450, 'facilityId': 35450, 'facilityName': '1070921980 SAS ALIANTIS | Audi MONTROUGE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 289370, 'productId': 289370, 'name': 'Wnc 40 UC Audi Montrouge', 'qty': 49479, 'price': 0.0, 'cur': 'eu', 'gr': 49479, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 289367, 'productId': 289367, 'name': 'Auto séchant UC Audi Montrouge', 'qty': 148210, 'price': 0.0, 'cur': 'eu', 'gr': 148210, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39121, 'facilityId': 39121, 'facilityName': '1070943343\tGGE  | Valenton', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 335983, 'productId': 335983, 'name': 'SHAMPOING MERCEDES VALENTON GGE', 'qty': 1342880, 'price': 261.8616, 'cur': 'eu', 'gr': 1342880, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 335977, 'productId': 335977, 'name': 'AUTO SECHANT MERCEDES VALENTON', 'qty': 850931, 'price': 0.0, 'cur': 'eu', 'gr': 850931, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 335980, 'productId': 335980, 'name': 'JANTES MERCEDES VALENTON GGE', 'qty': 248240, 'price': 80.678, 'cur': 'eu', 'gr': 248240, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 29806, 'facilityId': 29806, 'facilityName': '1070972131 ETS TOUQUET', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 228499, 'productId': 228499, 'name': 'WNC40 TOUQUET 2', 'qty': 18150, 'price': 0.0, 'cur': 'eu', 'gr': 18150, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 227539, 'productId': 227539, 'name': 'WNC40 TOUQUET 1', 'qty': 9677, 'price': 0.0, 'cur': 'eu', 'gr': 9677, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 227545, 'productId': 227545, 'name': 'AUTO SECHANT TOUQUET 1', 'qty': 13373, 'price': 0.0, 'cur': 'eu', 'gr': 13373, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39568, 'facilityId': 39568, 'facilityName': '1070980064\tSTORE MONACO BRUSCHET', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 343771, 'productId': 343771, 'name': 'WNC40 BMW MONACO', 'qty': 95867, 'price': 0.0, 'cur': 'eu', 'gr': 95867, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 343768, 'productId': 343768, 'name': 'AUTO SÉCHANT BMW MONACO', 'qty': 75718, 'price': 0.0, 'cur': 'eu', 'gr': 75718, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756166400000'
-            },
-            {'_id': 39139, 'facilityId': 39139, 'facilityName': '1070985702\tUNIMARK', 'lq': 0, 'lQty': 0, 'products': [], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 28779, 'facilityId': 28779, 'facilityName': '1070989057\tFAURIE APSO BOE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 217629, 'productId': 217629, 'name': 'SHAMP VOLKSWAGEN AGEN', 'qty': 17667632, 'price': 0.0, 'cur': 'eu', 'gr': 17667632, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 217626, 'productId': 217626, 'name': 'AUTO SEC VOLKSWAGEN AGEN', 'qty': 168820, 'price': 0.0, 'cur': 'eu', 'gr': 168820, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 217632, 'productId': 217632, 'name': 'WNC50 VOLKSWAGEN AGEN', 'qty': 242, 'price': 0.0, 'cur': 'eu', 'gr': 242, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39124, 'facilityId': 39124, 'facilityName': '1071010855\tGGE | Trappes', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 335986, 'productId': 335986, 'name': 'SHAMPOING WNC40 TRAPPES', 'qty': 321752, 'price': 0.0, 'cur': 'eu', 'gr': 321752, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 335989, 'productId': 335989, 'name': 'AUTOSECHANT TRAPPES', 'qty': 466881, 'price': 0.0, 'cur': 'eu', 'gr': 466881, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 31517, 'facilityId': 31517, 'facilityName': '1071030942\tJEANNIN ADVANCED CAR SENS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 244934, 'productId': 244934, 'name': 'WNC40 UC 89 NISSAN', 'qty': 31920, 'price': 0.0, 'cur': 'eu', 'gr': 31920, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 244931, 'productId': 244931, 'name': 'AUTOSECHANT UC 89 NISSAN', 'qty': 41362, 'price': 0.0, 'cur': 'eu', 'gr': 41362, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 34735, 'facilityId': 34735, 'facilityName': '1071046164 BAYERN | POITIERS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 278669, 'productId': 278669, 'name': 'Wnc40 bmw Bayern Poitiers', 'qty': 54327, 'price': 0.0, 'cur': 'eu', 'gr': 54327, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 278672, 'productId': 278672, 'name': 'Auto séchant bmw Bayern Poitiers', 'qty': 16892, 'price': 0.0, 'cur': 'eu', 'gr': 16892, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 29294, 'facilityId': 29294, 'facilityName': '1071079265\tFAURIE APSO ST PIERRE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 221381, 'productId': 221381, 'name': 'WNC50 VOLKSWAGEN SAINT PIERRE', 'qty': 364211, 'price': 0.0, 'cur': 'eu', 'gr': 364211, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 221378, 'productId': 221378, 'name': 'WNC40 VOLKSWAGEN SAINT PIERRE', 'qty': 91728, 'price': 0.0, 'cur': 'eu', 'gr': 91728, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 221375, 'productId': 221375, 'name': 'AUTO SEC VOLKSWAGEN SAINT PIERRE', 'qty': 37501, 'price': 0.0, 'cur': 'eu', 'gr': 37501, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 29297, 'facilityId': 29297, 'facilityName': '1071079275\tFAURIE APSO ST AVIT', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 221120, 'productId': 221120, 'name': 'Autoséchant  St AVIT', 'qty': 152579, 'price': 0.0, 'cur': 'eu', 'gr': 152579, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 221114, 'productId': 221114, 'name': 'WNC50 ST AVIT', 'qty': 380210, 'price': 0.0, 'cur': 'eu', 'gr': 380210, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 221117, 'productId': 221117, 'name': 'WNC40 St AVIT', 'qty': 186467, 'price': 0.0, 'cur': 'eu', 'gr': 186467, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 29743, 'facilityId': 29743, 'facilityName': '1071079277\tFAURIE APSO ST PAUL', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 227068, 'productId': 227068, 'name': 'WNC50 PRÉLAVAGE', 'qty': 820336, 'price': 0.0, 'cur': 'eu', 'gr': 820336, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 227071, 'productId': 227071, 'name': 'Auto séchant UC Saint Paul les Dax', 'qty': 607177, 'price': 0.0, 'cur': 'eu', 'gr': 607177, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 227065, 'productId': 227065, 'name': 'WNC40 UC Saint Paul Les Dax', 'qty': 171368, 'price': 0.0, 'cur': 'eu', 'gr': 171368, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 32486, 'facilityId': 32486, 'facilityName': '1071091730\tFRAMATEQ RHONE ALPES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 257555, 'productId': 257555, 'name': 'WNC70 FRAMATECH LEMPDES', 'qty': 5271, 'price': 0.0, 'cur': 'eu', 'gr': 5271, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1755561600000'
-            },
-            {'_id': 28848, 'facilityId': 28848, 'facilityName': '1071105659\tFIX AUTO LIBOURNE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 218064, 'productId': 218064, 'name': 'ECO CUBE SHAMP LIBOURNE', 'qty': 155566, 'price': 0.0, 'cur': 'eu', 'gr': 155566, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 39145, 'facilityId': 39145, 'facilityName': '1071107389 BLAV VILLEBON', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 336775, 'productId': 336775, 'name': 'SHAMPOING BLAV', 'qty': 647933, 'price': 0.0, 'cur': 'eu', 'gr': 647933, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 31523, 'facilityId': 31523, 'facilityName': '1071168149\tJEANNIN SMDA LAVAGE VSD', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 245087, 'productId': 245087, 'name': 'WNC40 UC SMADA', 'qty': 198648, 'price': 0.0, 'cur': 'eu', 'gr': 198648, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 245090, 'productId': 245090, 'name': 'AUTO SEC UC SMADA', 'qty': 11185, 'price': 0.0, 'cur': 'eu', 'gr': 11185, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 35756, 'facilityId': 35756, 'facilityName': '1071168149\tJEANNIN SMDA LAVAGE VSD', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 295915, 'productId': 295915, 'name': 'Wnc40 UC smda occasion vert saint Denis', 'qty': 60733, 'price': 0.0, 'cur': 'eu', 'gr': 60733, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 295912, 'productId': 295912, 'name': 'Auto séchant UC smda occasion vert saint Denis', 'qty': 126555, 'price': 0.0, 'cur': 'eu', 'gr': 126555, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 37465, 'facilityId': 37465, 'facilityName': '1071214929 ENERGY CAR WASH SAS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 312850, 'productId': 312850, 'name': 'Auto séchant energy car Nîmes Z2', 'qty': 550382, 'price': 0.0, 'cur': 'eu', 'gr': 550382, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 312859, 'productId': 312859, 'name': 'Wnc 40 energy car Z4', 'qty': 730, 'price': 0.0, 'cur': 'eu', 'gr': 730, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 312856, 'productId': 312856, 'name': 'Wnc 40 energy car Nîmes Z2', 'qty': 63327, 'price': 0.0, 'cur': 'eu', 'gr': 63327, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 312847, 'productId': 312847, 'name': 'Auto séchant energy car Nîmes Z4', 'qty': 14, 'price': 0.0, 'cur': 'eu', 'gr': 14, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 321307, 'productId': 321307, 'name': 'Wnc 40 UC energy car Nimes Z5', 'qty': 1, 'price': 0.0, 'cur': 'eu', 'gr': 1, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 312853, 'productId': 312853, 'name': 'Wnc 40 energy car Nîmes Z1', 'qty': 12, 'price': 0.0, 'cur': 'eu', 'gr': 12, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 23276, 'facilityId': 23276, 'facilityName': 'GENERAL AUTOMOBILE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 171501, 'productId': 171501, 'name': 'SHAMPOING CARROSSERIE VOLVO ORVAULT', 'qty': 612078, 'price': 0.0, 'cur': 'eu', 'gr': 612078, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 173991, 'productId': 173991, 'name': 'SHAMPOING CAROSSERIE WNC50 CAROSSERIE VOLVO SAUTRON', 'qty': 39167, 'price': 0.0, 'cur': 'eu', 'gr': 39167, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 182846, 'productId': 182846, 'name': 'WNC50 PRÉLAVAGE VOLVO ORVAULT', 'qty': 126335, 'price': 0.0, 'cur': 'eu', 'gr': 126335, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 171504, 'productId': 171504, 'name': 'AUTO SECHANT VOLVO ORVAULT', 'qty': 263245, 'price': 0.0, 'cur': 'eu', 'gr': 263245, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 173987, 'productId': 173987, 'name': 'AUTO SECHANT CAROSSERIE VOLVO SAUTRON', 'qty': 81099, 'price': 0.0, 'cur': 'eu', 'gr': 81099, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 171618, 'productId': 171618, 'name': 'Auto Séchant Volvo Guerande', 'qty': 36297, 'price': 0.0, 'cur': 'eu', 'gr': 36297, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 171615, 'productId': 171615, 'name': 'WNC31 venturi Guerande', 'qty': 2889, 'price': 0.0, 'cur': 'eu', 'gr': 2889, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 174903, 'productId': 174903, 'name': 'WNC31 portique Guerande', 'qty': 70570, 'price': 0.0, 'cur': 'eu', 'gr': 70570, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 31088, 'facilityId': 31088, 'facilityName': 'JEANNIN AUTOMOBILES - TROYES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 238457, 'productId': 238457, 'name': 'AUTOSECHANT UC ZONE 3 JEANNIN TROYES', 'qty': 17396, 'price': 0.0, 'cur': 'eu', 'gr': 17396, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238463, 'productId': 238463, 'name': 'WNC40 UC ZONE 2 JEANNIN TROYES', 'qty': 15348, 'price': 0.0, 'cur': 'eu', 'gr': 15348, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238466, 'productId': 238466, 'name': 'WNC40 UC ZONE 3 JEANNIN TROYES', 'qty': 158777, 'price': 0.0, 'cur': 'eu', 'gr': 158777, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 238460, 'productId': 238460, 'name': 'WNC40 UC ZONE  1 JEANNIN TROYES', 'qty': 9703, 'price': 0.0, 'cur': 'eu', 'gr': 9703, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 26760, 'facilityId': 26760, 'facilityName': 'Mercedes - TECHSTAR POITIERS by AUTOSPHERE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 199848, 'productId': 199848, 'name': 'AUTO SÉCHANT MERCEDES POITIERS', 'qty': 315273, 'price': 0.0, 'cur': 'eu', 'gr': 315273, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 199851, 'productId': 199851, 'name': 'WNC40 Mercedes Poitiers', 'qty': 289654, 'price': 0.0, 'cur': 'eu', 'gr': 289654, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 31709, 'facilityId': 31709, 'facilityName': 'SEAT | SKODA - Espace Saint Maximin', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 262058, 'productId': 262058, 'name': 'WNC40 SAINT MAXIMIN', 'qty': 157331, 'price': 0.0, 'cur': 'eu', 'gr': 157331, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 262061, 'productId': 262061, 'name': 'AUTO SÈCHE SAINT MAXIMIN', 'qty': 161292, 'price': 0.0, 'cur': 'eu', 'gr': 161292, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 271976, 'productId': 271976, 'name': 'Eau Skoda saint Maximin', 'qty': 69560407, 'price': 0.0, 'cur': 'eu', 'gr': 69560407, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 33383, 'facilityId': 33383, 'facilityName': 'TAXI RONDET', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 264878, 'productId': 264878, 'name': 'WNC50 TAXI RONDET', 'qty': 1233, 'price': 0.0, 'cur': 'eu', 'gr': 1233, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1755820800000'
-            },
-            {'_id': 31271, 'facilityId': 31271, 'facilityName': 'TECHSTAR OUEST', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 241262, 'productId': 241262, 'name': 'WNC40 MERCEDES ROCHELLE', 'qty': 93258, 'price': 0.0, 'cur': 'eu', 'gr': 93258, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 241259, 'productId': 241259, 'name': 'AUTO SÉCH ROCHELLE', 'qty': 13, 'price': 0.0, 'cur': 'eu', 'gr': 13, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1755129600000'
-            },
-            {'_id': 27240, 'facilityId': 27240, 'facilityName': 'TECMAT SERVICE', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 204231, 'productId': 204231, 'name': 'WNC70 SAINT-PRIEST', 'qty': 72094, 'price': 0.0, 'cur': 'eu', 'gr': 72094, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 26757, 'facilityId': 26757, 'facilityName': 'VW - INTENZ POITOU by AUTOSPHERE - POITIERS', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 200178, 'productId': 200178, 'name': 'WNC 40 VOLKSWAGEN POITIERS', 'qty': 202772, 'price': 0.0, 'cur': 'eu', 'gr': 202772, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 200181, 'productId': 200181, 'name': 'AUTO SÉCHANT VOLKSWAGEN POITIERS', 'qty': 6642, 'price': 0.0, 'cur': 'eu', 'gr': 6642, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 30376, 'facilityId': 30376, 'facilityName': 'Vikings Auto Blet Sud', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 231286, 'productId': 231286, 'name': 'Autosechant UC BLET Z2', 'qty': 87043, 'price': 0.0, 'cur': 'eu', 'gr': 87043, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 304684, 'productId': 304684, 'name': 'Pré lavage viking auto z1', 'qty': 344961, 'price': 0.0, 'cur': 'eu', 'gr': 344961, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 304687, 'productId': 304687, 'name': 'Pré lavage viking auto z2', 'qty': 114709, 'price': 0.0, 'cur': 'eu', 'gr': 114709, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 231292, 'productId': 231292, 'name': 'Wnc40 UC BLET Z1', 'qty': 234340, 'price': 0.0, 'cur': 'eu', 'gr': 234340, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 231283, 'productId': 231283, 'name': 'Autosechant UC BLET Z1', 'qty': 56358, 'price': 0.0, 'cur': 'eu', 'gr': 56358, 'isSolid': False, 'ratio': 1.0
-                    },
-                    {'_id': 231289, 'productId': 231289, 'name': 'WNC40 UC BLET Z2', 'qty': 88583, 'price': 0.0, 'cur': 'eu', 'gr': 88583, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756252800000'
-            },
-            {'_id': 32882, 'facilityId': 32882, 'facilityName': 'WURTH GULF', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 260360, 'productId': 260360, 'name': 'WNC 70 CLIENT', 'qty': 247, 'price': 0.0, 'cur': 'eu', 'gr': 247, 'isSolid': False, 'ratio': 1.0
-                    }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1754179200000'
+                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756598400000'
             }
-        ], 'startIndex': 0, 'endIndex': 64, 'itemCount': 64
-    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756325807621
+        ], 'startIndex': 0, 'endIndex': 1, 'itemCount': 1
+    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756657759230
+}
+
+
+
+
+
+
+
+
+
+{'statusCode': 'SUCCESS', 'data': [
+        {'facilityId': 27789, 'facilityName': '1070747601\tARAVIS ROSSI AUTO', 'facilityCity': 'ANNECY', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
+                {'productId': 212451, 'productName': 'WNC50 BMW ZONE 1', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-235.3457 L', 'averageDailyConsumption': '2.3315 L', 'remainingDays': -100, 'currency': 'EUR'
+                },
+                {'productId': 212454, 'productName': 'EAU ZONE 1 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '51140.57 L', 'averageDailyConsumption': '442.6791 L', 'remainingDays': 115, 'currency': 'EUR'
+                },
+                {'productId': 212466, 'productName': 'AUTO SÉCHANT UC BMW ZONE 3', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-118.9244 L', 'averageDailyConsumption': '1.8305 L', 'remainingDays': -64, 'currency': 'EUR'
+                },
+                {'productId': 212484, 'productName': 'EAU ZONE 2 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-158281.7183 L', 'averageDailyConsumption': '199.8928 L', 'remainingDays': -791, 'currency': 'EUR'
+                },
+                {'productId': 212487, 'productName': 'WNC40 ZONE 2 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '4.6887 L', 'averageDailyConsumption': '0.8679 L', 'remainingDays': 5, 'currency': 'EUR'
+                },
+                {'productId': 212490, 'productName': 'AUTO SÉCHANT ZONE 2 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-79.6343 L', 'averageDailyConsumption': '1.2129 L', 'remainingDays': -65, 'currency': 'EUR'
+                },
+                {'productId': 212640, 'productName': 'EAU BMW ANNECY ZONE 3', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-15998.959 L', 'averageDailyConsumption': '15.2919 L', 'remainingDays': -1046, 'currency': 'EUR'
+                },
+                {'productId': 212643, 'productName': 'autoséchant ZONE 1 BMW ANNECY', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '134.4256 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 212646, 'productName': 'WNC40 UC ZONE 3 BMW', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '16.7337 L', 'averageDailyConsumption': '0.131 L', 'remainingDays': 127, 'currency': 'EUR'
+                }
+            ]
+        }
+    ], 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756657968743
 }

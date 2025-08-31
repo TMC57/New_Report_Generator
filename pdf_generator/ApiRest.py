@@ -75,8 +75,16 @@ def  Total_Quantity_Report_grouped_by_facilities(
     # # ================= Data Transformation ================
     total_qty_Json = get_total_qty_every_days(total_qty.json(), from_date, to_date, facility_id)
     total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
+
+
+    # ici
+
     total_qty_Json = enrich_qty_with_stock_products(total_qty_Json, stock_levels)
+
+    print(stock_levels)
+
     total_qty_Json = enrich_json_with_zone(total_qty_Json)
+
     # # ======================================================
     transform_facility_json(devices_list)
     generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)

@@ -278,14 +278,14 @@ def _sanitize_filename(s: str, max_len: int = 120) -> str:
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("ascii")
     # Retire tab/retours
     s = re.sub(r"[\t\r\n]+", " ", s)
-    # Retire le numéro de début + espaces ex: "1070747601   ARAVIS..." -> "ARAVIS..."
-    s = re.sub(r"^\d+\s*", "", s)
+    # ⚠️ On ne retire plus le numéro de début
     # Remplace caractères interdits Windows
     s = re.sub(r'[<>:"/\\|?*]+', "_", s)
     # Nettoie espaces
     s = re.sub(r"\s+", " ", s).strip()
     s = s.replace(" ", "_")
     return s[:max_len]
+
 
 
 
@@ -414,7 +414,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         facility_id = facility["facilityId"]
 
         sanitized_name = _sanitize_filename(facility.get("facilityName", ""))
-        pdf_path = f"{dirname}/rapport_{sanitized_name}_{facility_id}.pdf"
+        pdf_path = f"{dirname}/{sanitized_name}_{facility_id}.pdf"
 
 
         serial_numbers = get_serial_numbers_for_facility(devices_list, facility_id)
@@ -516,7 +516,9 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
             # print(f"[DEBUG] Zone {zone} → EAU={len(eau_products)} / HORS_EAU={len(other_products)}")
 
             # 1) ==================== EAU uniquement si présent ====================
-            if zone == "GLOBAL": zone = "ZONE 1"
+            print(zone)
+            if zone == 'GLOBAL': zone = " "
+            else: zone = "- " + zone
             if eau_products:
                 fac_eau = {**fac_z, "products": eau_products}
                 buf_bar_eau = generate_bar_chart(fac_eau, from_date, to_date)
@@ -524,7 +526,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
                     bar_chart_img_eau = _img(buf_bar_eau, 25*cm, 12*cm)
                     pages[current_page] = [
                         Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
-                        Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS - {zone}", title_style),
+                        Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS {zone}", title_style),
                         Spacer(1, 0.3*cm), bar_chart_img_eau
                     ]
                     current_page += 1
@@ -537,7 +539,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
                     bar_chart_img_autres = _img(buf_bar_autres, 25*cm, 12*cm)
                     pages[current_page] = [
                         Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
-                        Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS - {zone}", title_style),
+                        Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS {zone}", title_style),
                         Spacer(1, 0.3*cm), bar_chart_img_autres
                     ]
                     current_page += 1
@@ -552,7 +554,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
 
             # ==================== TABLES days ====================
             tables = generate_table(fac_z, from_date, to_date)  # renvoie [table] ou [table1, table2]
-            table_page_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS - {zone}", title_style)
+            table_page_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS {zone}", title_style)
             pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_page_title, Spacer(1, 0.5*cm)] + tables
 
             current_page += 1
@@ -564,7 +566,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
 
             pages[current_page] = [
                 Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
-                Paragraph(f"RÉPARTITION DES CONSOMMATIONS - {zone}", title_style),
+                Paragraph(f"RÉPARTITION DES CONSOMMATIONS {zone}", title_style),
                 Spacer(1, 0.3*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img
             ]
             current_page += 1
@@ -572,7 +574,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
 
             # ==================== TABLES Month ====================
             tables_year = generate_monthly_table(fac_z)
-            table_month_page_title = Paragraph(f"CONSOMMATION ANNUELLE DE PRODUITS - {zone}", title_style)
+            table_month_page_title = Paragraph(f"CONSOMMATION ANNUELLE DE PRODUITS {zone}", title_style)
             pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), table_month_page_title, Spacer(1, 0.7*cm)] + tables_year
             
 
