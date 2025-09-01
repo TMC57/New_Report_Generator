@@ -186,43 +186,65 @@ def get_footer_table(facility_id, config_data):
 
     return table
 
+import os
+from PIL import Image as PILImage
+from reportlab.lib.units import cm
+
 def get_picture_path(facility_id, config_data, picture_name):
     # Récup chemin comme avant
-    config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
-    picture_path = config_item[picture_name] if config_item else "images/full.png"
+    config_item = next((item for item in (config_data or []) if item.get("facilityId") == facility_id), None)
+    picture_path = (config_item or {}).get(picture_name) if config_item else "images/full.png"
     if picture_path == "":
         picture_path = "images/upload-error.png"
-    if picture_path.startswith("/"):
+    if picture_path and picture_path.startswith("/"):
         picture_path = picture_path[1:]
 
-    # Lire dimensions et DPI
+    # Normaliser les séparateurs + tenter un chemin absolu depuis le dossier du script
+    picture_path = (picture_path or "").replace("\\", os.sep).replace("/", os.sep)
+    if picture_path and not os.path.isabs(picture_path):
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        cand = os.path.join(base_dir, picture_path)
+        if os.path.exists(cand):
+            picture_path = cand  # sinon, on laisse tel quel (au cas où c'est déjà absolu valide)
+
+    # Lire dimensions et DPI (tolérant)
     try:
         with PILImage.open(picture_path) as img:
             orig_w_px, orig_h_px = img.size
             dpi = img.info.get("dpi", (72, 72))
-            dpi_x = dpi[0] if isinstance(dpi, (tuple, list)) and len(dpi) >= 1 else 72
-            dpi_y = dpi[1] if isinstance(dpi, (tuple, list)) and len(dpi) >= 2 else 72
+            dpi_x = float(dpi[0]) if isinstance(dpi, (tuple, list)) and len(dpi) >= 1 and dpi[0] else 72.0
+            dpi_y = float(dpi[1]) if isinstance(dpi, (tuple, list)) and len(dpi) >= 2 and dpi[1] else 72.0
     except Exception as e:
         # fallback si image illisible
         orig_w_px, orig_h_px = (800, 600)
-        dpi_x = dpi_y = 72
+        dpi_x = dpi_y = 72.0
+
+    # Garde-fou DPI
+    if dpi_x <= 0: dpi_x = 72.0
+    if dpi_y <= 0: dpi_y = 72.0
 
     # Dimensions "naturelles" en points (ReportLab)
-    nat_w_pts = (orig_w_px * 72.0) / float(dpi_x)
-    nat_h_pts = (orig_h_px * 72.0) / float(dpi_y)
+    nat_w_pts = (orig_w_px * 72.0) / dpi_x
+    nat_h_pts = (orig_h_px * 72.0) / dpi_y
 
-    # Boîte max (comme avant, en points via *cm)
-    max_width  = 20 * cm
-    max_height = 11 * cm
+    # Boîte max (en points)
+    max_width  = 20*0.95 * cm
+    max_height = 11*0.95 * cm
 
     # Facteur d’échelle qui respecte le ratio et ne dépasse pas la boîte
-    # + n’agrandit pas l’image (min(..., 1.0))
-    scale = min(max_width / nat_w_pts, max_height / nat_h_pts, 1.0)
-
-    final_width  = nat_w_pts * scale
-    final_height = nat_h_pts * scale
+    # + n’agrandit pas l’image
+    if nat_w_pts <= 0 or nat_h_pts <= 0:
+        # fallback ratio si valeurs bizarres
+        ratio = (orig_h_px / orig_w_px) if orig_w_px else 1.0
+        final_width  = max_width
+        final_height = min(max_height, final_width * ratio)
+    else:
+        scale = min(max_width / nat_w_pts, max_height / nat_h_pts, 1.0)
+        final_width  = nat_w_pts * scale
+        final_height = nat_h_pts * scale
 
     return picture_path, final_width, final_height
+
 
 
 def get_configJson_text_info(facility_id, config_data, fieldName):
@@ -456,7 +478,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         image_text_table.setStyle(TableStyle([
             ("VALIGN", (0, 0), (-1, -1), "MIDDLE"), 
             ("ALIGN", (1, 0), (1, 0), "LEFT"),  
-            ("LEFTPADDING", (1, 0), (1, 0), 120),  # 👈 espace entre l'image et le texte
+            ("LEFTPADDING", (1, 0), (1, 0), 140),  # 👈 espace entre l'image et le texte
             ("RIGHTPADDING", (1, 0), (1, 0), 0),    
         ])) 
 
@@ -602,7 +624,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         # ==================== Création du BaseDocTemplate avec 2 frames ====================
         PAGE_WIDTH, PAGE_HEIGHT = landscape(A4)
         main_frame = Frame(2*cm, 3*cm, PAGE_WIDTH - 3*cm, PAGE_HEIGHT - 3*cm, id='main_frame')
-        footer_frame = Frame(2*cm, -0.2*cm, PAGE_WIDTH - 3*cm, 3*cm, id='footer_frame')
+        footer_frame = Frame(2*cm, -0.2*cm, PAGE_WIDTH - 3*cm, 3.5*cm, id='footer_frame')
         page_template = PageTemplate(id='TwoFrames', frames=[main_frame, footer_frame], onPage=draw_bottom_right_logo)
 
         doc = BaseDocTemplate(
