@@ -1,0 +1,2202 @@
+[
+    {
+        "ID": 28194,
+        "facilityId": 28194,
+        "facilityName": "ALTIS VANNES",
+        "cover_picture": "/uploads/Altis Vannes.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "Jean-Charles Georges",
+            "mail_adresse": "jean-charles.georges@wurth.fr",
+            "phone_number": "06 07 21 57 59"
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "Yves Laigo",
+            "mail_adresse": "yves.laigo@cobredia.fr",
+            "phone_number": "02 97 46 80 80"
+        },
+        "file_referent": {
+            "full_name": "Florent Marquer",
+            "mail_adresse": "florent.marquer@wurth.fr",
+            "phone_number": "06 07 21 25 79"
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "22/11/2023",
+        "relevés buses": "• WNC 40 : 9,8% \nBuse marron\n\n• AUTOSECHANT : 2,3% \nBuse jaune\n"
+    },
+    {
+        "ID": 34735,
+        "facilityId": 34735,
+        "facilityName": "BAYERN POITIERS",
+        "cover_picture": "/uploads/Bayern Poitiers Autosphère.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "Sylvain Pontoizeau",
+            "mail_adresse": "sylvain.pontoizeau@wurth.fr",
+            "phone_number": "06 64 02 12 60"
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "Romain Leroux",
+            "mail_adresse": "romain.leroux@emilfrey.fr",
+            "phone_number": "06 59 45 54 45"
+        },
+        "file_referent": {
+            "full_name": "William Pin",
+            "mail_adresse": "william.pin@wurth.fr",
+            "phone_number": "06 65 43 63 74"
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "04/12/2024",
+        "relevés buses": "• WNC 40 : 1,05% \nBuse rose\n\n• AUTOSECHANT : 0,7% \nBuse rose\n"
+    },
+    {
+        "ID": 29112,
+        "facilityId": 29112,
+        "facilityName": "BMW BAYERN AVENUE",
+        "cover_picture": "/uploads/Bayern Avenue.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "Jean-Michel Bernardi",
+            "mail_adresse": "jean-michel.bernardi@wurth.fr ",
+            "phone_number": "06 07 14 17 14"
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "Christian Trichon",
+            "mail_adresse": "christian.trichon@bayern-cannes.net.bmw.fr",
+            "phone_number": "04 93 06 76 92"
+        },
+        "file_referent": {
+            "full_name": "Didier Bariant",
+            "mail_adresse": "didier.bariant@wurth.fr",
+            "phone_number": "06 65 60 63 55"
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "16/05/2024",
+        "relevés buses": "• WNC 40 : 11,6% \nBuse bleue\n\n• AUTOSECHANT : 1,8% \nBuse bleue turquoise\n"
+    },
+    {
+        "ID": 34637,
+        "facilityId": 34637,
+        "facilityName": "By My Car | AVIGNON",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 34640,
+        "facilityId": 34640,
+        "facilityName": "By My Car | CARPENTRAS",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 34643,
+        "facilityId": 34643,
+        "facilityName": "By My Car | ORANGE",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 28605,
+        "facilityId": 28605,
+        "facilityName": "ECA - Evry Corbeil Automobile",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": "\n"
+    },
+    {
+        "ID": 29806,
+        "facilityId": 29806,
+        "facilityName": "ETS TOUQUET",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 32015,
+        "facilityId": 32015,
+        "facilityName": "Espace Bienvenue | Angoulême",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 32012,
+        "facilityId": 32012,
+        "facilityName": "Espace Bienvenue | Rochefort",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 32018,
+        "facilityId": 32018,
+        "facilityName": "Espace Bienvenue | St Georges de Didonne",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 33653,
+        "facilityId": 33653,
+        "facilityName": "Etoile Autobernard | EPERNAY",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 33656,
+        "facilityId": 33656,
+        "facilityName": "Etoile Autobernard | SAINT QUENTIN",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 33659,
+        "facilityId": 33659,
+        "facilityName": "Etoile Autobernard | SOISSONS",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31862,
+        "facilityId": 31862,
+        "facilityName": "Etoile Autobernard | THILLOIS",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 29297,
+        "facilityId": 29297,
+        "facilityName": "FAURIE AXESS PREMIUM",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 29743,
+        "facilityId": 29743,
+        "facilityName": "FAURIE AXESS SUD-OUEST DAX",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 28779,
+        "facilityId": 28779,
+        "facilityName": "FAURIE Volkswagen Agen",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 28845,
+        "facilityId": 28845,
+        "facilityName": "FIX AUTO BORDEAUX",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 28842,
+        "facilityId": 28842,
+        "facilityName": "FIX AUTO COLOMIERS",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 28848,
+        "facilityId": 28848,
+        "facilityName": "FIX AUTO LIBOURNE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 28839,
+        "facilityId": 28839,
+        "facilityName": "FIX AUTO MURET",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 29294,
+        "facilityId": 29294,
+        "facilityName": "Faurie Axess Sud Ouest",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 23276,
+        "facilityId": 23276,
+        "facilityName": "GENERAL AUTOMOBILE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 23981,
+        "facilityId": 23981,
+        "facilityName": "GROUPE COBREDIA / SOMODA",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 23535,
+        "facilityId": 23535,
+        "facilityName": "GROUPE GENIN",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 23954,
+        "facilityId": 23954,
+        "facilityName": "GROUPE SEGOND AUTOMOBILES",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 35051,
+        "facilityId": 35051,
+        "facilityName": "Garage St Christophe | Thillois",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 27789,
+        "facilityId": 27789,
+        "facilityName": "Groupe ROSSI AUTOMOBILES",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31091,
+        "facilityId": 31091,
+        "facilityName": "JEANNIN AUTOMOBILES - AUXERRE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31094,
+        "facilityId": 31094,
+        "facilityName": "JEANNIN AUTOMOBILES - AVALLON",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 26201,
+        "facilityId": 26201,
+        "facilityName": "JEANNIN AUTOMOBILES - SENS",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31088,
+        "facilityId": 31088,
+        "facilityName": "JEANNIN AUTOMOBILES - TROYES",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31520,
+        "facilityId": 31520,
+        "facilityName": "Jeannin Advanced Car 77",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31517,
+        "facilityId": 31517,
+        "facilityName": "Jeannin Advanced Car 89",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31523,
+        "facilityId": 31523,
+        "facilityName": "Jeannin SMDA",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31097,
+        "facilityId": 31097,
+        "facilityName": "MOZART AUTOS - LE CANNET",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 26760,
+        "facilityId": 26760,
+        "facilityName": "Mercedes - TECHSTAR POITIERS by AUTOSPHERE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 33338,
+        "facilityId": 33338,
+        "facilityName": "OUEST CONCEPT AUTOMOBILES",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31238,
+        "facilityId": 31238,
+        "facilityName": "OUEST MOTORS - LANNION",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 33107,
+        "facilityId": 33107,
+        "facilityName": "SAS JEANNIN AUTOMOBILES 10",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 30058,
+        "facilityId": 30058,
+        "facilityName": "SAS Paris-Brest",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 33113,
+        "facilityId": 33113,
+        "facilityName": "SASU JEANNIN AUTOPRESTIGE 89",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31709,
+        "facilityId": 31709,
+        "facilityName": "SEAT | SKODA - Espace Saint Maximin",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 33383,
+        "facilityId": 33383,
+        "facilityName": "TAXI RONDET",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 31271,
+        "facilityId": 31271,
+        "facilityName": "TECHSTAR OUEST",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 27240,
+        "facilityId": 27240,
+        "facilityName": "TECMAT SERVICE",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 26757,
+        "facilityId": 26757,
+        "facilityName": "VW - INTENZ POITOU by AUTOSPHERE - POITIERS",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 30379,
+        "facilityId": 30379,
+        "facilityName": "Viking Auto SA",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 30376,
+        "facilityId": 30376,
+        "facilityName": "Vikings Auto Blet Sud",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 13283,
+        "facilityId": 13283,
+        "facilityName": "WURTH France VL",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 35438,
+        "facilityId": 35438,
+        "facilityName": "By My Car | CAVAILLON",
+        "cover_picture": "/uploads/P90522951-the-bmw-i5-edrive40-driving-10-2023-2247px.jpg",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 32486,
+        "facilityId": 32486,
+        "facilityName": "FRAMATEQ 63",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 35450,
+        "facilityId": 35450,
+        "facilityName": "SAS ALIANTIS | Audi MONTROUGE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 35447,
+        "facilityId": 35447,
+        "facilityName": "SAS ALIANTIS | Espace PARIS SUD",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 32882,
+        "facilityId": 32882,
+        "facilityName": "WURTH GULF",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 23960,
+        "facilityId": 23960,
+        "facilityName": "BRUSCHET AUTOMOBILES SA",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 37465,
+        "facilityId": 37465,
+        "facilityName": "1071214929 ENERGY CAR WASH SAS",
+        "cover_picture": "/uploads/2024-09_HnS_Carawsh.webp",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 35939,
+        "facilityId": 35939,
+        "facilityName": "INTENZ POITOU BY AUTOSPHERE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 37777,
+        "facilityId": 37777,
+        "facilityName": "JM Automobiles | Belleville sur Meuse",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 35444,
+        "facilityId": 35444,
+        "facilityName": "SAS ALIANTIS | PARIS OUEST",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 35756,
+        "facilityId": 35756,
+        "facilityName": "1071168149\tJEANNIN SMDA LAVAGE VSD",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 19035,
+        "facilityId": 19035,
+        "facilityName": "ID E-SERVICE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 25634,
+        "facilityId": 25634,
+        "facilityName": "FG AUTOMOBILES",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 33110,
+        "facilityId": 33110,
+        "facilityName": "1070666255\tJEANNIN AUTOMOBILES IO MAIZIERES",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 33521,
+        "facilityId": 33521,
+        "facilityName": "1070353736\tCONTACTS AUTOMOBILES SAS",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 34532,
+        "facilityId": 34532,
+        "facilityName": "1071174189\tJEANNIN AUTOMOBILES OCCASIONS",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 36442,
+        "facilityId": 36442,
+        "facilityName": "1071213908\tJEANNIN MOTORS",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 37885,
+        "facilityId": 37885,
+        "facilityName": "1071226251\tJEANNIN AUTOPRESTIGE OCCASION",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 38281,
+        "facilityId": 38281,
+        "facilityName": "1070462396 GGE | Les Ulis",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39103,
+        "facilityId": 39103,
+        "facilityName": "1070910404\tGGE | Viry Chatillon",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39121,
+        "facilityId": 39121,
+        "facilityName": "1070943343\tGGE  | Valenton",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39124,
+        "facilityId": 39124,
+        "facilityName": "1071010855\tGGE | Trappes",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39127,
+        "facilityId": 39127,
+        "facilityName": "1070749699\tGGE | Montgeron",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39130,
+        "facilityId": 39130,
+        "facilityName": "1070541875\tGGE | Rambouillet",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39133,
+        "facilityId": 39133,
+        "facilityName": "1070985702\tUNIMARK",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39139,
+        "facilityId": 39139,
+        "facilityName": "1070985702\tUNIMARK",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39145,
+        "facilityId": 39145,
+        "facilityName": "1071107389 BLAV VILLEBON",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39151,
+        "facilityId": 39151,
+        "facilityName": "1070446250\tGÉNÉRAL AUTOMOBILE ORVAULT",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39154,
+        "facilityId": 39154,
+        "facilityName": "1070194240\tGÉNÉRAL AUTOMOBILE GUERANDE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39157,
+        "facilityId": 39157,
+        "facilityName": "1070093697\tGENERAL AUTOMOBILE SAUTRON",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39547,
+        "facilityId": 39547,
+        "facilityName": "1070866213 CASINO GARAGE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39553,
+        "facilityId": 39553,
+        "facilityName": "1070805390 CASINO GARAGE",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39556,
+        "facilityId": 39556,
+        "facilityName": "1070133566 STARTER 2009",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39559,
+        "facilityId": 39559,
+        "facilityName": "1070094027 SAPA",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39562,
+        "facilityId": 39562,
+        "facilityName": "1070262035 GENIN zone 1",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39565,
+        "facilityId": 39565,
+        "facilityName": "1070262035 GENIN zone 2",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    },
+    {
+        "ID": 39568,
+        "facilityId": 39568,
+        "facilityName": "1070980064\tSTORE MONACO BRUSCHET",
+        "cover_picture": "",
+        "material_picture": "/uploads/Orsy Connecté.png",
+        "inventory_monitoring_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "customer_technical_relay_manager": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "file_referent": {
+            "full_name": "",
+            "mail_adresse": "",
+            "phone_number": ""
+        },
+        "primary_company_brand": "",
+        "dernière intervention": "",
+        "relevés buses": ""
+    }
+]
