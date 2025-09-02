@@ -1,234 +1,280 @@
 {'statusCode': 'SUCCESS', 'data': {'results': [
-            {'_id': 28194, 'facilityId': 28194, 'facilityName': '1070133631\tALTIS VANNES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 214059, 'productId': 214059, 'name': 'WNC40 Vannes', 'qty': 139913, 'price': 0.0, 'cur': 'eu', 'gr': 139913, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
-                            {'date': '2025-08-01', 'qty': 17033
-                            },
-                            {'date': '2025-08-02', 'qty': 4340
-                            },
-                            {'date': '2025-08-04', 'qty': 7186
-                            },
-                            {'date': '2025-08-05', 'qty': 22157
-                            },
-                            {'date': '2025-08-06', 'qty': 7521
-                            },
-                            {'date': '2025-08-07', 'qty': 6174
-                            },
-                            {'date': '2025-08-08', 'qty': 1617
-                            },
-                            {'date': '2025-08-12', 'qty': 1874
-                            },
-                            {'date': '2025-08-13', 'qty': 5189
-                            },
-                            {'date': '2025-08-14', 'qty': 4862
-                            },
-                            {'date': '2025-08-18', 'qty': 7022
-                            },
-                            {'date': '2025-08-19', 'qty': 6644
-                            },
-                            {'date': '2025-08-20', 'qty': 1218
-                            },
-                            {'date': '2025-08-21', 'qty': 4488
-                            },
-                            {'date': '2025-08-22', 'qty': 5591
-                            },
-                            {'date': '2025-08-23', 'qty': 7480
-                            },
-                            {'date': '2025-08-25', 'qty': 2172
-                            },
-                            {'date': '2025-08-26', 'qty': 6613
-                            },
-                            {'date': '2025-08-27', 'qty': 1832
-                            },
-                            {'date': '2025-08-28', 'qty': 4333
-                            },
-                            {'date': '2025-08-29', 'qty': 1185
-                            },
-                            {'date': '2025-08-30', 'qty': 10649
-                            },
-                            {'date': '2025-08-31', 'qty': 2733
-                            }
-                        ], 'MonthlyQuantities': [
-                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 105071
-                            },
-                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 163032
-                            },
-                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 143022
-                            },
-                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 101787
-                            },
-                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 123474
-                            },
-                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 141256
-                            },
-                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 169044
-                            },
-                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 138712
-                            },
-                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 252557
-                            },
-                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 252988
-                            },
-                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 260077
-                            },
-                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 139913
-                            }
-                        ]
-                    },
-                    {'_id': 214053, 'productId': 214053, 'name': 'AUTO SÉCHANT VANNES', 'qty': 4728, 'price': 0.0, 'cur': 'eu', 'gr': 4728, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
-                            {'date': '2025-08-01', 'qty': 1653
-                            },
-                            {'date': '2025-08-02', 'qty': 852
-                            },
-                            {'date': '2025-08-14', 'qty': 359
-                            },
-                            {'date': '2025-08-21', 'qty': 1078
-                            },
-                            {'date': '2025-08-30', 'qty': 786
-                            }
-                        ], 'MonthlyQuantities': [
-                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 38948
-                            },
-                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 24547
-                            },
-                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 24332
-                            },
-                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 28316
-                            },
-                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 11264
-                            },
-                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 67339
-                            },
-                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 159840
-                            },
-                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 113568
-                            },
-                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 99755
-                            },
-                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 105656
-                            },
-                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 4728
-                            }
-                        ]
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20301.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754062595000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2872.0, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20301.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756598400000'
-            }
-        ], 'startIndex': 0, 'endIndex': 1, 'itemCount': 1
-    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756826215465
-}
-{'statusCode': 'SUCCESS', 'data': {'results': [
-            {'_id': 28194, 'facilityId': 28194, 'facilityName': '1070133631\tALTIS VANNES', 'lq': 0, 'lQty': 0, 'products': [
-                    {'_id': 214059, 'productId': 214059, 'name': 'WNC40', 'qty': 139913, 'price': 0.0, 'cur': 'eu', 'gr': 139913, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
-                            {'date': '2025-08-01', 'qty': 17033
-                            },
-                            {'date': '2025-08-02', 'qty': 4340
-                            },
-                            {'date': '2025-08-04', 'qty': 7186
-                            },
-                            {'date': '2025-08-05', 'qty': 22157
-                            },
-                            {'date': '2025-08-06', 'qty': 7521
-                            },
-                            {'date': '2025-08-07', 'qty': 6174
-                            },
-                            {'date': '2025-08-08', 'qty': 1617
-                            },
-                            {'date': '2025-08-12', 'qty': 1874
-                            },
-                            {'date': '2025-08-13', 'qty': 5189
-                            },
-                            {'date': '2025-08-14', 'qty': 4862
-                            },
-                            {'date': '2025-08-18', 'qty': 7022
-                            },
-                            {'date': '2025-08-19', 'qty': 6644
-                            },
-                            {'date': '2025-08-20', 'qty': 1218
-                            },
-                            {'date': '2025-08-21', 'qty': 4488
-                            },
-                            {'date': '2025-08-22', 'qty': 5591
-                            },
-                            {'date': '2025-08-23', 'qty': 7480
-                            },
-                            {'date': '2025-08-25', 'qty': 2172
-                            },
-                            {'date': '2025-08-26', 'qty': 6613
-                            },
-                            {'date': '2025-08-27', 'qty': 1832
-                            },
-                            {'date': '2025-08-28', 'qty': 4333
-                            },
-                            {'date': '2025-08-29', 'qty': 1185
-                            },
-                            {'date': '2025-08-30', 'qty': 10649
-                            },
-                            {'date': '2025-08-31', 'qty': 2733
-                            }
-                        ], 'MonthlyQuantities': [
-                            {'month': '2024-09', 'from': '2024-09-01', 'to': '2024-10-01', 'qty': 105071
-                            },
-                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 163032
-                            },
-                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 143022
-                            },
-                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 101787
-                            },
-                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 123474
-                            },
-                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 141256
-                            },
-                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 169044
-                            },
-                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 138712
-                            },
-                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 252557
-                            },
-                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 252988
-                            },
-                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 260077
-                            },
-                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 139913
-                            }
-                        ]
-                    },
-                    {'_id': 214053, 'productId': 214053, 'name': 'Autoséchant', 'qty': 4728, 'price': 0.0, 'cur': 'eu', 'gr': 4728, 'isSolid': False, 'ratio': 1.0, 'dailyQuantities': [
-                            {'date': '2025-08-01', 'qty': 1653
-                            },
-                            {'date': '2025-08-02', 'qty': 852
-                            },
-                            {'date': '2025-08-14', 'qty': 359
-                            },
-                            {'date': '2025-08-21', 'qty': 1078
-                            },
-                            {'date': '2025-08-30', 'qty': 786
-                            }
-                        ], 'MonthlyQuantities': [
-                            {'month': '2024-10', 'from': '2024-10-01', 'to': '2024-11-01', 'qty': 38948
-                            },
-                            {'month': '2024-11', 'from': '2024-11-01', 'to': '2024-12-01', 'qty': 24547
-                            },
-                            {'month': '2024-12', 'from': '2024-12-01', 'to': '2025-01-01', 'qty': 24332
-                            },
-                            {'month': '2025-01', 'from': '2025-01-01', 'to': '2025-02-01', 'qty': 28316
-                            },
-                            {'month': '2025-02', 'from': '2025-02-01', 'to': '2025-03-01', 'qty': 11264
-                            },
-                            {'month': '2025-03', 'from': '2025-03-01', 'to': '2025-04-01', 'qty': 67339
-                            },
-                            {'month': '2025-04', 'from': '2025-04-01', 'to': '2025-05-01', 'qty': 159840
-                            },
-                            {'month': '2025-05', 'from': '2025-05-01', 'to': '2025-06-01', 'qty': 113568
-                            },
-                            {'month': '2025-06', 'from': '2025-06-01', 'to': '2025-07-01', 'qty': 99755
-                            },
-                            {'month': '2025-07', 'from': '2025-07-01', 'to': '2025-08-01', 'qty': 105656
-                            },
-                            {'month': '2025-08', 'from': '2025-08-01', 'to': '2025-09-01', 'qty': 4728
-                            }
-                        ]
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20301.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754063017000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1411.952380952381, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20301.0
                     }
-                ], 'clientPrice': 0, 'clientCur': None, 'w0': 0, 'w1': 0, 'w2': 0, 'w3': 0, 'w4': 0, 'w5': 0, 'w6': 0, 'w7': 0, 'w8': 0, 'w9': 0, 'tsd': '1756598400000'
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20302.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754123717000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 3149.0, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20302.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20302.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754124281000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1411.6666666666667, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20302.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20304.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754322325000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2958.8823529411766, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20304.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20304.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754322907000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1375.4444444444443, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20304.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20305.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754409183000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2347.2, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20305.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20305.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754409535000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1296.4285714285713, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20305.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20306.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754494581000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2942.9333333333334, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20306.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20306.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754495044000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1330.2857142857142, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20306.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20307.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754579700000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2993.85, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20307.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20307.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754580278000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1393.7222222222222, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20307.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20308.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754668875000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2822.913043478261, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20308.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20308.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754669260000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1168.4782608695652, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20308.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20309.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754730552000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2859.5, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20309.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20309.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754731412000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1414.0, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20309.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20311.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754927155000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2992.4, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20311.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20311.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1754927776000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1311.0, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20311.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20312.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755006669000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 3071.294117647059, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20312.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20312.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755007255000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1268.8181818181818, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20312.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20313.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755098345000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2866.75, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20313.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20313.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755101141000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1172.4117647058824, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20313.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20314.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755184574000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 3013.6, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20314.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20314.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755184822000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1320.5714285714287, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20314.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20316.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755334448000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2417.0, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20316.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20316.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755337874000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1210.2, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20316.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20318.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755530152000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2857.4210526315787, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20318.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20318.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755531165000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1235.05, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20318.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20319.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755617406000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 3060.769230769231, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20319.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20319.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755619530000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1157.3076923076924, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20319.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20320.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755703877000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1323.5714285714287, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20320.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20320.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755703877000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2493.6153846153848, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20320.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20321.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755790837000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1039.1724137931035, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20321.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20321.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755791590000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2758.5652173913045, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20321.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20322.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755877669000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2763.6666666666665, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20322.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20322.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1755877994000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1273.578947368421, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20322.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20325.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756135901000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2525.777777777778, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20325.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20325.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756136326000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1266.590909090909, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20325.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20326.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756221832000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2976.0526315789475, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20326.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20326.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756222363000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1231.0434782608695, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20326.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20327.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756310929000, 'pumpIdx': 1, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'flowRate': 2808.8823529411766, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20327.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20327.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756311250000, 'pumpIdx': 2, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'flowRate': 1245.2631578947369, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20327.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20328.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756394045000, 'pumpIdx': 1, 'productName': 'WNC40', 'flowRate': 2949.9333333333334, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20328.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20328.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756394787000, 'pumpIdx': 2, 'productName': 'Autoséchant', 'flowRate': 1126.6666666666667, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20328.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 1, 'day': 20329.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756483986000, 'pumpIdx': 1, 'productName': 'WNC40', 'flowRate': 3022.4, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=1, day=20329.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 37365, 'pumpIdx': 2, 'day': 20329.0
+                }, 'deviceId': 37365, 'facilityId': 39103, 'deviceName': '1070910404 GGE Viry ', 'serialNumber': 'Q80063', 'facilityName': '1070910404\tGGE | Viry Chatillon', 'eventDate': 1756484350000, 'pumpIdx': 2, 'productName': 'Autoséchant', 'flowRate': 1287.2857142857142, '_idHex': 'Document{
+                    {deviceId=37365, pumpIdx=2, day=20329.0
+                    }
+                }'
             }
-        ], 'startIndex': 0, 'endIndex': 1, 'itemCount': 1
-    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756826215465
+        ], 'startIndex': 0, 'endIndex': 45, 'itemCount': 35
+    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756847996928
 }
