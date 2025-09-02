@@ -4,8 +4,7 @@ from calendar import monthrange
 import re
 from collections import OrderedDict
 from collections import defaultdict
-from typing import Dict, Any, List
-from typing import Dict, Any, Tuple
+from typing import Dict, Any, List, Tuple
 
 def get_total_qty_every_days(Json_to_fill, from_date, to_date, facilityId=None):
     current_date = datetime.strptime(from_date, "%Y-%m-%d")
@@ -384,3 +383,45 @@ def enrich_qty_with_stock_products(qty_json: Dict[str, Any],
             added += 1
 
     return qty_json#, added
+
+
+def enrich_qty_with_stock_products2(qty_json: dict, stocks_json: dict) -> dict:
+    """
+    Aligne les noms de produits dans qty_json à partir de stocks_json en matchant par productId.
+    - qty_json : dict avec data.results -> facilities -> products[] (champ 'name')
+    - stocks_json : dict avec data -> facilities -> products[] (champ 'productName')
+    Modifie qty_json en place et le retourne.
+    """
+    # 1) Construire un index productId -> productName depuis stocks_json
+    pid_to_stock_name = {}
+    try:
+        for fac in (stocks_json.get("data") or []):
+            for sp in (fac.get("products") or []):
+                pid = sp.get("productId")
+                pname = sp.get("productName") or sp.get("name")  # fallback si jamais
+                if pid is not None and pname:
+                    pid_to_stock_name[pid] = pname
+    except AttributeError:
+        # Si jamais stocks_json["data"] n'est pas une liste
+        pass
+
+    # 2) Parcourir qty_json et remplacer les noms si différents
+    try:
+        for fac in (qty_json.get("data", {}).get("results") or []):
+            for qp in (fac.get("products") or []):
+                pid = qp.get("productId")
+                stock_name = pid_to_stock_name.get(pid)
+                if not stock_name:
+                    continue
+                cur = qp.get("name") or qp.get("productName") or qp.get("ProductName")
+                if cur != stock_name:
+                    qp["name"] = stock_name
+                    if "productName" in qp:
+                        qp["productName"] = stock_name
+                    if "ProductName" in qp:
+                        qp["ProductName"] = stock_name
+    except AttributeError:
+        # Si jamais qty_json n'a pas la structure attendue, on ne plante pas
+        pass
+
+    return qty_json
