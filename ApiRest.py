@@ -16,7 +16,7 @@ from Json_parameter import transform_facility_json
 from group_parameter import build_group_config_from_devices_list
 
 
-GROUP_FILE = "GroupConfigJson.json"
+GROUP_FILE = "Config/GroupConfigJson.json"
 
 logger = logging.getLogger("uvicorn.error")
 
@@ -76,12 +76,9 @@ def  Total_Quantity_Report_grouped_by_facilities(
     total_qty_Json = get_total_qty_every_days(total_qty.json(), from_date, to_date, facility_id)
     total_qty_Json = get_total_qty_every_month(total_qty_Json, to_date, facility_id)
 
-
     # ici
 
     total_qty_Json = enrich_qty_with_stock_products(total_qty_Json, stock_levels)
-
-    print(stock_levels)
 
     total_qty_Json = enrich_json_with_zone(total_qty_Json)
 
@@ -92,13 +89,21 @@ def  Total_Quantity_Report_grouped_by_facilities(
 
     return {"ok"}
 
-DATA_FILE = "configJson.json"  # Ton fichier JSON
+DATA_FILE = "Config/configJson.json"  # Ton fichier JSON
 
 # --- Static files (HTML) + uploads (images) ---
 os.makedirs("static", exist_ok=True)
 os.makedirs("uploads", exist_ok=True)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
+os.makedirs(UPLOADS_DIR, exist_ok=True)
+
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
+# URL publique /uploads -> dossier ./uploads (persistant via volumes)
+app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 
 @app.get("/items", include_in_schema=False)
 def get_items():

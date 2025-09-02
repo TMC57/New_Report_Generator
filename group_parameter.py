@@ -2,7 +2,7 @@
 # group_parameter.py
 import json, os
 
-GROUP_FILE = "GroupConfigJson.json"
+GROUP_FILE = "Config/GroupConfigJson.json"
 
 def build_group_config_from_devices_list(devices_list_json: dict):
     """

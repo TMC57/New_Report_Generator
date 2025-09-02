@@ -429,7 +429,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
     subtitle_style = styles["Heading2"]
     normal_style = styles["Normal"]
 
-    with open("configJson.json", "r", encoding="utf-8") as f:
+    with open("Config/configJson.json", "r", encoding="utf-8") as f:
         config_data = json.load(f)
 
     for facility in json_data["data"]["results"]:   
@@ -457,7 +457,11 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         buses_infos = buses_infos.replace("\n", "<br/>")
 
         facility_title = Paragraph(facility["facilityName"], title_style)
-        report_title = Paragraph(f"RAPPORT DE CONSOMMATION DU {datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")} AU {datetime.strptime(to_date, "%Y-%m-%d").strftime("%d/%m/%Y")}", title_style)
+        report_title = Paragraph(
+            f"RAPPORT DE CONSOMMATION DU {datetime.strptime(from_date, '%Y-%m-%d').strftime('%d/%m/%Y')} "
+            f"AU {datetime.strptime(to_date, '%Y-%m-%d').strftime('%d/%m/%Y')}",
+            title_style
+        )
         page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {date_last_intervention} ", title_style)
 
         cover_picture_path, cover_final_width, cover_final_height = get_picture_path(facility_id, config_data, "cover_picture")

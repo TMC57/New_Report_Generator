@@ -6,8 +6,8 @@ def transform_facility_json(input_json):
     output = []
 
     # Lire l'existant s'il existe
-    if os.path.exists("configJson.json"):
-        with open("configJson.json", "r", encoding="utf-8") as f:
+    if os.path.exists("Config/configJson.json"):
+        with open("Config/configJson.json", "r", encoding="utf-8") as f:
             try:
                 output = json.load(f)
             except json.JSONDecodeError:
@@ -60,7 +60,7 @@ def transform_facility_json(input_json):
             output.append(entry)
 
     # Écriture
-    with open("configJson.json", "w", encoding="utf-8") as f:
+    with open("Config/configJson.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=4)
 
     return {"facilities": output}
