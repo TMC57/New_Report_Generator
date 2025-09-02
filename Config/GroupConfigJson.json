@@ -15,21 +15,21 @@
         "facilityName": "1070921980 SAS ALIANTIS | Audi MONTROUGE"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Audi Aliantis.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Lamia Messadia",
+      "mail_adresse": "lamia.messadia@wurth.fr",
+      "phone_number": "06 77 98 73 28"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Fabrice Letang",
+      "mail_adresse": "fabrice.letang@aliantis.com",
+      "phone_number": "06 09 73 93 74"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "David Darfeuille",
+      "mail_adresse": "david.darfeuille@wurth.fr",
+      "phone_number": "06 17 15 71 49"
     },
     "primary_company_brand": ""
   },
@@ -41,7 +41,7 @@
         "facilityName": "1071046164 BAYERN | POITIERS"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -67,7 +67,7 @@
         "facilityName": "1071107389 BLAV VILLEBON"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -105,7 +105,7 @@
         "facilityName": "By My Car | CAVAILLON"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -135,21 +135,21 @@
         "facilityName": "1070637155 OUEST CONCEPT AUTOMOBILES"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Ouest Motors.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Frédérique Citores",
+      "mail_adresse": "frederique.citores@wurth.fr",
+      "phone_number": "06 68 67 23 63"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Patrick Auffret",
+      "mail_adresse": "patrick.auffret@ouest-motors.fr",
+      "phone_number": "02 96 14 14 14"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Charles Rault",
+      "mail_adresse": "charles.rault@wurth.fr",
+      "phone_number": "06 21 06 36 38"
     },
     "primary_company_brand": ""
   },
@@ -161,7 +161,7 @@
         "facilityName": "1071214929 ENERGY CAR WASH SAS"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -187,7 +187,7 @@
         "facilityName": "1070972131 ETS TOUQUET"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -221,21 +221,21 @@
         "facilityName": "1070379612 Espace Bienvenue | St Georges"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Espace Bienvenue.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Jonathan Noel",
+      "mail_adresse": "jonathan.noel@wurth.fr",
+      "phone_number": "06 07 21 34 49"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Mathieu Olivencia",
+      "mail_adresse": "mathieu.olivencia@bienvenue.net.bmw.fr",
+      "phone_number": "05 46 99 16 13"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Thibaut Serres",
+      "mail_adresse": "thibaut.serres@wurth.fr",
+      "phone_number": "06 07 14 83 39"
     },
     "primary_company_brand": ""
   },
@@ -259,21 +259,21 @@
         "facilityName": "1070020163 Etoile Autobernard | SOISSONS"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Etoile Autobernard.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Christophe Dralet",
+      "mail_adresse": "christophe.dralet@wurth.fr",
+      "phone_number": "06 21 06 35 40"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Laurent Schlosser",
+      "mail_adresse": "laurent.schlosser@autobernard.com",
+      "phone_number": "06 08 40 52 38"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Eddy Souchaire",
+      "mail_adresse": "eddy.souchaire@wurth.fr",
+      "phone_number": "06 21 06 34 05"
     },
     "primary_company_brand": ""
   },
@@ -297,21 +297,21 @@
         "facilityName": "1071079277\tFAURIE APSO ST PAUL"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Faurie Axess.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Morgane Mouric",
+      "mail_adresse": "morgane.mouric@wurth.fr",
+      "phone_number": "06 07 22 14 64"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Julien Harte",
+      "mail_adresse": "j.harte@faurie.fr",
+      "phone_number": "07 64 41 33 11"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Boris Tessier",
+      "mail_adresse": "boris.tessier@wurth.fr",
+      "phone_number": "06 67 00 70 44"
     },
     "primary_company_brand": ""
   },
@@ -335,21 +335,21 @@
         "facilityName": "1071105659\tFIX AUTO LIBOURNE"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Fix Auto.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
       "phone_number": ""
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Céline Sicre",
+      "mail_adresse": "celine.sicre@fixauto.com",
+      "phone_number": "05 82 60 00 13"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Boris Tessier",
+      "mail_adresse": "boris.tessier@wurth.fr",
+      "phone_number": "06 67 00 70 44"
     },
     "primary_company_brand": ""
   },
@@ -365,7 +365,7 @@
         "facilityName": "1071091730\tFRAMATEQ RHONE ALPES"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -399,21 +399,21 @@
         "facilityName": "1070093697\tGENERAL AUTOMOBILE SAUTRON"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Général Automobile.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Dimitri Bonfils",
+      "mail_adresse": "dimitri.bonfils@wurth.fr",
+      "phone_number": "06 07 21 19 30"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Stéphane Taloc",
+      "mail_adresse": "stephane.taloc@generalautomobile.fr",
+      "phone_number": "06 37 22 87 51"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Charles Rault",
+      "mail_adresse": "charles.rault@wurth.fr",
+      "phone_number": "06 21 06 36 38"
     },
     "primary_company_brand": ""
   },
@@ -445,21 +445,21 @@
         "facilityName": "1070541875\tGGE | Rambouillet"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/SAGA GGE.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Lamia Messadia",
+      "mail_adresse": "lamia.messadia@wurth.fr",
+      "phone_number": "06 77 98 73 28"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Tuffery Patrice",
+      "mail_adresse": "patrice.tuffery@rcm-saga.fr",
+      "phone_number": "06 19 24 29 13"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "David Darfeuille",
+      "mail_adresse": "david.darfeuille@wurth.fr",
+      "phone_number": "06 17 15 71 49"
     },
     "primary_company_brand": ""
   },
@@ -471,7 +471,7 @@
         "facilityName": "GROUPE COBREDIA / SOMODA"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -501,7 +501,7 @@
         "facilityName": "1070262035 GENIN zone 2"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -527,7 +527,7 @@
         "facilityName": "1070280831\tGARAGE PARIS BREST PROCUREUR"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -553,7 +553,7 @@
         "facilityName": "Garage St Christophe | Thillois"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -591,21 +591,21 @@
         "facilityName": "1070094027 SAPA"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Groupe Segond.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Jean-Michel Bernardi",
+      "mail_adresse": "jean-michel.bernardi@wurth.fr",
+      "phone_number": "06 07 14 17 14"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
+      "full_name": "Alain Vinet",
+      "mail_adresse": "dirsav@segondauto.com",
       "phone_number": ""
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Anthony Bourlier",
+      "mail_adresse": "anthony.bourlier@wurth.fr",
+      "phone_number": "06 21 06 48 34"
     },
     "primary_company_brand": ""
   },
@@ -617,7 +617,7 @@
         "facilityName": "1070353736\tCONTACTS AUTOMOBILES SAS"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -643,7 +643,7 @@
         "facilityName": "1070550192 JM Automobiles"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -669,7 +669,7 @@
         "facilityName": "1070867150\tBAYERN AVENUE"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -695,7 +695,7 @@
         "facilityName": "1070094841\tECA"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -773,21 +773,21 @@
         "facilityName": "1071226251\tJEANNIN AUTOPRESTIGE OCCASION"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Jeannin Automobiles.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Lionel Bricout",
+      "mail_adresse": "lionel.bricout@wurth.fr",
+      "phone_number": "06 07 14 08 20"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Adrien Sassiat",
+      "mail_adresse": "a.sassiat@jeannin-automobiles.com",
+      "phone_number": "03 86 34 13 03"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Eddy Souchaire",
+      "mail_adresse": "eddy.souchaire@wurth.fr",
+      "phone_number": "06 21 06 34 05"
     },
     "primary_company_brand": ""
   },
@@ -799,7 +799,7 @@
         "facilityName": "1070278349\tMOZART AUTOS"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -825,7 +825,7 @@
         "facilityName": "1070980064\tSTORE MONACO BRUSCHET"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -851,7 +851,7 @@
         "facilityName": "SEAT | SKODA - Espace Saint Maximin"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -877,7 +877,7 @@
         "facilityName": "TAXI RONDET"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -903,7 +903,7 @@
         "facilityName": "TECHSTAR OUEST"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -929,7 +929,7 @@
         "facilityName": "ID E-SERVICE"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -955,7 +955,7 @@
         "facilityName": "1070985702\tUNIMARK"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -985,21 +985,21 @@
         "facilityName": "1070761951\tVIKING AUTO SA"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Vikings Auto.jpg",
     "inventory_monitoring_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Stephane Jimenez",
+      "mail_adresse": "stephane.jimenez@wurth.fr",
+      "phone_number": "06 07 12 74 79"
     },
     "customer_technical_relay_manager": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Wilfrid Chanu  ",
+      "mail_adresse": "wilfrid.chanu@vikings-auto.fr",
+      "phone_number": "06 03 56 13 08"
     },
     "file_referent": {
-      "full_name": "",
-      "mail_adresse": "",
-      "phone_number": ""
+      "full_name": "Alexandre Delamarre",
+      "mail_adresse": "alexandre.delamarre@wurth.fr",
+      "phone_number": "06 25 62 10 49"
     },
     "primary_company_brand": ""
   },
@@ -1011,7 +1011,7 @@
         "facilityName": "WURTH GULF"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
@@ -1069,7 +1069,7 @@
         "facilityName": "1070985702\tUNIMARK"
       }
     ],
-    "cover_picture": "",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "",
       "mail_adresse": "",
