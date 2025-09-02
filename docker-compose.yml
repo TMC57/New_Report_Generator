@@ -6,8 +6,8 @@ services:
     container_name: tmh-container
     ports:
       - "8000:8000"
-    volumes:
-      - ./configs:/app/configs
-      - ./uploads:/app/uploads
     restart: unless-stopped
-
+    volumes:
+      - ./reports:/app/reports
+      - ./uploads:/app/uploads
+      - ./Config:/app/Config

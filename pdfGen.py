@@ -419,8 +419,9 @@ def _get_serial_by_device_id(devices_list: dict, facility_id: int, device_id: in
 
 def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_date: str, to_date: str):
 
-    os.makedirs(f"../reports {from_date} to {to_date}", exist_ok=True)
-    dirname = (f"../reports {from_date} to {to_date}")
+
+    os.makedirs(f"reports {from_date} to {to_date}", exist_ok=True)
+    dirname = (f"reports {from_date} to {to_date}")
 
     session, token = login_session_cm2w()
 
