@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from io import BytesIO
 import matplotlib.ticker as ticker
 from colors_map import get_colors_for_products  # <-- AJOUT
+import matplotlib.dates as mdates
 
 def generate_bar_chart(facility, from_date: str, to_date: str):
     start = datetime.strptime(from_date, "%Y-%m-%d")
@@ -32,28 +33,38 @@ def generate_bar_chart(facility, from_date: str, to_date: str):
         data_by_product[i] = [qty  for qty in data_by_product[i]]
 
     # Position de chaque groupe de barres par jour
-    x = range(len(date_range))
-    width = 0.8 / len(products)
+    # -- après avoir construit date_range, products, etc. --
+
+    x = range(len(date_range))  # une graduation par jour, à 0,1,2,...
+
+    # largeur totale occupée par le groupe dans [jour, jour+1)
+    group_width = 0.9           # 90% de l’espace d’un jour (laisse un petit gap)
+    bar_width   = group_width / len(products)
+    left_pad    = 0.05          # petit décalage "juste après" la graduation
 
     fig, ax = plt.subplots(figsize=(12, 6))
 
     for i, daily_data in enumerate(data_by_product):
-        offset = [xi + i * width for xi in x]
-        ax.bar(offset, daily_data, width=width, label=product_names[i], color=colors[i])    
+        # position = début du jour + petit pad + décalage par produit
+        pos = [xi + left_pad + i * bar_width for xi in x]
+        ax.bar(pos, daily_data, width=bar_width, align='edge',
+            label=product_names[i], color=colors[i])
 
-    ax.set_xticks([xi + width * (len(products) / 2) for xi in x])
+    # ➜ graduations AU DÉBUT de chaque jour (pas au centre du groupe)
+    ax.set_xticks(list(x))
     ax.set_xticklabels(date_labels, rotation=45)
 
-    # ➤ Formater l’axe Y avec une décimale et unité dynamique
-    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f"{x:.2f}L"))
+    # cadrage pour laisser l’intervalle [0, nb_jours]
+    ax.set_xlim(0, len(date_range))
 
-    # ax.set_title(f"{facility['facilityName']} – Consommation quotidienne")
+    # (le reste de ton code inchangé)
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(lambda v, pos: f"{v:.2f}L"))
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=4, frameon=False)
     ax.grid(True, axis='y', linestyle='-', linewidth=0.8, color='black', alpha=0.3)
-
-    # Supprimer les bordures
     for spine in ax.spines.values():
         spine.set_visible(False)
+    plt.tight_layout()
+
 
     plt.tight_layout()
 

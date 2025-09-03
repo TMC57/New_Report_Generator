@@ -16,6 +16,7 @@ PRODUCT_COLOR_MAP = [
     (r"WNC31",    "#C0504D"),  # Rouge
     (r"WNC50",    "#00B050"),  # Vert
     (r"WNC70",    "#92D050"),  # Vert clair (même que WNC40)
+    (r"WNC60",    "#76933c"),  # WNC60
     (r"EAU",    "#0070C0"),  # l'eau
 ]
 
