@@ -420,8 +420,15 @@ def _get_serial_by_device_id(devices_list: dict, facility_id: int, device_id: in
 def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_date: str, to_date: str):
 
 
-    os.makedirs(f"reports {from_date} to {to_date}", exist_ok=True)
-    dirname = (f"reports {from_date} to {to_date}")
+    # côté conteneur ça vaut "/app/data"
+    DATA_ROOT = os.getenv("DATA_ROOT", "./Reports")
+
+    folder_name = f"reports {from_date} to {to_date}"
+    output_dir = os.path.join(DATA_ROOT, folder_name)
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    # dirname = (f"../Reports/reports {from_date} to {to_date}")
 
     session, token = login_session_cm2w()
 
@@ -437,7 +444,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         facility_id = facility["facilityId"]
 
         sanitized_name = _sanitize_filename(facility.get("facilityName", ""))
-        pdf_path = f"{dirname}/{sanitized_name}_{facility_id}.pdf"
+        pdf_path = f"{output_dir}/{sanitized_name}_{facility_id}.pdf"
 
 
         serial_numbers = get_serial_numbers_for_facility(devices_list, facility_id)
@@ -643,6 +650,6 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         doc.addPageTemplates([page_template])
         doc.build(elements)
 
-    print(f"PDFs générés dans le dossier ../reports {from_date} to {to_date}")
+    print(f"PDFs générés dans le dossier {pdf_path}")
     return 0
 

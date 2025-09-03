@@ -7,7 +7,9 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
+    environment:
+      - DATA_ROOT=/app/data          # <-- Ton code lit cette variable
     volumes:
-      - ./reports:/app/reports
+      - ../Reports:/app/data         # <-- Pont vers ton dossier Windows
       - ./uploads:/app/uploads
       - ./Config:/app/Config
