@@ -18,6 +18,8 @@ PRODUCT_COLOR_MAP = [
     (r"WNC70",    "#92D050"),  # Vert clair (même que WNC40)
     (r"WNC60",    "#76933c"),  # WNC60
     (r"EAU",    "#0070C0"),  # l'eau
+
+    (r"AUTOSECH", "#00B0F0"),  # Bleu clair (sans accent pour matching robuste)
 ]
 
 # Palette fallback pour les produits non mappés (cohérente et déterministe)
