@@ -6,10 +6,10 @@ services:
     container_name: tmh-container
     ports:
       - "8000:8000"
-    restart: unless-stopped
+    restart: always             # <--- ici
     environment:
-      - DATA_ROOT=/app/data          # <-- Ton code lit cette variable
+      - DATA_ROOT=/app/data
     volumes:
-      - ../Reports:/app/data         # <-- Pont vers ton dossier Windows
+      - ../Reports:/app/data
       - ./uploads:/app/uploads
       - ./Config:/app/Config
