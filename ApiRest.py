@@ -65,8 +65,8 @@ def  Total_Quantity_Report_grouped_by_facilities(
     agg = group_qty_by_owner_and_facility(total_qty, devices_list)
 
     # Exemple: afficher le total par owner
-    for o in agg["owners"]:
-        print(o["owner"], "→", o["totalQty"])
+    # for o in agg["owners"]:
+    #     print(o["owner"], "→", o["totalQty"])
 
     build_group_config_from_devices_list(devices_list)
 

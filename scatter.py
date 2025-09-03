@@ -7,7 +7,6 @@ import matplotlib.ticker as mticker
 
 
 def _events_series_by_product(events_json: dict):
-    print(events_json)
     """
     Regroupe par pompe (pumpIdx) et retourne:
       - series: { "<pumpIdx>": [(ts_ms, value), ...], ... }

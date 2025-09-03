@@ -550,7 +550,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
             # print(f"[DEBUG] Zone {zone} → EAU={len(eau_products)} / HORS_EAU={len(other_products)}")
 
             # 1) ==================== EAU uniquement si présent ====================
-            print(zone)
+            # print(zone)
             if zone == 'GLOBAL': zone = " "
             else: zone = "- " + zone
             if eau_products:
