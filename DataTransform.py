@@ -191,7 +191,7 @@ def group_qty_by_owner_and_facility(total_qty_json: Dict[str, Any],
     Agrège les quantités consommées par produit, regroupées par owner puis par facility.
 
     Entrées:
-      - total_qty_json: JSON de "total quantity" (clé data.results avec [{ facilityId, facilityName, products:[{name, qty}, ...] }, ...])
+      - total_qty_json: JSON de "total quantity" (clé data.results avec [{ facilityId, facilityName, products:[{productId, name, qty}, ...] }, ...])
       - devices_list_json: JSON de "device list" (clé data: [{ owner, facilityId, facilityName, ... }, ...])
 
     Sortie:
@@ -206,7 +206,7 @@ def group_qty_by_owner_and_facility(total_qty_json: Dict[str, Any],
                 "facilityName": "...",
                 "totalQty": <somme de toutes les qty de la facility>,
                 "products": [
-                  {"name": "...", "qty": <somme>},
+                  {"productId": 214059, "name": "WNC40 Vannes", "qty": <somme>},
                   ...
                 ]
               },
@@ -228,12 +228,13 @@ def group_qty_by_owner_and_facility(total_qty_json: Dict[str, Any],
     # 2) Agrégation par owner -> facility -> product
     owners = defaultdict(lambda: {
         "owner": None,
-        "totalQty": 0,
+        "totalQty": 0.0,
         "facilities": defaultdict(lambda: {
             "facilityId": None,
             "facilityName": "",
-            "totalQty": 0,
-            "products": defaultdict(int)  # name -> qty
+            "totalQty": 0.0,
+            # On stocke productId et nom séparés
+            "products": defaultdict(lambda: {"productId": None, "name": "", "qty": 0.0})
         })
     })
 
@@ -252,31 +253,49 @@ def group_qty_by_owner_and_facility(total_qty_json: Dict[str, Any],
         fac_bucket["facilityName"] = fac_name or meta.get("facilityName", "")
 
         # Produits pour cette ligne
-        for p in row.get("products", []) or []:
-            pname = (p.get("name") or "UNKNOWN PRODUCT").strip()
+        for p in (row.get("products") or []):
+            pname_raw = (p.get("name") or "UNKNOWN PRODUCT").strip()
+            # nettoie le nom -> supprime l'ID déjà présent au début
+            pname_clean = re.sub(r'^\s*\d+\s+', '', pname_raw)
+
+            pid = p.get("productId")
+
+            # qty -> float robuste
             qty = p.get("qty") or 0
             try:
                 qty = float(qty)
             except Exception:
                 qty = 0.0
 
-            fac_bucket["products"][pname] += qty
+            # clé d'agrégation = productId si dispo, sinon nom
+            product_key = pid if pid is not None else pname_clean
+
+            # Récupère/initialise le bucket produit
+            prod_bucket = fac_bucket["products"][product_key]
+            if not prod_bucket["name"]:
+                prod_bucket["name"] = pname_clean
+            if prod_bucket["productId"] is None and pid is not None:
+                prod_bucket["productId"] = pid
+
+            prod_bucket["qty"] += qty
             fac_bucket["totalQty"] += qty
             owner_bucket["totalQty"] += qty
 
-    # 3) Mise en forme finale (transformer les defaultdict en listes propres)
+    # 3) Mise en forme finale
     owners_list = []
     for owner_name, ob in owners.items():
         facilities_list = []
         for fac_id, fb in ob["facilities"].items():
-            products_list = [{"name": n, "qty": v} for n, v in sorted(fb["products"].items())]
+            products_list = sorted(
+                fb["products"].values(),
+                key=lambda pr: (pr["name"] or "")
+            )
             facilities_list.append({
                 "facilityId": fb["facilityId"],
                 "facilityName": fb["facilityName"],
                 "totalQty": fb["totalQty"],
                 "products": products_list
             })
-        # trier les facilities par nom (ou id)
         facilities_list.sort(key=lambda x: (x["facilityName"] or "", x["facilityId"] or 0))
         owners_list.append({
             "owner": ob["owner"] or owner_name,
@@ -284,7 +303,6 @@ def group_qty_by_owner_and_facility(total_qty_json: Dict[str, Any],
             "facilities": facilities_list
         })
 
-    # trier les owners par nom
     owners_list.sort(key=lambda x: x["owner"] or "")
     return {"owners": owners_list}
 
@@ -425,3 +443,84 @@ def enrich_qty_with_stock_products2(qty_json: dict, stocks_json: dict) -> dict:
         pass
 
     return qty_json
+
+
+def reconcile_qty_ids_with_stocklevels(
+    qty_json: Dict[str, Any],
+    stock_levels_json: Dict[str, Any]
+) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
+    """
+    Compare les noms des produits entre qty_json et stock_levels_json.
+    Si le nom diffère pour un même productId, on essaie de retrouver le productId
+    correct dans stockLevels (priorité même facility, sinon global) et on met à jour.
+
+    Retourne: (qty_modifié, corrections)
+    """
+
+    # --- 1) Index stockLevels ---
+    data = (stock_levels_json or {}).get("data", []) or []
+
+    by_fac_id_to_name = {}     # (facilityId, productId) -> productName
+    by_fac_name_to_id = {}     # (facilityId, productName) -> productId
+    global_id_to_name = {}     # productId -> productName
+    global_name_to_id = {}     # productName -> productId
+
+    for fac in data:
+        f_id = fac.get("facilityId")
+        for pr in fac.get("products", []) or []:
+            pid = pr.get("productId")
+            pname = pr.get("productName") or ""
+            if f_id is not None and pid is not None:
+                by_fac_id_to_name[(f_id, pid)] = pname
+                by_fac_name_to_id[(f_id, pname)] = pid
+            if pid is not None:
+                global_id_to_name[pid] = pname
+            if pname:
+                global_name_to_id[pname] = pid
+
+    # --- 2) Parcours qty & corrections ---
+    qty_mod = qty_json
+    corrections: List[Dict[str, Any]] = []
+
+    for owner in (qty_mod or {}).get("owners", []) or []:
+        for fac in owner.get("facilities", []) or []:
+            f_id = fac.get("facilityId")
+            products = fac.get("products", []) or []
+            for p in products:
+                pid_old = p.get("productId")
+                qty_name = p.get("name") or ""
+
+                # Nom en stockLevels pour l'ID courant
+                stock_name_for_old = None
+                if f_id is not None and pid_old is not None:
+                    stock_name_for_old = by_fac_id_to_name.get((f_id, pid_old))
+                if stock_name_for_old is None and pid_old is not None:
+                    stock_name_for_old = global_id_to_name.get(pid_old)
+
+                if not stock_name_for_old:
+                    continue
+
+                # Si noms identiques -> OK
+                if stock_name_for_old == qty_name:
+                    continue
+
+                # Sinon, chercher l'ID du nom qty dans stockLevels
+                pid_new = None
+                if f_id is not None:
+                    pid_new = by_fac_name_to_id.get((f_id, qty_name))
+                if pid_new is None:
+                    pid_new = global_name_to_id.get(qty_name)
+
+                if pid_new is not None and pid_new != pid_old:
+                    p["productId"] = pid_new
+                    corrections.append({
+                        "facilityId": f_id,
+                        "oldProductId": pid_old,
+                        "newProductId": pid_new,
+                        "qtyName": qty_name,
+                        "oldIdStockName": stock_name_for_old,
+                        "matchedStockName": global_id_to_name.get(pid_new)
+                    })
+
+    return qty_mod, corrections
+

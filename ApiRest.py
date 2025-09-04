@@ -10,7 +10,7 @@ from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from model import model, body_total_qty_report, body_devices_list, body_stock_levels
-from DataTransform import get_total_qty_every_days, get_total_qty_every_month, enrich_json_with_zone, group_qty_by_owner_and_facility, enrich_qty_with_stock_products, enrich_qty_with_stock_products2
+from DataTransform import get_total_qty_every_days, get_total_qty_every_month, enrich_json_with_zone, group_qty_by_owner_and_facility, enrich_qty_with_stock_products, enrich_qty_with_stock_products2, reconcile_qty_ids_with_stocklevels
 from pdfGen import generate_pdfs_by_facility
 from Json_parameter import transform_facility_json
 from group_parameter import build_group_config_from_devices_list
@@ -84,14 +84,64 @@ def  Total_Quantity_Report_grouped_by_facilities(
 
     total_qty_Json = enrich_json_with_zone(total_qty_Json)
 
-    print(total_qty_Json)
-
     # # ======================================================
     transform_facility_json(devices_list)
     generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)
 
 
     return {"ok"}
+
+
+@app.get("/Group_Reports_generation", tags=["Rapports"])
+def  Total_Quantity_Report_grouped_by_facilities(
+    # pageNumber: int,
+    # pageSize: int,
+    from_date: str,
+    to_date: str,
+    facility_id: Optional[int] = None,  
+    # DeviceId: Optional[int] = None
+):
+    """
+    Endpoint GET /report qui retourne des données de rapport de groupe.
+    Les dates sont en format 'YYYY-MM-DD'.
+    """ 
+
+    endpoint, headers, params = body_devices_list(facility_id)
+    devices_list = model(endpoint, headers, params).json()
+
+    to_date_obj = datetime.strptime(to_date, "%Y-%m-%d") + timedelta(days=1)
+    to_date_plus_one = to_date_obj.strftime("%Y-%m-%d")
+
+    endpoint, headers, params =  body_total_qty_report(from_date, to_date_plus_one, facility_id) 
+    total_qty = model(endpoint, headers, params).json()
+
+    endpoint, headers, params = body_stock_levels(facility_id)
+    stock_levels = model(endpoint, headers, params).json()
+
+
+
+    agg = group_qty_by_owner_and_facility(total_qty, devices_list)
+    agg, oui = reconcile_qty_ids_with_stocklevels(agg, stock_levels)
+
+    print(stock_levels)
+
+    # # ================= Data Transformation ================
+
+
+    total_qty_Json = enrich_qty_with_stock_products(agg, stock_levels)
+
+    total_qty_Json = enrich_qty_with_stock_products2(total_qty_Json, stock_levels)
+
+
+    # # ======================================================
+    # transform_facility_json(devices_list)
+    # generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)
+
+
+    return {"ok"}
+
+
+
 
 DATA_FILE = "Config/configJson.json"  # Ton fichier JSON
 

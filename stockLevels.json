@@ -1,0 +1,226 @@
+{'statusCode': 'SUCCESS', 'data': {'results': [
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20301.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754054573000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2512.5, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20301.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20301.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754054642000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1330.3333333333333, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20301.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20304.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754313552000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2023.4666666666667, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20304.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20304.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754314742000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1164.65, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20304.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20305.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754393948000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 0.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20305.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20306.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754488178000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2469.25, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20306.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20306.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754488937000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1334.1666666666667, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20306.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20307.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754562941000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2577.75, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20307.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20307.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754563360000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1074.3333333333333, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20307.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20309.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754751489000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1382.3846153846155, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20309.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20309.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754751550000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2434.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20309.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20311.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754920792000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2496.3636363636365, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20311.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20311.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1754921355000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1162.3809523809523, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20311.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20312.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755014587000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2477.3333333333335, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20312.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20312.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755015000000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1245.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20312.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20313.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755093196000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2510.5, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20313.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20313.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755093402000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1319.8, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20313.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20314.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755157337000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2801.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20314.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20314.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755157844000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1408.25, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20314.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20318.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755526022000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2744.1428571428573, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20318.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20318.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755526735000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1402.875, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20318.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20320.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755704924000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2494.375, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20320.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20320.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755705583000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1306.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20320.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20321.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755784485000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1327.3333333333333, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20321.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20321.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755794277000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2450.0588235294117, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20321.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20322.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755865516000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2647.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20322.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20322.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755866282000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 719.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20322.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20323.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755944220000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2584.3333333333335, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20323.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20323.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1755944927000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1476.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20323.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20325.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1756127517000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2152.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20325.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20326.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1756214559000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2274.3529411764707, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20326.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20326.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1756215328000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1024.4583333333333, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20326.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20327.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1756293585000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 0.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20327.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20328.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1756384571000, 'pumpIdx': 0, 'productName': 'Zone 1 WNC50 CORBEIL', 'flowRate': 2440.285714285714, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20328.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20328.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1756385225000, 'pumpIdx': 1, 'productName': 'ZONE 1 AUTOSECHANT CORBEIL', 'flowRate': 1473.5, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20328.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 0, 'day': 20329.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1756453040000, 'pumpIdx': 0, 'productName': 'WNC50', 'flowRate': 1991.5, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=0, day=20329.0
+                    }
+                }'
+            },
+            {'_id': {'deviceId': 48537, 'pumpIdx': 1, 'day': 20329.0
+                }, 'deviceId': 48537, 'facilityId': 28605, 'deviceName': '1070094841\tECA -zone 1', 'serialNumber': 'Q221BE', 'facilityName': '1070094841\tECA', 'eventDate': 1756456548000, 'pumpIdx': 1, 'productName': 'Autoséchant - Zone 1', 'flowRate': 1073.0, '_idHex': 'Document{
+                    {deviceId=48537, pumpIdx=1, day=20329.0
+                    }
+                }'
+            }
+        ], 'startIndex': 0, 'endIndex': 36, 'itemCount': 7
+    }, 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756988822071
+}

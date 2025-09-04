@@ -1,0 +1,815 @@
+{'statusCode': 'SUCCESS', 'data': [
+        {'facilityId': 13283, 'facilityName': 'WURTH France VL', 'facilityCity': None, 'facilityAddress': None, 'facilityZipCode': None, 'facilityCountry': None, 'owner': 'Wurth', 'products': [
+                {'productId': 92965, 'productName': 'AUTO-SECHANT 200L 0893025650 AXESS BRIVE LA GAILLARDE', 'facilityId': 13283, 'price': 1.0, 'remainingQuantity': '-671.2625 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 92977, 'productName': 'NETTOYANT CARROSSERIE WNC 50 200L 08904711 AXESS BRIVE LA GAILLARDE', 'facilityId': 13283, 'price': 1.0, 'remainingQuantity': '-5206.9934 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 94607, 'productName': 'WNC 40 200L - 08904701', 'facilityId': 13283, 'price': 1.0, 'remainingQuantity': '-220.7593 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 94610, 'productName': 'Autosechant VW Saint Pierre du Mont', 'facilityId': 13283, 'price': 1.0, 'remainingQuantity': '-92.3706 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 167973, 'productName': 'JANTES MERCEDES ULIS GGE', 'facilityId': 13283, 'price': 3.56, 'remainingQuantity': '858.9476 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 167976, 'productName': 'SHAMPOING MERCEDES ULIS GGE', 'facilityId': 13283, 'price': 2.57, 'remainingQuantity': '195.8087 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 167979, 'productName': 'AUTO-SECHANT MERCEDES ULIS GGE', 'facilityId': 13283, 'price': 2.61, 'remainingQuantity': '99.4059 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 168009, 'productName': 'AUTO SECHANT MERCEDES VALENTON GGE', 'facilityId': 13283, 'price': 2.61, 'remainingQuantity': '490.2273 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 168012, 'productName': 'AUTO SECHANT MERCEDES VIRY CHATILLON GGE', 'facilityId': 13283, 'price': 2.61, 'remainingQuantity': '-168.6228 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 168015, 'productName': 'AUTO SECHANT NISSAN MOLITOR PARIS', 'facilityId': 13283, 'price': 2.35, 'remainingQuantity': '55.0127 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 168018, 'productName': 'JANTES MERCEDES VALENTON GGE', 'facilityId': 13283, 'price': 3.56, 'remainingQuantity': '196.7845 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 168021, 'productName': 'JANTES MERCEDES VIRY CHATILLON GGE', 'facilityId': 13283, 'price': 3.56, 'remainingQuantity': '1414.0105 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 168024, 'productName': 'JANTES NISSAN MOLITOR PARIS', 'facilityId': 13283, 'price': 3.56, 'remainingQuantity': '16.9935 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 168027, 'productName': 'SHAMPOING MERCEDES VIRY-CHATILLON', 'facilityId': 13283, 'price': 2.57, 'remainingQuantity': '-35.9293 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 168030, 'productName': 'SHAMPOING MERCEDES VALENTON GGE', 'facilityId': 13283, 'price': 2.57, 'remainingQuantity': '328.7987 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 168033, 'productName': 'SHAMPOING NISSAN MOLITOR PARIS', 'facilityId': 13283, 'price': 1.95, 'remainingQuantity': '343.8019 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 171414, 'productName': 'AUTO-SECHANT BLAV', 'facilityId': 13283, 'price': 0.0, 'remainingQuantity': '44.0361 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 171417, 'productName': 'Shampoing 3 en 1 BLAV WNC 31', 'facilityId': 13283, 'price': 0.0, 'remainingQuantity': '5.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 171420, 'productName': 'SHAMPOING BLAV', 'facilityId': 13283, 'price': 0.0, 'remainingQuantity': '-198.6696 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 178583, 'productName': 'SHAMPOING WNC40 TRAPPES', 'facilityId': 13283, 'price': 2.57, 'remainingQuantity': '252.3919 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 178586, 'productName': 'AUTOSECHANT TRAPPES', 'facilityId': 13283, 'price': 2.61, 'remainingQuantity': '254.0644 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 190775, 'productName': 'Auto séchant Mercedes Rambouillet', 'facilityId': 13283, 'price': 0.0, 'remainingQuantity': '217.3984 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 190778, 'productName': 'WNC40 Mercedes Rambouillet', 'facilityId': 13283, 'price': 0.0, 'remainingQuantity': '164.3475 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 190832, 'productName': 'Auto séchant Mercedes Montgeron', 'facilityId': 13283, 'price': 0.0, 'remainingQuantity': '20.6498 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 190835, 'productName': 'WNC 40 Mercedes Montgeron', 'facilityId': 13283, 'price': 0.0, 'remainingQuantity': '-13.8022 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 19035, 'facilityName': 'ID E-SERVICE', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'TMH corporation', 'products': [
+                {'productId': 138495, 'productName': 'Shampoing ID Rechange - Antonio', 'facilityId': 19035, 'price': 0.0, 'remainingQuantity': '15.553 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 138498, 'productName': 'Auto-Séchant ID Rechange - Antonio', 'facilityId': 19035, 'price': 0.0, 'remainingQuantity': '16.433 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 23276, 'facilityName': 'GENERAL AUTOMOBILE', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'Wurth', 'products': [
+                {'productId': 171501, 'productName': 'SHAMPOING CARROSSERIE VOLVO ORVAULT', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '157.3052 L', 'averageDailyConsumption': '2.248 L', 'remainingDays': 69, 'currency': 'EUR'
+                },
+                {'productId': 171504, 'productName': 'AUTO SECHANT VOLVO ORVAULT', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '70.8397 L', 'averageDailyConsumption': '0.8575 L', 'remainingDays': 82, 'currency': 'EUR'
+                },
+                {'productId': 171615, 'productName': 'WNC31 venturi Guerande', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '0.3933 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 171618, 'productName': 'Auto Séchant Volvo Guerande', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '156.9842 L', 'averageDailyConsumption': '0.0928 L', 'remainingDays': 1691, 'currency': 'EUR'
+                },
+                {'productId': 173408, 'productName': 'SHAMPOING OPEL UNIMARK DECHY', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '258.5561 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 173414, 'productName': 'AUTO SECHANT OPEL UNIMARK DECHY', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '409.7136 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 173987, 'productName': 'AUTO SECHANT CAROSSERIE VOLVO SAUTRON', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '112.7595 L', 'averageDailyConsumption': '0.1395 L', 'remainingDays': 808, 'currency': 'EUR'
+                },
+                {'productId': 173988, 'productName': 'JANTES PURPLE CAROSSERIE VOLVO SAUTRON', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '190.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 173991, 'productName': 'SHAMPOING CAROSSERIE WNC50 CAROSSERIE VOLVO SAUTRON', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '103.3946 L', 'averageDailyConsumption': '0.128 L', 'remainingDays': 807, 'currency': 'EUR'
+                },
+                {'productId': 174903, 'productName': 'WNC31 portique Guerande', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '56.4665 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 177869, 'productName': 'WNC31 Portique Orvault', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '68.8807 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 178808, 'productName': 'WNC60 OPEL UNIMARK DECHY', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '315.4713 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 182846, 'productName': 'WNC50 PRÉLAVAGE VOLVO ORVAULT', 'facilityId': 23276, 'price': 0.0, 'remainingQuantity': '253.7895 L', 'averageDailyConsumption': '0.4499 L', 'remainingDays': 564, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 23981, 'facilityName': 'GROUPE COBREDIA / SOMODA', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '35', 'facilityCountry': 'France', 'owner': 'GROUPE COBREDIA / SOMODIA', 'products': [
+                {'productId': 183035, 'productName': 'Autoséchant', 'facilityId': 23981, 'price': 0.0, 'remainingQuantity': '73.0776 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 183038, 'productName': 'WNC50', 'facilityId': 23981, 'price': 0.0, 'remainingQuantity': '114.4883 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 186107, 'productName': 'WNC31', 'facilityId': 23981, 'price': 0.0, 'remainingQuantity': '66.3152 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 25634, 'facilityName': 'FG AUTOMOBILES', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
+                {'productId': 190871, 'productName': 'AUTOSECHANT TOYOTA FG', 'facilityId': 25634, 'price': 0.0, 'remainingQuantity': '455.1425 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 190874, 'productName': 'WNC 40 TOYOTA FG', 'facilityId': 25634, 'price': 0.0, 'remainingQuantity': '111.7678 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 26201, 'facilityName': '1070890518\tJEANNIN AUTOMOBILES SENS', 'facilityCity': 'SENS', 'facilityAddress': '21, rue des carrières ', 'facilityZipCode': '89100', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 196881, 'productName': 'Autoséchant UC', 'facilityId': 26201, 'price': 0.0, 'remainingQuantity': '11.664 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 196884, 'productName': 'WNC40 UC', 'facilityId': 26201, 'price': 0.0, 'remainingQuantity': '40.8417 L', 'averageDailyConsumption': '0.3128 L', 'remainingDays': 130, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 26757, 'facilityName': '1070860704 INTENZ POITOU AUTOSPHÈRE', 'facilityCity': 'POITIERS', 'facilityAddress': '8, rue de la Paillerie', 'facilityZipCode': '86000', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
+                {'productId': 200178, 'productName': 'WNC40', 'facilityId': 26757, 'price': 0.0, 'remainingQuantity': '-15.9193 L', 'averageDailyConsumption': '0.8211 L', 'remainingDays': -19, 'currency': 'EUR'
+                },
+                {'productId': 200181, 'productName': 'Autoséchant', 'facilityId': 26757, 'price': 0.0, 'remainingQuantity': '98.3227 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 26760, 'facilityName': '1070342488 TECHSTAR POITIERS AUTOSPHÈRE', 'facilityCity': 'POITIERS', 'facilityAddress': '159, avenue du 8 mai 1945', 'facilityZipCode': '86000', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
+                {'productId': 199848, 'productName': 'Autoséchant', 'facilityId': 26760, 'price': 0.0, 'remainingQuantity': '237.4558 L', 'averageDailyConsumption': '0.971 L', 'remainingDays': 244, 'currency': 'EUR'
+                },
+                {'productId': 199851, 'productName': 'WNC40', 'facilityId': 26760, 'price': 0.0, 'remainingQuantity': '217.2366 L', 'averageDailyConsumption': '1.3512 L', 'remainingDays': 160, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 27240, 'facilityName': '1070702325 TECMAT', 'facilityCity': 'SAINT PRIEST ', 'facilityAddress': '22, rue Montseigneur Ancel ', 'facilityZipCode': '69800', 'facilityCountry': 'France', 'owner': 'FRAMATEQ RHONE-ALPES', 'products': [
+                {'productId': 204231, 'productName': 'WNC70', 'facilityId': 27240, 'price': 0.0, 'remainingQuantity': '233.1268 L', 'averageDailyConsumption': '0.1229 L', 'remainingDays': 1896, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 27789, 'facilityName': '1070747601\tARAVIS ROSSI AUTO', 'facilityCity': 'ANNECY', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
+                {'productId': 212451, 'productName': 'WNC50 - Zone 1', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '152.6149 L', 'averageDailyConsumption': '2.632 L', 'remainingDays': 57, 'currency': 'EUR'
+                },
+                {'productId': 212454, 'productName': 'Eau - Zone 1', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '49507.7637 L', 'averageDailyConsumption': '379.78 L', 'remainingDays': 130, 'currency': 'EUR'
+                },
+                {'productId': 212466, 'productName': 'Autoséchant UC - Zone 3', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '73.4806 L', 'averageDailyConsumption': '1.7794 L', 'remainingDays': 41, 'currency': 'EUR'
+                },
+                {'productId': 212484, 'productName': 'Eau - Zone 2', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-159447.0472 L', 'averageDailyConsumption': '219.5512 L', 'remainingDays': -726, 'currency': 'EUR'
+                },
+                {'productId': 212487, 'productName': 'WNC40 - Zone 2', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '200.0734 L', 'averageDailyConsumption': '0.9732 L', 'remainingDays': 205, 'currency': 'EUR'
+                },
+                {'productId': 212490, 'productName': 'Autoséchant - Zone 2', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '112.5603 L', 'averageDailyConsumption': '1.527 L', 'remainingDays': 73, 'currency': 'EUR'
+                },
+                {'productId': 212640, 'productName': 'Eau - Zone 3', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '-16016.2663 L', 'averageDailyConsumption': '3.6755 L', 'remainingDays': -4357, 'currency': 'EUR'
+                },
+                {'productId': 212643, 'productName': 'Autoséchant - Zone 1', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '134.4256 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 212646, 'productName': 'WNC40 UC - Zone 3', 'facilityId': 27789, 'price': 0.0, 'remainingQuantity': '56.54 L', 'averageDailyConsumption': '0.0291 L', 'remainingDays': 1942, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 28194, 'facilityName': '1070133631\tALTIS VANNES', 'facilityCity': 'VANNES', 'facilityAddress': 'rue de Gertude Bell', 'facilityZipCode': '56000', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
+                {'productId': 214053, 'productName': 'Autoséchant', 'facilityId': 28194, 'price': 0.0, 'remainingQuantity': '86.9035 L', 'averageDailyConsumption': '0.0198 L', 'remainingDays': 4389, 'currency': 'EUR'
+                },
+                {'productId': 214056, 'productName': 'WNC31', 'facilityId': 28194, 'price': 0.0, 'remainingQuantity': '49.2081 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 214059, 'productName': 'WNC40', 'facilityId': 28194, 'price': 0.0, 'remainingQuantity': '67.471 L', 'averageDailyConsumption': '0.5091 L', 'remainingDays': 132, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 28605, 'facilityName': '1070094841\tECA', 'facilityCity': 'Corbeil Essonnes', 'facilityAddress': '33/35 avenue du 8 mai 1945', 'facilityZipCode': '91100', 'facilityCountry': 'France', 'owner': 'Groupe PRIOD', 'products': [
+                {'productId': 215439, 'productName': 'WNC50 - Zone 1', 'facilityId': 28605, 'price': 0.0, 'remainingQuantity': '72.857 L', 'averageDailyConsumption': '0.9954 L', 'remainingDays': 73, 'currency': 'EUR'
+                },
+                {'productId': 215442, 'productName': 'Autoséchant - Zone 1', 'facilityId': 28605, 'price': 0.0, 'remainingQuantity': '49.9446 L', 'averageDailyConsumption': '0.8714 L', 'remainingDays': 57, 'currency': 'EUR'
+                },
+                {'productId': 215547, 'productName': 'Autoséchant - Zone 2', 'facilityId': 28605, 'price': 0.0, 'remainingQuantity': '145.3467 L', 'averageDailyConsumption': '1.0E-4 L', 'remainingDays': 1453467, 'currency': 'EUR'
+                },
+                {'productId': 215550, 'productName': 'WNC50 - Zone 2', 'facilityId': 28605, 'price': 0.0, 'remainingQuantity': '117.1205 L', 'averageDailyConsumption': '0.4337 L', 'remainingDays': 270, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 28779, 'facilityName': '1070989057\tFAURIE APSO BOE', 'facilityCity': 'BOE', 'facilityAddress': '9, rue Lamothe Magnac', 'facilityZipCode': '47550', 'facilityCountry': 'France', 'owner': 'FAURIE AXESS', 'products': [
+                {'productId': 217626, 'productName': 'Autoséchant', 'facilityId': 28779, 'price': 0.0, 'remainingQuantity': '-10.8829 L', 'averageDailyConsumption': '0.4657 L', 'remainingDays': -23, 'currency': 'EUR'
+                },
+                {'productId': 217629, 'productName': 'WNC40', 'facilityId': 28779, 'price': 0.0, 'remainingQuantity': '-1438.9298 L', 'averageDailyConsumption': '2.7662 L', 'remainingDays': -520, 'currency': 'EUR'
+                },
+                {'productId': 217632, 'productName': 'WNC50', 'facilityId': 28779, 'price': 0.0, 'remainingQuantity': '93.8255 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 28839, 'facilityName': '1070555222\tFIX AUTO MURET', 'facilityCity': 'MURET', 'facilityAddress': '39, boulevard Joffery ', 'facilityZipCode': '31600', 'facilityCountry': 'France', 'owner': 'FIX AUTO', 'products': [
+                {'productId': 217722, 'productName': 'Autoséchant UC', 'facilityId': 28839, 'price': 0.0, 'remainingQuantity': '9.338 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 217725, 'productName': 'WNC40 UC', 'facilityId': 28839, 'price': 0.0, 'remainingQuantity': '-162.3765 L', 'averageDailyConsumption': '0.6784 L', 'remainingDays': -239, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 28842, 'facilityName': '1070505129\tFIX AUTO COLOMIERS', 'facilityCity': 'COLOMIERS', 'facilityAddress': '11, edouard serres', 'facilityZipCode': '31770', 'facilityCountry': 'France', 'owner': 'FIX AUTO', 'products': [
+                {'productId': 217881, 'productName': 'Autoséchant UC', 'facilityId': 28842, 'price': 0.0, 'remainingQuantity': '15.858 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 217884, 'productName': 'WNC40 UC', 'facilityId': 28842, 'price': 0.0, 'remainingQuantity': '14.6463 L', 'averageDailyConsumption': '0.1438 L', 'remainingDays': 101, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 28845, 'facilityName': '1070029802\tFIX AUTO BORDEAUX', 'facilityCity': 'EYSINES', 'facilityAddress': '10, rue de breteil ', 'facilityZipCode': '33320', 'facilityCountry': 'France', 'owner': 'FIX AUTO', 'products': [
+                {'productId': 218022, 'productName': 'Autoséchant UC', 'facilityId': 28845, 'price': 0.0, 'remainingQuantity': '3.5518 L', 'averageDailyConsumption': '1.0E-4 L', 'remainingDays': 35518, 'currency': 'EUR'
+                },
+                {'productId': 218025, 'productName': 'WNC40 UC', 'facilityId': 28845, 'price': 0.0, 'remainingQuantity': '30.3437 L', 'averageDailyConsumption': '0.0101 L', 'remainingDays': 3004, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 28848, 'facilityName': '1071105659\tFIX AUTO LIBOURNE', 'facilityCity': 'LIBOURNE', 'facilityAddress': '68, route de Saint Emilion', 'facilityZipCode': '33500', 'facilityCountry': 'France', 'owner': 'FIX AUTO', 'products': [
+                {'productId': 218064, 'productName': 'WNC40 UC', 'facilityId': 28848, 'price': 0.0, 'remainingQuantity': '-56.8438 L', 'averageDailyConsumption': '0.5056 L', 'remainingDays': -112, 'currency': 'EUR'
+                },
+                {'productId': 218067, 'productName': 'Autoséchant UC', 'facilityId': 28848, 'price': 0.0, 'remainingQuantity': '34.2716 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 29112, 'facilityName': '1070867150\tBAYERN AVENUE', 'facilityCity': 'MOUGINS', 'facilityAddress': '470 bis, Avenue Saint Martin', 'facilityZipCode': '06250', 'facilityCountry': 'France', 'owner': 'Groupe PAUTRIC', 'products': [
+                {'productId': 237806, 'productName': 'Autoséchant - Zone 1', 'facilityId': 29112, 'price': 0.0, 'remainingQuantity': '21.2096 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 237809, 'productName': 'Autoséchant - Zone 2', 'facilityId': 29112, 'price': 0.0, 'remainingQuantity': '22.732 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 237812, 'productName': 'WNC31', 'facilityId': 29112, 'price': 0.0, 'remainingQuantity': '25.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 237815, 'productName': 'WNC40 - Zone 1', 'facilityId': 29112, 'price': 0.0, 'remainingQuantity': '280.4903 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 237818, 'productName': 'WNC40 - Zone 2', 'facilityId': 29112, 'price': 0.0, 'remainingQuantity': '220.6286 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 29294, 'facilityName': '1071079265\tFAURIE APSO ST PIERRE', 'facilityCity': 'St Pierre du Mont', 'facilityAddress': '2505 avenue du président Kennedy', 'facilityZipCode': '40280', 'facilityCountry': 'France', 'owner': 'FAURIE AXESS', 'products': [
+                {'productId': 221375, 'productName': 'Autoséchant', 'facilityId': 29294, 'price': 0.0, 'remainingQuantity': '118.5687 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 221378, 'productName': 'WNC40', 'facilityId': 29294, 'price': 0.0, 'remainingQuantity': '167.3808 L', 'averageDailyConsumption': '0.6637 L', 'remainingDays': 252, 'currency': 'EUR'
+                },
+                {'productId': 221381, 'productName': 'WNC50', 'facilityId': 29294, 'price': 0.0, 'remainingQuantity': '17.8689 L', 'averageDailyConsumption': '1.2167 L', 'remainingDays': 14, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 29297, 'facilityName': '1071079275\tFAURIE APSO ST AVIT', 'facilityCity': 'St AVIT', 'facilityAddress': 'allée Ermite - ZAC LAGACE', 'facilityZipCode': '40090', 'facilityCountry': 'France', 'owner': 'FAURIE AXESS', 'products': [
+                {'productId': 221114, 'productName': 'WNC50', 'facilityId': 29297, 'price': 0.0, 'remainingQuantity': '117.4273 L', 'averageDailyConsumption': '0.5599 L', 'remainingDays': 209, 'currency': 'EUR'
+                },
+                {'productId': 221117, 'productName': 'WNC40', 'facilityId': 29297, 'price': 0.0, 'remainingQuantity': '104.6258 L', 'averageDailyConsumption': '0.9061 L', 'remainingDays': 115, 'currency': 'EUR'
+                },
+                {'productId': 221120, 'productName': 'Autoséchant', 'facilityId': 29297, 'price': 0.0, 'remainingQuantity': '67.737 L', 'averageDailyConsumption': '0.6054 L', 'remainingDays': 111, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 29743, 'facilityName': '1071079277\tFAURIE APSO ST PAUL', 'facilityCity': 'Saint Paul les Dax', 'facilityAddress': '351 avenue des lacs ', 'facilityZipCode': '40990', 'facilityCountry': 'France', 'owner': 'FAURIE AXESS', 'products': [
+                {'productId': 227065, 'productName': 'WNC40 UC', 'facilityId': 29743, 'price': 0.0, 'remainingQuantity': '117.6303 L', 'averageDailyConsumption': '0.3514 L', 'remainingDays': 334, 'currency': 'EUR'
+                },
+                {'productId': 227068, 'productName': 'WNC50', 'facilityId': 29743, 'price': 0.0, 'remainingQuantity': '163.378 L', 'averageDailyConsumption': '2.6559 L', 'remainingDays': 61, 'currency': 'EUR'
+                },
+                {'productId': 227071, 'productName': 'Autoséchant UC', 'facilityId': 29743, 'price': 0.0, 'remainingQuantity': '-91.3604 L', 'averageDailyConsumption': '2.8661 L', 'remainingDays': -31, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 29806, 'facilityName': '1070972131 ETS TOUQUET', 'facilityCity': 'LE HAVRE', 'facilityAddress': '30, rue Marcel PAUL', 'facilityZipCode': '76600', 'facilityCountry': 'France', 'owner': 'ETABLISSEMENT TOUQUET', 'products': [
+                {'productId': 227536, 'productName': 'RTA - WNC31 - Zone 1', 'facilityId': 29806, 'price': 0.0, 'remainingQuantity': '30.7765 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 227539, 'productName': 'RTA - WNC40 - Zone 1', 'facilityId': 29806, 'price': 0.0, 'remainingQuantity': '123.3059 L', 'averageDailyConsumption': '0.1308 L', 'remainingDays': 942, 'currency': 'EUR'
+                },
+                {'productId': 227542, 'productName': 'À SUPPRIMER', 'facilityId': 29806, 'price': 0.0, 'remainingQuantity': '60.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 227545, 'productName': 'RTA - Autoséchant - Zone 1', 'facilityId': 29806, 'price': 0.0, 'remainingQuantity': '25.6436 L', 'averageDailyConsumption': '0.0634 L', 'remainingDays': 404, 'currency': 'EUR'
+                },
+                {'productId': 228493, 'productName': 'Volkswagen - Autoséchant - Zone 2', 'facilityId': 29806, 'price': 0.0, 'remainingQuantity': '160.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 228496, 'productName': 'Volkswagen - WNC31 - Zone 2', 'facilityId': 29806, 'price': 0.0, 'remainingQuantity': '23.4646 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 228499, 'productName': 'Volkswagen - WNC40 - Zone 2', 'facilityId': 29806, 'price': 0.0, 'remainingQuantity': '24.1913 L', 'averageDailyConsumption': '0.12 L', 'remainingDays': 201, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 30058, 'facilityName': '1070280831\tGARAGE PARIS BREST PROCUREUR', 'facilityCity': 'Lucé - Chartres', 'facilityAddress': 'rue du maréchal Leclerc ', 'facilityZipCode': '28110', 'facilityCountry': 'France', 'owner': 'GROUPE PROCUREUR', 'products': [
+                {'productId': 229402, 'productName': 'Autoséchant UC', 'facilityId': 30058, 'price': 0.0, 'remainingQuantity': '23.32 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 229405, 'productName': 'WNC40 UC', 'facilityId': 30058, 'price': 0.0, 'remainingQuantity': '29.4943 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 30376, 'facilityName': '1070761966 VIKING AUTO BLET SA', 'facilityCity': 'LE GRAND QUEVILLY', 'facilityAddress': '4, rue Antoine De Lavoisier', 'facilityZipCode': '76120', 'facilityCountry': 'France', 'owner': 'VIKINGS AUTOS', 'products': [
+                {'productId': 231283, 'productName': 'Autoséchant UC - Zone 1', 'facilityId': 30376, 'price': 0.0, 'remainingQuantity': '37.7898 L', 'averageDailyConsumption': '0.2592 L', 'remainingDays': 145, 'currency': 'EUR'
+                },
+                {'productId': 231286, 'productName': 'Autoséchant UC - Zone 2', 'facilityId': 30376, 'price': 0.0, 'remainingQuantity': '37.2919 L', 'averageDailyConsumption': '0.1859 L', 'remainingDays': 200, 'currency': 'EUR'
+                },
+                {'productId': 231289, 'productName': 'WNC40 UC - Zone 2', 'facilityId': 30376, 'price': 0.0, 'remainingQuantity': '53.2446 L', 'averageDailyConsumption': '0.1165 L', 'remainingDays': 457, 'currency': 'EUR'
+                },
+                {'productId': 231292, 'productName': 'WNC40 UC - Zone 1', 'facilityId': 30376, 'price': 0.0, 'remainingQuantity': '18.1984 L', 'averageDailyConsumption': '0.6168 L', 'remainingDays': 29, 'currency': 'EUR'
+                },
+                {'productId': 304684, 'productName': 'WNC50 - Zone 1', 'facilityId': 30376, 'price': 0.0, 'remainingQuantity': '152.2787 L', 'averageDailyConsumption': '1.1733 L', 'remainingDays': 129, 'currency': 'EUR'
+                },
+                {'productId': 304687, 'productName': 'WNC50 - Zone 2', 'facilityId': 30376, 'price': 0.0, 'remainingQuantity': '32.1473 L', 'averageDailyConsumption': '1.8927 L', 'remainingDays': 16, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 30379, 'facilityName': '1070761951\tVIKING AUTO SA', 'facilityCity': 'SAINT JEAN DU CARDONNAY', 'facilityAddress': '148, rue Georges Charpack', 'facilityZipCode': '76150', 'facilityCountry': 'France', 'owner': 'VIKINGS AUTOS', 'products': [
+                {'productId': 231676, 'productName': 'WNC40 UC', 'facilityId': 30379, 'price': 0.0, 'remainingQuantity': '-10.8224 L', 'averageDailyConsumption': '0.3305 L', 'remainingDays': -32, 'currency': 'EUR'
+                },
+                {'productId': 231679, 'productName': 'Autoséchant UC', 'facilityId': 30379, 'price': 0.0, 'remainingQuantity': '54.1704 L', 'averageDailyConsumption': '0.0121 L', 'remainingDays': 4476, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31088, 'facilityName': '1070100557 JEANNIN AUTOMOBILES TROYES', 'facilityCity': 'TROYES', 'facilityAddress': 'boulevard Georges Pompidou', 'facilityZipCode': '10000', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 238451, 'productName': 'Autoséchant UC - Zone 2', 'facilityId': 31088, 'price': 0.0, 'remainingQuantity': '51.1463 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 238454, 'productName': 'Autoséchant UC - Zone 1', 'facilityId': 31088, 'price': 0.0, 'remainingQuantity': '58.7187 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 238457, 'productName': 'Autoséchant UC - Zone 3', 'facilityId': 31088, 'price': 0.0, 'remainingQuantity': '52.6506 L', 'averageDailyConsumption': '0.173 L', 'remainingDays': 304, 'currency': 'EUR'
+                },
+                {'productId': 238460, 'productName': 'WNC40 UC - Zone 1', 'facilityId': 31088, 'price': 0.0, 'remainingQuantity': '70.1917 L', 'averageDailyConsumption': '0.0259 L', 'remainingDays': 2710, 'currency': 'EUR'
+                },
+                {'productId': 238463, 'productName': 'WNC40 UC - Zone 2', 'facilityId': 31088, 'price': 0.0, 'remainingQuantity': '65.8732 L', 'averageDailyConsumption': '0.0548 L', 'remainingDays': 1202, 'currency': 'EUR'
+                },
+                {'productId': 238466, 'productName': 'WNC40 UC - Zone 3', 'facilityId': 31088, 'price': 0.0, 'remainingQuantity': '39.3237 L', 'averageDailyConsumption': '0.6222 L', 'remainingDays': 63, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31091, 'facilityName': '1070701179\tJEANNIN AUTOMOBILES AUXERRE', 'facilityCity': 'AUXERRE', 'facilityAddress': '40, ave Charles de Gaulle', 'facilityZipCode': '89000', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 238856, 'productName': 'Autoséchant UC - Zone 1', 'facilityId': 31091, 'price': 0.0, 'remainingQuantity': '33.0174 L', 'averageDailyConsumption': '0.0723 L', 'remainingDays': 456, 'currency': 'EUR'
+                },
+                {'productId': 238859, 'productName': 'Autoséchant UC - Zone 2', 'facilityId': 31091, 'price': 0.0, 'remainingQuantity': '21.3113 L', 'averageDailyConsumption': '0.3566 L', 'remainingDays': 59, 'currency': 'EUR'
+                },
+                {'productId': 238862, 'productName': 'WNC40 UC - Zone 1', 'facilityId': 31091, 'price': 0.0, 'remainingQuantity': '62.159 L', 'averageDailyConsumption': '0.2728 L', 'remainingDays': 227, 'currency': 'EUR'
+                },
+                {'productId': 238865, 'productName': 'WNC40 UC - Zone 2', 'facilityId': 31091, 'price': 0.0, 'remainingQuantity': '59.0921 L', 'averageDailyConsumption': '0.1947 L', 'remainingDays': 303, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31094, 'facilityName': '1071145108 JEANNIN AUTOMOBILES AVALON', 'facilityCity': 'AVALLON', 'facilityAddress': 'RN6, la grande corvée', 'facilityZipCode': '89200', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 238907, 'productName': 'Autoséchant UC', 'facilityId': 31094, 'price': 0.0, 'remainingQuantity': '170.6836 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 238910, 'productName': 'WNC40 UC', 'facilityId': 31094, 'price': 0.0, 'remainingQuantity': '21.5902 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31097, 'facilityName': '1070278349\tMOZART AUTOS', 'facilityCity': 'NICE', 'facilityAddress': '248 route de Grenoble ', 'facilityZipCode': '06200', 'facilityCountry': 'France', 'owner': 'MOZART AUTOMOBILES', 'products': [
+                {'productId': 243596, 'productName': 'WNC40', 'facilityId': 31097, 'price': 0.0, 'remainingQuantity': '-277.1551 L', 'averageDailyConsumption': '1.412 L', 'remainingDays': -196, 'currency': 'EUR'
+                },
+                {'productId': 243602, 'productName': 'Autoséchant', 'facilityId': 31097, 'price': 0.0, 'remainingQuantity': '170.1661 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31238, 'facilityName': '1070637246 OUEST MOTORS - LANNION', 'facilityCity': 'LANNION', 'facilityAddress': 'Rue Paul Fleurot de Langle', 'facilityZipCode': '22300', 'facilityCountry': 'France', 'owner': 'CONFF AUTOMOBILES', 'products': [
+                {'productId': 241430, 'productName': 'WNC40', 'facilityId': 31238, 'price': 0.0, 'remainingQuantity': '-75.8996 L', 'averageDailyConsumption': '0.3289 L', 'remainingDays': -230, 'currency': 'EUR'
+                },
+                {'productId': 241433, 'productName': 'Autoséchant', 'facilityId': 31238, 'price': 0.0, 'remainingQuantity': '190.6903 L', 'averageDailyConsumption': '0.0718 L', 'remainingDays': 2655, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31271, 'facilityName': '1070170751 TECHSTAR OUEST BY AUTOSPHERE', 'facilityCity': 'PUILBOREAU', 'facilityAddress': 'rue du 18 juin | ZAC Beaulieu', 'facilityZipCode': '17138', 'facilityCountry': 'France', 'owner': 'TECHSTAR OUEST', 'products': [
+                {'productId': 241259, 'productName': 'Autoséchant', 'facilityId': 31271, 'price': 0.0, 'remainingQuantity': '271.1637 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 241262, 'productName': 'WNC40', 'facilityId': 31271, 'price': 0.0, 'remainingQuantity': '-33.7744 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31517, 'facilityName': '1071030942\tJEANNIN ADVANCED CAR SENS', 'facilityCity': 'SENS', 'facilityAddress': '2, rue Henri Montasien ', 'facilityZipCode': '89100', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 244931, 'productName': 'Autoséchant UC', 'facilityId': 31517, 'price': 0.0, 'remainingQuantity': '11.7688 L', 'averageDailyConsumption': '0.0666 L', 'remainingDays': 176, 'currency': 'EUR'
+                },
+                {'productId': 244934, 'productName': 'WNC40 UC', 'facilityId': 31517, 'price': 0.0, 'remainingQuantity': '7.644 L', 'averageDailyConsumption': '0.1244 L', 'remainingDays': 61, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31520, 'facilityName': '1070737203\tJEANNIN ADVANCED CAR VSD', 'facilityCity': 'VERT SAINT DENIS ', 'facilityAddress': 'allée Aristide Briand ', 'facilityZipCode': '77240', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 244988, 'productName': 'Autoséchant UC', 'facilityId': 31520, 'price': 0.0, 'remainingQuantity': '318.508 L', 'averageDailyConsumption': '0.3248 L', 'remainingDays': 980, 'currency': 'EUR'
+                },
+                {'productId': 244991, 'productName': 'WNC40 UC', 'facilityId': 31520, 'price': 0.0, 'remainingQuantity': '267.3261 L', 'averageDailyConsumption': '0.3257 L', 'remainingDays': 820, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31523, 'facilityName': '1071168149\tJEANNIN SMDA LAVAGE VSD', 'facilityCity': 'VERT SAINT DENIS ', 'facilityAddress': "520, impasse de l'Epinet", 'facilityZipCode': '77240', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 245087, 'productName': 'WNC40 UC', 'facilityId': 31523, 'price': 0.0, 'remainingQuantity': '-29.5412 L', 'averageDailyConsumption': '0.7312 L', 'remainingDays': -40, 'currency': 'EUR'
+                },
+                {'productId': 245090, 'productName': 'Autoséchant UC', 'facilityId': 31523, 'price': 0.0, 'remainingQuantity': '107.3661 L', 'averageDailyConsumption': '0.0116 L', 'remainingDays': 9255, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31709, 'facilityName': '1070602483 ST MAXIMIN AUTOMOBILES SEAT', 'facilityCity': 'SAINT-MAXIMIN', 'facilityAddress': '280 rue de la Marseillaise', 'facilityZipCode': '60740', 'facilityCountry': 'France', 'owner': 'Saint Maximin Automobiles', 'products': [
+                {'productId': 262058, 'productName': 'WNC40', 'facilityId': 31709, 'price': 0.0, 'remainingQuantity': '215.1761 L', 'averageDailyConsumption': '0.5555 L', 'remainingDays': 387, 'currency': 'EUR'
+                },
+                {'productId': 262061, 'productName': 'Autoséchant', 'facilityId': 31709, 'price': 0.0, 'remainingQuantity': '182.7743 L', 'averageDailyConsumption': '0.6765 L', 'remainingDays': 270, 'currency': 'EUR'
+                },
+                {'productId': 271970, 'productName': 'WNC31', 'facilityId': 31709, 'price': 0.0, 'remainingQuantity': '18.7597 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 271976, 'productName': 'Eau', 'facilityId': 31709, 'price': 0.0, 'remainingQuantity': '-71962.6308 L', 'averageDailyConsumption': '229.75 L', 'remainingDays': -313, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 31862, 'facilityName': '1070665393\tETOILE AUTOBERNARD REIMS', 'facilityCity': 'THILLOIS', 'facilityAddress': 'rue des Ormisseaux ', 'facilityZipCode': '51370', 'facilityCountry': 'France', 'owner': 'Etoile Autobernard', 'products': [
+                {'productId': 245873, 'productName': 'Autoséchant UC', 'facilityId': 31862, 'price': 0.0, 'remainingQuantity': '20.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 245876, 'productName': 'WNC40 UC', 'facilityId': 31862, 'price': 0.0, 'remainingQuantity': '-26.2697 L', 'averageDailyConsumption': '0.2494 L', 'remainingDays': -105, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 32012, 'facilityName': '1070171274 Espace Bienvenue | Rochefort', 'facilityCity': 'ROCHEFORT', 'facilityAddress': 'le Vergeroux Nord', 'facilityZipCode': '17300', 'facilityCountry': 'France', 'owner': 'Espace Bienvenue', 'products': [
+                {'productId': 258182, 'productName': 'Autoséchant', 'facilityId': 32012, 'price': 0.0, 'remainingQuantity': '31.4577 L', 'averageDailyConsumption': '1.4083 L', 'remainingDays': 22, 'currency': 'EUR'
+                },
+                {'productId': 258185, 'productName': 'Eau', 'facilityId': 32012, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 258188, 'productName': 'WNC40 UC', 'facilityId': 32012, 'price': 0.0, 'remainingQuantity': '14.1 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 258191, 'productName': 'WNC50', 'facilityId': 32012, 'price': 0.0, 'remainingQuantity': '154.1393 L', 'averageDailyConsumption': '0.7832 L', 'remainingDays': 196, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 32015, 'facilityName': '1070593314 Espace Bienvenue | Angoulême', 'facilityCity': 'Champniers', 'facilityAddress': 'zac des Montagnes Ouest ', 'facilityZipCode': '16430', 'facilityCountry': 'Finland', 'owner': 'Espace Bienvenue', 'products': [
+                {'productId': 250223, 'productName': 'Autoséchant', 'facilityId': 32015, 'price': 0.0, 'remainingQuantity': '444.918 L', 'averageDailyConsumption': '1.0628 L', 'remainingDays': 418, 'currency': 'EUR'
+                },
+                {'productId': 250226, 'productName': 'WNC50', 'facilityId': 32015, 'price': 0.0, 'remainingQuantity': '69.1878 L', 'averageDailyConsumption': '3.1415 L', 'remainingDays': 22, 'currency': 'EUR'
+                },
+                {'productId': 250229, 'productName': 'WNC40 UC', 'facilityId': 32015, 'price': 0.0, 'remainingQuantity': '33.8445 L', 'averageDailyConsumption': '0.0735 L', 'remainingDays': 460, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 32018, 'facilityName': '1070379612 Espace Bienvenue | St Georges', 'facilityCity': 'St Georges de Didonnes', 'facilityAddress': '4, rue Robert Schuman', 'facilityZipCode': '17110', 'facilityCountry': 'France', 'owner': 'Espace Bienvenue', 'products': [
+                {'productId': 258158, 'productName': 'Autoséchant', 'facilityId': 32018, 'price': 0.0, 'remainingQuantity': '125.4687 L', 'averageDailyConsumption': '2.7998 L', 'remainingDays': 44, 'currency': 'EUR'
+                },
+                {'productId': 258161, 'productName': 'EAU', 'facilityId': 32018, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 258164, 'productName': 'WNC40 UC', 'facilityId': 32018, 'price': 0.0, 'remainingQuantity': '29.9947 L', 'averageDailyConsumption': '6.0E-4 L', 'remainingDays': 49991, 'currency': 'EUR'
+                },
+                {'productId': 258167, 'productName': 'WNC50', 'facilityId': 32018, 'price': 0.0, 'remainingQuantity': '203.8952 L', 'averageDailyConsumption': '2.392 L', 'remainingDays': 85, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 32486, 'facilityName': '1071091730\tFRAMATEQ RHONE ALPES', 'facilityCity': 'LEMPDES', 'facilityAddress': 'ZAC De la FONTANILLE', 'facilityZipCode': '63370', 'facilityCountry': 'France', 'owner': 'FRAMATEQ RHONE-ALPES', 'products': [
+                {'productId': 257555, 'productName': 'WNC70', 'facilityId': 32486, 'price': 0.0, 'remainingQuantity': '362.0781 L', 'averageDailyConsumption': '0.0021 L', 'remainingDays': 172418, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 32882, 'facilityName': 'WURTH GULF', 'facilityCity': 'DUBAÏ', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': 'United Arab Emirates', 'owner': 'WURTH GULF FZE', 'products': [
+                {'productId': 260357, 'productName': 'Autoséchant', 'facilityId': 32882, 'price': 0.0, 'remainingQuantity': '10.1722 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 260360, 'productName': 'WNC70', 'facilityId': 32882, 'price': 0.0, 'remainingQuantity': '-94.9635 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 33107, 'facilityName': '1070419340\tJEANNIN AUTOMOBILES IO ST ANDRE', 'facilityCity': 'ST ANDRE LES VERGERS', 'facilityAddress': '136 RTE D AUXERRE', 'facilityZipCode': '10120', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 263837, 'productName': 'WNC40 UC', 'facilityId': 33107, 'price': 0.0, 'remainingQuantity': '15.3835 L', 'averageDailyConsumption': '0.6621 L', 'remainingDays': 23, 'currency': 'EUR'
+                },
+                {'productId': 263840, 'productName': 'Autoséchant UC', 'facilityId': 33107, 'price': 0.0, 'remainingQuantity': '40.5544 L', 'averageDailyConsumption': '0.2613 L', 'remainingDays': 155, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 33110, 'facilityName': '1070666255\tJEANNIN AUTOMOBILES IO MAIZIERES', 'facilityCity': 'MAIZIERES LA GRANDE PAROISSE', 'facilityAddress': 'AV P SEGUIN PARC AERODROME', 'facilityZipCode': '10510', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 263816, 'productName': 'Autoséchant UC', 'facilityId': 33110, 'price': 0.0, 'remainingQuantity': '64.8202 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 263819, 'productName': 'WNC40 UC', 'facilityId': 33110, 'price': 0.0, 'remainingQuantity': '309.6865 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 33113, 'facilityName': '1070628324\tJEANNIN AUTOMOBILES IO AUXERRE', 'facilityCity': 'AUXERRE', 'facilityAddress': '37 AV CHARLES DE GAULLE', 'facilityZipCode': '89000', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 263897, 'productName': 'Autoséchant UC', 'facilityId': 33113, 'price': 0.0, 'remainingQuantity': '31.0133 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 263900, 'productName': 'WNC40 UC', 'facilityId': 33113, 'price': 0.0, 'remainingQuantity': '-59.8248 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 33338, 'facilityName': '1070637155 OUEST CONCEPT AUTOMOBILES', 'facilityCity': 'BREST', 'facilityAddress': '168 route Gousnou', 'facilityZipCode': '29000', 'facilityCountry': 'France', 'owner': 'CONFF AUTOMOBILES', 'products': [
+                {'productId': 265781, 'productName': 'WNC31 - Zone 1 Haut', 'facilityId': 33338, 'price': 0.0, 'remainingQuantity': '-13.9081 L', 'averageDailyConsumption': '0.1975 L', 'remainingDays': -70, 'currency': 'EUR'
+                },
+                {'productId': 265784, 'productName': 'WNC50 - Zone 1 Haut', 'facilityId': 33338, 'price': 0.0, 'remainingQuantity': '5.948 L', 'averageDailyConsumption': '0.2495 L', 'remainingDays': 23, 'currency': 'EUR'
+                },
+                {'productId': 265793, 'productName': 'Autoséchant - Zone 2 Bas', 'facilityId': 33338, 'price': 0.0, 'remainingQuantity': '15.4501 L', 'averageDailyConsumption': '0.0151 L', 'remainingDays': 1023, 'currency': 'EUR'
+                },
+                {'productId': 265796, 'productName': 'WNC40 - Zone 2 Bas', 'facilityId': 33338, 'price': 0.0, 'remainingQuantity': '-10.2679 L', 'averageDailyConsumption': '1.0873 L', 'remainingDays': -9, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 33383, 'facilityName': '1070002822 ABCD DU TAXI RONDET SAS', 'facilityCity': 'LA SOUTERRAINE', 'facilityAddress': '4, avenue de la République', 'facilityZipCode': '23300', 'facilityCountry': 'France', 'owner': 'TAXI RONDET', 'products': [
+                {'productId': 264878, 'productName': 'WNC50', 'facilityId': 33383, 'price': 0.0, 'remainingQuantity': '125.8089 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 33521, 'facilityName': '1070353736\tCONTACTS AUTOMOBILES SAS', 'facilityCity': 'Cesson Sévigné', 'facilityAddress': '13, Rue de la Rigourdière', 'facilityZipCode': '35510', 'facilityCountry': 'France', 'owner': 'Goupe DMD', 'products': []
+        },
+        {'facilityId': 33653, 'facilityName': '1070510282\tETOILE AUTOBERNARD EPERNAY', 'facilityCity': 'EPERNAY', 'facilityAddress': '1 place des Martyrs de la résistance ', 'facilityZipCode': '', 'facilityCountry': 'France', 'owner': 'Etoile Autobernard', 'products': [
+                {'productId': 268955, 'productName': 'Nettoyant jantes', 'facilityId': 33653, 'price': 0.0, 'remainingQuantity': '200.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 268964, 'productName': 'Autoséchant UC', 'facilityId': 33653, 'price': 0.0, 'remainingQuantity': '73.645 L', 'averageDailyConsumption': '0.9293 L', 'remainingDays': 79, 'currency': 'EUR'
+                },
+                {'productId': 268967, 'productName': 'WNC40 UC', 'facilityId': 33653, 'price': 0.0, 'remainingQuantity': '182.3715 L', 'averageDailyConsumption': '0.0759 L', 'remainingDays': 2402, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 33656, 'facilityName': '1070020162\tETOILE AUTOBERNARD SAINT QUENTIN', 'facilityCity': 'SAINT QUENTIN ', 'facilityAddress': '27, rue Alexandre Dumas ', 'facilityZipCode': '02000', 'facilityCountry': 'France', 'owner': 'Etoile Autobernard', 'products': [
+                {'productId': 268721, 'productName': 'Autoséchant UC', 'facilityId': 33656, 'price': 0.0, 'remainingQuantity': '248.2838 L', 'averageDailyConsumption': '0.5023 L', 'remainingDays': 494, 'currency': 'EUR'
+                },
+                {'productId': 268724, 'productName': 'WNC40 UC', 'facilityId': 33656, 'price': 0.0, 'remainingQuantity': '-7.699 L', 'averageDailyConsumption': '0.0963 L', 'remainingDays': -79, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 33659, 'facilityName': '1070020163 Etoile Autobernard | SOISSONS', 'facilityCity': 'SOISSONS', 'facilityAddress': '57, avenue Général De Gaulle ', 'facilityZipCode': '02200', 'facilityCountry': 'France', 'owner': 'Etoile Autobernard', 'products': [
+                {'productId': 268784, 'productName': 'Autoséchant UC', 'facilityId': 33659, 'price': 0.0, 'remainingQuantity': '45.9496 L', 'averageDailyConsumption': '0.0876 L', 'remainingDays': 524, 'currency': 'EUR'
+                },
+                {'productId': 268787, 'productName': 'WNC40 UC', 'facilityId': 33659, 'price': 0.0, 'remainingQuantity': '-58.6162 L', 'averageDailyConsumption': '1.4663 L', 'remainingDays': -39, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 34532, 'facilityName': '1071174189\tJEANNIN AUTOMOBILES OCCASIONS', 'facilityCity': 'MAILLOT', 'facilityAddress': '1 rue de France', 'facilityZipCode': '89100', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': []
+        },
+        {'facilityId': 34637, 'facilityName': 'By My Car | AVIGNON', 'facilityCity': 'AVIGNON', 'facilityAddress': '460 chemin croix de Noves', 'facilityZipCode': '84000', 'facilityCountry': 'France', 'owner': 'BYmyCAR', 'products': [
+                {'productId': 273539, 'productName': 'Wnc40 by my car Avignon', 'facilityId': 34637, 'price': 0.0, 'remainingQuantity': '-118.0266 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 273542, 'productName': 'Auto séchant by my car Avignon', 'facilityId': 34637, 'price': 0.0, 'remainingQuantity': '52.6022 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 34640, 'facilityName': 'By My Car | CARPENTRAS', 'facilityCity': 'CARPENTRAS', 'facilityAddress': 'route de Pernes', 'facilityZipCode': '84200', 'facilityCountry': 'France', 'owner': 'BYmyCAR', 'products': [
+                {'productId': 273617, 'productName': 'Wnc 40 by my car carpentras', 'facilityId': 34640, 'price': 0.0, 'remainingQuantity': '-60.4938 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 273620, 'productName': 'Auto séchant by my car carpentras', 'facilityId': 34640, 'price': 0.0, 'remainingQuantity': '100.6107 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 34643, 'facilityName': 'By My Car | ORANGE', 'facilityCity': 'ORANGE ', 'facilityAddress': 'ZAC du Coudoulet', 'facilityZipCode': '84100', 'facilityCountry': 'France', 'owner': 'BYmyCAR', 'products': [
+                {'productId': 273629, 'productName': 'Wnc40 by my car Orange', 'facilityId': 34643, 'price': 0.0, 'remainingQuantity': '12.5197 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 273632, 'productName': 'Auto séchant by my car Orange', 'facilityId': 34643, 'price': 0.0, 'remainingQuantity': '34.0315 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 309499, 'productName': 'Wnc31 portique orange by my car', 'facilityId': 34643, 'price': 0.0, 'remainingQuantity': '-0.7524 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 34735, 'facilityName': '1071046164 BAYERN | POITIERS', 'facilityCity': 'POITIERS', 'facilityAddress': '155 AVENUE DU 8 MAI 1945', 'facilityZipCode': '86000', 'facilityCountry': 'France', 'owner': 'AUTOSPHERE', 'products': [
+                {'productId': 278669, 'productName': 'WNC40', 'facilityId': 34735, 'price': 0.0, 'remainingQuantity': '-2.8563 L', 'averageDailyConsumption': '0.1938 L', 'remainingDays': -14, 'currency': 'EUR'
+                },
+                {'productId': 278672, 'productName': 'Autoséchant', 'facilityId': 34735, 'price': 0.0, 'remainingQuantity': '20.523 L', 'averageDailyConsumption': '0.0106 L', 'remainingDays': 1936, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 35051, 'facilityName': 'Garage St Christophe | Thillois', 'facilityCity': 'THILLOIS', 'facilityAddress': 'Parc millesime', 'facilityZipCode': '51430', 'facilityCountry': 'France', 'owner': 'GROUPE SAINT CHRISTOPHE', 'products': [
+                {'productId': 282452, 'productName': 'Autoséchant UC', 'facilityId': 35051, 'price': 0.0, 'remainingQuantity': '163.467 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 282455, 'productName': 'Wnc40 UC', 'facilityId': 35051, 'price': 0.0, 'remainingQuantity': '80.381 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 35438, 'facilityName': 'By My Car | CAVAILLON', 'facilityCity': 'CAVAILLON', 'facilityAddress': '620 RUE PROSPER MERIMEE', 'facilityZipCode': '84300', 'facilityCountry': 'France', 'owner': 'BYmyCAR', 'products': [
+                {'productId': 288488, 'productName': 'Shampoing innotec cavaillon', 'facilityId': 35438, 'price': 0.0, 'remainingQuantity': '-4.6841 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 288491, 'productName': 'Auto séchant innotec cavaillon', 'facilityId': 35438, 'price': 0.0, 'remainingQuantity': '-124.1022 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 35444, 'facilityName': '1070309718 SAS ALIANTIS | PARIS OUEST', 'facilityCity': 'ST GERMAIN EN LAYE', 'facilityAddress': '1 PLACE GUYNEMER', 'facilityZipCode': '78100', 'facilityCountry': 'France', 'owner': 'ALIANTIS', 'products': [
+                {'productId': 292808, 'productName': 'Autoséchant UC', 'facilityId': 35444, 'price': 0.0, 'remainingQuantity': '68.1918 L', 'averageDailyConsumption': '0.4847 L', 'remainingDays': 140, 'currency': 'EUR'
+                },
+                {'productId': 292811, 'productName': 'WNC40 UC', 'facilityId': 35444, 'price': 0.0, 'remainingQuantity': '41.2964 L', 'averageDailyConsumption': '0.2457 L', 'remainingDays': 168, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 35447, 'facilityName': '1070327612 SAS ALIANTIS | Espace PARIS SUD', 'facilityCity': 'JUVISY SUR ORGE', 'facilityAddress': '27-29 AV DE LA COUR DE FRANCE', 'facilityZipCode': '91260', 'facilityCountry': 'France', 'owner': 'ALIANTIS', 'products': [
+                {'productId': 289424, 'productName': 'Autoséchant UC', 'facilityId': 35447, 'price': 0.0, 'remainingQuantity': '502.9435 L', 'averageDailyConsumption': '1.3551 L', 'remainingDays': 371, 'currency': 'EUR'
+                },
+                {'productId': 289427, 'productName': 'WNC40 UC', 'facilityId': 35447, 'price': 0.0, 'remainingQuantity': '646.9574 L', 'averageDailyConsumption': '1.4084 L', 'remainingDays': 459, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 35450, 'facilityName': '1070921980 SAS ALIANTIS | Audi MONTROUGE', 'facilityCity': 'MONTROUGE', 'facilityAddress': '75 avenue Aristide Briand', 'facilityZipCode': '92120', 'facilityCountry': 'France', 'owner': 'ALIANTIS', 'products': [
+                {'productId': 289367, 'productName': 'Autoséchant UC', 'facilityId': 35450, 'price': 0.0, 'remainingQuantity': '-12.1042 L', 'averageDailyConsumption': '0.5539 L', 'remainingDays': -21, 'currency': 'EUR'
+                },
+                {'productId': 289370, 'productName': 'WNC40 UC', 'facilityId': 35450, 'price': 0.0, 'remainingQuantity': '89.5627 L', 'averageDailyConsumption': '0.2728 L', 'remainingDays': 328, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 35756, 'facilityName': '1071168149\tJEANNIN SMDA LAVAGE VSD', 'facilityCity': 'VERT ST DENIS', 'facilityAddress': 'Avenue Anna Lindh 61', 'facilityZipCode': '77270', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': [
+                {'productId': 295912, 'productName': 'Autoséchant UC', 'facilityId': 35756, 'price': 0.0, 'remainingQuantity': '10.9776 L', 'averageDailyConsumption': '0.5141 L', 'remainingDays': 21, 'currency': 'EUR'
+                },
+                {'productId': 295915, 'productName': 'WNC40 UC', 'facilityId': 35756, 'price': 0.0, 'remainingQuantity': '64.5763 L', 'averageDailyConsumption': '0.1783 L', 'remainingDays': 362, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 35939, 'facilityName': '1070736691\tINTENZ POITOU BY AUTOSPHERE', 'facilityCity': 'NIORT', 'facilityAddress': 'ESPACE MENDES FRANCE', 'facilityZipCode': '79000', 'facilityCountry': 'France', 'owner': 'Wurth', 'products': [
+                {'productId': 293381, 'productName': 'Autoséchant', 'facilityId': 35939, 'price': 0.0, 'remainingQuantity': '121.6641 L', 'averageDailyConsumption': '0.4323 L', 'remainingDays': 281, 'currency': 'EUR'
+                },
+                {'productId': 293384, 'productName': 'WNC40', 'facilityId': 35939, 'price': 0.0, 'remainingQuantity': '-23.1565 L', 'averageDailyConsumption': '1.5463 L', 'remainingDays': -14, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 36442, 'facilityName': '1071213908\tJEANNIN MOTORS', 'facilityCity': 'La Chapelle Saint Luc', 'facilityAddress': '13, rue Antoine Lumière', 'facilityZipCode': '10600', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': []
+        },
+        {'facilityId': 37465, 'facilityName': '1071214929 ENERGY CAR WASH SAS', 'facilityCity': 'NIMES', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'ENERGY CAR WASH', 'products': [
+                {'productId': 312844, 'productName': 'Autoséchant UC - Zone 1', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '19.4519 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 312847, 'productName': 'Autoséchant UC - Zone 4', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '19.7188 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 312850, 'productName': 'Autoséchant UC - Zone 2', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '-67.5553 L', 'averageDailyConsumption': '1.8736 L', 'remainingDays': -36, 'currency': 'EUR'
+                },
+                {'productId': 312853, 'productName': 'WNC40 UC - Zone 1', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '19.2715 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 312856, 'productName': 'WNC40 UC - Zone 2', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '-8.64 L', 'averageDailyConsumption': '0.1862 L', 'remainingDays': -46, 'currency': 'EUR'
+                },
+                {'productId': 312859, 'productName': 'WNC40 UC - Zone 4', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '10.746 L', 'averageDailyConsumption': '0.0029 L', 'remainingDays': 3705, 'currency': 'EUR'
+                },
+                {'productId': 321298, 'productName': 'Autoséchant UC - Zone 5', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '19.8116 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 321301, 'productName': 'Autoséchant UC - Zone 3', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '19.975 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 321307, 'productName': 'WNC40 UC - Zone 5', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '19.7351 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 321310, 'productName': 'WNC40 UC - Zone 3', 'facilityId': 37465, 'price': 0.0, 'remainingQuantity': '19.9162 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 37777, 'facilityName': '1070550192 JM Automobiles', 'facilityCity': 'Belleville sur Meuse', 'facilityAddress': 'ZI DU WAMEAU', 'facilityZipCode': 'ZI DU WAMEAU', 'facilityCountry': 'France', 'owner': 'Groupe JM AUTOMOBILES', 'products': [
+                {'productId': 323878, 'productName': 'Autoséchant UC', 'facilityId': 37777, 'price': 0.0, 'remainingQuantity': '50.7887 L', 'averageDailyConsumption': '1.3341 L', 'remainingDays': 38, 'currency': 'EUR'
+                },
+                {'productId': 323881, 'productName': 'Nettoyant jantes', 'facilityId': 37777, 'price': 0.0, 'remainingQuantity': '134.3951 L', 'averageDailyConsumption': '0.2959 L', 'remainingDays': 454, 'currency': 'EUR'
+                },
+                {'productId': 323884, 'productName': 'WNC40 UC', 'facilityId': 37777, 'price': 0.0, 'remainingQuantity': '8.0642 L', 'averageDailyConsumption': '0.3747 L', 'remainingDays': 21, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 37885, 'facilityName': '1071226251\tJEANNIN AUTOPRESTIGE OCCASION', 'facilityCity': 'CHAMPLAY', 'facilityAddress': 'RN 6 Joigny ', 'facilityZipCode': '89300', 'facilityCountry': 'France', 'owner': 'JEANNIN AUTOMOBILES', 'products': []
+        },
+        {'facilityId': 38281, 'facilityName': '1070462396 GGE | Les Ulis', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'GGE', 'products': [
+                {'productId': 335800, 'productName': 'WNC40', 'facilityId': 38281, 'price': 1.95, 'remainingQuantity': '109.727 L', 'averageDailyConsumption': '0.5594 L', 'remainingDays': 196, 'currency': 'EUR'
+                },
+                {'productId': 335806, 'productName': 'Nettoyant jantes', 'facilityId': 38281, 'price': 3.25, 'remainingQuantity': '1006.2437 L', 'averageDailyConsumption': '0.2404 L', 'remainingDays': 4185, 'currency': 'EUR'
+                },
+                {'productId': 335812, 'productName': 'Autoséchant', 'facilityId': 38281, 'price': 2.35, 'remainingQuantity': '671.4116 L', 'averageDailyConsumption': '0.8689 L', 'remainingDays': 772, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39103, 'facilityName': '1070910404\tGGE | Viry Chatillon', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'GGE', 'products': [
+                {'productId': 335815, 'productName': 'Autoséchant', 'facilityId': 39103, 'price': 2.35, 'remainingQuantity': '349.9597 L', 'averageDailyConsumption': '3.4248 L', 'remainingDays': 102, 'currency': 'EUR'
+                },
+                {'productId': 335818, 'productName': 'WNC40', 'facilityId': 39103, 'price': 1.95, 'remainingQuantity': '359.5106 L', 'averageDailyConsumption': '3.9439 L', 'remainingDays': 91, 'currency': 'EUR'
+                },
+                {'productId': 335821, 'productName': 'Nettoyant jantes', 'facilityId': 39103, 'price': 3.25, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39121, 'facilityName': '1070943343\tGGE  | Valenton', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'GGE', 'products': [
+                {'productId': 335977, 'productName': 'Autoséchant', 'facilityId': 39121, 'price': 0.0, 'remainingQuantity': '564.9727 L', 'averageDailyConsumption': '3.2221 L', 'remainingDays': 175, 'currency': 'EUR'
+                },
+                {'productId': 335980, 'productName': 'Nettoyant jantes', 'facilityId': 39121, 'price': 3.25, 'remainingQuantity': '526.9659 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 335983, 'productName': 'WNC40', 'facilityId': 39121, 'price': 1.95, 'remainingQuantity': '867.7397 L', 'averageDailyConsumption': '4.3726 L', 'remainingDays': 198, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39124, 'facilityName': '1071010855\tGGE | Trappes', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'GGE', 'products': [
+                {'productId': 335986, 'productName': 'WNC40', 'facilityId': 39124, 'price': 0.0, 'remainingQuantity': '402.6665 L', 'averageDailyConsumption': '1.7835 L', 'remainingDays': 225, 'currency': 'EUR'
+                },
+                {'productId': 335989, 'productName': 'Autoséchant', 'facilityId': 39124, 'price': 0.0, 'remainingQuantity': '384.6219 L', 'averageDailyConsumption': '2.1723 L', 'remainingDays': 177, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39127, 'facilityName': '1070749699\tGGE | Montgeron', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'GGE', 'products': [
+                {'productId': 335992, 'productName': 'Autoséchant', 'facilityId': 39127, 'price': 0.0, 'remainingQuantity': '-28.9237 L', 'averageDailyConsumption': '1.6518 L', 'remainingDays': -17, 'currency': 'EUR'
+                },
+                {'productId': 335995, 'productName': 'WNC40', 'facilityId': 39127, 'price': 0.0, 'remainingQuantity': '134.8402 L', 'averageDailyConsumption': '2.243 L', 'remainingDays': 60, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39130, 'facilityName': '1070541875\tGGE | Rambouillet', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'GGE', 'products': [
+                {'productId': 335998, 'productName': 'Autoséchant', 'facilityId': 39130, 'price': 0.0, 'remainingQuantity': '167.4431 L', 'averageDailyConsumption': '1.1267 L', 'remainingDays': 148, 'currency': 'EUR'
+                },
+                {'productId': 336001, 'productName': 'WNC40', 'facilityId': 39130, 'price': 0.0, 'remainingQuantity': '120.5598 L', 'averageDailyConsumption': '1.0255 L', 'remainingDays': 117, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39133, 'facilityName': '1070985702\tUNIMARK', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'Wurth', 'products': [
+                {'productId': 336127, 'productName': 'Auto-séchant Carrosserie Beltramelli 2', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336130, 'productName': 'Auto-sechant concentre AGC Beychac et Caillau', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336133, 'productName': 'Auto-Séchant ID Rechange - Antonio', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336136, 'productName': 'AUTOSECHANT CITROËN SOMODA', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336139, 'productName': 'Autosechant VW Saint Pierre du Mont', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336142, 'productName': 'G1 ZONE 1  AUTOSECHANT VALENCE', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336145, 'productName': 'G1 ZONE 1  SHAMP VALENCE', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336148, 'productName': 'G1 ZONE 2 AUTOSECHANT VALENCE', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336151, 'productName': 'G1 ZONE 2 SHAMP VALENCE', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336163, 'productName': 'Jumbo bache', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336166, 'productName': 'NETTOYANT CARROSSERIE WNC 50 200L 08904711 AXESS BRIVE LA GAILLARDE', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336169, 'productName': 'Nettoyant Jantes Acide AGC Beychac et Caillau', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336172, 'productName': 'NETTOYANT JANTES PURPLE RENAULT SAINT HERBLAIN', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336178, 'productName': 'Nettoyant Pro Superpuissant Agrumes', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336181, 'productName': 'Nettoyant Pro Superpuissant Agrumes AGC Beychac et Caillau', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336184, 'productName': 'Purple Jante 0893477008', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336187, 'productName': 'Self Dryer TMH', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336190, 'productName': 'SHAMP CARROSSERIE WNC50 RENAULT SAINT HERBLAIN', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336193, 'productName': 'Shampoing Carosserie', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336196, 'productName': 'Shampoing Carrosserie Beltramelli - Fourrière', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336199, 'productName': 'Shampoing Carrosserie Carrosserie Beltramelli 2', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336202, 'productName': 'Shampoing Carrosserie First AGC Beychac et Caillau', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336205, 'productName': 'Shampoing Carrosserie Pilote Sainte-Savine', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336208, 'productName': 'Shampoing ecologique 089047025', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336211, 'productName': 'Shampoing ID Rechange - Antonio', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336214, 'productName': 'Shampoo TMH', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336217, 'productName': 'WNC 40 200L - 08904701', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336220, 'productName': 'WNC31 PORTIQUE RENAULT SAINT HERBLAIN', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336223, 'productName': 'WNC31 SAINT THURIAU CITROËN', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336226, 'productName': 'WNC31 VALENCE  GENIN 2  PORTIQUE', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336229, 'productName': 'WNC50 CITROËN SOMODA', 'facilityId': 39133, 'price': 0.0, 'remainingQuantity': '0.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39139, 'facilityName': '1070985702\tUNIMARK', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'UNIMARK', 'products': [
+                {'productId': 336613, 'productName': 'Autoséchant', 'facilityId': 39139, 'price': 0.0, 'remainingQuantity': '409.7 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336616, 'productName': 'WNC40', 'facilityId': 39139, 'price': 0.0, 'remainingQuantity': '258.6 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336619, 'productName': 'WNC60', 'facilityId': 39139, 'price': 0.0, 'remainingQuantity': '315.5 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39145, 'facilityName': '1071107389 BLAV VILLEBON', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'BLAV', 'products': [
+                {'productId': 336769, 'productName': 'Autoséchant', 'facilityId': 39145, 'price': 0.0, 'remainingQuantity': '44.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336772, 'productName': 'WNC31', 'facilityId': 39145, 'price': 0.0, 'remainingQuantity': '5.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 336775, 'productName': 'WNC40', 'facilityId': 39145, 'price': 0.0, 'remainingQuantity': '-40.9063 L', 'averageDailyConsumption': '3.1735 L', 'remainingDays': -12, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39151, 'facilityName': '1070446250\tGÉNÉRAL AUTOMOBILE ORVAULT', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'GENERAL AUTOMOBILE', 'products': []
+        },
+        {'facilityId': 39154, 'facilityName': '1070194240\tGÉNÉRAL AUTOMOBILE GUERANDE', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'GENERAL AUTOMOBILE', 'products': []
+        },
+        {'facilityId': 39157, 'facilityName': '1070093697\tGENERAL AUTOMOBILE SAUTRON', 'facilityCity': '', 'facilityAddress': '', 'facilityZipCode': '', 'facilityCountry': None, 'owner': 'GENERAL AUTOMOBILE', 'products': []
+        },
+        {'facilityId': 39547, 'facilityName': '1070866213 CASINO GARAGE', 'facilityCity': 'Beausoleil', 'facilityAddress': '20 avenue paul doumer', 'facilityZipCode': '06240', 'facilityCountry': 'France', 'owner': 'GROUPE SEGOND AUTOMOBILES', 'products': [
+                {'productId': 343246, 'productName': 'Autoséchant', 'facilityId': 39547, 'price': 0.0, 'remainingQuantity': '175.4896 L', 'averageDailyConsumption': '0.1134 L', 'remainingDays': 1547, 'currency': 'EUR'
+                },
+                {'productId': 343249, 'productName': 'WNC40', 'facilityId': 39547, 'price': 0.0, 'remainingQuantity': '87.7869 L', 'averageDailyConsumption': '2.2663 L', 'remainingDays': 38, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39553, 'facilityName': '1070805390 CASINO GARAGE', 'facilityCity': 'Beausoleil', 'facilityAddress': '17 avenue Charles de Gaulle', 'facilityZipCode': '06240', 'facilityCountry': 'France', 'owner': 'GROUPE SEGOND AUTOMOBILES', 'products': [
+                {'productId': 343252, 'productName': 'Autoséchant', 'facilityId': 39553, 'price': 0.0, 'remainingQuantity': '91.5337 L', 'averageDailyConsumption': '0.0745 L', 'remainingDays': 1228, 'currency': 'EUR'
+                },
+                {'productId': 343255, 'productName': 'WNC40', 'facilityId': 39553, 'price': 0.0, 'remainingQuantity': '42.9881 L', 'averageDailyConsumption': '0.996 L', 'remainingDays': 43, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39556, 'facilityName': '1070133566 STARTER 2009', 'facilityCity': 'Menton', 'facilityAddress': "323 avenue de l'ormee ZI du CAREI", 'facilityZipCode': '06600', 'facilityCountry': 'France', 'owner': 'GROUPE SEGOND AUTOMOBILES', 'products': [
+                {'productId': 343258, 'productName': 'Autoséchant', 'facilityId': 39556, 'price': 0.0, 'remainingQuantity': '356.9895 L', 'averageDailyConsumption': '0.8637 L', 'remainingDays': 413, 'currency': 'EUR'
+                },
+                {'productId': 343261, 'productName': 'WNC40', 'facilityId': 39556, 'price': 0.0, 'remainingQuantity': '695.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39559, 'facilityName': '1070094027 SAPA', 'facilityCity': 'Antibes', 'facilityAddress': '8 allée Bellevue', 'facilityZipCode': '06600', 'facilityCountry': 'France', 'owner': 'GROUPE SEGOND AUTOMOBILES', 'products': [
+                {'productId': 343264, 'productName': 'Autoséchant - Zone 1', 'facilityId': 39559, 'price': 0.0, 'remainingQuantity': '423.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 343267, 'productName': 'WNC40 - Zone 1', 'facilityId': 39559, 'price': 0.0, 'remainingQuantity': '191.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 343270, 'productName': 'Autoséchant - Zone 2', 'facilityId': 39559, 'price': 0.0, 'remainingQuantity': '83.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 343273, 'productName': 'WNC50 - Zone 2', 'facilityId': 39559, 'price': 0.0, 'remainingQuantity': '205.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39562, 'facilityName': '1070262035 GENIN zone 1', 'facilityCity': 'VALENCE', 'facilityAddress': '801 avenue de chabeuil', 'facilityZipCode': '26000', 'facilityCountry': 'France', 'owner': 'GROUPE GENIN', 'products': [
+                {'productId': 343390, 'productName': 'Autoséchant', 'facilityId': 39562, 'price': 0.0, 'remainingQuantity': '30.4642 L', 'averageDailyConsumption': '0.3183 L', 'remainingDays': 95, 'currency': 'EUR'
+                },
+                {'productId': 343393, 'productName': 'WNC31', 'facilityId': 39562, 'price': 0.0, 'remainingQuantity': '327.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 343396, 'productName': 'WNC40', 'facilityId': 39562, 'price': 0.0, 'remainingQuantity': '78.1883 L', 'averageDailyConsumption': '0.3774 L', 'remainingDays': 207, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39565, 'facilityName': '1070262035 GENIN zone 2', 'facilityCity': 'Valence', 'facilityAddress': '801 avenue de chabeuil', 'facilityZipCode': '26600', 'facilityCountry': 'France', 'owner': 'GROUPE GENIN', 'products': [
+                {'productId': 343399, 'productName': 'G1 WNC40 - Zone 1', 'facilityId': 39565, 'price': 0.0, 'remainingQuantity': '35.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 343402, 'productName': 'G1 Autoséchant - Zone 2', 'facilityId': 39565, 'price': 0.0, 'remainingQuantity': '31.8186 L', 'averageDailyConsumption': '0.1077 L', 'remainingDays': 295, 'currency': 'EUR'
+                },
+                {'productId': 343405, 'productName': 'G1 WNC40 - Zone 2', 'facilityId': 39565, 'price': 0.0, 'remainingQuantity': '24.6877 L', 'averageDailyConsumption': '0.0997 L', 'remainingDays': 247, 'currency': 'EUR'
+                },
+                {'productId': 343408, 'productName': 'G2 Autoséchant - Zone 2', 'facilityId': 39565, 'price': 0.0, 'remainingQuantity': '32.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 343411, 'productName': 'G2 WNC40 - Zone 2', 'facilityId': 39565, 'price': 0.0, 'remainingQuantity': '82.0 L', 'averageDailyConsumption': '0.0 L', 'remainingDays': 0, 'currency': 'EUR'
+                },
+                {'productId': 343414, 'productName': 'G1 Nettoyant jantes - Zone 1', 'facilityId': 39565, 'price': 0.0, 'remainingQuantity': '607.7709 L', 'averageDailyConsumption': '0.7093 L', 'remainingDays': 856, 'currency': 'EUR'
+                },
+                {'productId': 343417, 'productName': 'G1 Autoséchant - Zone 1', 'facilityId': 39565, 'price': 0.0, 'remainingQuantity': '36.593 L', 'averageDailyConsumption': '0.0447 L', 'remainingDays': 818, 'currency': 'EUR'
+                }
+            ]
+        },
+        {'facilityId': 39568, 'facilityName': '1070980064\tSTORE MONACO BRUSCHET', 'facilityCity': 'Monaco', 'facilityAddress': '2 avenue du roqueville', 'facilityZipCode': '98000', 'facilityCountry': 'France', 'owner': 'STORE MONACO BRUSCHET', 'products': [
+                {'productId': 343768, 'productName': 'Autoséchant', 'facilityId': 39568, 'price': 0.0, 'remainingQuantity': '-165.1981 L', 'averageDailyConsumption': '0.5878 L', 'remainingDays': -281, 'currency': 'EUR'
+                },
+                {'productId': 343771, 'productName': 'WNC40', 'facilityId': 39568, 'price': 0.0, 'remainingQuantity': '-403.1098 L', 'averageDailyConsumption': '0.3485 L', 'remainingDays': -1156, 'currency': 'EUR'
+                }
+            ]
+        }
+    ], 'message': None, 'errors': None, 'errorCode': None, 'currentTime': 1756988225213
+}
