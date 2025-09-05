@@ -524,3 +524,82 @@ def reconcile_qty_ids_with_stocklevels(
 
     return qty_mod, corrections
 
+
+def group_stocklevels_by_owner_and_facility(
+    stock_levels_json: Dict[str, Any],
+    devices_list_json: Dict[str, Any]
+) -> Dict[str, Any]:
+    """
+    Regroupe les données de stockLevels par owner -> facility -> products
+    en gardant remainingQuantity, averageDailyConsumption, remainingDays,
+    et conserve le champ currentTime dans le JSON.
+    """
+
+    # 1) facilityId -> owner, facilityName
+    fac_to_owner: Dict[int, Dict[str, str]] = {}
+    for fac in (devices_list_json or {}).get("data", []):
+        fac_to_owner[fac.get("facilityId")] = {
+            "owner": fac.get("owner") or "OWNER_INCONNU",
+            "facilityName": fac.get("facilityName") or ""
+        }
+
+    # 2) Agrégation par owner -> facility
+    owners = defaultdict(lambda: {
+        "owner": None,
+        "facilities": defaultdict(lambda: {
+            "facilityId": None,
+            "facilityName": "",
+            "products": []
+        })
+    })
+
+    results: List[Dict[str, Any]] = (stock_levels_json or {}).get("data", []) or []
+    for row in results:
+        fac_id = row.get("facilityId")
+        meta = fac_to_owner.get(
+            fac_id,
+            {"owner": "OWNER_INCONNU", "facilityName": row.get("facilityName", "")}
+        )
+        owner_name = meta["owner"]
+
+        owner_bucket = owners[owner_name]
+        owner_bucket["owner"] = owner_name
+
+        fac_bucket = owner_bucket["facilities"][fac_id]
+        fac_bucket["facilityId"] = fac_id
+        fac_bucket["facilityName"] = meta.get("facilityName", "")
+
+        # Produits
+        for p in (row.get("products") or []):
+            fac_bucket["products"].append({
+                "productId": p.get("productId"),
+                "name": p.get("productName") or "",
+                "remainingQuantity": p.get("remainingQuantity") or 0,
+                "averageDailyConsumption": p.get("averageDailyConsumption") or 0,
+                "remainingDays": p.get("remainingDays") or 0
+            })
+
+    # 3) Mise en forme finale
+    owners_list = []
+    for owner_name, ob in owners.items():
+        facilities_list = []
+        for fac_id, fb in ob["facilities"].items():
+            products_list = sorted(fb["products"], key=lambda pr: pr["name"])
+            facilities_list.append({
+                "facilityId": fb["facilityId"],
+                "facilityName": fb["facilityName"],
+                "products": products_list
+            })
+        facilities_list.sort(key=lambda x: (x["facilityName"] or "", x["facilityId"] or 0))
+        owners_list.append({
+            "owner": ob["owner"] or owner_name,
+            "facilities": facilities_list
+        })
+
+    owners_list.sort(key=lambda x: x["owner"] or "")
+
+    # 4) On garde currentTime dans la structure du JSON final
+    return {
+        "owners": owners_list,
+        "currentTime": stock_levels_json.get("currentTime")
+    }
