@@ -133,7 +133,7 @@ def  Total_Quantity_Report_grouped_by_facilities(
 
     # # ======================================================
     # transform_facility_json(devices_list)
-    print(stock_levels_grouped)
+    # print(stock_levels_grouped)
     generate_group_pdfs(total_qty, devices_list, stock_levels_grouped, from_date, to_date)
 
 
