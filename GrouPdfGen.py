@@ -126,7 +126,7 @@ def generate_owner_totals_chart(owner_block: dict) -> BytesIO | None:
     # Police + aération
     # Police + aération
     table2.auto_set_font_size(False)
-    table2.set_fontsize(9)       # texte un peu plus grand
+    table2.set_fontsize(8)       # texte un peu plus grand
     table2.scale(1.0, 1.25)       # augmente taille globale du tableau
 
     for (r, c), cell in table2.get_celld().items():
@@ -461,7 +461,7 @@ def generate_group_bar_chart(owner_block: dict) -> BytesIO | None:
 
         # Police + aération verticale (lignes plus hautes)
         site_table.auto_set_font_size(False)
-        site_table.set_fontsize(9)   # un peu plus grand
+        site_table.set_fontsize(8)   # un peu plus grand
         site_table.scale(1.0, 1.35)   # ↑↑ augmente la hauteur des cellules
 
         # on accentue encore un peu la hauteur de ligne
@@ -619,8 +619,8 @@ def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
     ax.set_xlim(0, n_sites)
 
     ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda v, _: f"{v:,.2f} L".replace(",", " ").replace(".", ",")))
-    ax.set_ylabel("Stock (L)")
-    ax.set_title("ÉTAT DES STOCKS PAR SITE")
+    # ax.set_ylabel("Stock (L)")
+    # ax.set_title("ÉTAT DES STOCKS PAR SITE")
     ax.grid(True, axis="y", linestyle="-", linewidth=0.8, color="black", alpha=0.3)
     for s in ax.spines.values():
         s.set_visible(False)
@@ -631,7 +631,7 @@ def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
 
     # Tableau 1D des sites (sans wrap, lignes hautes)
     site_table = plt.table(cellText=[facility_labels], cellLoc="center", rowLoc="center", loc="bottom")
-    site_table.auto_set_font_size(False); site_table.set_fontsize(12); site_table.scale(1.0, 1.35)
+    site_table.auto_set_font_size(False); site_table.set_fontsize(9); site_table.scale(1.0, 1.35)
     for (r, c), cell in site_table.get_celld().items():
         cell.set_height(cell.get_height() * 1.20)
 
@@ -764,7 +764,13 @@ def generate_group_pdfs(total_qty: dict,
         owner_footer = _build_owner_footer(owner_row)
 
         # Titres
-        title = Paragraph(f"RAPPORT GROUPE — {owner_name}", title_style)
+        title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_dt} au {to_dt}", title_style)
+        title2 = Paragraph(f"GROUPE {owner_name}", title_style)
+        # title3 = Paragraph(f"GROUPE {owner_name}", title_style)
+
+        titlePage2 = Paragraph(f"REPARTITION DES CONSOMMATIONS DE PRODUITS / SITE", title_style)
+        titlePage3 = Paragraph(f"TOTAL DES REPARTITIONS DES CONSOMMATIONS DE PRODUITS", title_style)
+
         subtitle = Paragraph(f"Période du {from_dt} au {to_dt}", h2_style)
 
         # Image de couverture (via get_picture_path) — on fabrique un config_data minimal
@@ -779,15 +785,17 @@ def generate_group_pdfs(total_qty: dict,
         # Récup bloc owner (facilities/products) pour la page 2 (graphe)
         owner_data = owners_index.get(owner_name) or {"facilities": []}
 
+        facilities_line = " - ".join(_short_facility_name(f.get("facilityName", "")) 
+                             for f in owner_data.get("facilities", []))
+        title3 = Paragraph(facilities_line, title_style)
+
         # === Pages dict (sera aplati via distribute_elements_by_page) ===
         pages: dict[int, list] = {}
 
         # ---------------- Page 1 : Logo + Cover + Titres ----------------
         pages[1] = [
-            Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.8*cm),
-            cover_img, Spacer(1, 0.6*cm),
-            title, Spacer(1, 0.3*cm), subtitle, Spacer(1, 0.4*cm),
-            Paragraph("Page 1 — contenu à venir", normal_style),
+            Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.5*cm), title, Spacer(1, 0.3*cm), title2, Spacer(1, 0.3*cm), title3, Spacer(1, 0.3*cm),
+            cover_img,
             FrameBreak(),
             owner_footer
         ]
@@ -797,13 +805,13 @@ def generate_group_pdfs(total_qty: dict,
         # ---------------- Page 2 : Logo + graphe + tableau + footer ----------------
         buf_chart = generate_group_bar_chart(owner_data)
         if buf_chart:
-            chart_img = RLImage(buf_chart, width=20*cm, height=9*cm)
+            chart_img = RLImage(buf_chart, width=25*cm, height=9*cm)
             table_flowable = build_group_consumption_table(owner_data)
 
             pages[2] = [
-                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.5*cm),
+                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.8*cm), titlePage2, Spacer(1, 0.1*cm),
                 chart_img,
-                Spacer(1, 0.4*cm),
+                Spacer(1, 0.3*cm),
                 table_flowable,
                 FrameBreak(),
                 owner_footer
@@ -825,9 +833,9 @@ def generate_group_pdfs(total_qty: dict,
         totals_table = build_owner_totals_table(owner_data)
 
         if buf_totals:
-            totals_img = RLImage(buf_totals, width=22*cm, height=11*cm)  # un peu plus compact
+            totals_img = RLImage(buf_totals, width=25*cm, height=11*cm)  # un peu plus compact
             pages[3] = [
-                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 2*cm),
+                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 2*cm), titlePage3, Spacer(1, 0.4*cm),
                 totals_img,
                 Spacer(1, 0.4*cm),
                 # totals_table,
@@ -846,13 +854,23 @@ def generate_group_pdfs(total_qty: dict,
 
                 # ---------------- Page 4 : État des stocks (même compo que page 2) ----------------
         owner_stock = owners_stock_index.get(owner_name) or {"facilities": []}
+        # Récupérer le currentTime global
+        ts = stock_levels_grouped.get("currentTime")
+        if ts:
+            # convertit le timestamp ms en datetime lisible
+            dt_cur = datetime.fromtimestamp(ts / 1000.0)
+            current_time_str = dt_cur.strftime("%d/%m/%Y %H:%M")
+        else:
+            current_time_str = "N/A"
+        titlePage4 = Paragraph(f"ÉTAT DES STOCKS GROUPE AU {current_time_str}", title_style)
+
         buf_stock_chart = generate_group_stock_chart(owner_stock)
         stock_table = build_group_stock_table(owner_stock)
 
         if buf_stock_chart:
-            stock_img = RLImage(buf_stock_chart, width=20*cm, height=9*cm)
+            stock_img = RLImage(buf_stock_chart, width=25*cm, height=9*cm)
             pages[4] = [
-                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.5*cm),
+                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.3*cm), titlePage4, 
                 stock_img,
                 Spacer(1, 0.4*cm),
                 stock_table,
