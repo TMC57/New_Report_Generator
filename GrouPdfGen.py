@@ -101,7 +101,9 @@ def generate_owner_totals_chart(owner_block: dict) -> BytesIO | None:
     # Graphique compact (on libère de la place pour le tableau)
     fig, ax = plt.subplots(figsize=(10, 5))
 
-    ax.bar(x, heights, color=[color_map[b] for b in product_bases])
+    # Limiter la largeur des barres pour éviter qu'elles soient trop larges
+    bar_width = min(0.25, 0.8 / max(len(product_bases), 1))
+    ax.bar(x, heights, width=bar_width, color=[color_map[b] for b in product_bases])
 
     # Axe X: aucune graduation/label
     ax.set_xticks([])
@@ -117,8 +119,18 @@ def generate_owner_totals_chart(owner_block: dict) -> BytesIO | None:
 
     # --- Tableau 2 lignes en bas: [produits] / [totaux formatés] ---
     totals_fmt = [ _fmt_liters(totals[b]) for b in product_bases ]
+    
+    # Wrapper le texte des produits si nécessaire
+    wrapped_products = []
+    for product in product_bases:
+        if len(product) > 15:  # Si le nom est trop long
+            wrapped = textwrap.fill(product, width=15)
+            wrapped_products.append(wrapped)
+        else:
+            wrapped_products.append(product)
+    
     table2 = plt.table(
-        cellText=[product_bases, totals_fmt],
+        cellText=[wrapped_products, totals_fmt],
         cellLoc="center",
         rowLoc="center",
         loc="bottom"
@@ -129,13 +141,26 @@ def generate_owner_totals_chart(owner_block: dict) -> BytesIO | None:
     table2.set_fontsize(8)       # texte un peu plus grand
     table2.scale(1.0, 1.25)       # augmente taille globale du tableau
 
+    # Calculer la hauteur maximale nécessaire pour toutes les cellules
+    max_height_factor = 2.0  # facteur minimum
+    base_height = None
+    
     for (r, c), cell in table2.get_celld().items():
-        cell.set_height(cell.get_height() * 1.35)
+        if base_height is None:
+            base_height = cell.get_height()
+        text = cell.get_text().get_text()
+        num_lines = text.count('\n') + 1
+        height_factor = max(2.0, num_lines * 1.5)
+        max_height_factor = max(max_height_factor, height_factor)
+    
+    # Appliquer la même hauteur à toutes les cellules
+    for (r, c), cell in table2.get_celld().items():
+        cell.set_height(base_height * max_height_factor)
 
-    # -- Réduire l’épaisseur des bordures du tableau --
+    # -- Assombrir et définir l'épaisseur des bordures du tableau --
     for (r, c), cell in table2.get_celld().items():
-        cell.set_linewidth(0.5)   # au lieu de ~1.0 par défaut
-        cell.set_edgecolor(mcolors.to_rgba("black"))
+        cell.set_linewidth(0.8)   # bordures plus visibles
+        cell.set_edgecolor("black")  # bordures bien noires
 
 
     # Mesure réelle de la hauteur du tableau → marge basse adaptée
@@ -153,7 +178,7 @@ def generate_owner_totals_chart(owner_block: dict) -> BytesIO | None:
     ax.legend(
         handles=handles,
         loc="upper center",
-        bbox_to_anchor=(0.5, -0.18),  # juste au-dessus du tableau 2 lignes
+        bbox_to_anchor=(0.5, -0.25),  # plus éloignée du graphique
         ncol=min(6, len(product_bases)),
         frameon=False,
         labelspacing=0.4
@@ -403,6 +428,8 @@ def generate_group_bar_chart(owner_block: dict) -> BytesIO | None:
     group_width = 0.9
     left_pad    = 0.05
     bar_width   = max(group_width / max(n_prod, 1), 0.06)
+    # Limiter la largeur maximale des barres pour éviter qu'elles soient trop larges
+    bar_width   = min(bar_width, 0.15)
 
     fig, ax = plt.subplots(figsize=(11, 4))
 
@@ -430,72 +457,37 @@ def generate_group_bar_chart(owner_block: dict) -> BytesIO | None:
     ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.15),
               ncol=min(6, n_prod), frameon=False)
 
-    # ===== Tableau 1D noms de sites (police agrandie) =====
-    # ===== Tableau 1D noms de sites (plus aéré) =====
-    # fonction utilitaire pour couper les noms trop longs
-    # ===== Tableau 1D noms de sites (wrap + hauteur auto) =====
+    # Tableau 1D des sites avec retour à la ligne automatique
+    wrapped_labels = []
+    for label in facility_labels:
+        if len(label) > 20:  # Si le nom est trop long
+            wrapped = textwrap.fill(label, width=20)
+            wrapped_labels.append(wrapped)
+        else:
+            wrapped_labels.append(label)
     
-    def _wrap_label(label: str, width: int = 12) -> str:
-        # coupe uniquement aux espaces/hyphens, pas au milieu d'un mot
-        return "\n".join(textwrap.wrap(
-            label or "", width=width, break_long_words=False, break_on_hyphens=True
-        ))
-
-    wrapped_labels = [_wrap_label(lbl, width=12) for lbl in facility_labels]
-
-    # On essaie 3 tailles/échelles, on mesure la hauteur réelle du tableau et on adapte la marge
-    candidates = [(12, 1.20), (11, 1.15), (10, 1.10)]
-    site_table = None
-    bottom = 0.26  # marge par défaut au cas où
-
-    for font, yscale in candidates:
-        # créer le tableau à la base des axes
-        # ===== Tableau 1D noms de sites (sans wrap, lignes plus hautes) =====
-        # labels déjà simplifiés via _short_facility_name (y compris règle du '\t')
-        site_table = plt.table(
-            cellText=[facility_labels],   # << pas de multilignes
-            cellLoc="center",
-            rowLoc="center",
-            loc="bottom"
-        )
-
-        # Police + aération verticale (lignes plus hautes)
-        site_table.auto_set_font_size(False)
-        site_table.set_fontsize(8)   # un peu plus grand
-        site_table.scale(1.0, 1.35)   # ↑↑ augmente la hauteur des cellules
-
-        # on accentue encore un peu la hauteur de ligne
-        for (r, c), cell in site_table.get_celld().items():
-            cell.set_height(cell.get_height() * 1.20)
-
-        # -- Réduire l’épaisseur des bordures du tableau --
+    site_table = plt.table(cellText=[wrapped_labels], cellLoc="center", rowLoc="center", loc="bottom")
+    site_table.auto_set_font_size(False); site_table.set_fontsize(8); site_table.scale(1.0, 1.35)
+    # Calculer la hauteur maximale nécessaire pour toutes les cellules
+    max_height_factor = 1.8  # facteur minimum
+    base_height = None
+    
     for (r, c), cell in site_table.get_celld().items():
-        cell.set_linewidth(0.1)   # au lieu de ~1.0 par défaut
-        cell.set_edgecolor(mcolors.to_rgba("black"))
+        if base_height is None:
+            base_height = cell.get_height()
+        text = cell.get_text().get_text()
+        num_lines = text.count('\n') + 1
+        height_factor = max(1.8, num_lines * 1.2)
+        max_height_factor = max(max_height_factor, height_factor)
+    
+    # Appliquer la même hauteur à toutes les cellules
+    for (r, c), cell in site_table.get_celld().items():
+        cell.set_height(base_height * max_height_factor)
+        cell.set_linewidth(1.0)
+        cell.set_edgecolor("black")
 
-        # mesure réelle de la hauteur du tableau → marge basse adaptée (sans wrap)
-        fig.canvas.draw()
-        bbox = site_table.get_window_extent(fig.canvas.get_renderer())
-        fig_h_px = fig.get_size_inches()[1] * fig.dpi
-        table_frac = bbox.height / fig_h_px
-
-        base_bottom = 0.18
-        pad = 0.02
-        bottom = base_bottom + table_frac + pad
-
-        # légende en haut pour libérer le bas
-        # Légende sous le graphique, plus rapprochée
-        ax.legend(
-            handles=handles,
-            loc="upper center",
-            bbox_to_anchor=(0.5, -0.15),   # moins bas qu'avant
-            ncol=min(6, len(color_map)),
-            frameon=False,
-            labelspacing=0.4               # espace réduit entre lignes de la légende
-        )
-
-        # Ajuster la marge basse pour accueillir légende + tableau 1D
-        plt.subplots_adjust(left=0.06, right=0.99, top=0.92, bottom=0.38)
+    # Ajuster la marge basse pour accueillir légende + tableau 1D
+    plt.subplots_adjust(left=0.06, right=0.99, top=0.92, bottom=0.38)
 
 
     buf = BytesIO()
@@ -506,8 +498,8 @@ def generate_group_bar_chart(owner_block: dict) -> BytesIO | None:
 
 
 def _base_product_name(name: str) -> str:
-    """Retourne la 'base' du produit = le 1er mot avant l'espace."""
-    return (name or "").strip().split(" ", 1)[0]
+    """Retourne la 'base' du produit = le 1er mot avant l'espace (normalisé en majuscules)."""
+    return (name or "").strip().split(" ", 1)[0].upper()
 
 
 def _sanitize_filename(s: str, max_len: int = 120) -> str:
@@ -604,6 +596,8 @@ def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
     group_width = 0.9
     left_pad    = 0.05
     bar_width   = max(group_width / max(n_prod, 1), 0.06)
+    # Limiter la largeur maximale des barres pour éviter qu'elles soient trop larges
+    bar_width   = min(bar_width, 0.15)
 
     fig, ax = plt.subplots(figsize=(10, 5))
 
@@ -619,21 +613,40 @@ def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
     ax.set_xlim(0, n_sites)
 
     ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda v, _: f"{v:,.2f} L".replace(",", " ").replace(".", ",")))
-    # ax.set_ylabel("Stock (L)")
-    # ax.set_title("ÉTAT DES STOCKS PAR SITE")
     ax.grid(True, axis="y", linestyle="-", linewidth=0.8, color="black", alpha=0.3)
     for s in ax.spines.values():
         s.set_visible(False)
 
     handles = [mpatches.Patch(color=color_map[b], label=b) for b in product_bases]
-    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.22),
+    ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.28),
               ncol=min(6, n_prod), frameon=False, labelspacing=0.4)
 
-    # Tableau 1D des sites (sans wrap, lignes hautes)
-    site_table = plt.table(cellText=[facility_labels], cellLoc="center", rowLoc="center", loc="bottom")
+    # Tableau 1D des sites avec retour à la ligne automatique
+    wrapped_labels = []
+    for label in facility_labels:
+        if len(label) > 20:  # Si le nom est trop long
+            wrapped = textwrap.fill(label, width=20)
+            wrapped_labels.append(wrapped)
+        else:
+            wrapped_labels.append(label)
+    
+    site_table = plt.table(cellText=[wrapped_labels], cellLoc="center", rowLoc="center", loc="bottom")
     site_table.auto_set_font_size(False); site_table.set_fontsize(9); site_table.scale(1.0, 1.35)
+    # Calculer la hauteur maximale nécessaire pour toutes les cellules
+    max_height_factor = 1.8  # facteur minimum
+    base_height = None
+    
     for (r, c), cell in site_table.get_celld().items():
-        cell.set_height(cell.get_height() * 1.20)
+        if base_height is None:
+            base_height = cell.get_height()
+        text = cell.get_text().get_text()
+        num_lines = text.count('\n') + 1
+        height_factor = max(1.8, num_lines * 1.2)
+        max_height_factor = max(max_height_factor, height_factor)
+    
+    # Appliquer la même hauteur à toutes les cellules
+    for (r, c), cell in site_table.get_celld().items():
+        cell.set_height(base_height * max_height_factor)
 
     fig.canvas.draw()
     bbox = site_table.get_window_extent(fig.canvas.get_renderer())
@@ -833,7 +846,7 @@ def generate_group_pdfs(total_qty: dict,
         totals_table = build_owner_totals_table(owner_data)
 
         if buf_totals:
-            totals_img = RLImage(buf_totals, width=25*cm, height=11*cm)  # un peu plus compact
+            totals_img = RLImage(buf_totals, width=25*cm, height=9*cm)  # un peu plus compact
             pages[3] = [
                 Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 2*cm), titlePage3, Spacer(1, 0.4*cm),
                 totals_img,
