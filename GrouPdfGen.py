@@ -569,6 +569,9 @@ def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
         return None
 
     facility_labels = [_short_facility_name(f.get("facilityName", "")) for f in facilities]
+    
+    # Ajouter "Groupe" à la fin
+    facility_labels.append("Groupe")
     n_sites = len(facility_labels)
 
     product_bases = sorted({
@@ -582,13 +585,20 @@ def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
 
     # 👉 stocks en L (parser remainingQuantity)
     quantities = []
+    group_totals = {b: 0.0 for b in product_bases}
+    
     for fac in facilities:
         agg = {b: 0.0 for b in product_bases}
         for p in (fac.get("products") or []):
             base = _base_product_name(p.get("name") or "")
             if base:
-                agg[base] += _parse_liters_field(p.get("remainingQuantity"))
+                stock_value = _parse_liters_field(p.get("remainingQuantity"))
+                agg[base] += stock_value
+                group_totals[base] += stock_value
         quantities.append(agg)
+    
+    # Ajouter les totaux du groupe à la fin
+    quantities.append(group_totals)
 
     colors = get_colors_for_products(product_bases)
     color_map = {b: colors[i] for i, b in enumerate(product_bases)}
@@ -662,6 +672,9 @@ def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
 def build_group_stock_table(owner_stock_block: dict) -> Table:
     facilities = (owner_stock_block or {}).get("facilities", []) or []
     facility_labels = [_short_facility_name(f.get("facilityName", "")) for f in facilities]
+    
+    # Ajouter "Groupe" à la fin
+    facility_labels.append("Groupe")
 
     product_bases = sorted({
         _base_product_name(p.get("name") or "")
@@ -679,12 +692,20 @@ def build_group_stock_table(owner_stock_block: dict) -> Table:
 
     for base in product_bases:
         row = [Paragraph(base, prod_style)]
+        group_total = 0.0
+        
+        # Calculer pour chaque facility + cumul groupe
         for fac in facilities:
             total_l = 0.0
             for p in (fac.get("products") or []):
                 if _base_product_name(p.get("name") or "") == base:
-                    total_l += _parse_liters_field(p.get("remainingQuantity"))
+                    stock_value = _parse_liters_field(p.get("remainingQuantity"))
+                    total_l += stock_value
+                    group_total += stock_value
             row.append(_fmt_liters(total_l))
+        
+        # Ajouter le total groupe à la fin
+        row.append(_fmt_liters(group_total))
         data.append(row)
 
     TOTAL_W = 25 * cm
