@@ -791,6 +791,13 @@ def generate_group_pdfs(total_qty: dict,
     # --- Pour chaque owner du JSON de groupe : produire un PDF ---
     for owner_row in group_config:
         owner_name = owner_row.get("owner") or "OWNER"
+        
+        # --- Filtrer les groupes avec "Croix rouge.jpg" ---
+        cover_picture = owner_row.get("cover_picture", "")
+        if cover_picture.endswith("Croix rouge.jpg"):
+            print(f"⚠️  Ignorer le groupe '{owner_name}' (image: Croix rouge.jpg)")
+            continue
+        
         safe_owner = _sanitize_filename(owner_name)
         pdf_path = os.path.join(output_dir, f"group_{safe_owner}_{from_date}_to_{to_date}.pdf")
 
