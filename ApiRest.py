@@ -15,7 +15,7 @@ from pdfGen import generate_pdfs_by_facility
 from Json_parameter import transform_facility_json
 from group_parameter import build_group_config_from_devices_list
 from GrouPdfGen import generate_group_pdfs
-from product_sync import sync_product_names
+from product_sync import sync_product_names, add_missing_facilities
 
 
 GROUP_FILE = "Config/GroupConfigJson.json"
@@ -126,10 +126,12 @@ def  Total_Quantity_Report_grouped_by_facilities(
     # Synchroniser les noms de produits
     total_qty, corrections_count = sync_product_names(total_qty, stock_levels_grouped)
     
-    json.dump(total_qty, open("total_qty.json", "w", encoding="utf-8"),
+    # Ajouter les facilities manquantes de devices_list
+    total_qty, added_count = add_missing_facilities(total_qty, devices_list)
+    
+    json.dump(devices_list, open("devices_list.json", "w", encoding="utf-8"),
     indent=2, ensure_ascii=False)
-    json.dump(stock_levels_grouped, open("stock_levels_grouped.json", "w", encoding="utf-8"),
-    indent=2, ensure_ascii=False)
+
 
     # # ================= Data Transformation ================
 

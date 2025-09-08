@@ -499,7 +499,7 @@ def generate_group_bar_chart(owner_block: dict) -> BytesIO | None:
         font_size = 3
     site_table.auto_set_font_size(False); site_table.set_fontsize(font_size); site_table.scale(1.0, 1.35)
     # Calculer la hauteur maximale nécessaire pour toutes les cellules
-    max_height_factor = 1.8  # facteur minimum
+    max_height_factor = 1.2  # facteur minimum réduit
     base_height = None
     
     for (r, c), cell in site_table.get_celld().items():
@@ -507,7 +507,7 @@ def generate_group_bar_chart(owner_block: dict) -> BytesIO | None:
             base_height = cell.get_height()
         text = cell.get_text().get_text()
         num_lines = text.count('\n') + 1
-        height_factor = max(1.8, num_lines * 1.2)
+        height_factor = max(1.2, num_lines * 0.8)
         max_height_factor = max(max_height_factor, height_factor)
     
     # Appliquer la même hauteur à toutes les cellules et améliorer la lisibilité
@@ -687,7 +687,7 @@ def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
         font_size = 3
     site_table.auto_set_font_size(False); site_table.set_fontsize(font_size); site_table.scale(1.0, 1.35)
     # Calculer la hauteur maximale nécessaire pour toutes les cellules
-    max_height_factor = 1.8  # facteur minimum
+    max_height_factor = 1.2  # facteur minimum réduit
     base_height = None
     
     for (r, c), cell in site_table.get_celld().items():
@@ -695,7 +695,7 @@ def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
             base_height = cell.get_height()
         text = cell.get_text().get_text()
         num_lines = text.count('\n') + 1
-        height_factor = max(1.8, num_lines * 1.2)
+        height_factor = max(1.2, num_lines * 0.8)
         max_height_factor = max(max_height_factor, height_factor)
     
     # Appliquer la même hauteur à toutes les cellules
