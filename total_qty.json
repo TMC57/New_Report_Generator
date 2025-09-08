@@ -903,12 +903,12 @@
             {
               "productId": 323884,
               "name": "WNC40 UC",
-              "qty": 47602.0
+              "qty": 85007.0
             },
             {
               "productId": 323884,
               "name": "WNC40 UC",
-              "qty": 85007.0
+              "qty": 47602.0
             }
           ]
         },
@@ -1015,12 +1015,12 @@
             {
               "productId": 323884,
               "name": "WNC40 UC",
-              "qty": 181527.0
+              "qty": 10688.0
             },
             {
               "productId": 323884,
               "name": "WNC40 UC",
-              "qty": 10688.0
+              "qty": 181527.0
             }
           ]
         }
