@@ -1,45 +1,40 @@
 # GroupPdfGen.py (remplace la fonction generate_group_pdfs par celle-ci)
-from reportlab.lib.pagesizes import A4, landscape
-from reportlab.platypus import (
-    BaseDocTemplate, PageTemplate, Frame, PageBreak,
-    Paragraph, Spacer, Image as RLImage, FrameBreak
-)
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.units import cm
-from pdfGen import draw_bottom_right_logo, distribute_elements_by_page  # ⬅️ on réutilise exactement la même logique
-import os, json, re, unicodedata
-from datetime import datetime
-from reportlab.platypus import Table, TableStyle
-from reportlab.lib import colors
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.enums import TA_CENTER
-from pdfGen import draw_bottom_right_logo, distribute_elements_by_page, get_picture_path
-import matplotlib.pyplot as plt
-from io import BytesIO
-from colors_map import get_colors_for_products
-from reportlab.platypus import Image as RLImage
-import matplotlib.ticker as mtick
-from matplotlib import colors as mcolors   # <-- AJOUT
-from matplotlib import patches as mpatches
-import textwrap
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mtick
-from matplotlib import colors as mcolors
-from matplotlib.patches import Rectangle
-from io import BytesIO
-from colors_map import get_colors_for_products
-import numpy as np
-from pdfGen import TOTAL_TABLE_WIDTH
-from reportlab.pdfbase import pdfmetrics
-from reportlab.platypus import Table, TableStyle, Paragraph
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.lib.enums import TA_LEFT, TA_CENTER
-import textwrap
-
+# Standard library imports
+import json
+import os
 import re
+import textwrap
+import unicodedata
+from datetime import datetime
+from io import BytesIO
+
+# Third-party imports
+import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+import numpy as np
+from matplotlib import colors as mcolors
+from matplotlib import patches as mpatches
+from matplotlib.patches import Rectangle
+
+# ReportLab imports
+from reportlab.lib import colors
+from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.lib.pagesizes import A4, landscape
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.units import cm
+from reportlab.pdfbase import pdfmetrics
+from reportlab.platypus import (
+    BaseDocTemplate, FrameBreak, PageBreak, PageTemplate, 
+    Frame, Image as RLImage, Paragraph, Spacer, Table, TableStyle
+)
+
+# Local imports
+from colors_map import get_colors_for_products
+from pdfGen import TOTAL_TABLE_WIDTH, draw_bottom_right_logo, distribute_elements_by_page, get_picture_path
+
+matplotlib.use("Agg")
 
 def _parse_liters_field(v) -> float:
     """Extrait un float en litres depuis '41.233 L', '-8.64 L', '6.0E-4 L', 123.4, etc."""
