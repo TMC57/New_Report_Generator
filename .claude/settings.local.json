@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(dir:*)",
+      "Bash(tasklist)",
+      "Bash(findstr:*)",
+      "Bash(del /s /q __pycache__*.pyc)",
+      "Bash(taskkill:*)",
+      "Bash(netstat:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestion des Rapports</title>
+  <style>
+    :root {
+      /* Charte TMH Corporation - Light Mode Soft */
+      --tmh-blue: #38BDF8;
+      --tmh-blue-dark: #0EA5E9;
+      --tmh-blue-light: #BAE6FD;
+      --tmh-orange: #FB923C;
+      --tmh-orange-light: #FDBA74;
+      --tmh-gray: #64748B;
+      --tmh-gray-light: #CBD5E1;
+      --tmh-gray-lighter: #F8FAFC;
+      --tmh-white: #FFFFFF;
+
+      /* Theme Colors - Ultra Soft */
+      --bg-primary: #F1F5F9;
+      --bg-secondary: #E2E8F0;
+      --bg-tertiary: #CBD5E1;
+      --text-primary: #64748B;
+      --text-secondary: #94A3B8;
+      --border-color: rgba(56, 189, 248, 0.04);
+      --border-hover: rgba(56, 189, 248, 0.08);
+
+      /* Gradients - Softer */
+      --tmh-gradient-primary: linear-gradient(135deg, var(--tmh-blue) 0%, var(--tmh-blue-dark) 100%);
+      --tmh-gradient-accent: linear-gradient(135deg, var(--tmh-orange) 0%, var(--tmh-orange-light) 100%);
+
+      /* Shadows - Ultra Soft */
+      --tmh-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.015);
+      --tmh-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.015);
+      --tmh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.03), 0 4px 6px -2px rgba(0, 0, 0, 0.015);
+    }
+
+    [data-theme="dark"] {
+      /* TMH Corporation - Dark Mode Soft */
+      --tmh-blue: #38BDF8;
+      --tmh-blue-dark: #0EA5E9;
+      --tmh-blue-light: #BAE6FD;
+      --tmh-orange: #FB923C;
+      --tmh-orange-light: #FDBA74;
+      --tmh-gray: #CBD5E1;
+      --tmh-gray-light: #94A3B8;
+      --tmh-gray-lighter: #1E293B;
+      --tmh-white: #0F172A;
+
+      /* Dark Theme Colors - Ultra Soft */
+      --bg-primary: #0F172A;
+      --bg-secondary: #1E293B;
+      --bg-tertiary: #334155;
+      --text-primary: #CBD5E1;
+      --text-secondary: #94A3B8;
+      --border-color: rgba(56, 189, 248, 0.08);
+      --border-hover: rgba(56, 189, 248, 0.15);
+
+      /* Dark Shadows - Ultra Soft */
+      --tmh-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+      --tmh-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+      --tmh-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      background: var(--tmh-gradient-primary);
+      color: var(--tmh-white);
+      padding: 20px 0;
+      box-shadow: var(--tmh-shadow);
+      margin-bottom: 30px;
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      height: 50px;
+      filter: none;
+      border: 2px solid #000000;
+      border-radius: 4px;
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      padding: 8px 16px;
+      color: var(--tmh-white);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      margin-left: auto;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    h1 {
+      background: linear-gradient(135deg, var(--tmh-blue-light) 0%, var(--tmh-orange-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    [data-theme="dark"] h1 {
+      background: #000000;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card {
+      background: var(--bg-primary);
+      border-radius: 6px;
+      box-shadow: var(--tmh-shadow);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .card-header {
+      background: var(--tmh-gradient-primary);
+      color: var(--tmh-white);
+      padding: 20px;
+      border-bottom: none;
+    }
+
+    .card-header h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    #controls {
+      background: var(--bg-primary);
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: var(--tmh-shadow);
+      margin-bottom: 20px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    #search {
+      padding: 12px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      width: 280px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    #search:focus {
+      outline: none;
+      border-color: var(--tmh-blue);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+
+    #typeFilter {
+      padding: 12px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 14px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #typeFilter:focus {
+      outline: none;
+      border-color: var(--tmh-blue);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--tmh-gradient-primary);
+      color: var(--tmh-white);
+      box-shadow: var(--tmh-shadow-sm);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--tmh-shadow);
+    }
+
+    .btn-secondary {
+      background: var(--tmh-gray-light);
+      color: var(--tmh-white);
+    }
+
+    .btn-secondary:hover {
+      background: var(--tmh-gray);
+      transform: translateY(-1px);
+    }
+
+    .btn-accent {
+      background: var(--tmh-gradient-accent);
+      color: var(--tmh-white);
+    }
+
+    .btn-accent:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--tmh-shadow);
+    }
+
+    #refreshBtn {
+      background: var(--tmh-gradient-primary);
+      color: var(--tmh-white);
+      box-shadow: var(--tmh-shadow-sm);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #refreshBtn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--tmh-shadow);
+    }
+
+    #downloadSelectedBtn {
+      background: var(--tmh-gradient-accent);
+      color: var(--tmh-white);
+      box-shadow: var(--tmh-shadow-sm);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 10px;
+    }
+
+    #downloadSelectedBtn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--tmh-shadow);
+    }
+
+    #downloadSelectedBtn:disabled {
+      background: var(--tmh-gray-light);
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none;
+      box-shadow: none;
+    }
+
+
+    #deleteSelectedBtn {
+      background: linear-gradient(135deg, #F87171 0%, #EF4444 100%);
+      color: var(--tmh-white);
+      box-shadow: var(--tmh-shadow-sm);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 10px;
+    }
+
+    #deleteSelectedBtn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--tmh-shadow);
+    }
+
+    #deleteSelectedBtn:disabled {
+      background: var(--tmh-gray-light);
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none;
+      box-shadow: none;
+    }
+
+
+    .report-checkbox {
+      margin-right: 8px;
+      transform: scale(1.2);
+    }
+
+    .selected-count {
+      margin-left: 10px;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background: var(--bg-primary);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: var(--tmh-shadow);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      table-layout: fixed;
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: top;
+      height: 80px;
+    }
+
+    th {
+      background: var(--tmh-gradient-primary);
+      color: var(--tmh-white);
+      font-weight: 500;
+      cursor: pointer;
+      user-select: none;
+      font-size: 14px;
+      height: 60px;
+      vertical-align: middle;
+      white-space: nowrap;
+      position: relative;
+    }
+
+
+    tr {
+      transition: background-color 0.3s ease;
+    }
+
+    tr:nth-child(even) {
+      background-color: var(--bg-secondary);
+    }
+
+    tr:hover {
+      background-color: var(--bg-tertiary);
+    }
+
+    td {
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .actions {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+    }
+
+    .actions .btn {
+      padding: 6px 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-align: center;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      min-width: 0;
+      flex-shrink: 1;
+      height: 28px;
+      line-height: 1;
+    }
+
+    .btn-download {
+      background: var(--tmh-gradient-accent);
+      color: var(--tmh-white);
+      box-shadow: var(--tmh-shadow-sm);
+    }
+
+    .btn-download:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--tmh-shadow);
+    }
+
+    .btn-delete {
+      background: linear-gradient(135deg, #F87171 0%, #EF4444 100%);
+      color: var(--tmh-white);
+      box-shadow: var(--tmh-shadow-sm);
+    }
+
+    .btn-delete:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--tmh-shadow);
+    }
+
+    .btn-preview {
+      background: var(--tmh-gradient-primary);
+      color: var(--tmh-white);
+      box-shadow: var(--tmh-shadow-sm);
+    }
+
+    .btn-preview:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--tmh-shadow);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .no-reports {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+      font-style: italic;
+    }
+
+    .status {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .sort-arrow {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 1;
+      font-size: 16px;
+      font-weight: bold;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .pagination {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .pagination button {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+    }
+
+    .pagination button:hover { background: #f5f5f5; }
+    .pagination button.active { background: #007bff; color: white; }
+    .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Indicateurs visuels de génération */
+    .generating-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .generating-modal {
+      background: white;
+      padding: 30px;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #007bff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #f0f0f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #007bff, #0056b3, #007bff);
+      background-size: 200% 100%;
+      animation: progress-flow 2s ease-in-out infinite;
+      width: 70%;
+      transition: width 0.3s ease;
+    }
+
+    @keyframes progress-flow {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .generation-status-text {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .generation-substatus {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    /* Animation du tableau pendant le polling */
+    .table-updating {
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+    }
+
+    .refresh-indicator {
+      display: inline-block;
+      margin-left: 10px;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <img src="/images/TMH_Logo.png" alt="TMH Corporation" class="logo">
+      <h1>Générateur de Rapports</h1>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-text">Mode sombre</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+
+  <div class="card">
+    <div class="card-header">
+      <h3>Génération de nouveaux rapports</h3>
+    </div>
+    <div class="card-content">
+
+    <!-- Champs de dates communes -->
+    <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap; margin-bottom: 15px;">
+      <label style="display: flex; flex-direction: column; gap: 5px;">
+        <span style="font-weight: bold; color: #495057;">Date de début :</span>
+        <input type="date" id="fromDate" required style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      </label>
+      <label style="display: flex; flex-direction: column; gap: 5px;">
+        <span style="font-weight: bold; color: #495057;">Date de fin :</span>
+        <input type="date" id="toDate" required style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      </label>
+      <label id="facilityLabel" style="display: flex; flex-direction: column; gap: 5px;">
+        <span style="font-weight: bold; color: #495057;">ID Facility (optionnel) :</span>
+        <input type="number" id="facilityId" placeholder="ex: 123" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 150px;">
+      </label>
+    </div>
+
+    <!-- Boutons de génération -->
+    <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+      <button id="generateIndividualBtn" class="btn btn-primary">
+        Générer rapport individuel
+      </button>
+      <button id="generateGroupBtn" class="btn btn-accent">
+        Générer rapport de groupe
+      </button>
+      <div id="generation-status" style="margin-left: 15px; font-weight: bold; color: var(--tmh-blue);"></div>
+    </div>
+    </div>
+  </div>
+
+  <div id="controls">
+    <input type="text" id="search" placeholder="Rechercher un rapport..." />
+    <select id="typeFilter">
+      <option value="">Tous les types</option>
+      <option value="individual">Rapports individuels</option>
+      <option value="group">Rapports de groupe</option>
+    </select>
+    <button id="refreshBtn">Actualiser</button>
+    <button id="downloadSelectedBtn" disabled>Télécharger sélection</button>
+    <button id="deleteSelectedBtn" disabled>Supprimer sélection</button>
+    <span class="selected-count" id="selectedCount">0 sélectionné(s)</span>
+  </div>
+
+  <div id="status" class="status"></div>
+
+  <div class="card">
+    <div id="tableContainer">
+      <div class="loading">Chargement des rapports...</div>
+    </div>
+  </div>
+
+  <div id="pagination" class="pagination"></div>
+
+  </div> <!-- Fermeture container -->
+
+  <!-- Modal de génération -->
+  <div id="generatingOverlay" class="generating-overlay">
+    <div class="generating-modal">
+      <div class="spinner"></div>
+      <div class="generation-status-text" id="modalStatusText">Génération en cours...</div>
+      <div class="generation-substatus" id="modalSubStatus">Préparation des données</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div style="font-size: 12px; color: #999;">
+        Les nouveaux rapports apparaîtront automatiquement dans le tableau
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let reports = [];
+    let filteredReports = [];
+    let currentSort = { column: 'date', direction: 'desc' };
+    let currentPage = 1;
+    const itemsPerPage = 10;
+
+    async function loadReports() {
+      try {
+        document.getElementById('tableContainer').innerHTML = '<div class="loading">Chargement des rapports...</div>';
+
+        const response = await fetch('/api/reports/list');
+        if (!response.ok) throw new Error(`Erreur ${response.status}`);
+
+        reports = await response.json();
+        applyFilters();
+
+      } catch (error) {
+        showStatus('Erreur lors du chargement des rapports: ' + error.message, 'error');
+        document.getElementById('tableContainer').innerHTML = '<div class="no-reports">Erreur lors du chargement</div>';
+      }
+    }
+
+    function applyFilters() {
+      const searchTerm = document.getElementById('search').value.toLowerCase();
+      const typeFilter = document.getElementById('typeFilter').value;
+
+      filteredReports = reports.filter(report => {
+        const matchesSearch = report.name.toLowerCase().includes(searchTerm);
+        const matchesType = !typeFilter || report.type === typeFilter;
+        return matchesSearch && matchesType;
+      });
+
+      sortReports();
+      renderTable();
+      renderPagination();
+    }
+
+    function sortReports() {
+      filteredReports.sort((a, b) => {
+        let aVal = a[currentSort.column];
+        let bVal = b[currentSort.column];
+
+        if (currentSort.column === 'date') {
+          aVal = new Date(aVal);
+          bVal = new Date(bVal);
+        } else if (currentSort.column === 'size') {
+          aVal = parseInt(aVal);
+          bVal = parseInt(bVal);
+        } else if (currentSort.column === 'date_range') {
+          // Tri par date de début pour les périodes
+          aVal = a.date_range ? new Date(a.date_range.from_date) : new Date(0);
+          bVal = b.date_range ? new Date(b.date_range.from_date) : new Date(0);
+        } else {
+          aVal = aVal ? aVal.toString().toLowerCase() : '';
+          bVal = bVal ? bVal.toString().toLowerCase() : '';
+        }
+
+        if (aVal < bVal) return currentSort.direction === 'asc' ? -1 : 1;
+        if (aVal > bVal) return currentSort.direction === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    function renderTable() {
+      const container = document.getElementById('tableContainer');
+
+      if (filteredReports.length === 0) {
+        container.innerHTML = '<div class="no-reports">Aucun rapport trouvé</div>';
+        return;
+      }
+
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const pageReports = filteredReports.slice(startIndex, endIndex);
+
+      const table = document.createElement('table');
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th style="width: 50px;">
+              <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()" class="report-checkbox">
+            </th>
+            <th style="width: 30%;" onclick="sortBy('name')">
+              Nom du rapport
+              <span class="sort-arrow">${getSortArrow('name')}</span>
+            </th>
+            <th style="width: 8%;" onclick="sortBy('type')">
+              Type
+              <span class="sort-arrow">${getSortArrow('type')}</span>
+            </th>
+            <th style="width: 20%;" onclick="sortBy('date_range')">
+              Période
+              <span class="sort-arrow">${getSortArrow('date_range')}</span>
+            </th>
+            <th style="width: 13%;" onclick="sortBy('date')">
+              Date de création
+              <span class="sort-arrow">${getSortArrow('date')}</span>
+            </th>
+            <th style="width: 8%;" onclick="sortBy('size')">
+              Taille
+              <span class="sort-arrow">${getSortArrow('size')}</span>
+            </th>
+            <th style="width: 21%;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${pageReports.map(report => `
+            <tr>
+              <td>
+                <input type="checkbox"
+                       class="report-checkbox report-item-checkbox"
+                       data-filename="${report.filename}"
+                       onchange="toggleReportSelection('${report.filename}')"
+                       ${selectedReports.has(report.filename) ? 'checked' : ''}>
+              </td>
+              <td>${report.name}</td>
+              <td>${report.type === 'individual' ? 'Individuel' : 'Groupe'}</td>
+              <td>${report.date_range ? report.date_range.formatted : 'N/A'}</td>
+              <td>${formatDate(report.date)}</td>
+              <td>${formatSize(report.size)}</td>
+              <td class="actions">
+                <a href="/api/reports/download/${encodeURIComponent(report.filename)}"
+                   class="btn btn-download"
+                   download="${report.filename}">
+                  Télécharger
+                </a>
+                <button class="btn btn-preview" onclick="previewReport('${report.filename}')">
+                  Aperçu
+                </button>
+                <button class="btn btn-delete" onclick="deleteReport('${report.filename}')">
+                  Supprimer
+                </button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      `;
+
+      container.innerHTML = '';
+      container.appendChild(table);
+    }
+
+    function renderPagination() {
+      const totalPages = Math.ceil(filteredReports.length / itemsPerPage);
+      const pagination = document.getElementById('pagination');
+
+      if (totalPages <= 1) {
+        pagination.innerHTML = '';
+        return;
+      }
+
+      let paginationHTML = '';
+
+      paginationHTML += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹</button>`;
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+          paginationHTML += `<button onclick="changePage(${i})" ${i === currentPage ? 'class="active"' : ''}>${i}</button>`;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+          paginationHTML += '<span>...</span>';
+        }
+      }
+
+      paginationHTML += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>›</button>`;
+
+      pagination.innerHTML = paginationHTML;
+    }
+
+    function changePage(page) {
+      const totalPages = Math.ceil(filteredReports.length / itemsPerPage);
+      if (page >= 1 && page <= totalPages) {
+        currentPage = page;
+        renderTable();
+        renderPagination();
+      }
+    }
+
+    function sortBy(column) {
+      if (currentSort.column === column) {
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.column = column;
+        currentSort.direction = 'asc';
+      }
+
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function getSortArrow(column) {
+      if (currentSort.column !== column) return '↕️';
+      return currentSort.direction === 'asc' ? '↑' : '↓';
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('fr-FR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function formatSize(bytes) {
+      if (bytes === 0) return '0 B';
+      const k = 1024;
+      const sizes = ['B', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+    }
+
+    async function deleteReport(filename) {
+      if (!confirm(`Êtes-vous sûr de vouloir supprimer le rapport "${filename}" ?`)) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/reports/${encodeURIComponent(filename)}`, {
+          method: 'DELETE'
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erreur ${response.status}`);
+        }
+
+        showStatus('Rapport supprimé avec succès', 'success');
+        loadReports();
+
+      } catch (error) {
+        showStatus('Erreur lors de la suppression: ' + error.message, 'error');
+      }
+    }
+
+    function previewReport(filename) {
+      const url = `/api/reports/preview/${encodeURIComponent(filename)}`;
+      window.open(url, '_blank');
+    }
+
+    function showStatus(message, type) {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `status ${type}`;
+      status.style.display = 'block';
+
+      setTimeout(() => {
+        status.style.display = 'none';
+      }, 5000);
+    }
+
+    document.getElementById('search').addEventListener('input', () => {
+      currentPage = 1;
+      applyFilters();
+    });
+
+    document.getElementById('typeFilter').addEventListener('change', () => {
+      currentPage = 1;
+      applyFilters();
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', loadReports);
+
+    // Gestion de la sélection multiple
+    function toggleReportSelection(filename) {
+      if (selectedReports.has(filename)) {
+        selectedReports.delete(filename);
+      } else {
+        selectedReports.add(filename);
+      }
+      updateSelectionUI();
+    }
+
+    function toggleSelectAll() {
+      const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+      const visibleFilenames = filteredReports.map(r => r.filename);
+      const allVisibleSelected = visibleFilenames.length > 0 && visibleFilenames.every(filename => selectedReports.has(filename));
+
+      if (allVisibleSelected) {
+        // Si tous les rapports visibles sont sélectionnés, les désélectionner
+        visibleFilenames.forEach(filename => selectedReports.delete(filename));
+      } else {
+        // Sinon, sélectionner tous les rapports visibles
+        visibleFilenames.forEach(filename => selectedReports.add(filename));
+      }
+
+      updateSelectionUI();
+      renderTable(); // Re-render pour mettre à jour les checkboxes
+    }
+
+    function updateSelectionUI() {
+      const selectedCount = selectedReports.size;
+      const downloadBtn = document.getElementById('downloadSelectedBtn');
+      const deleteBtn = document.getElementById('deleteSelectedBtn');
+      const countDisplay = document.getElementById('selectedCount');
+      const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+
+      countDisplay.textContent = `${selectedCount} sélectionné(s)`;
+      downloadBtn.disabled = selectedCount === 0;
+      deleteBtn.disabled = selectedCount === 0;
+
+      // Mettre à jour l'état de la checkbox "Tout sélectionner"
+      if (selectAllCheckbox) {
+        const visibleFilenames = filteredReports.map(r => r.filename);
+        const allVisibleSelected = visibleFilenames.length > 0 && visibleFilenames.every(filename => selectedReports.has(filename));
+        const someVisibleSelected = visibleFilenames.some(filename => selectedReports.has(filename));
+
+        selectAllCheckbox.checked = allVisibleSelected;
+        selectAllCheckbox.indeterminate = someVisibleSelected && !allVisibleSelected;
+      }
+    }
+
+    // Téléchargement multiple
+    document.getElementById('downloadSelectedBtn').addEventListener('click', async () => {
+      if (selectedReports.size === 0) return;
+
+      const button = document.getElementById('downloadSelectedBtn');
+      const originalText = button.textContent;
+
+      try {
+        button.disabled = true;
+        button.textContent = '📦 Création de l\'archive...';
+
+        const filenames = Array.from(selectedReports);
+        const response = await fetch('/api/reports/download-multiple', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ filenames })
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erreur ${response.status}`);
+        }
+
+        // Créer un lien de téléchargement
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `rapports_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        showStatus(`Archive créée avec ${selectedReports.size} rapport(s)`, 'success');
+
+      } catch (error) {
+        showStatus('Erreur lors de la création de l\'archive: ' + error.message, 'error');
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    });
+
+    // Suppression multiple
+    document.getElementById('deleteSelectedBtn').addEventListener('click', async () => {
+      if (selectedReports.size === 0) return;
+
+      const selectedCount = selectedReports.size;
+      if (!confirm(`Êtes-vous sûr de vouloir supprimer ${selectedCount} rapport(s) sélectionné(s) ?`)) {
+        return;
+      }
+
+      const button = document.getElementById('deleteSelectedBtn');
+      const originalText = button.textContent;
+
+      try {
+        button.disabled = true;
+        button.textContent = '🗑️ Suppression en cours...';
+
+        const filenames = Array.from(selectedReports);
+        let successCount = 0;
+        let errorCount = 0;
+
+        // Supprimer chaque fichier individuellement
+        for (const filename of filenames) {
+          try {
+            const response = await fetch(`/api/reports/${encodeURIComponent(filename)}`, {
+              method: 'DELETE'
+            });
+
+            if (response.ok) {
+              successCount++;
+              selectedReports.delete(filename);
+            } else {
+              errorCount++;
+            }
+          } catch (error) {
+            errorCount++;
+          }
+        }
+
+        if (successCount > 0) {
+          showStatus(`${successCount} rapport(s) supprimé(s) avec succès${errorCount > 0 ? `, ${errorCount} erreur(s)` : ''}`, successCount === filenames.length ? 'success' : 'error');
+        } else {
+          showStatus('Aucun rapport n\'a pu être supprimé', 'error');
+        }
+
+        updateSelectionUI();
+        loadReports();
+
+      } catch (error) {
+        showStatus('Erreur lors de la suppression multiple: ' + error.message, 'error');
+      } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+      }
+    });
+
+
+    // Gestion des boutons de génération
+    document.getElementById('generateIndividualBtn').addEventListener('click', async () => {
+      await generateReport('individual');
+    });
+
+    document.getElementById('generateGroupBtn').addEventListener('click', async () => {
+      await generateReport('group');
+    });
+
+    // Initialiser les dates avec des valeurs par défaut (dernier mois)
+    function initializeDates() {
+      const today = new Date();
+      const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+
+      document.getElementById('toDate').value = today.toISOString().split('T')[0];
+      document.getElementById('fromDate').value = lastMonth.toISOString().split('T')[0];
+    }
+
+    // Variables pour le polling automatique
+    let pollingInterval = null;
+    let isGenerating = false;
+    let generationStartTime = null;
+    let statusMessages = [
+      "Préparation des données",
+      "Récupération des informations CM2W",
+      "Traitement des données de consommation",
+      "Génération des graphiques",
+      "Création du document PDF",
+      "Finalisation du rapport"
+    ];
+    let currentMessageIndex = 0;
+    let selectedReports = new Set();
+
+    async function generateReport(type) {
+      const button = document.getElementById(type === 'individual' ? 'generateIndividualBtn' : 'generateGroupBtn');
+      const status = document.getElementById('generation-status');
+
+      // Récupérer les valeurs des champs
+      const fromDate = document.getElementById('fromDate').value;
+      const toDate = document.getElementById('toDate').value;
+      const facilityId = document.getElementById('facilityId').value;
+
+      // Validation des champs requis
+      if (!fromDate || !toDate) {
+        status.textContent = '❌ Veuillez remplir les dates de début et de fin';
+        status.style.color = '#dc3545';
+        setTimeout(() => { status.textContent = ''; }, 5000);
+        return;
+      }
+
+      // Désactiver le bouton et afficher le statut
+      button.disabled = true;
+      button.style.opacity = '0.6';
+      status.textContent = `Génération en cours...`;
+      status.style.color = '#007bff';
+      isGenerating = true;
+      generationStartTime = Date.now();
+      currentMessageIndex = 0;
+
+      // Afficher la modal de génération
+      showGeneratingModal(type);
+
+      // Démarrer le polling automatique pour voir les nouveaux rapports en temps réel
+      startReportPolling();
+
+      try {
+        // Construire l'URL avec les paramètres
+        const endpoint = type === 'individual' ? '/Reports_generation' : '/Group_Reports_generation';
+        const params = new URLSearchParams({
+          from_date: fromDate,
+          to_date: toDate
+        });
+
+        // Ajouter facility_id seulement pour les rapports individuels et s'il est renseigné
+        if (type === 'individual' && facilityId) {
+          params.append('facility_id', facilityId);
+        }
+
+        const url = `${endpoint}?${params.toString()}`;
+        const response = await fetch(url, { method: 'GET' });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Erreur ${response.status}: ${errorText}`);
+        }
+
+        const result = await response.text();
+        status.textContent = `✅ Rapport ${type === 'individual' ? 'individuel' : 'de groupe'} généré avec succès`;
+        status.style.color = '#28a745';
+
+        // Mettre à jour la modal pour indiquer le succès
+        updateGeneratingModal("✅ Rapport généré avec succès!", "Le rapport a été créé et ajouté à la liste", 100);
+
+        // Actualiser une dernière fois pour s'assurer que tout est à jour
+        setTimeout(() => {
+          loadReports();
+        }, 1000);
+
+      } catch (error) {
+        status.textContent = `❌ Erreur: ${error.message}`;
+        status.style.color = '#dc3545';
+
+        // Mettre à jour la modal pour indiquer l'erreur
+        updateGeneratingModal("❌ Erreur lors de la génération", error.message, 0);
+      } finally {
+        // Réactiver le bouton
+        button.disabled = false;
+        button.style.opacity = '1';
+        isGenerating = false;
+
+        // Arrêter le polling après la génération
+        stopReportPolling();
+
+        // Cacher la modal après un délai
+        setTimeout(() => {
+          hideGeneratingModal();
+        }, 3000);
+
+        // Effacer le statut après 8 secondes
+        setTimeout(() => {
+          status.textContent = '';
+        }, 8000);
+      }
+    }
+
+    // Démarrer le polling automatique pour voir les nouveaux rapports en temps réel
+    function startReportPolling() {
+      if (pollingInterval) return; // Éviter les doublons
+
+      pollingInterval = setInterval(() => {
+        if (isGenerating) {
+          loadReports(); // Actualiser le tableau toutes les 2 secondes pendant la génération
+          updateGeneratingStatus(); // Mettre à jour les messages de statut
+        }
+      }, 2000);
+    }
+
+    // Arrêter le polling automatique
+    function stopReportPolling() {
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+        pollingInterval = null;
+      }
+    }
+
+    // Afficher la modal de génération
+    function showGeneratingModal(type) {
+      const overlay = document.getElementById('generatingOverlay');
+      const modalStatusText = document.getElementById('modalStatusText');
+
+      modalStatusText.textContent = `Génération du rapport ${type === 'individual' ? 'individuel' : 'de groupe'} en cours...`;
+      overlay.style.display = 'flex';
+
+      // Animation d'entrée
+      setTimeout(() => {
+        overlay.style.opacity = '1';
+      }, 10);
+    }
+
+    // Cacher la modal de génération
+    function hideGeneratingModal() {
+      const overlay = document.getElementById('generatingOverlay');
+      overlay.style.display = 'none';
+    }
+
+    // Mettre à jour le statut de génération
+    function updateGeneratingStatus() {
+      if (!isGenerating || !generationStartTime) return;
+
+      const elapsedTime = Date.now() - generationStartTime;
+      const modalSubStatus = document.getElementById('modalSubStatus');
+      const progressFill = document.getElementById('progressFill');
+
+      // Changer le message toutes les 3 secondes
+      if (elapsedTime > currentMessageIndex * 3000 && currentMessageIndex < statusMessages.length - 1) {
+        currentMessageIndex++;
+      }
+
+      modalSubStatus.textContent = statusMessages[currentMessageIndex];
+
+      // Calculer la progression basée sur le temps et le message actuel
+      const progressPercentage = Math.min((currentMessageIndex / (statusMessages.length - 1)) * 70 + (elapsedTime % 3000) / 3000 * 10, 90);
+      progressFill.style.width = progressPercentage + '%';
+    }
+
+    // Mettre à jour la modal avec un message personnalisé
+    function updateGeneratingModal(statusText, subText, progress) {
+      const modalStatusText = document.getElementById('modalStatusText');
+      const modalSubStatus = document.getElementById('modalSubStatus');
+      const progressFill = document.getElementById('progressFill');
+
+      modalStatusText.textContent = statusText;
+      modalSubStatus.textContent = subText;
+      progressFill.style.width = progress + '%';
+    }
+
+    // Gestion du thème sombre/clair
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      // Mettre à jour l'icône et le texte
+      const themeIcon = document.getElementById('theme-icon');
+      const themeText = document.getElementById('theme-text');
+
+      if (newTheme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Mode clair';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Mode sombre';
+      }
+    }
+
+    // Charger le thème sauvegardé au démarrage
+    function initializeTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+      document.documentElement.setAttribute('data-theme', theme);
+
+      // Mettre à jour l'interface
+      const themeIcon = document.getElementById('theme-icon');
+      const themeText = document.getElementById('theme-text');
+
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeText.textContent = 'Mode clair';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Mode sombre';
+      }
+    }
+
+    // Initialiser le thème, les dates et charger les rapports
+    initializeTheme();
+    initializeDates();
+    loadReports();
+  </script>
+</body>
+</html>
