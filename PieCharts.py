@@ -49,7 +49,7 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
         plt.close(fig_pie)
         buf_pie.seek(0)
 
-        fig_legend, legend_ax = plt.subplots(figsize=(6, 2.5), dpi=150)
+        fig_legend, legend_ax = plt.subplots(figsize=(6, 3.5), dpi=150)
         legend_ax.axis('off')
         buf_legend = BytesIO()
         fig_legend.savefig(
@@ -178,9 +178,9 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     num_items = len(filtered_names)
     ncol = min(3, num_items) if num_items <= 6 else min(4, num_items)
 
-    # Hauteur adaptive selon le nombre de lignes
+    # Hauteur généreuse pour éviter l'écrasement
     nrows = (num_items + ncol - 1) // ncol  # Calcul du nombre de lignes
-    height = max(2.5, min(4.0, 1.5 + nrows * 0.8))  # Hauteur entre 2.5 et 4.0
+    height = max(3.5, min(5.0, 2.5 + nrows * 1.2))  # Hauteur plus généreuse
 
     fig_legend, legend_ax = plt.subplots(figsize=(6, height), dpi=150)
     legend_ax.axis('off')  # pas d'axes visibles
