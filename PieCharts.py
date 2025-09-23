@@ -49,10 +49,18 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
         plt.close(fig_pie)
         buf_pie.seek(0)
 
-        fig_legend, legend_ax = plt.subplots(figsize=(5, 2))
+        fig_legend, legend_ax = plt.subplots(figsize=(5, 2.3), dpi=150)
         legend_ax.axis('off')
         buf_legend = BytesIO()
-        fig_legend.savefig(buf_legend, format='png', bbox_inches='tight')
+        fig_legend.savefig(
+            buf_legend,
+            format='png',
+            bbox_inches='tight',
+            dpi=150,
+            facecolor='white',
+            edgecolor='none',
+            pad_inches=0.1
+        )
         plt.close(fig_legend)
         buf_legend.seek(0)
 
@@ -165,20 +173,41 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     plt.close(fig_pie)
     buf_pie.seek(0)
 
-    # --- Image de la légende seule ---
-    fig_legend, legend_ax = plt.subplots(figsize=(5, 2))
+    # --- Image de la légende seule avec qualité améliorée ---
+    fig_legend, legend_ax = plt.subplots(figsize=(5, 2.3), dpi=150)
     legend_ax.axis('off')  # pas d'axes visibles
+
+    # Calculer le nombre de colonnes optimal
+    num_items = len(filtered_names)
+    ncol = min(3, num_items) if num_items <= 6 else min(4, num_items)
 
     legend = legend_ax.legend(
         wedges, filtered_names,
         loc='center',
-        fontsize=11,
+        fontsize=12,        # Police plus grande
         frameon=False,
-        ncol=3  # ✅ 3 éléments max par ligne
+        ncol=ncol,
+        columnspacing=1.5,  # Espacement entre colonnes
+        handlelength=1.5,   # Longueur des échantillons de couleur
+        handletextpad=0.8,  # Espacement entre couleur et texte
+        borderpad=0.5       # Marge interne
     )
 
+    # Améliorer le rendu de la légende
+    for text in legend.get_texts():
+        text.set_fontweight('normal')
+        text.set_fontfamily('sans-serif')
+
     buf_legend = BytesIO()
-    fig_legend.savefig(buf_legend, format='png', bbox_inches='tight')
+    fig_legend.savefig(
+        buf_legend,
+        format='png',
+        bbox_inches='tight',
+        dpi=150,           # Haute résolution
+        facecolor='white', # Fond blanc
+        edgecolor='none',  # Pas de bordure
+        pad_inches=0.1     # Petite marge
+    )
     plt.close(fig_legend)
     buf_legend.seek(0)
 
