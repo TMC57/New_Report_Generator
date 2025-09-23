@@ -49,7 +49,7 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
         plt.close(fig_pie)
         buf_pie.seek(0)
 
-        fig_legend, legend_ax = plt.subplots(figsize=(6, 2), dpi=150)
+        fig_legend, legend_ax = plt.subplots(figsize=(6, 2.5), dpi=150)
         legend_ax.axis('off')
         buf_legend = BytesIO()
         fig_legend.savefig(
@@ -174,12 +174,16 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     buf_pie.seek(0)
 
     # --- Image de la légende seule avec qualité améliorée ---
-    fig_legend, legend_ax = plt.subplots(figsize=(6, 2), dpi=150)  # Augmenter DPI et taille
-    legend_ax.axis('off')  # pas d'axes visibles
-
-    # Calculer le nombre de colonnes optimal en fonction du nombre d'éléments
+    # Calculer les dimensions adaptatives selon le nombre d'éléments
     num_items = len(filtered_names)
     ncol = min(3, num_items) if num_items <= 6 else min(4, num_items)
+
+    # Hauteur adaptive selon le nombre de lignes
+    nrows = (num_items + ncol - 1) // ncol  # Calcul du nombre de lignes
+    height = max(2.5, min(4.0, 1.5 + nrows * 0.8))  # Hauteur entre 2.5 et 4.0
+
+    fig_legend, legend_ax = plt.subplots(figsize=(6, height), dpi=150)
+    legend_ax.axis('off')  # pas d'axes visibles
 
     legend = legend_ax.legend(
         wedges, filtered_names,
