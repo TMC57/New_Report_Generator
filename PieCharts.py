@@ -49,7 +49,7 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
         plt.close(fig_pie)
         buf_pie.seek(0)
 
-        fig_legend, legend_ax = plt.subplots(figsize=(5, 4.6), dpi=150)
+        fig_legend, legend_ax = plt.subplots(figsize=(5, 1.2), dpi=150)
         legend_ax.axis('off')
         buf_legend = BytesIO()
         fig_legend.savefig(
@@ -174,7 +174,7 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     buf_pie.seek(0)
 
     # --- Image de la légende seule avec qualité améliorée ---
-    fig_legend, legend_ax = plt.subplots(figsize=(5, 4.6), dpi=150)
+    fig_legend, legend_ax = plt.subplots(figsize=(5, 1.2), dpi=150)
     legend_ax.axis('off')  # pas d'axes visibles
 
     # Calculer le nombre de colonnes optimal
