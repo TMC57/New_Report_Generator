@@ -49,18 +49,10 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
         plt.close(fig_pie)
         buf_pie.seek(0)
 
-        fig_legend, legend_ax = plt.subplots(figsize=(8, 3), dpi=150)
+        fig_legend, legend_ax = plt.subplots(figsize=(5, 2))
         legend_ax.axis('off')
         buf_legend = BytesIO()
-        fig_legend.savefig(
-            buf_legend,
-            format='png',
-            bbox_inches='tight',
-            dpi=150,
-            facecolor='white',
-            edgecolor='none',
-            pad_inches=0.1
-        )
+        fig_legend.savefig(buf_legend, format='png', bbox_inches='tight')
         plt.close(fig_legend)
         buf_legend.seek(0)
 
@@ -173,41 +165,20 @@ def generate_pie_chart_and_legend(facility, from_date: str, to_date: str):
     plt.close(fig_pie)
     buf_pie.seek(0)
 
-    # --- Image de la légende seule avec qualité améliorée ---
-    fig_legend, legend_ax = plt.subplots(figsize=(8, 3), dpi=150)  # Plus large, hauteur fixe
+    # --- Image de la légende seule ---
+    fig_legend, legend_ax = plt.subplots(figsize=(5, 2))
     legend_ax.axis('off')  # pas d'axes visibles
-
-    # Calculer le nombre de colonnes optimal en fonction du nombre d'éléments
-    num_items = len(filtered_names)
-    ncol = min(4, num_items) if num_items <= 8 else 5  # Plus de colonnes pour répartir
 
     legend = legend_ax.legend(
         wedges, filtered_names,
         loc='center',
-        fontsize=12,        # Police plus grande
+        fontsize=11,
         frameon=False,
-        ncol=ncol,
-        columnspacing=1.5,  # Espacement entre colonnes
-        handlelength=1.5,   # Longueur des échantillons de couleur
-        handletextpad=0.8,  # Espacement entre couleur et texte
-        borderpad=0.5       # Marge interne
+        ncol=3  # ✅ 3 éléments max par ligne
     )
-
-    # Améliorer le rendu de la légende
-    for text in legend.get_texts():
-        text.set_fontweight('normal')
-        text.set_fontfamily('sans-serif')
 
     buf_legend = BytesIO()
-    fig_legend.savefig(
-        buf_legend,
-        format='png',
-        bbox_inches='tight',
-        dpi=150,           # Haute résolution
-        facecolor='white', # Fond blanc
-        edgecolor='none',  # Pas de bordure
-        pad_inches=0.1     # Petite marge
-    )
+    fig_legend.savefig(buf_legend, format='png', bbox_inches='tight')
     plt.close(fig_legend)
     buf_legend.seek(0)
 
