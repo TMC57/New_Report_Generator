@@ -8,8 +8,8 @@ services:
       - "8000:8000"
     restart: always             # <--- ici
     environment:
-      - DATA_ROOT=/app/data
+      - DATA_ROOT=/app/Reports
     volumes:
-      - ../Reports:/app/data
+      - ./Reports:/app/Reports
       - ./uploads:/app/uploads
       - ./Config:/app/Config
