@@ -9,6 +9,7 @@ services:
     restart: always             # <--- ici
     environment:
       - DATA_ROOT=/app/Reports
+      - TZ=Europe/Paris
     volumes:
       - ./Reports:/app/Reports
       - ./uploads:/app/uploads
