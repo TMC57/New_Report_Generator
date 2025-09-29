@@ -622,6 +622,197 @@
       0%, 100% { opacity: 0.5; }
       50% { opacity: 1; }
     }
+
+    /* Styles pour les onglets */
+    .tabs-container {
+      margin-bottom: 20px;
+    }
+
+    .tabs-header {
+      display: flex;
+      background: var(--bg-primary);
+      border-radius: 8px 8px 0 0;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      box-shadow: var(--tmh-shadow-sm);
+    }
+
+    .tab-button {
+      flex: 1;
+      padding: 15px 20px;
+      border: none;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .tab-button:last-child {
+      border-right: none;
+    }
+
+    .tab-button:hover {
+      background: var(--bg-tertiary);
+    }
+
+    .tab-button.active {
+      background: var(--tmh-gradient-primary);
+      color: var(--tmh-white);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Styles pour les tableaux de configuration */
+    .config-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .config-table th,
+    .config-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .config-table th {
+      background: var(--tmh-gradient-primary);
+      color: var(--tmh-white);
+      font-weight: 500;
+      position: sticky;
+      top: 0;
+    }
+
+    .config-table input[type="text"],
+    .config-table textarea {
+      width: 95%;
+      padding: 4px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      box-sizing: border-box;
+    }
+
+    .config-table textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .drop-zone {
+      border: 2px dashed var(--border-color);
+      border-radius: 4px;
+      padding: 10px;
+      text-align: center;
+      color: var(--text-secondary);
+      cursor: pointer;
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      justify-content: center;
+      background: var(--bg-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .drop-zone.dragover {
+      border-color: var(--tmh-blue);
+      background: var(--bg-tertiary);
+    }
+
+    .drop-zone .thumb {
+      max-width: 120px;
+      max-height: 120px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .subfield-container {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .subfield-container input {
+      width: 100%;
+      padding: 4px;
+      box-sizing: border-box;
+    }
+
+    .readonly {
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+    }
+
+    .config-actions {
+      margin: 16px 0;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    /* Agrandir les onglets de configuration */
+    #tab-facility-config.active,
+    #tab-group-config.active {
+      position: fixed;
+      top: 190px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      z-index: 999;
+      background: var(--bg-secondary);
+      padding: 20px;
+      overflow-y: auto;
+      margin: 0;
+      border-radius: 8px;
+      box-shadow: var(--tmh-shadow-lg);
+    }
+
+    /* S'assurer que les onglets restent visibles */
+    .tabs-container {
+      position: relative;
+      z-index: 1000;
+    }
+
+    #tab-facility-config .card,
+    #tab-group-config .card {
+      margin: 0;
+      width: 100%;
+      max-width: none;
+    }
+
+    #tab-facility-config .config-table,
+    #tab-group-config .config-table {
+      font-size: 12px;
+    }
+
+    #tab-facility-config .config-table th,
+    #tab-facility-config .config-table td,
+    #tab-group-config .config-table th,
+    #tab-group-config .config-table td {
+      padding: 6px;
+      min-width: 120px;
+    }
+
+    #tab-facility-config .config-table input,
+    #tab-facility-config .config-table textarea,
+    #tab-group-config .config-table input,
+    #tab-group-config .config-table textarea {
+      font-size: 11px;
+      padding: 3px;
+    }
   </style>
 </head>
 <body>
@@ -637,6 +828,18 @@
   </div>
 
   <div class="container">
+
+  <!-- Navigation par onglets -->
+  <div class="tabs-container">
+    <div class="tabs-header">
+      <button class="tab-button active" onclick="switchTab('reports')">📊 Rapports</button>
+      <button class="tab-button" onclick="switchTab('facility-config')">⚙️ Config Facilities</button>
+      <button class="tab-button" onclick="switchTab('group-config')">👥 Config Groupes</button>
+    </div>
+  </div>
+
+  <!-- Contenu de l'onglet Rapports -->
+  <div id="tab-reports" class="tab-content active">
 
   <div class="card">
     <div class="card-header">
@@ -695,6 +898,46 @@
   </div>
 
   <div id="pagination" class="pagination"></div>
+
+  </div> <!-- Fin onglet rapports -->
+
+  <!-- Contenu de l'onglet Config Facilités -->
+  <div id="tab-facility-config" class="tab-content">
+    <div class="card">
+      <div class="card-header">
+        <h3>Configuration des Facilities</h3>
+      </div>
+      <div class="card-content">
+        <p>Entrez les informations qui ne sont pas détenues par CM2W pour alimenter les rapports</p>
+
+        <div class="config-actions">
+          <button id="saveFacilityConfig" class="btn btn-primary">💾 Sauvegarder le JSON</button>
+          <span id="facilityConfigStatus"></span>
+        </div>
+
+        <table id="facilityConfigTable" class="config-table"></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenu de l'onglet Config Groupes -->
+  <div id="tab-group-config" class="tab-content">
+    <div class="card">
+      <div class="card-header">
+        <h3>Configuration des Groupes</h3>
+      </div>
+      <div class="card-content">
+        <p>Configuration des groupes par propriétaire (owner)</p>
+
+        <div class="config-actions">
+          <button id="saveGroupConfig" class="btn btn-primary">💾 Sauvegarder</button>
+          <span id="groupConfigStatus"></span>
+        </div>
+
+        <table id="groupConfigTable" class="config-table"></table>
+      </div>
+    </div>
+  </div>
 
   </div> <!-- Fermeture container -->
 
@@ -1363,6 +1606,397 @@
         themeIcon.textContent = '🌙';
         themeText.textContent = 'Mode sombre';
       }
+    }
+
+    // Gestion des onglets
+    function switchTab(tabName) {
+      // Cacher tous les onglets
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      // Désactiver tous les boutons d'onglets
+      const buttons = document.querySelectorAll('.tab-button');
+      buttons.forEach(button => button.classList.remove('active'));
+
+      // Afficher l'onglet sélectionné
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+      event.target.classList.add('active');
+
+      // Charger les données selon l'onglet
+      if (tabName === 'facility-config') {
+        loadFacilityConfig();
+      } else if (tabName === 'group-config') {
+        loadGroupConfig();
+      }
+    }
+
+    // Variables pour la configuration des facilités
+    let facilityData = [];
+    let facilityColumns = [];
+    const FACILITY_READONLY_FIELDS = ["facilityId", "facilityName"];
+    const FACILITY_IMAGE_FIELDS = ["cover_picture", "material_picture"];
+
+    // Variables pour la configuration des groupes
+    let groupData = [];
+    const GROUP_READONLY_FIELDS = ["owner", "facilities"];
+    const GROUP_IMAGE_FIELDS = ["cover_picture"];
+    const GROUP_COLUMNS = [
+      "owner",
+      "facilities",
+      "cover_picture",
+      "inventory_monitoring_manager",
+      "customer_technical_relay_manager",
+      "file_referent"
+    ];
+
+    // Chargement de la configuration des facilités
+    async function loadFacilityConfig() {
+      try {
+        const res = await fetch("/items");
+        facilityData = await res.json();
+        if (!Array.isArray(facilityData) || facilityData.length === 0) {
+          document.getElementById("facilityConfigStatus").textContent = "JSON vide ou invalide";
+          return;
+        }
+        facilityColumns = Object.keys(facilityData[0]).filter(col => col !== "ID" && col !== "primary_company_brand");
+        buildFacilityTable();
+      } catch (error) {
+        document.getElementById("facilityConfigStatus").textContent = "Erreur de chargement";
+      }
+    }
+
+    // Construction du tableau des facilités
+    function buildFacilityTable() {
+      const table = document.getElementById("facilityConfigTable");
+      table.innerHTML = "";
+
+      // Header
+      const thead = document.createElement("thead");
+      const headerRow = document.createElement("tr");
+      facilityColumns.forEach(key => {
+        const th = document.createElement("th");
+        th.textContent = key;
+        headerRow.appendChild(th);
+      });
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+
+      // Body
+      const tbody = document.createElement("tbody");
+      facilityData.forEach((row, rowIndex) => {
+        const tr = document.createElement("tr");
+        facilityColumns.forEach(col => {
+          const td = document.createElement("td");
+          const cellValue = row[col];
+
+          if (FACILITY_READONLY_FIELDS.includes(col)) {
+            td.textContent = cellValue ?? "";
+            td.className = "readonly";
+          } else if (FACILITY_IMAGE_FIELDS.includes(col)) {
+            const dz = createFacilityDropZone(rowIndex, col, cellValue);
+            td.appendChild(dz);
+          } else if (isPlainObject(cellValue)) {
+            const container = document.createElement("div");
+            container.className = "subfield-container";
+            Object.keys(cellValue).forEach(subKey => {
+              const input = document.createElement("input");
+              input.type = "text";
+              input.placeholder = subKey;
+              input.title = subKey;
+              input.value = cellValue[subKey] ?? "";
+              input.addEventListener("input", (e) => {
+                facilityData[rowIndex][col][subKey] = e.target.value;
+              });
+              container.appendChild(input);
+            });
+            td.appendChild(container);
+          } else {
+            let input;
+            if (col === "relevés buses") {
+              input = document.createElement("textarea");
+              input.rows = 3;
+            } else {
+              input = document.createElement("input");
+              input.type = "text";
+            }
+            input.value = cellValue ?? "";
+            input.addEventListener("input", (e) => {
+              facilityData[rowIndex][col] = e.target.value;
+            });
+            td.appendChild(input);
+          }
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+    }
+
+    // Création d'une zone de drop pour les facilités
+    function createFacilityDropZone(rowIndex, field, currentValue) {
+      const dropZone = document.createElement("div");
+      dropZone.className = "drop-zone";
+      dropZone.textContent = "Déposez une image ici ou cliquez";
+      dropZone.dataset.row = rowIndex;
+      dropZone.dataset.field = field;
+
+      if (currentValue) {
+        const img = document.createElement("img");
+        img.src = currentValue;
+        img.className = "thumb";
+        dropZone.appendChild(img);
+      }
+
+      addFacilityDragDropEvents(dropZone);
+      return dropZone;
+    }
+
+    // Événements drag & drop pour les facilités
+    function addFacilityDragDropEvents(dropZone) {
+      dropZone.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.onchange = () => {
+          const file = input.files[0];
+          if (file) handleFacilityFile(dropZone, file);
+        };
+        input.click();
+      });
+
+      dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("dragover");
+      });
+
+      dropZone.addEventListener("dragleave", () => {
+        dropZone.classList.remove("dragover");
+      });
+
+      dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+        const file = e.dataTransfer.files[0];
+        if (file) handleFacilityFile(dropZone, file);
+      });
+    }
+
+    // Gestion des fichiers pour les facilités
+    async function handleFacilityFile(dropZone, file) {
+      const rowIndex = dropZone.dataset.row;
+      const field = dropZone.dataset.field;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        dropZone.innerHTML = "";
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.className = "thumb";
+        dropZone.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+
+      const formData = new FormData();
+      formData.append("file", file);
+      const resp = await fetch("/upload", {
+        method: "POST",
+        body: formData
+      });
+      const { path } = await resp.json();
+      facilityData[rowIndex][field] = path;
+
+      setTimeout(() => {
+        dropZone.innerHTML = "";
+        const img = document.createElement("img");
+        img.src = path;
+        img.className = "thumb";
+        dropZone.appendChild(img);
+      }, 300);
+    }
+
+    // Sauvegarde de la configuration des facilités
+    document.getElementById("saveFacilityConfig").addEventListener("click", async () => {
+      const res = await fetch("/items", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(facilityData)
+      });
+      const json = await res.json();
+      document.getElementById("facilityConfigStatus").textContent = `✅ Sauvegardé (${json.saved} éléments)`;
+      setTimeout(() => (document.getElementById("facilityConfigStatus").textContent = ""), 3000);
+    });
+
+    // Chargement de la configuration des groupes
+    async function loadGroupConfig() {
+      try {
+        const res = await fetch("/group-items");
+        groupData = await res.json();
+        buildGroupTable();
+      } catch (error) {
+        document.getElementById("groupConfigStatus").textContent = "Erreur de chargement";
+      }
+    }
+
+    // Construction du tableau des groupes
+    function buildGroupTable() {
+      const table = document.getElementById("groupConfigTable");
+      table.innerHTML = "";
+
+      // Header
+      const thead = document.createElement("thead");
+      const trh = document.createElement("tr");
+      GROUP_COLUMNS.forEach(k => {
+        const th = document.createElement("th");
+        th.textContent = k;
+        trh.appendChild(th);
+      });
+      thead.appendChild(trh);
+      table.appendChild(thead);
+
+      // Body
+      const tbody = document.createElement("tbody");
+      groupData.forEach((row, rowIndex) => {
+        const tr = document.createElement("tr");
+        GROUP_COLUMNS.forEach(col => {
+          const td = document.createElement("td");
+          const cellValue = row[col];
+
+          if (GROUP_READONLY_FIELDS.includes(col)) {
+            if (col === "facilities") {
+              const txt = (Array.isArray(cellValue) ? cellValue.map(f => `${f.facilityId} - ${f.facilityName}`).join("\n") : "");
+              const pre = document.createElement("pre");
+              pre.className = "readonly";
+              pre.style.margin = 0;
+              pre.textContent = txt;
+              td.appendChild(pre);
+            } else {
+              td.textContent = cellValue ?? "";
+              td.className = "readonly";
+            }
+          } else if (GROUP_IMAGE_FIELDS.includes(col)) {
+            td.appendChild(createGroupDropZone(rowIndex, col, cellValue));
+          } else if (isPlainObject(cellValue)) {
+            const container = document.createElement("div");
+            Object.keys(cellValue).forEach(subKey => {
+              const input = document.createElement("input");
+              input.type = "text";
+              input.placeholder = subKey;
+              input.title = subKey;
+              input.value = cellValue[subKey] ?? "";
+              input.addEventListener("input", e => {
+                groupData[rowIndex][col][subKey] = e.target.value;
+              });
+              container.appendChild(input);
+            });
+            td.appendChild(container);
+          } else {
+            let input;
+            if (col === "relevés buses") {
+              input = document.createElement("textarea");
+              input.rows = 3;
+            } else {
+              input = document.createElement("input");
+              input.type = "text";
+            }
+            input.value = cellValue ?? "";
+            input.addEventListener("input", e => {
+              groupData[rowIndex][col] = e.target.value;
+            });
+            td.appendChild(input);
+          }
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+    }
+
+    // Création d'une zone de drop pour les groupes
+    function createGroupDropZone(rowIndex, col, value) {
+      const dz = document.createElement("div");
+      dz.className = "drop-zone";
+
+      const showEmpty = () => {
+        dz.innerHTML = "";
+        const hint = document.createElement("div");
+        hint.textContent = "Déposez une image";
+        const sub = document.createElement("div");
+        sub.textContent = "ou cliquez";
+        sub.style.fontSize = "12px";
+        sub.style.color = "#999";
+        dz.appendChild(hint);
+        dz.appendChild(sub);
+      };
+
+      const showPreview = (src) => {
+        dz.innerHTML = "";
+        const img = document.createElement("img");
+        img.src = src;
+        img.className = "thumb";
+        dz.appendChild(img);
+      };
+
+      if (value && typeof value === "string" && value.trim() !== "") {
+        showPreview(value);
+      } else {
+        showEmpty();
+      }
+
+      dz.addEventListener("click", () => {
+        const inp = document.createElement("input");
+        inp.type = "file";
+        inp.accept = "image/*";
+        inp.onchange = () => handleGroupFile(inp.files[0], rowIndex, col, dz, showPreview, showEmpty);
+        inp.click();
+      });
+
+      dz.addEventListener("dragenter", e => { e.preventDefault(); dz.classList.add("dragover"); });
+      dz.addEventListener("dragover", e => { e.preventDefault(); dz.classList.add("dragover"); });
+      dz.addEventListener("dragleave", e => { dz.classList.remove("dragover"); });
+      dz.addEventListener("drop", async e => {
+        e.preventDefault();
+        dz.classList.remove("dragover");
+        const file = e.dataTransfer.files && e.dataTransfer.files[0];
+        if (file) handleGroupFile(file, rowIndex, col, dz, showPreview, showEmpty);
+      });
+
+      return dz;
+    }
+
+    // Gestion des fichiers pour les groupes
+    async function handleGroupFile(file, rowIndex, col, dz, showPreview, showEmpty) {
+      if (!file) return;
+      const fd = new FormData();
+      fd.append("file", file);
+      try {
+        const res = await fetch("/upload", { method: "POST", body: fd });
+        const js = await res.json();
+        if (js && js.path) {
+          groupData[rowIndex][col] = js.path;
+          showPreview(js.path);
+        } else {
+          showEmpty();
+        }
+      } catch {
+        showEmpty();
+      }
+    }
+
+    // Sauvegarde de la configuration des groupes
+    document.getElementById("saveGroupConfig").addEventListener("click", async () => {
+      const res = await fetch("/group-items", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(groupData)
+      });
+      const js = await res.json();
+      document.getElementById("groupConfigStatus").textContent = `✅ Sauvegardé (${js.saved} groupes)`;
+      setTimeout(() => document.getElementById("groupConfigStatus").textContent = "", 2000);
+    });
+
+    // Fonction utilitaire
+    function isPlainObject(value) {
+      return typeof value === "object" && value !== null && !Array.isArray(value);
     }
 
     // Initialiser le thème, les dates et charger les rapports
