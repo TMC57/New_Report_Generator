@@ -114,12 +114,12 @@ async def get_home(request: Request):
 
 @app.get("/Reports_generation", tags=["Rapports"])
 def  Total_Quantity_Report_grouped_by_facilities(
-    user: str = Depends(require_auth),
     # pageNumber: int,
     # pageSize: int,
     from_date: str,
     to_date: str,
-    facility_id: Optional[int] = None,  
+    facility_id: Optional[int] = None,
+    user: str = Depends(require_auth),
     # DeviceId: Optional[int] = None
 ):
     """
@@ -169,9 +169,9 @@ def  Total_Quantity_Report_grouped_by_facilities(
 
 @app.get("/Group_Reports_generation", tags=["Rapports"])
 def Group_Report_generation(
-    user: str = Depends(require_auth),
     from_date: str,
     to_date: str,
+    user: str = Depends(require_auth),
 ):
     """
     Endpoint GET /report qui retourne des données de rapport de groupe.
