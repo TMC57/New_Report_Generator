@@ -114,6 +114,7 @@ async def get_home(request: Request):
 
 @app.get("/Reports_generation", tags=["Rapports"])
 def  Total_Quantity_Report_grouped_by_facilities(
+    user: str = Depends(require_auth),
     # pageNumber: int,
     # pageSize: int,
     from_date: str,
@@ -168,6 +169,7 @@ def  Total_Quantity_Report_grouped_by_facilities(
 
 @app.get("/Group_Reports_generation", tags=["Rapports"])
 def Group_Report_generation(
+    user: str = Depends(require_auth),
     from_date: str,
     to_date: str,
 ):
@@ -242,20 +244,20 @@ app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 app.mount("/images", StaticFiles(directory="images"), name="images")
 
 @app.get("/items")
-def get_items():
+def get_items(user: str = Depends(require_auth)):
     """Retourne le contenu du JSON."""
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
 @app.put("/items")
-def save_items(items: List[dict]):
+def save_items(items: List[dict], user: str = Depends(require_auth)):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
     return {"saved": len(items)}
 
 # --- Upload ---
 @app.post("/upload")
-async def upload(file: UploadFile = File(...)):
+async def upload(file: UploadFile = File(...), user: str = Depends(require_auth)):
     dst_path = os.path.join("uploads", file.filename)
     with open(dst_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
@@ -264,32 +266,32 @@ async def upload(file: UploadFile = File(...)):
 
 
 @app.get("/group-items")
-def get_group_items():
+def get_group_items(user: str = Depends(require_auth)):
     if not os.path.exists(GROUP_FILE):
         return []
     with open(GROUP_FILE, "r", encoding="utf-8") as f:
         return json.load(f)
 
 @app.put("/group-items")
-def save_group_items(items: list[dict]):
+def save_group_items(items: list[dict], user: str = Depends(require_auth)):
     with open(GROUP_FILE, "w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
     return {"saved": len(items)}
 
 # Page web d'édition des groupes
 @app.get("/group-app")
-def group_app():
+def group_app(user: str = Depends(require_auth)):
     return FileResponse("static/group_table.html")
 
 # --- REPORTS MANAGEMENT ENDPOINTS ---
 
 @app.get("/reports")
-def reports_management():
+def reports_management(user: str = Depends(require_auth)):
     """Page de gestion des rapports"""
     return FileResponse("static/reports.html")
 
 @app.get("/api/reports/list")
-def list_reports():
+def list_reports(user: str = Depends(require_auth)):
     """API pour lister tous les rapports avec métadonnées"""
     reports_dir = "Reports"
     reports = []
@@ -358,7 +360,7 @@ def format_date_fr(date_str):
         return date_str
 
 @app.get("/api/reports/download/{filename}")
-def download_report(filename: str):
+def download_report(filename: str, user: str = Depends(require_auth)):
     """Télécharger un rapport PDF"""
     # Rechercher le fichier dans le dossier Reports et ses sous-dossiers
     reports_dir = "Reports"
@@ -381,7 +383,7 @@ def download_report(filename: str):
     raise HTTPException(status_code=404, detail="Rapport non trouvé")
 
 @app.get("/api/reports/preview/{filename}")
-def preview_report(filename: str):
+def preview_report(filename: str, user: str = Depends(require_auth)):
     """Prévisualiser un rapport PDF dans le navigateur"""
     # Rechercher le fichier dans le dossier Reports et ses sous-dossiers
     reports_dir = "Reports"
@@ -403,7 +405,7 @@ def preview_report(filename: str):
     raise HTTPException(status_code=404, detail="Rapport non trouvé")
 
 @app.delete("/api/reports/{filename}")
-def delete_report(filename: str):
+def delete_report(filename: str, user: str = Depends(require_auth)):
     """Supprimer un rapport PDF"""
     reports_dir = "Reports"
 
@@ -424,7 +426,7 @@ def delete_report(filename: str):
     raise HTTPException(status_code=404, detail="Rapport non trouvé")
 
 @app.post("/api/reports/download-multiple")
-async def download_multiple_reports(request: Request):
+async def download_multiple_reports(request: Request, user: str = Depends(require_auth)):
     """Télécharger plusieurs rapports dans une archive ZIP"""
     try:
         # Récupérer la liste des fichiers depuis le body de la requête
