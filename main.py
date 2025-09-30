@@ -7,8 +7,8 @@ def open_browser():
     # on attend un peu que le serveur soit prêt
     time.sleep(2)
     webbrowser.open("http://127.0.0.1:8000/app")
-    webbrowser.open("http://127.0.0.1:8000/")
-    webbrowser.open("http://127.0.0.1:8000/group-app")
+    # webbrowser.open("http://127.0.0.1:8000/")
+    # webbrowser.open("http://127.0.0.1:8000/group-app")
     webbrowser.open("http://127.0.0.1:8000/reports")
 
 if __name__ == "__main__":

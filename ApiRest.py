@@ -7,8 +7,8 @@ import tempfile
 from datetime import datetime, timedelta
 from typing import List, Optional
 
-from fastapi import FastAPI, UploadFile, File, HTTPException, Request
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request, Depends
+from fastapi.responses import HTMLResponse, FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from model import model, body_total_qty_report, body_devices_list, body_stock_levels
@@ -18,6 +18,7 @@ from Json_parameter import transform_facility_json
 from group_parameter import build_group_config_from_devices_list
 from GrouPdfGen import generate_group_pdfs
 from product_sync import sync_product_names, add_missing_facilities
+from auth import verify_odoo_token, get_current_user, require_auth
 
 
 GROUP_FILE = "Config/GroupConfigJson.json"
@@ -35,12 +36,80 @@ app = FastAPI(
     swagger_ui_parameters={"theme": "dark"}  # Ajoute le dark mode
 )
 
+# Endpoints d'authentification
+@app.get("/auth")
+async def authenticate_with_token(request: Request, token: str):
+    """
+    Endpoint d'authentification avec token Odoo
+    URL: /auth?token=xxx
+    """
+    # Vérifier le token auprès d'Odoo
+    if await verify_odoo_token(token):
+        # Token valide, créer une session locale
+        response = RedirectResponse(url="/", status_code=302)
+        # Définir un cookie avec le token (expire dans 1h)
+        response.set_cookie(
+            key="auth_token",
+            value=token,
+            max_age=3600,  # 1 heure
+            httponly=True,
+            secure=False  # Mettre True en HTTPS
+        )
+        return response
+    else:
+        raise HTTPException(status_code=401, detail="Token invalide")
+
+@app.get("/logout")
+async def logout(request: Request):
+    """
+    Déconnexion - supprime la session
+    """
+    response = RedirectResponse(url="/login-required", status_code=302)
+    response.delete_cookie("auth_token")
+    return response
+
+@app.get("/login-required")
+async def login_required():
+    """
+    Page affichée quand l'authentification est requise
+    """
+    return HTMLResponse("""
+    <html>
+        <head><title>Authentification requise</title></head>
+        <body>
+            <h1>Authentification requise</h1>
+            <p>Vous devez vous connecter depuis Odoo pour accéder à cette application.</p>
+            <p>Veuillez retourner dans Odoo et utiliser le lien d'accès approprié.</p>
+        </body>
+    </html>
+    """)
+
+@app.post("/api/verify-token")
+async def verify_token_endpoint(request: Request):
+    """
+    Endpoint pour qu'Odoo vérifie un token
+    """
+    data = await request.json()
+    token = data.get("token")
+
+    if not token:
+        raise HTTPException(status_code=400, detail="Token manquant")
+
+    is_valid = await verify_odoo_token(token)
+    return {"valid": is_valid}
+
 # @app.get("/", tags=["Raports"])
 # def read_root():
 #     return {"message": "API opérationnelle"}
 
 @app.get("/")
-def get_home():
+async def get_home(request: Request):
+    """
+    Page d'accueil - nécessite une authentification
+    """
+    user_token = await get_current_user(request)
+    if not user_token:
+        return RedirectResponse(url="/login-required", status_code=302)
     return FileResponse("static/table.html")
 
 @app.get("/Reports_generation", tags=["Rapports"])
