@@ -46,7 +46,7 @@ async def authenticate_with_token(request: Request, token: str):
     # Vérifier le token auprès d'Odoo
     if await verify_odoo_token(token):
         # Token valide, créer une session locale
-        response = RedirectResponse(url="/", status_code=302)
+        response = RedirectResponse(url="/reports", status_code=302)
         # Définir un cookie avec le token (expire dans 1h)
         response.set_cookie(
             key="auth_token",
