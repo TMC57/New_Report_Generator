@@ -53,7 +53,9 @@ async def authenticate_with_token(request: Request, token: str):
             value=token,
             max_age=3600,  # 1 heure
             httponly=True,
-            secure=False  # Mettre True en HTTPS
+            secure=False,  # Mettre True en HTTPS
+            path="/",
+            samesite='lax'
         )
         return response
     else:
