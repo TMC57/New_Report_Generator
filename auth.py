@@ -87,11 +87,11 @@ async def get_current_user(request: Request) -> Optional[str]:
 
     return None
 
-def require_auth(request: Request) -> str:
+async def require_auth(request: Request) -> str:
     """
     Dépendance pour exiger une authentification
     """
-    token = get_current_user(request)
+    token = await get_current_user(request)
     if not token:
         raise HTTPException(status_code=401, detail="Authentification requise")
     return token
