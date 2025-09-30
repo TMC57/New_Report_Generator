@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  tmh-api:
+    build: .
+    container_name: tmh-container
+    environment:
+      - DATA_ROOT=/app/Reports
+      - TZ=Europe/Paris
+    volumes:
+      - ./Reports:/app/Reports
+      - ./uploads:/app/uploads
+      - ./Config:/app/Config
+    networks:
+      - web
+    restart: always
+
+  traefik:
+    image: traefik:v2.9
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=votre@email.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tmh-api.rule=Host(`tmh-reports.duckdns.org`)"
+      - "traefik.http.routers.tmh-api.entrypoints=websecure"
+      - "traefik.http.routers.tmh-api.tls.certresolver=myresolver"
+      - "traefik.http.services.tmh-api.loadbalancer.server.port=8000"
+
+networks:
+  web:
+    external: false

@@ -1193,7 +1193,8 @@
     }
 
     function previewReport(filename) {
-      const url = `/api/reports/preview/${encodeURIComponent(filename)}`;
+      const timestamp = new Date().getTime();
+      const url = `/api/reports/preview/${encodeURIComponent(filename)}?t=${timestamp}`;
       window.open(url, '_blank');
     }
 
