@@ -34,6 +34,8 @@ async def verify_odoo_token(token: str) -> bool:
 
                 if is_valid:
                     print(f"Token validé pour l'utilisateur: {result.get('user')}")
+                    # Ajouter le token au cache local avec une expiration d'1 heure
+                    validated_tokens[token] = datetime.now() + timedelta(hours=1)
                     return True
                 else:
                     print(f"Token invalide ou expiré: {result.get('error', 'Aucune erreur spécifiée')}")
