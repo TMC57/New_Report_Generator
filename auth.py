@@ -10,7 +10,7 @@ from fastapi import HTTPException, Request, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 # Configuration Odoo
-ODOO_URL = os.getenv("ODOO_URL", "https://tmh-corporation-odoo-basetest-23718588.dev.odoo.com")  # URL de votre serveur Odoo
+ODOO_URL = os.getenv("ODOO_URL", "https://tmh-corporation-odoo.odoo.com")  # URL de votre serveur Odoo (production par défaut)
 
 # Stockage temporaire des tokens validés (en production, utiliser Redis)
 validated_tokens: Dict[str, datetime] = {}

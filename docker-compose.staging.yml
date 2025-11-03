@@ -3,14 +3,14 @@
 services:
   tmh-api:
     build: .
-    container_name: tmh-container
+    container_name: tmh-container-staging
     ports:
       - "8000:8000"
-    restart: always             # <--- ici
+    restart: always
     environment:
       - DATA_ROOT=/app/Reports
       - TZ=Europe/Paris
-      - ODOO_URL=https://tmh-corporation-odoo.odoo.com
+      - ODOO_URL=https://tmh-corporation-odoo-basetest-23718588.dev.odoo.com
     volumes:
       - ./Reports:/app/Reports
       - ./uploads:/app/uploads
