@@ -9,7 +9,14 @@
       "Bash(taskkill:*)",
       "Bash(netstat:*)",
       "Bash(pip install:*)",
-      "Bash(netsh advfirewall firewall show rule:*)"
+      "Bash(netsh advfirewall firewall show rule:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git checkout:*)",
+      "Bash(git merge:*)",
+      "Bash(git cherry-pick:*)",
+      "Bash(git branch:*)"
     ],
     "deny": [],
     "ask": []
