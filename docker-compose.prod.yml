@@ -7,6 +7,7 @@ services:
     environment:
       - DATA_ROOT=/app/Reports
       - TZ=Europe/Paris
+      - ODOO_URL=https://tmh-corporation-odoo.odoo.com
     volumes:
       - ./Reports:/app/Reports
       - ./uploads:/app/uploads
