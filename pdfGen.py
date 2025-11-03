@@ -444,7 +444,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         facility_id = facility["facilityId"]
 
         sanitized_name = _sanitize_filename(facility.get("facilityName", ""))
-        pdf_path = f"{output_dir}/{sanitized_name}_{facility_id}.pdf"
+        pdf_path = f"{output_dir}/Rapports de consommation_{sanitized_name}_{facility_id}.pdf"
 
 
         serial_numbers = get_serial_numbers_for_facility(devices_list, facility_id)

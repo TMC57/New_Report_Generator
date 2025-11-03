@@ -77,10 +77,7 @@ async def get_current_user(request: Request) -> Optional[str]:
     """
     # Essayer depuis les cookies
     token = request.cookies.get("auth_token")
-    print(f"DEBUG - Cookie token: {token}")
-    print(f"DEBUG - Validated tokens: {list(validated_tokens.keys())}")
     if token and token in validated_tokens and validated_tokens[token] > datetime.now():
-        print(f"DEBUG - Token valide trouvé dans le cache")
         return token
 
     # Essayer depuis les headers Authorization
