@@ -841,13 +841,17 @@ def generate_group_pdfs(total_qty: dict,
         
         safe_owner = _sanitize_filename(owner_name)
 
-        # Récupérer le bloc owner pour extraire le premier facility_id
+        # Récupérer le bloc owner pour extraire le numéro au début du premier facilityName
         owner_data_temp = owners_index.get(owner_name) or {"facilities": []}
-        first_facility_id = ""
+        first_facility_number = ""
         if owner_data_temp.get("facilities"):
-            first_facility_id = str(owner_data_temp["facilities"][0].get("facilityId", ""))
+            first_facility_name = owner_data_temp["facilities"][0].get("facilityName", "")
+            # Extraire le numéro au début du nom (ex: "1070309718 - Site Name" -> "1070309718")
+            match = re.match(r'^(\d+)', first_facility_name.strip())
+            if match:
+                first_facility_number = match.group(1)
 
-        pdf_path = os.path.join(output_dir, f"Rapports de consommation_{first_facility_id}_{safe_owner}.pdf")
+        pdf_path = os.path.join(output_dir, f"Rapports de consommation_{first_facility_number}_{safe_owner}.pdf")
 
         # Footer spécifique owner
         owner_footer = _build_owner_footer(owner_row)
