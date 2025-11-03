@@ -840,7 +840,14 @@ def generate_group_pdfs(total_qty: dict,
             continue
         
         safe_owner = _sanitize_filename(owner_name)
-        pdf_path = os.path.join(output_dir, f"group_{safe_owner}_{from_date}_to_{to_date}.pdf")
+
+        # Récupérer le bloc owner pour extraire le premier facility_id
+        owner_data_temp = owners_index.get(owner_name) or {"facilities": []}
+        first_facility_id = ""
+        if owner_data_temp.get("facilities"):
+            first_facility_id = str(owner_data_temp["facilities"][0].get("facilityId", ""))
+
+        pdf_path = os.path.join(output_dir, f"Rapports de consommation_{first_facility_id}_{safe_owner}.pdf")
 
         # Footer spécifique owner
         owner_footer = _build_owner_footer(owner_row)
