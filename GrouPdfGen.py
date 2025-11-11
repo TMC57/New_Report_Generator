@@ -851,7 +851,7 @@ def generate_group_pdfs(total_qty: dict,
             if match:
                 first_facility_number = match.group(1)
 
-        pdf_path = os.path.join(output_dir, f"Rapports de consommation_{first_facility_number}_{safe_owner}.pdf")
+        pdf_path = os.path.join(output_dir, f"Rapports de consommation groupe E-wash_{first_facility_number}_{safe_owner}.pdf")
 
         # Footer spécifique owner
         owner_footer = _build_owner_footer(owner_row)
