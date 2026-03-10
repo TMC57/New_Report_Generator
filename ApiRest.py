@@ -19,7 +19,7 @@ from group_parameter import build_group_config_from_devices_list
 from GrouPdfGen import generate_group_pdfs
 from product_sync import sync_product_names, add_missing_facilities
 from auth import verify_odoo_token, get_current_user, require_auth
-
+from excel_parser import parse_listing_clients_excel
 
 GROUP_FILE = "Config/GroupConfigJson.json"
 
@@ -107,13 +107,18 @@ async def verify_token_endpoint(request: Request):
 @app.get("/")
 async def get_home(request: Request):
     """
-    Page d'accueil - authentification temporairement désactivée
+    Page d'accueil - sert le frontend React
     """
     # TEMPORAIRE: Authentification désactivée
     # user_token = await get_current_user(request)
     # if not user_token:
     #     return RedirectResponse(url="/login-required", status_code=302)
-    return FileResponse("static/table.html")
+    
+    react_index = os.path.join(BASE_DIR, "pixel-perfect-replica-50", "dist", "index.html")
+    if os.path.exists(react_index):
+        return FileResponse(react_index)
+    else:
+        return HTMLResponse("<h1>Frontend non trouvé. Veuillez builder le frontend React avec 'npm run build'</h1>", status_code=500)
 
 @app.get("/Reports_generation", tags=["Rapports"])
 def  Total_Quantity_Report_grouped_by_facilities(
@@ -165,7 +170,17 @@ def  Total_Quantity_Report_grouped_by_facilities(
 
     # # ======================================================
     transform_facility_json(devices_list)
-    generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date)
+    
+    # Charger les données Excel pour enrichir les rapports
+    excel_data_path = os.path.join(EXCEL_LISTINGS_DIR, "listing_data.json")
+    excel_data = {}
+    if os.path.exists(excel_data_path):
+        with open(excel_data_path, "r", encoding="utf-8") as f:
+            excel_data_raw = json.load(f)
+            # Convertir les clés str en int
+            excel_data = {int(k): v for k, v in excel_data_raw.items()}
+    
+    generate_pdfs_by_facility(total_qty_Json, devices_list, stock_levels, from_date, to_date, excel_data)
 
 
     return {"ok"}
@@ -232,21 +247,26 @@ def Group_Report_generation(
 DATA_FILE = "Config/configJson.json"  # Ton fichier JSON
 
 # --- Static files (HTML) + uploads (images) ---
-os.makedirs("static", exist_ok=True)
 os.makedirs("uploads", exist_ok=True)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
 os.makedirs(UPLOADS_DIR, exist_ok=True)
 
-
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# Dossier dédié pour les fichiers Excel
+EXCEL_LISTINGS_DIR = os.path.join(UPLOADS_DIR, "excel_listings")
+os.makedirs(EXCEL_LISTINGS_DIR, exist_ok=True)
 
 # URL publique /uploads -> dossier ./uploads (persistant via volumes)
 app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 
 # URL publique /images -> dossier ./images
 app.mount("/images", StaticFiles(directory="images"), name="images")
+
+# Servir le frontend React (build Vite)
+REACT_BUILD_DIR = os.path.join(BASE_DIR, "pixel-perfect-replica-50", "dist")
+if os.path.exists(REACT_BUILD_DIR):
+    app.mount("/assets", StaticFiles(directory=os.path.join(REACT_BUILD_DIR, "assets")), name="assets")
 
 @app.get("/items")
 def get_items():  # TEMPORAIRE: Authentification désactivée
@@ -273,6 +293,77 @@ async def upload(file: UploadFile = File(...)):  # TEMPORAIRE: Authentification 
     return {"path": f"/uploads/{file.filename}"}
 
 
+# --- Upload Excel Listing clients ---
+@app.post("/upload-excel-listing")
+async def upload_excel_listing(file: UploadFile = File(...)):
+    """
+    Upload et parse le fichier Excel 'Listing clients Orsye-Wash.xlsx'
+    Stocke les données parsées en session pour utilisation lors de la génération
+    """
+    # Vérifier l'extension
+    if not file.filename.lower().endswith(('.xlsx', '.xls')):
+        raise HTTPException(status_code=400, detail="Le fichier doit être au format Excel (.xlsx ou .xls)")
+    
+    # Sauvegarder le fichier Excel dans le dossier dédié
+    excel_file_path = os.path.join(EXCEL_LISTINGS_DIR, "current_listing.xlsx")
+    with open(excel_file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+    
+    try:
+        # Parser le fichier Excel
+        excel_data = parse_listing_clients_excel(excel_file_path)
+        
+        # Sauvegarder les données parsées dans un fichier JSON
+        excel_data_path = os.path.join(EXCEL_LISTINGS_DIR, "listing_data.json")
+        with open(excel_data_path, "w", encoding="utf-8") as f:
+            # Convertir les clés int en str pour JSON
+            json_data = {str(k): v for k, v in excel_data.items()}
+            json.dump(json_data, f, ensure_ascii=False, indent=2)
+        
+        # Sauvegarder aussi les métadonnées du fichier
+        metadata_path = os.path.join(EXCEL_LISTINGS_DIR, "metadata.json")
+        with open(metadata_path, "w", encoding="utf-8") as f:
+            metadata = {
+                "filename": file.filename,
+                "facilities_count": len(excel_data),
+                "upload_date": datetime.now().isoformat()
+            }
+            json.dump(metadata, f, ensure_ascii=False, indent=2)
+        
+        return {
+            "success": True,
+            "filename": file.filename,
+            "facilities_count": len(excel_data),
+            "message": f"Fichier Excel parsé avec succès. {len(excel_data)} facilities trouvées."
+        }
+    
+    except Exception as e:
+        logger.error(f"Erreur lors du parsing du fichier Excel: {e}")
+        raise HTTPException(status_code=500, detail=f"Erreur lors du parsing: {str(e)}")
+
+@app.get("/excel-listing-status")
+async def get_excel_listing_status():
+    """
+    Vérifie si un fichier Excel a été uploadé et retourne ses informations
+    """
+    metadata_path = os.path.join(EXCEL_LISTINGS_DIR, "metadata.json")
+    
+    if os.path.exists(metadata_path):
+        try:
+            with open(metadata_path, "r", encoding="utf-8") as f:
+                metadata = json.load(f)
+            return {
+                "uploaded": True,
+                "filename": metadata.get("filename"),
+                "facilities_count": metadata.get("facilities_count"),
+                "upload_date": metadata.get("upload_date")
+            }
+        except Exception as e:
+            logger.error(f"Erreur lors de la lecture des métadonnées Excel: {e}")
+            return {"uploaded": False}
+    
+    return {"uploaded": False}
+
 @app.get("/group-items")
 def get_group_items():  # TEMPORAIRE: Authentification désactivée
     # user: str = Depends(require_auth)
@@ -288,19 +379,7 @@ def save_group_items(items: list[dict]):  # TEMPORAIRE: Authentification désact
         json.dump(items, f, ensure_ascii=False, indent=2)
     return {"saved": len(items)}
 
-# Page web d'édition des groupes
-@app.get("/group-app")
-def group_app():  # TEMPORAIRE: Authentification désactivée
-    # user: str = Depends(require_auth)
-    return FileResponse("static/group_table.html")
-
 # --- REPORTS MANAGEMENT ENDPOINTS ---
-
-@app.get("/reports")
-def reports_management():  # TEMPORAIRE: Authentification désactivée
-    # user: str = Depends(require_auth)
-    """Page de gestion des rapports"""
-    return FileResponse("static/reports.html")
 
 @app.get("/api/reports/list")
 def list_reports():  # TEMPORAIRE: Authentification désactivée

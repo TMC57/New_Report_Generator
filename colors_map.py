@@ -2,24 +2,40 @@
 import re, hashlib
 
 # === Mapping table (match par sous-chaîne, insensible à la casse/espaces) ===
-# Exigences:
-# - Jantes -> Violet
-# - WNC40 -> Vert clair
-# - Autoséchant -> Bleu clair
-# - WNC31 -> Rouge
-# - WNC50 -> Vert
-# - WNC70 -> Vert clair (même que WNC40)
+# Couleurs selon cahier des charges 2026
+# Source: TR_ E-Wash - modifications des statistiques
 PRODUCT_COLOR_MAP = [
-    (r"JANTES",   "#8064A2"),  # Violet (BlueViolet)
-    (r"WNC40",    "#92D050"),  # Vert clair
-    (r"AUTOSECHANT", "#00B0F0"),  # Bleu clair (sans accent pour matching robuste)
-    (r"WNC31",    "#C0504D"),  # Rouge
-    (r"WNC50",    "#00B050"),  # Vert
-    (r"WNC70",    "#92D050"),  # Vert clair (même que WNC40)
-    (r"WNC60",    "#76933c"),  # WNC60
-    (r"EAU",    "#0070C0"),  # l'eau
-
-    (r"AUTOSECH", "#00B0F0"),  # Bleu clair (sans accent pour matching robuste)
+    # WNC 40 - Emerald
+    (r"WNC40",    "#65C482"),
+    (r"WNC 40",   "#65C482"),
+    
+    # WNC 50 - Medium jungle
+    (r"WNC50",    "#34A65F"),
+    (r"WNC 50",   "#34A65F"),
+    
+    # WNC 60 - Sea green
+    (r"WNC60",    "#1F8A4B"),
+    (r"WNC 60",   "#1F8A4B"),
+    
+    # WNC 70 - Dark emerald
+    (r"WNC70",    "#0F6A33"),
+    (r"WNC 70",   "#0F6A33"),
+    
+    # WNC 31 - Tuscan sun
+    (r"WNC31",    "#F7C844"),
+    (r"WNC 31",   "#F7C844"),
+    
+    # Auto-séchant - Wisteria blue
+    (r"AUTOSECHANT", "#8698CB"),
+    (r"AUTOSECH",    "#8698CB"),
+    (r"AUTO-SECHANT", "#8698CB"),
+    
+    # Purple (Jantes) - Indigo bloom
+    (r"PURPLE",   "#7B3FA7"),
+    (r"JANTES",   "#7B3FA7"),
+    
+    # Eau - Soft cyan
+    (r"EAU",      "#90F1EF"),
 ]
 
 # Palette fallback pour les produits non mappés (cohérente et déterministe)

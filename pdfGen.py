@@ -371,7 +371,7 @@ def _get_serial_by_device_id(devices_list: dict, facility_id: int, device_id: in
     return str(device_id)
 
 
-def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_date: str, to_date: str):
+def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_date: str, to_date: str, excel_data: dict = None):
 
 
     # côté conteneur ça vaut "/app/data"
@@ -418,9 +418,69 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
 
     for facility in json_data["data"]["results"]:   
         facility_id = facility["facilityId"]
+        facility_name = facility.get("facilityName", "")
+        
+        # Extraire le N° client depuis le facilityName (format: "1070462396 GGE | Les Ulis")
+        client_number = None
+        if facility_name:
+            # Chercher un nombre au début du nom (avant le premier espace)
+            parts = facility_name.split()
+            if parts and parts[0].isdigit():
+                client_number = int(parts[0])
+        
+        # Enrichir avec les données Excel si disponibles
+        client_name = facility_name
+        address = ""
+        group_name = ""
+        excel_info = None
+        
+        # Stratégie de recherche dans Excel (par ordre de priorité):
+        # 1. Par client_number extrait du nom
+        # 2. Par facility_id
+        # 3. Par correspondance de nom (fuzzy match)
+        match_method = None
+        if excel_data:
+            # Essai 1: client_number extrait
+            if client_number and client_number in excel_data:
+                excel_info = excel_data[client_number]
+                match_method = f"N° client extrait du nom ({client_number})"
+            # Essai 2: facility_id direct
+            elif facility_id in excel_data:
+                excel_info = excel_data[facility_id]
+                match_method = f"facility_id direct ({facility_id})"
+            # Essai 3: Chercher par nom (normaliser et comparer)
+            else:
+                facility_name_normalized = facility_name.upper().strip()
+                for excel_id, excel_entry in excel_data.items():
+                    excel_client_name = excel_entry.get("client_name", "").upper().strip()
+                    if excel_client_name and excel_client_name == facility_name_normalized:
+                        excel_info = excel_entry
+                        client_number = excel_id  # Récupérer le vrai N° client
+                        match_method = f"correspondance par nom '{facility_name}' → N° {excel_id}"
+                        break
+        
+        if excel_info:
+            print(f"[EXCEL] ✅ Données trouvées pour '{facility_name}' (ID: {facility_id}) via {match_method}")
+            # Utiliser le nom du client depuis Excel (colonne 3)
+            if excel_info.get("client_name"):
+                client_name = excel_info["client_name"]
+                print(f"[EXCEL]    → Nom client: {client_name}")
+            # Récupérer l'adresse (colonne 7)
+            if excel_info.get("address"):
+                address = excel_info["address"]
+                print(f"[EXCEL]    → Adresse: {address}")
+            # Récupérer le groupe (colonne 4)
+            if excel_info.get("group"):
+                group_name = excel_info["group"]
+                print(f"[EXCEL]    → Groupe: {group_name}")
+        else:
+            print(f"[EXCEL] ❌ Aucune donnée Excel trouvée pour '{facility_name}' (ID: {facility_id})")
+            print(f"[EXCEL]    → Utilisation du nom CM2W par défaut")
 
-        sanitized_name = _sanitize_filename(facility.get("facilityName", ""))
-        pdf_path = f"{output_dir}/Rapports de consommation E-wash_{sanitized_name}_{facility_id}.pdf"
+        sanitized_name = _sanitize_filename(client_name)
+        # Utiliser le client_number si disponible, sinon facility_id
+        file_id = client_number if client_number else facility_id
+        pdf_path = f"{output_dir}/Rapports de consommation E-wash_{sanitized_name}_{file_id}.pdf"
 
 
         serial_numbers = get_serial_numbers_for_facility(devices_list, facility_id)
@@ -440,7 +500,17 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         buses_infos = get_configJson_text_info(facility_id, config_data, "relevés buses")
         buses_infos = buses_infos.replace("\n", "<br/>")
 
-        facility_title = Paragraph(facility["facilityName"].upper(), title_style)
+        # Construire le titre avec le N° client et l'adresse si disponibles
+        if client_number:
+            facility_title_text = f"{client_number} - {client_name.upper()}"
+        else:
+            facility_title_text = client_name.upper()
+        
+        # Ajouter l'adresse si disponible
+        if address and address.strip():
+            facility_title_text += f" - {address.upper()}"
+        
+        facility_title = Paragraph(facility_title_text, title_style)
         report_title = Paragraph(
             f"RAPPORT DE CONSOMMATION DU {datetime.strptime(from_date, '%Y-%m-%d').strftime('%d/%m/%Y')} "
             f"AU {datetime.strptime(to_date, '%Y-%m-%d').strftime('%d/%m/%Y')}",
