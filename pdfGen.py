@@ -31,7 +31,6 @@ from datetime import datetime
 
 from tables import generate_table, generate_monthly_table
 from BarCharts import generate_bar_chart
-from PieCharts import generate_pie_chart_and_legend
 from getDebit import login_session_cm2w, get_events
 from MyTime import date_tsd
 from scatter import generate_device_scatter
@@ -101,87 +100,33 @@ def filter_facility_by_zone(facility: dict, zone: str) -> dict:
     return new_fac
 
 
-def get_footer_table(facility_id, config_data):
+def get_first_page_footer():
     """
-    Retourne un tableau de 3 colonnes à insérer en bas de page.
-    Le contenu est du texte sélectionnable dans le PDF.
+    Retourne le footer pour la première page uniquement avec les informations de support.
     """
-    config_item = next((item for item in config_data if item["facilityId"] == facility_id), None)
-    if config_item:
-        facility_config = {
-            "primary_company_brand": config_item.get("primary_company_brand"),
-            "cover_picture": config_item.get("cover_picture"),
-            "material_picture": config_item.get("material_picture"),
-            "inventory_monitoring_manager": config_item.get("inventory_monitoring_manager", {}),
-            "customer_technical_relay_manager": config_item.get("customer_technical_relay_manager", {}),
-            "file_referent": config_item.get("file_referent", {}),
-        }
-    else:
-        facility_config = {}  # ou un dict par défaut
-
-    customer_manager = facility_config.get("customer_technical_relay_manager", {})
-    inventory_manager = facility_config.get("inventory_monitoring_manager", {})
-    file_referent = facility_config.get("file_referent", {})
-
-
-    # print(f"\nvoici le nom du mail : {mail}\n")       
-
-
-    def make_email_link(email):
-        if email and email != "N/A":
-            return f'<font color="blue"><u><a href="mailto:{email}">{email}</a></u></font>'
-        return "N/A"
-
-    def make_email_link(email):
-        if email and email != "N/A":
-            return f'<font color="blue"><u><a href="mailto:{email}">{email}</a></u></font>'
-        return "N/A"
+    from reportlab.lib.enums import TA_CENTER
     
-    centered_style = ParagraphStyle(name="centered_style", alignment=TA_CENTER, fontSize=10)
-
-    data = [
-        [
-            Paragraph(
-                f"Responsable suivi des stocks<br/>Würth<br/>"
-                f"<b>{inventory_manager.get('full_name', 'N/A')}</b><br/>"
-                f"{make_email_link(inventory_manager.get('mail_adresse', 'N/A'))}<br/>"
-                f"<b>{inventory_manager.get('phone_number', 'N/A')}</b>",
-                centered_style
-            ),
-            Paragraph(
-                f"Responsable relais technique<br/>client<br/>"
-                f"<b>{customer_manager.get('full_name', 'N/A')}</b><br/>"
-                f"{make_email_link(customer_manager.get('mail_adresse', 'N/A'))}<br/>"
-                f"<b>{customer_manager.get('phone_number', 'N/A')}</b>",
-                centered_style
-            ),
-            Paragraph(
-                f"Référent dossier Würth<br/>"
-                f"<b>{file_referent.get('full_name', 'N/A')}</b><br/>"
-                f"{make_email_link(file_referent.get('mail_adresse', 'N/A'))}<br/>"
-                f"<b>{file_referent.get('phone_number', 'N/A')}</b>",
-                centered_style 
-            )
-        ]
-    ]
-
-    col_widths = [6 * cm, 6 * cm, 6 * cm]
-
+    center_style = ParagraphStyle(name="center_style", alignment=TA_CENTER, fontSize=9, fontName='Helvetica')
+    
+    footer_text = Paragraph(
+        "EN CAS DE PANNE SUR LE SYSTÈME VENTURI, CONTACTEZ LE SUPPORT TECHNIQUE AU 03 88 64 72 10.<br/>"
+        "UNE QUESTION SUR VOTRE CONTRAT ? CONTACTEZ NOTRE SUPPORT ADMINISTRATIF AU 03 88 64 85 79 OU PAR MAIL "
+        '<font color="blue"><u><a href="mailto:systemes.solutions@wurth.fr">SYSTEMES.SOLUTIONS@WURTH.FR</a></u></font>.',
+        center_style
+    )
+    
     style = TableStyle([
-        # Alignement et style global
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("FONTSIZE", (0, 0), (-1, -1), 10),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
         ("TOPPADDING", (0, 0), (-1, -1), 4),
-
-        # Bordure gauche de "Texte 2"
-        ("LINEBEFORE", (1, 0), (1, 0), 0.5, colors.black),
-        # Bordure droite de "Texte 2"
-        ("LINEAFTER", (1, 0), (1, 0), 0.5, colors.black),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
     ])
 
-    table = Table(data, colWidths=col_widths)
+    # Utiliser la largeur de la page en paysage
+    PAGE_WIDTH = landscape(A4)[0]
+    table = Table([[footer_text]], colWidths=[PAGE_WIDTH - 2*cm])
     table.setStyle(style)
 
     return table
@@ -312,17 +257,26 @@ def _sanitize_filename(s: str, max_len: int = 120) -> str:
 
 
 def draw_bottom_right_logo(canvas, doc):
+    """Dessine le logo Würth en haut à gauche de chaque page"""
+    from PIL import Image as PILImage
+    
     logo_path = "images/Würth_logo.png"
-    logo = ImageReader(logo_path)
-
-    logo_width = 4.688644688644689*cm
-    logo_height = 1*cm
+    
+    # Lire les dimensions réelles de l'image pour calculer le ratio
+    with PILImage.open(logo_path) as img:
+        img_width, img_height = img.size
+        ratio = img_height / img_width
+    
+    # Définir la largeur et calculer la hauteur selon le ratio
+    logo_width = 4.5*cm
+    logo_height = logo_width * ratio
 
     page_width, page_height = doc.pagesize
-    x = page_width - logo_width - 0.8*cm
-    y = 1 * cm
+    # Position en haut à gauche
+    x = 0.8*cm  # Marge gauche
+    y = page_height - logo_height - 0.8*cm  # Marge haute
 
-    canvas.drawImage(logo, x, y, logo_width, logo_height, preserveAspectRatio=True, mask='auto')
+    canvas.drawImage(logo_path, x, y, width=logo_width, height=logo_height, preserveAspectRatio=True, mask='auto')
 
 
 def get_serial_numbers_for_facility(devices_list, facility_id):
@@ -433,9 +387,31 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
     session, token = login_session_cm2w()
 
     styles = getSampleStyleSheet()
-    title_style = styles["Title"]
-    subtitle_style = styles["Heading2"]
-    normal_style = styles["Normal"]
+    
+    # Styles uniformisés - tout en majuscules
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Title'],
+        fontName='Helvetica-Bold',
+        fontSize=14,
+        textTransform='uppercase',
+        alignment=TA_CENTER
+    )
+    
+    subtitle_style = ParagraphStyle(
+        'CustomSubtitle',
+        parent=styles['Heading2'],
+        fontName='Helvetica-Bold',
+        fontSize=12,
+        textTransform='uppercase'
+    )
+    
+    normal_style = ParagraphStyle(
+        'CustomNormal',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=10
+    )
 
     with open("Config/configJson.json", "r", encoding="utf-8") as f:
         config_data = json.load(f)
@@ -448,7 +424,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
 
 
         serial_numbers = get_serial_numbers_for_facility(devices_list, facility_id)
-        devices_serial_numbers = Paragraph(f"N°ROUTEUR(S): " + " / ".join(serial_numbers), title_style)
+        devices_serial_numbers = Paragraph(f"N°ROUTEUR(S): " + " / ".join(serial_numbers).upper(), title_style)
 
         device_list = get_deviceID_for_facility(devices_list, facility_id)
 
@@ -464,13 +440,13 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         buses_infos = get_configJson_text_info(facility_id, config_data, "relevés buses")
         buses_infos = buses_infos.replace("\n", "<br/>")
 
-        facility_title = Paragraph(facility["facilityName"], title_style)
+        facility_title = Paragraph(facility["facilityName"].upper(), title_style)
         report_title = Paragraph(
             f"RAPPORT DE CONSOMMATION DU {datetime.strptime(from_date, '%Y-%m-%d').strftime('%d/%m/%Y')} "
             f"AU {datetime.strptime(to_date, '%Y-%m-%d').strftime('%d/%m/%Y')}",
             title_style
         )
-        page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {date_last_intervention} ", title_style)
+        page_2_title = Paragraph(f"DILUTION DES PRODUITS AU {date_last_intervention.upper()} ", title_style)
 
         cover_picture_path, cover_final_width, cover_final_height = get_picture_path(facility_id, config_data, "cover_picture")
         material_picture_path, material_final_width, material_final_height = get_picture_path(facility_id, config_data, "material_picture")
@@ -478,8 +454,19 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         cover_picture = Image(cover_picture_path, cover_final_width, cover_final_height)
         material_picture = Image(material_picture_path, material_final_width, material_final_height)
 
-        TMH_logo_path = "images/Logo - Orsy e wash.png"
-        TMH_logo_img = Image(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)
+        TMH_logo_path = "images/Logo - Solution de lavage connecté.png"
+        print(f"[DEBUG] Utilisation du logo TMH : {TMH_logo_path}")
+        
+        # Calculer les dimensions du logo TMH en préservant le ratio
+        with PILImage.open(TMH_logo_path) as tmh_img:
+            tmh_width, tmh_height = tmh_img.size
+            tmh_ratio = tmh_height / tmh_width
+        
+        # Définir la largeur souhaitée et calculer la hauteur
+        tmh_desired_width = 10*cm
+        tmh_desired_height = tmh_desired_width * tmh_ratio
+        
+        TMH_logo_img = Image(TMH_logo_path, width=tmh_desired_width, height=tmh_desired_height)
 
         material_picture_left = Table([[material_picture]], hAlign='LEFT')
         texte_droite = Table([[Paragraph(buses_infos, subtitle_style)]], hAlign='RIGHT')
@@ -511,7 +498,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
             chart = _img(buf, 25*cm, 12*cm) if buf else Paragraph("Aucune donnée d'événements pour ce device.", normal_style)
 
             device_pages.append([
-                Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                Spacer(1, 0.5*cm), TMH_logo_img, Spacer(1, 2*cm),
                 title, Spacer(1, 0.3*cm), chart
             ])
 
@@ -523,14 +510,14 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         # ==================== pages fixes ====================
 
         pages[1] = [
-            Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm),
+            Spacer(1, 0.5*cm), TMH_logo_img, Spacer(1, 1*cm),
             report_title, Spacer(1, 0.2*cm), facility_title,
             Spacer(1, 0.2*cm), devices_serial_numbers,
             Spacer(1, 0.5*cm), cover_picture
         ]
 
         pages[2] = [
-            Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm),
+            Spacer(1, 0.5*cm), TMH_logo_img, Spacer(1, 1*cm),
             page_2_title, Spacer(1, 0.5*cm), image_text_table
         ]
 
@@ -559,7 +546,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
                 if buf_bar_eau:
                     bar_chart_img_eau = _img(buf_bar_eau, 25*cm, 12*cm)
                     pages[current_page] = [
-                        Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                        Spacer(1, 0.5*cm), TMH_logo_img, Spacer(1, 2*cm),
                         Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS {zone}", title_style),
                         Spacer(1, 0.3*cm), bar_chart_img_eau
                     ]
@@ -572,16 +559,16 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
                 if buf_bar_autres:
                     bar_chart_img_autres = _img(buf_bar_autres, 25*cm, 12*cm)
                     pages[current_page] = [
-                        Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                        Spacer(1, 0.5*cm), TMH_logo_img, Spacer(1, 2*cm),
                         Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS {zone}", title_style),
                         Spacer(1, 0.3*cm), bar_chart_img_autres
                     ]
                     current_page += 1
 
-            # 3) ==================== Si aucune des deux catégories n’a de données ====================
+            # 3) ==================== Si aucune des deux catégories n'a de données ====================
             if not eau_products and not other_products:
                 pages[current_page] = [
-                    Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
+                    Spacer(1, 0.5*cm), TMH_logo_img, Spacer(1, 2*cm),
                     Paragraph(f"Aucune donnée pour {zone}", title_style)
                 ]
                 current_page += 1
@@ -589,29 +576,15 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
             # ==================== TABLES days ====================
             tables = generate_table(fac_z, from_date, to_date)  # renvoie [table] ou [table1, table2]
             table_page_title = Paragraph(f"CONSOMMATION MENSUELLE DE PRODUITS {zone}", title_style)
-            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_page_title, Spacer(1, 0.5*cm)] + tables
+            pages[current_page] = [Spacer(1, 0.5*cm), TMH_logo_img, Spacer(1, 1.5*cm), table_page_title, Spacer(1, 0.5*cm)] + tables
 
             current_page += 1
-
-            # ==================== PIE CHART + LEGEND (zone entière) ====================
-            buf_pie, buf_legend = generate_pie_chart_and_legend(fac_z, from_date, to_date)
-            pie_chart_img = _img(buf_pie, 9*cm, 9*cm)
-            legend_img    = _img(buf_legend, 15*cm, 2.5*cm)
-
-            pages[current_page] = [
-                Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 2*cm),
-                Paragraph(f"RÉPARTITION DES CONSOMMATIONS {zone}", title_style),
-                Spacer(1, 0.3*cm), pie_chart_img, Spacer(1, 0.2*cm), legend_img
-            ]
-            current_page += 1
-
 
             # ==================== TABLES Month ====================
             tables_year = generate_monthly_table(fac_z)
             table_month_page_title = Paragraph(f"CONSOMMATION ANNUELLE DE PRODUITS {zone}", title_style)
-            pages[current_page] = [Spacer(1, 0.1*cm), TMH_logo_img, Spacer(1, 1*cm), table_month_page_title, Spacer(1, 0.7*cm)] + tables_year
+            pages[current_page] = [Spacer(1, 0.5*cm), TMH_logo_img, Spacer(1, 1*cm), table_month_page_title, Spacer(1, 0.7*cm)] + tables_year
             
-
             stocks_title = f"ÉTAT DES STOCKS AU {datetime.fromtimestamp(int(stock_levels['currentTime']) / 1000).strftime('%d/%m/%Y')}"
 
             pages[current_page] += [
@@ -624,10 +597,9 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
             current_page += 1
 
 
-        # 🔹 ==================== Ajouter le footer à chaque page ====================
-        for key in pages:
-            pages[key].append(FrameBreak())
-            pages[key].append(get_footer_table(facility_id, config_data))
+        # 🔹 ==================== Ajouter le footer uniquement à la première page ====================
+        pages[1].append(FrameBreak())
+        pages[1].append(get_first_page_footer())
 
         elements = distribute_elements_by_page(pages)
 
@@ -636,7 +608,8 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         # ==================== Création du BaseDocTemplate avec 2 frames ====================
         PAGE_WIDTH, PAGE_HEIGHT = landscape(A4)
         main_frame = Frame(2*cm, 3*cm, PAGE_WIDTH - 3*cm, PAGE_HEIGHT - 3*cm, id='main_frame')
-        footer_frame = Frame(2*cm, -0.2*cm, PAGE_WIDTH - 3*cm, 3.5*cm, id='footer_frame')
+        # Footer centré en bas : x=1cm, y=0.3cm (plus bas), largeur presque complète
+        footer_frame = Frame(1*cm, 0.3*cm, PAGE_WIDTH - 2*cm, 2*cm, id='footer_frame')
         page_template = PageTemplate(id='TwoFrames', frames=[main_frame, footer_frame], onPage=draw_bottom_right_logo)
 
         doc = BaseDocTemplate(
@@ -649,7 +622,7 @@ def generate_pdfs_by_facility(json_data: dict, devices_list, stock_levels, from_
         )
         doc.addPageTemplates([page_template])
         doc.build(elements)
-
-    print(f"PDFs générés dans le dossier {pdf_path}")
+        
+        print(f"PDFs générés dans le dossier {pdf_path}")
+    
     return 0
-

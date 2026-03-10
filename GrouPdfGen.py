@@ -552,43 +552,31 @@ def _make_email_link(email: str) -> str:
         return f'<font color="blue"><u><a href="mailto:{email}">{email}</a></u></font>'
     return "N/A"
 
-def _build_owner_footer(owner_row: dict):
-    centered_style = ParagraphStyle(name="centered_style", alignment=TA_CENTER, fontSize=10)
-    inv = owner_row.get("inventory_monitoring_manager", {}) or {}
-    cust = owner_row.get("customer_technical_relay_manager", {}) or {}
-    ref = owner_row.get("file_referent", {}) or {}
-
-    data = [[
-        Paragraph(
-            "Responsable suivi des stocks<br/>Würth<br/>"
-            f"<b>{inv.get('full_name', 'N/A')}</b><br/>"
-            f"{_make_email_link(inv.get('mail_adresse', 'N/A'))}<br/>"
-            f"<b>{inv.get('phone_number', 'N/A')}</b>", centered_style
-        ),
-        Paragraph(
-            "Responsable relais technique<br/>client<br/>"
-            f"<b>{cust.get('full_name', 'N/A')}</b><br/>"
-            f"{_make_email_link(cust.get('mail_adresse', 'N/A'))}<br/>"
-            f"<b>{cust.get('phone_number', 'N/A')}</b>", centered_style
-        ),
-        Paragraph(
-            "Référent dossier Würth<br/>"
-            f"<b>{ref.get('full_name', 'N/A')}</b><br/>"
-            f"{_make_email_link(ref.get('mail_adresse', 'N/A'))}<br/>"
-            f"<b>{ref.get('phone_number', 'N/A')}</b>", centered_style
-        ),
-    ]]
-
-    table = Table(data, colWidths=[6*cm, 6*cm, 6*cm])
-    table.setStyle(TableStyle([
+def _build_first_page_footer():
+    """
+    Retourne le footer pour la première page uniquement avec les informations de support.
+    """
+    center_style = ParagraphStyle(name="center_style", alignment=TA_CENTER, fontSize=9, fontName='Helvetica')
+    
+    footer_text = Paragraph(
+        "EN CAS DE PANNE SUR LE SYSTÈME VENTURI, CONTACTEZ LE SUPPORT TECHNIQUE AU 03 88 64 72 10.<br/>"
+        "UNE QUESTION SUR VOTRE CONTRAT ? CONTACTEZ NOTRE SUPPORT ADMINISTRATIF AU 03 88 64 85 79 OU PAR MAIL "
+        '<font color="blue"><u><a href="mailto:systemes.solutions@wurth.fr">SYSTEMES.SOLUTIONS@WURTH.FR</a></u></font>.',
+        center_style
+    )
+    
+    style = TableStyle([
         ("ALIGN", (0, 0), (-1, -1), "CENTER"),
         ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("FONTSIZE", (0, 0), (-1, -1), 7),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+        ("LEFTPADDING", (0, 0), (-1, -1), 0),
+        ("RIGHTPADDING", (0, 0), (-1, -1), 0),
         ("TOPPADDING", (0, 0), (-1, -1), 4),
-        ("LINEBEFORE", (1, 0), (1, 0), 0.5, colors.black),
-        ("LINEAFTER", (1, 0), (1, 0), 0.5, colors.black),
-    ]))
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+    ])
+    
+    PAGE_WIDTH = landscape(A4)[0]
+    table = Table([[footer_text]], colWidths=[PAGE_WIDTH - 2*cm])
+    table.setStyle(style)
     return table
 
 def generate_group_stock_chart(owner_stock_block: dict) -> BytesIO | None:
@@ -813,12 +801,45 @@ def generate_group_pdfs(total_qty: dict,
 
     # --- Styles & assets ---
     styles = getSampleStyleSheet()
-    title_style = styles["Title"]
-    h2_style = styles["Heading2"]
-    normal_style = styles["Normal"]
+    
+    # Styles uniformisés - tout en majuscules
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Title'],
+        fontName='Helvetica-Bold',
+        fontSize=14,
+        textTransform='uppercase',
+        alignment=TA_CENTER
+    )
+    
+    h2_style = ParagraphStyle(
+        'CustomSubtitle',
+        parent=styles['Heading2'],
+        fontName='Helvetica-Bold',
+        fontSize=12,
+        textTransform='uppercase'
+    )
+    
+    normal_style = ParagraphStyle(
+        'CustomNormal',
+        parent=styles['Normal'],
+        fontName='Helvetica',
+        fontSize=10
+    )
 
-    TMH_logo_path = "images/Logo - Orsy e wash.png"
-    tmh_logo = RLImage(TMH_logo_path, width=26.43/2.5*cm, height=4/2.5*cm)
+    TMH_logo_path = "images/Logo - Solution de lavage connecté.png"
+    
+    # Calculer les dimensions du logo TMH en préservant le ratio
+    from PIL import Image as PILImage
+    with PILImage.open(TMH_logo_path) as tmh_img:
+        tmh_width, tmh_height = tmh_img.size
+        tmh_ratio = tmh_height / tmh_width
+    
+    # Définir la largeur souhaitée et calculer la hauteur
+    tmh_desired_width = 10*cm
+    tmh_desired_height = tmh_desired_width * tmh_ratio
+    
+    tmh_logo = RLImage(TMH_logo_path, width=tmh_desired_width, height=tmh_desired_height)
 
     from_dt = datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")
     to_dt   = datetime.strptime(to_date,   "%Y-%m-%d").strftime("%d/%m/%Y")
@@ -826,7 +847,8 @@ def generate_group_pdfs(total_qty: dict,
     # --- Frames IDENTIQUES à pdfGen.py ---
     PAGE_WIDTH, PAGE_HEIGHT = landscape(A4)
     main_frame   = Frame(2*cm, 3*cm, PAGE_WIDTH - 3*cm, PAGE_HEIGHT - 3*cm, id='main_frame')
-    footer_frame = Frame(2*cm, -0.2*cm, PAGE_WIDTH - 3*cm, 3.5*cm, id='footer_frame')
+    # Footer centré en bas : x=1cm, y=0.3cm (plus bas), largeur presque complète
+    footer_frame = Frame(1*cm, 0.3*cm, PAGE_WIDTH - 2*cm, 2*cm, id='footer_frame')
     page_template = PageTemplate(id='TwoFrames', frames=[main_frame, footer_frame], onPage=draw_bottom_right_logo)
 
     # --- Pour chaque owner du JSON de groupe : produire un PDF ---
@@ -853,12 +875,12 @@ def generate_group_pdfs(total_qty: dict,
 
         pdf_path = os.path.join(output_dir, f"Rapports de consommation groupe E-wash_{first_facility_number}_{safe_owner}.pdf")
 
-        # Footer spécifique owner
-        owner_footer = _build_owner_footer(owner_row)
+        # Footer pour la première page uniquement
+        first_page_footer = _build_first_page_footer()
 
         # Titres
         title = Paragraph(f"RAPPORT DE CONSOMMATION DU {from_dt} au {to_dt}", title_style)
-        title2 = Paragraph(f"GROUPE {owner_name}", title_style)
+        title2 = Paragraph(f"GROUPE {owner_name.upper()}", title_style)
         # title3 = Paragraph(f"GROUPE {owner_name}", title_style)
 
         titlePage2 = Paragraph(f"REPARTITION DES CONSOMMATIONS DE PRODUITS / SITE", title_style)
@@ -880,17 +902,17 @@ def generate_group_pdfs(total_qty: dict,
 
         facilities_line = " - ".join(_short_facility_name(f.get("facilityName", ""), owner_name) 
                              for f in owner_data.get("facilities", []))
-        title3 = Paragraph(facilities_line, title_style)
+        title3 = Paragraph(facilities_line.upper(), title_style)
 
         # === Pages dict (sera aplati via distribute_elements_by_page) ===
         pages: dict[int, list] = {}
 
         # ---------------- Page 1 : Logo + Cover + Titres ----------------
         pages[1] = [
-            Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.5*cm), title, Spacer(1, 0.3*cm), title2, Spacer(1, 0.3*cm), title3, Spacer(1, 0.3*cm),
+            Spacer(1, 0.5*cm), tmh_logo, Spacer(1, 0.5*cm), title, Spacer(1, 0.3*cm), title2, Spacer(1, 0.3*cm), title3, Spacer(1, 0.3*cm),
             cover_img,
             FrameBreak(),
-            owner_footer
+            first_page_footer
         ]
 
         # ---------------- Page 2 : Graphe barres groupées ----------------
@@ -902,19 +924,15 @@ def generate_group_pdfs(total_qty: dict,
             table_flowable = build_group_consumption_table(owner_data)
 
             pages[2] = [
-                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.8*cm), titlePage2, Spacer(1, 0.1*cm),
+                Spacer(1, 0.5*cm), tmh_logo, Spacer(1, 0.8*cm), titlePage2, Spacer(1, 0.1*cm),
                 chart_img,
                 Spacer(1, 0.3*cm),
-                table_flowable,
-                FrameBreak(),
-                owner_footer
+                table_flowable
             ]
         else:
             pages[2] = [
-                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.6*cm),
-                Paragraph("Aucune donnée disponible pour cet owner.", normal_style),
-                FrameBreak(),
-                owner_footer
+                Spacer(1, 0.5*cm), tmh_logo, Spacer(1, 0.6*cm),
+                Paragraph("Aucune donnée disponible pour cet owner.", normal_style)
             ]
 
 
@@ -928,21 +946,17 @@ def generate_group_pdfs(total_qty: dict,
         if buf_totals:
             totals_img = RLImage(buf_totals, width=25*cm, height=9*cm)  # un peu plus compact
             pages[3] = [
-                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 2*cm), titlePage3, Spacer(1, 0.4*cm),
+                Spacer(1, 0.5*cm), tmh_logo, Spacer(1, 2*cm), titlePage3, Spacer(1, 0.4*cm),
                 totals_img,
-                Spacer(1, 0.4*cm),
+                Spacer(1, 0.4*cm)
                 # totals_table,
-                FrameBreak(),
-                owner_footer
             ]
         else:
             pages[3] = [
-                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.8*cm),
+                Spacer(1, 0.5*cm), tmh_logo, Spacer(1, 0.8*cm),
                 title, Spacer(1, 0.3*cm), subtitle,
                 Spacer(1, 0.6*cm),
-                Paragraph("Aucune donnée (totaux) disponible pour cet owner.", normal_style),
-                FrameBreak(),
-                owner_footer
+                Paragraph("Aucune donnée (totaux) disponible pour cet owner.", normal_style)
             ]
 
                 # ---------------- Page 4 : État des stocks (même compo que page 2) ----------------
@@ -963,21 +977,17 @@ def generate_group_pdfs(total_qty: dict,
         if buf_stock_chart:
             stock_img = RLImage(buf_stock_chart, width=25*cm, height=9*cm)
             pages[4] = [
-                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.3*cm), titlePage4, 
+                Spacer(1, 0.5*cm), tmh_logo, Spacer(1, 0.3*cm), titlePage4, 
                 stock_img,
                 Spacer(1, 0.4*cm),
-                stock_table,
-                FrameBreak(),
-                owner_footer
+                stock_table
             ]
         else:
             pages[4] = [
-                Spacer(1, 0.1*cm), tmh_logo, Spacer(1, 0.8*cm),
+                Spacer(1, 0.5*cm), tmh_logo, Spacer(1, 0.8*cm),
                 title, Spacer(1, 0.3*cm), subtitle,
                 Spacer(1, 0.6*cm),
-                Paragraph("Aucune donnée de stock disponible pour cet owner.", normal_style),
-                FrameBreak(),
-                owner_footer
+                Paragraph("Aucune donnée de stock disponible pour cet owner.", normal_style)
             ]
 
 

@@ -1,0 +1,934 @@
+================================================================================
+  BRIEF TECHNIQUE FRONTEND - APPLICATION DE GÉNÉRATION DE RAPPORTS
+  Pour Lovable.dev
+================================================================================
+
+IMPORTANT : VOTRE RÔLE
+----------------------
+Vous devez créer UNIQUEMENT le FRONTEND (interface utilisateur).
+Le BACKEND est déjà développé en Python/FastAPI et fonctionne.
+
+Votre travail consiste à :
+✅ Créer les interfaces utilisateur (pages web)
+✅ Faire des appels API vers le backend Python existant
+✅ Gérer l'affichage des données reçues du backend
+✅ Gérer les interactions utilisateur (clics, formulaires, etc.)
+
+Vous ne devez PAS :
+❌ Créer de logique métier côté frontend
+❌ Créer de backend
+❌ Générer les PDFs (c'est le backend Python qui s'en charge)
+❌ Faire des calculs complexes (c'est le backend qui fait tout)
+
+Le frontend est un simple CLIENT qui :
+1. Affiche des formulaires
+2. Envoie des requêtes HTTP au backend Python
+3. Affiche les résultats retournés par le backend
+
+
+================================================================================
+  CONTEXTE DE L'APPLICATION
+================================================================================
+
+Application web pour TMH Corporation permettant de générer des rapports PDF
+de consommation de produits industriels pour leurs clients.
+
+WORKFLOW COMPLET :
+1. L'utilisateur saisit des dates dans un formulaire
+2. Le frontend envoie ces dates au backend Python via API
+3. Le backend Python :
+   - Appelle l'API externe CM2W pour récupérer les données
+   - Transforme et agrège les données
+   - Génère des graphiques (matplotlib)
+   - Crée des PDFs (reportlab)
+   - Sauvegarde les PDFs dans le dossier "Reports"
+4. Le backend renvoie une réponse au frontend
+5. Le frontend affiche un message de succès
+6. L'utilisateur peut consulter/télécharger les rapports générés
+
+
+================================================================================
+  ARCHITECTURE TECHNIQUE
+================================================================================
+
+BACKEND (DÉJÀ DÉVELOPPÉ - NE PAS TOUCHER)
+------------------------------------------
+- Framework : FastAPI (Python)
+- Serveur : Uvicorn
+- Port : 8000
+- Base URL : http://localhost:8000
+
+FRONTEND (À DÉVELOPPER PAR LOVABLE)
+------------------------------------
+- Framework recommandé : React + TypeScript
+- Styling : TailwindCSS + shadcn/ui
+- Icons : Lucide React
+- HTTP Client : Axios ou Fetch API
+- State Management : React Query (pour cache et gestion API)
+- Tables : TanStack Table (tri, pagination, filtres)
+- Forms : React Hook Form + Zod (validation)
+
+
+================================================================================
+  PAGE 1 : DASHBOARD PRINCIPAL (Route: /reports)
+================================================================================
+
+Cette page contient 2 sections principales :
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ SECTION A : FORMULAIRE DE GÉNÉRATION DE RAPPORTS                       │
+└─────────────────────────────────────────────────────────────────────────┘
+
+INTERFACE :
+-----------
+[Titre] "Génération de nouveaux rapports"
+
+[Formulaire avec 3 champs alignés horizontalement]
+  
+  📅 Date de début : [____/____/________] (date picker)
+  📅 Date de fin   : [____/____/________] (date picker)
+  🏭 ID Facility   : [__________] (optionnel, input number)
+
+[2 boutons d'action]
+  [Générer rapport individuel]  [Générer rapport de groupe]
+
+
+COMPORTEMENT FRONTEND :
+-----------------------
+
+1. VALIDATION AVANT ENVOI :
+   - Vérifier que "Date de début" est remplie
+   - Vérifier que "Date de fin" est remplie
+   - Vérifier que "Date de début" < "Date de fin"
+   - Afficher erreur si validation échoue
+
+2. CLIC SUR "Générer rapport individuel" :
+   
+   a) Construire l'URL avec query parameters :
+      GET http://localhost:8000/Reports_generation?from_date=2024-01-01&to_date=2024-01-31&facility_id=123
+      
+      Format des dates : YYYY-MM-DD (obligatoire)
+      facility_id : optionnel (ne pas envoyer si vide)
+
+   b) Afficher une MODAL de chargement :
+      - Spinner animé
+      - Texte : "Génération en cours..."
+      - Sous-texte : "Cela peut prendre plusieurs minutes"
+      - Barre de progression indéterminée
+      - Bloquer l'interface (overlay)
+
+   c) Envoyer la requête HTTP GET
+
+   d) IMPORTANT : Cette requête peut prendre 30 secondes à 5 minutes
+      - Ne pas avoir de timeout trop court
+      - Configurer timeout à 10 minutes minimum
+
+   e) Quand la réponse arrive :
+      - Si succès (200) : 
+        * Fermer la modal
+        * Afficher toast de succès : "Rapport généré avec succès !"
+        * Appeler automatiquement GET /api/reports/list pour rafraîchir la liste
+      - Si erreur (4xx, 5xx) :
+        * Fermer la modal
+        * Afficher toast d'erreur avec le message d'erreur
+        * Ne pas rafraîchir la liste
+
+3. CLIC SUR "Générer rapport de groupe" :
+   
+   Même comportement que ci-dessus, mais avec cette URL :
+   GET http://localhost:8000/Group_Reports_generation?from_date=2024-01-01&to_date=2024-01-31
+   
+   Note : Pas de facility_id pour les rapports de groupe
+
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ SECTION B : LISTE DES RAPPORTS EXISTANTS                               │
+└─────────────────────────────────────────────────────────────────────────┘
+
+BARRE D'OUTILS (au-dessus du tableau) :
+----------------------------------------
+[🔍 Rechercher...] [Filtre: Tous ▼] [🔄 Actualiser] [📥 Télécharger sélection] [🗑️ Supprimer sélection] (3 sélectionnés)
+
+- Champ de recherche : Filtre en temps réel sur le nom du rapport
+- Select "Filtre" : Options = "Tous" / "Rapports individuels" / "Rapports de groupe"
+- Bouton "Actualiser" : Rappelle GET /api/reports/list
+- Bouton "Télécharger sélection" : Désactivé si aucune sélection
+- Bouton "Supprimer sélection" : Désactivé si aucune sélection
+- Compteur : Affiche le nombre de rapports sélectionnés
+
+
+TABLEAU DES RAPPORTS :
+----------------------
+
+COLONNES :
+┌───┬──────────────────────┬────────────┬─────────────────────────┬──────────────────┬─────────┬──────────────────────┐
+│ ☑ │ Nom du rapport       │ Type       │ Période                 │ Date de création │ Taille  │ Actions              │
+├───┼──────────────────────┼────────────┼─────────────────────────┼──────────────────┼─────────┼──────────────────────┤
+│ ☑ │ Rapport Client ABC   │ Individuel │ Du 01/01/24 au 31/01/24 │ 08/03/26 17:45   │ 2.5 MB  │ [📥] [👁️] [🗑️]      │
+│ ☐ │ Groupe TMH Q1 2024   │ Groupe     │ Du 01/01/24 au 31/03/24 │ 07/03/26 14:30   │ 5.1 MB  │ [📥] [👁️] [🗑️]      │
+└───┴──────────────────────┴────────────┴─────────────────────────┴──────────────────┴─────────┴──────────────────────┘
+
+[< Précédent] [1] [2] [3] [4] [5] [Suivant >]
+
+
+CHARGEMENT INITIAL DE LA LISTE :
+---------------------------------
+
+Au chargement de la page :
+1. Appeler GET http://localhost:8000/api/reports/list
+2. Afficher un skeleton/loader pendant le chargement
+3. Parser la réponse JSON (voir structure ci-dessous)
+4. Afficher les données dans le tableau
+
+
+STRUCTURE DE LA RÉPONSE /api/reports/list :
+--------------------------------------------
+[
+  {
+    "filename": "rapport_client_abc.pdf",
+    "name": "Rapport Client ABC",
+    "type": "individual",  // ou "group"
+    "size": 2621440,  // en bytes
+    "date": "2026-03-08T17:45:23.123456",  // ISO format
+    "date_range": {
+      "from_date": "2024-01-01",
+      "to_date": "2024-01-31",
+      "formatted": "Du 01/01/2024 au 31/01/2024"
+    },
+    "folder": "reports 2024-01-01 to 2024-01-31",
+    "path": "Reports/reports 2024-01-01 to 2024-01-31/rapport_client_abc.pdf"
+  },
+  // ... autres rapports
+]
+
+
+AFFICHAGE DES DONNÉES :
+-----------------------
+
+Colonne "Nom" : Afficher report.name
+Colonne "Type" : 
+  - Si report.type === "individual" → Badge "Individuel" (bleu)
+  - Si report.type === "group" → Badge "Groupe" (orange)
+Colonne "Période" : Afficher report.date_range.formatted (déjà formaté par le backend)
+Colonne "Date de création" : Formater report.date en "DD/MM/YYYY HH:mm"
+Colonne "Taille" : Convertir report.size (bytes) en format lisible (KB, MB)
+  Exemple : 2621440 bytes → "2.5 MB"
+
+
+FONCTIONNALITÉS DU TABLEAU :
+-----------------------------
+
+1. CHECKBOX DE SÉLECTION :
+   - Checkbox "Tout sélectionner" dans l'en-tête
+   - Checkbox par ligne
+   - Gérer un état local (Set ou Array) des rapports sélectionnés
+   - Mettre à jour le compteur en temps réel
+   - Activer/désactiver les boutons selon la sélection
+
+2. TRI PAR COLONNE :
+   - Cliquer sur un en-tête de colonne pour trier
+   - Afficher une flèche ↑ ou ↓ selon le sens du tri
+   - Tri par défaut : Date de création (plus récent en premier)
+   - Tous les tris se font côté frontend (données déjà chargées)
+
+3. RECHERCHE :
+   - Filtrer en temps réel sur report.name
+   - Insensible à la casse
+   - Réinitialiser la pagination à la page 1
+
+4. FILTRE PAR TYPE :
+   - "Tous" : Afficher tous les rapports
+   - "Rapports individuels" : Filtrer report.type === "individual"
+   - "Rapports de groupe" : Filtrer report.type === "group"
+
+5. PAGINATION :
+   - 10 rapports par page
+   - Boutons : Précédent, 1, 2, 3, ..., Suivant
+   - Désactiver "Précédent" sur page 1
+   - Désactiver "Suivant" sur dernière page
+
+
+ACTIONS PAR RAPPORT (3 boutons) :
+----------------------------------
+
+1. BOUTON "TÉLÉCHARGER" (📥) :
+   
+   Comportement :
+   - Créer un lien <a> avec :
+     href="http://localhost:8000/api/reports/download/{filename}"
+     download="{filename}"
+   - Le navigateur téléchargera automatiquement le PDF
+   - Pas besoin de JavaScript complexe, juste un lien HTML
+
+2. BOUTON "APERÇU" (👁️) :
+   
+   Comportement :
+   - Ouvrir dans un nouvel onglet :
+     window.open(`http://localhost:8000/api/reports/preview/${filename}`, '_blank')
+   - Le backend renvoie le PDF avec header "inline" pour affichage dans le navigateur
+
+3. BOUTON "SUPPRIMER" (🗑️) :
+   
+   Comportement :
+   a) Afficher une MODAL de confirmation :
+      Titre : "Confirmer la suppression"
+      Message : "Êtes-vous sûr de vouloir supprimer le rapport '{name}' ?"
+      Boutons : [Annuler] [Supprimer]
+   
+   b) Si l'utilisateur clique "Supprimer" :
+      - Envoyer DELETE http://localhost:8000/api/reports/{filename}
+      - Afficher un loader sur le bouton
+      - Si succès (200) :
+        * Fermer la modal
+        * Afficher toast de succès : "Rapport supprimé"
+        * Retirer la ligne du tableau (ou rappeler /api/reports/list)
+      - Si erreur :
+        * Afficher toast d'erreur avec le message
+
+
+ACTIONS GROUPÉES :
+------------------
+
+1. BOUTON "TÉLÉCHARGER SÉLECTION" :
+   
+   Comportement :
+   a) Récupérer la liste des filenames sélectionnés
+      Exemple : ["rapport1.pdf", "rapport2.pdf", "rapport3.pdf"]
+   
+   b) Envoyer POST http://localhost:8000/api/reports/download-multiple
+      Headers : { "Content-Type": "application/json" }
+      Body : { "filenames": ["rapport1.pdf", "rapport2.pdf", "rapport3.pdf"] }
+   
+   c) Le backend renvoie un fichier ZIP
+   
+   d) Déclencher le téléchargement du ZIP
+      - Utiliser Blob et createObjectURL
+      - Créer un lien temporaire et cliquer dessus
+   
+   e) Afficher toast de succès : "3 rapports téléchargés"
+
+2. BOUTON "SUPPRIMER SÉLECTION" :
+   
+   Comportement :
+   a) Afficher une MODAL de confirmation :
+      Titre : "Confirmer la suppression"
+      Message : "Êtes-vous sûr de vouloir supprimer {count} rapport(s) ?"
+      Boutons : [Annuler] [Supprimer tout]
+   
+   b) Si l'utilisateur confirme :
+      - Pour chaque filename sélectionné :
+        * Envoyer DELETE http://localhost:8000/api/reports/{filename}
+      - Afficher une barre de progression (X/Y supprimés)
+      - À la fin :
+        * Fermer la modal
+        * Afficher toast : "{count} rapports supprimés"
+        * Rappeler /api/reports/list pour rafraîchir
+
+
+BOUTON "ACTUALISER" :
+---------------------
+- Rappeler GET /api/reports/list
+- Afficher un loader/spinner pendant le chargement
+- Mettre à jour le tableau avec les nouvelles données
+- Réinitialiser la sélection
+
+
+================================================================================
+  PAGE 2 : CONFIGURATION FACILITIES (Route: /items ou onglet)
+================================================================================
+
+Cette page permet de compléter les informations des facilities qui ne sont
+pas disponibles dans l'API externe CM2W.
+
+CHARGEMENT INITIAL :
+--------------------
+1. Appeler GET http://localhost:8000/items
+2. Recevoir un array d'objets facility
+3. Afficher dans un tableau éditable
+
+
+STRUCTURE DE LA RÉPONSE /items :
+---------------------------------
+[
+  {
+    "facilityId": 123,
+    "facilityName": "Site de Production Paris",  // Lecture seule (vient de CM2W)
+    "logo": "/uploads/logo_paris.png",  // Chemin vers l'image uploadée
+    "address": "123 Rue de la Paix\n75001 Paris",
+    "contact": "Jean Dupont",
+    "email": "contact@site-paris.com",
+    "phone": "+33 1 23 45 67 89",
+    "additionalInfo": "Informations complémentaires..."
+  },
+  // ... autres facilities
+]
+
+
+INTERFACE DU TABLEAU :
+----------------------
+
+[Bouton "💾 Sauvegarder"] (en haut)
+
+┌──────────┬─────────────────────┬────────────┬──────────────┬──────────┬────────────┬───────────┬─────────────────┐
+│ ID       │ Nom                 │ Logo       │ Adresse      │ Contact  │ Email      │ Téléphone │ Infos           │
+├──────────┼─────────────────────┼────────────┼──────────────┼──────────┼────────────┼───────────┼─────────────────┤
+│ 123      │ Site Paris          │ [📷 Upload]│ [Textarea]   │ [Input]  │ [Input]    │ [Input]   │ [Textarea]      │
+│ (readonly)│ (readonly)         │            │              │          │            │           │                 │
+└──────────┴─────────────────────┴────────────┴──────────────┴──────────┴────────────┴───────────┴─────────────────┘
+
+
+COLONNES :
+----------
+
+1. "ID" : facilityId (lecture seule, grisé)
+2. "Nom" : facilityName (lecture seule, grisé)
+3. "Logo" : 
+   - Zone de drag & drop pour upload d'image
+   - Afficher la miniature si logo existe
+   - Bouton "Changer" pour uploader une nouvelle image
+4. "Adresse" : Textarea éditable (multi-lignes)
+5. "Contact" : Input texte éditable
+6. "Email" : Input email éditable
+7. "Téléphone" : Input tel éditable
+8. "Infos" : Textarea éditable
+
+
+UPLOAD DE LOGO :
+----------------
+
+Comportement :
+1. L'utilisateur drag & drop une image OU clique pour sélectionner
+2. Créer un FormData :
+   const formData = new FormData();
+   formData.append('file', imageFile);
+3. Envoyer POST http://localhost:8000/upload
+   Headers : { "Content-Type": "multipart/form-data" }
+4. Réponse du backend : { "path": "/uploads/logo_paris.png" }
+5. Mettre à jour l'objet facility avec ce path
+6. Afficher la miniature de l'image
+
+
+SAUVEGARDE :
+------------
+
+Comportement du bouton "Sauvegarder" :
+1. Récupérer toutes les données du tableau (array complet)
+2. Envoyer PUT http://localhost:8000/items
+   Headers : { "Content-Type": "application/json" }
+   Body : [
+     { facilityId: 123, facilityName: "...", logo: "...", address: "...", ... },
+     { facilityId: 456, ... },
+     ...
+   ]
+3. Si succès (200) :
+   - Afficher toast de succès : "Configuration sauvegardée"
+4. Si erreur :
+   - Afficher toast d'erreur avec le message
+
+
+================================================================================
+  PAGE 3 : CONFIGURATION GROUPES (Route: /group-items ou onglet)
+================================================================================
+
+Cette page permet de gérer les groupes de facilities par propriétaire (owner).
+
+CHARGEMENT INITIAL :
+--------------------
+1. Appeler GET http://localhost:8000/group-items
+2. Recevoir un array d'objets group
+3. Afficher dans un tableau éditable
+
+
+STRUCTURE DE LA RÉPONSE /group-items :
+---------------------------------------
+[
+  {
+    "owner": "TMH Corporation",
+    "facilities": [
+      { "facilityId": 123, "facilityName": "Site Paris" },
+      { "facilityId": 456, "facilityName": "Site Lyon" }
+    ],
+    "logo": "/uploads/logo_tmh.png",
+    "groupInfo": "Informations sur le groupe TMH..."
+  },
+  // ... autres groupes
+]
+
+
+INTERFACE DU TABLEAU :
+----------------------
+
+[Bouton "💾 Sauvegarder"] (en haut)
+
+┌─────────────────┬──────────────────────────────┬────────────┬─────────────────────┐
+│ Propriétaire    │ Facilities du groupe         │ Logo       │ Informations        │
+├─────────────────┼──────────────────────────────┼────────────┼─────────────────────┤
+│ TMH Corporation │ - Site Paris (123)           │ [📷 Upload]│ [Textarea]          │
+│                 │ - Site Lyon (456)            │            │                     │
+│                 │ - Site Marseille (789)       │            │                     │
+└─────────────────┴──────────────────────────────┴────────────┴─────────────────────┘
+
+
+COLONNES :
+----------
+
+1. "Propriétaire" : owner (lecture seule)
+2. "Facilities du groupe" : Liste des facilities (lecture seule)
+   - Afficher : "Nom (ID)" pour chaque facility
+3. "Logo" : Upload d'image (même système que page facilities)
+4. "Informations" : Textarea éditable
+
+
+SAUVEGARDE :
+------------
+
+Même système que la page facilities :
+- Bouton "Sauvegarder"
+- PUT http://localhost:8000/group-items
+- Body : array complet des groupes
+
+
+================================================================================
+  NAVIGATION ENTRE LES PAGES
+================================================================================
+
+OPTION 1 : SYSTÈME D'ONGLETS (RECOMMANDÉ)
+------------------------------------------
+
+Une seule page avec 3 onglets :
+┌─────────────┬───────────────────┬──────────────────┐
+│ 📊 Rapports │ ⚙️ Config Facilities │ 👥 Config Groupes │
+└─────────────┴───────────────────┴──────────────────┘
+
+- Cliquer sur un onglet change le contenu affiché
+- URL change avec hash : #rapports, #facilities, #groupes
+- Ou utiliser React Router avec routes
+
+
+OPTION 2 : MENU DE NAVIGATION
+------------------------------
+
+Menu latéral ou en haut avec 3 liens :
+- Rapports
+- Configuration Facilities
+- Configuration Groupes
+
+
+================================================================================
+  DESIGN & UX
+================================================================================
+
+CHARTE GRAPHIQUE TMH CORPORATION :
+-----------------------------------
+Couleurs principales :
+- Bleu : #38BDF8 (clair) / #0EA5E9 (foncé)
+- Orange : #FB923C (clair) / #FDBA74 (accent)
+- Gris : #64748B / #CBD5E1
+
+Utilisation :
+- Boutons principaux : Dégradé bleu
+- Boutons d'action : Dégradé orange
+- Boutons de suppression : Rouge (#EF4444)
+
+
+COMPOSANTS UI À UTILISER :
+---------------------------
+
+1. BOUTONS :
+   - Avec icônes (Lucide React)
+   - Effets hover (translateY, shadow)
+   - États : normal, hover, disabled, loading
+
+2. TABLEAUX :
+   - Bordures subtiles
+   - Hover sur les lignes
+   - Sticky header
+   - Responsive
+
+3. MODALS :
+   - Overlay semi-transparent
+   - Animation d'entrée/sortie
+   - Boutons d'action en bas
+   - Fermeture par clic extérieur ou ESC
+
+4. TOASTS/NOTIFICATIONS :
+   - Position : top-right
+   - Auto-dismiss après 3-5 secondes
+   - Types : success (vert), error (rouge), info (bleu)
+   - Avec icône
+
+5. LOADERS :
+   - Spinners pour les boutons
+   - Skeleton screens pour les tableaux
+   - Barre de progression pour les uploads
+
+6. FORMULAIRES :
+   - Labels clairs
+   - Validation en temps réel
+   - Messages d'erreur sous les champs
+   - Focus states visibles
+
+7. DRAG & DROP :
+   - Zone avec bordure pointillée
+   - Changement visuel au survol
+   - Prévisualisation de l'image
+
+
+RESPONSIVE :
+------------
+- Desktop first
+- Breakpoints : mobile (< 768px), tablet (768-1024px), desktop (> 1024px)
+- Tableaux : scroll horizontal sur mobile
+- Formulaires : stack vertical sur mobile
+
+
+DARK MODE (OPTIONNEL) :
+-----------------------
+- Toggle en haut à droite
+- Sauvegarder la préférence dans localStorage
+- Adapter toutes les couleurs
+
+
+================================================================================
+  GESTION DES ERREURS
+================================================================================
+
+ERREURS RÉSEAU :
+----------------
+- Timeout : "La requête a pris trop de temps. Veuillez réessayer."
+- 404 : "Ressource non trouvée"
+- 500 : "Erreur serveur. Veuillez réessayer plus tard."
+- Pas de connexion : "Impossible de contacter le serveur"
+
+
+ERREURS DE VALIDATION :
+-----------------------
+- Dates manquantes : "Veuillez renseigner les dates"
+- Date début > date fin : "La date de début doit être antérieure à la date de fin"
+- Champs requis vides : "Ce champ est requis"
+
+
+AFFICHAGE DES ERREURS :
+-----------------------
+- Toast pour les erreurs globales
+- Messages sous les champs pour les erreurs de validation
+- Modal pour les erreurs critiques
+
+
+================================================================================
+  PERFORMANCE & OPTIMISATION
+================================================================================
+
+1. LAZY LOADING :
+   - Charger les images de logo à la demande
+   - Code splitting par route
+
+2. CACHE :
+   - Utiliser React Query pour cacher les réponses API
+   - Invalider le cache après mutations (POST, PUT, DELETE)
+
+3. DEBOUNCE :
+   - Recherche : attendre 300ms après la dernière frappe
+   - Auto-save : attendre 1s après la dernière modification
+
+4. OPTIMISTIC UPDATES :
+   - Mettre à jour l'UI immédiatement
+   - Rollback si l'API échoue
+
+
+================================================================================
+  RÉCAPITULATIF DES ENDPOINTS API
+================================================================================
+
+BASE URL : http://localhost:8000
+
+RAPPORTS :
+----------
+GET  /api/reports/list
+     → Retourne : Array<Report>
+     → Utilisation : Charger la liste des rapports
+
+GET  /api/reports/download/{filename}
+     → Retourne : Fichier PDF
+     → Utilisation : Télécharger un rapport
+
+GET  /api/reports/preview/{filename}
+     → Retourne : Fichier PDF (inline)
+     → Utilisation : Aperçu dans le navigateur
+
+DELETE /api/reports/{filename}
+     → Retourne : { message: string }
+     → Utilisation : Supprimer un rapport
+
+POST /api/reports/download-multiple
+     → Body : { filenames: string[] }
+     → Retourne : Fichier ZIP
+     → Utilisation : Télécharger plusieurs rapports
+
+GET  /Reports_generation?from_date=YYYY-MM-DD&to_date=YYYY-MM-DD&facility_id=123
+     → Retourne : { ok: true }
+     → Utilisation : Générer un rapport individuel
+     → ATTENTION : Peut prendre plusieurs minutes !
+
+GET  /Group_Reports_generation?from_date=YYYY-MM-DD&to_date=YYYY-MM-DD
+     → Retourne : { ok: true }
+     → Utilisation : Générer un rapport de groupe
+     → ATTENTION : Peut prendre plusieurs minutes !
+
+
+CONFIGURATION :
+---------------
+GET  /items
+     → Retourne : Array<FacilityConfig>
+     → Utilisation : Charger la config des facilities
+
+PUT  /items
+     → Body : Array<FacilityConfig>
+     → Retourne : { saved: number }
+     → Utilisation : Sauvegarder la config des facilities
+
+GET  /group-items
+     → Retourne : Array<GroupConfig>
+     → Utilisation : Charger la config des groupes
+
+PUT  /group-items
+     → Body : Array<GroupConfig>
+     → Retourne : { saved: number }
+     → Utilisation : Sauvegarder la config des groupes
+
+
+UPLOAD :
+--------
+POST /upload
+     → Body : FormData avec le fichier
+     → Retourne : { path: string }
+     → Utilisation : Uploader un logo
+
+
+================================================================================
+  EXEMPLES DE CODE (POUR RÉFÉRENCE)
+================================================================================
+
+EXEMPLE 1 : APPEL API POUR CHARGER LES RAPPORTS
+------------------------------------------------
+
+const loadReports = async () => {
+  try {
+    const response = await fetch('http://localhost:8000/api/reports/list');
+    if (!response.ok) throw new Error(`Erreur ${response.status}`);
+    const data = await response.json();
+    setReports(data);
+  } catch (error) {
+    showToast('Erreur lors du chargement des rapports', 'error');
+  }
+};
+
+
+EXEMPLE 2 : GÉNÉRER UN RAPPORT INDIVIDUEL
+------------------------------------------
+
+const generateReport = async (fromDate, toDate, facilityId) => {
+  // Validation
+  if (!fromDate || !toDate) {
+    showToast('Veuillez renseigner les dates', 'error');
+    return;
+  }
+
+  // Construire l'URL
+  let url = `http://localhost:8000/Reports_generation?from_date=${fromDate}&to_date=${toDate}`;
+  if (facilityId) {
+    url += `&facility_id=${facilityId}`;
+  }
+
+  // Afficher modal de chargement
+  setShowLoadingModal(true);
+
+  try {
+    // ATTENTION : Timeout long car génération peut prendre plusieurs minutes
+    const response = await fetch(url, {
+      method: 'GET',
+      signal: AbortSignal.timeout(600000) // 10 minutes
+    });
+
+    if (!response.ok) throw new Error('Erreur lors de la génération');
+
+    // Succès
+    setShowLoadingModal(false);
+    showToast('Rapport généré avec succès !', 'success');
+    
+    // Rafraîchir la liste
+    await loadReports();
+
+  } catch (error) {
+    setShowLoadingModal(false);
+    showToast('Erreur : ' + error.message, 'error');
+  }
+};
+
+
+EXEMPLE 3 : SUPPRIMER UN RAPPORT
+---------------------------------
+
+const deleteReport = async (filename) => {
+  // Confirmation
+  const confirmed = await showConfirmModal(
+    'Confirmer la suppression',
+    `Êtes-vous sûr de vouloir supprimer le rapport "${filename}" ?`
+  );
+
+  if (!confirmed) return;
+
+  try {
+    const response = await fetch(`http://localhost:8000/api/reports/${filename}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) throw new Error('Erreur lors de la suppression');
+
+    showToast('Rapport supprimé', 'success');
+    
+    // Retirer du tableau
+    setReports(reports.filter(r => r.filename !== filename));
+
+  } catch (error) {
+    showToast('Erreur : ' + error.message, 'error');
+  }
+};
+
+
+EXEMPLE 4 : UPLOADER UN LOGO
+-----------------------------
+
+const uploadLogo = async (file) => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const response = await fetch('http://localhost:8000/upload', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) throw new Error('Erreur lors de l\'upload');
+
+    const data = await response.json();
+    return data.path; // Ex: "/uploads/logo.png"
+
+  } catch (error) {
+    showToast('Erreur lors de l\'upload', 'error');
+    return null;
+  }
+};
+
+
+EXEMPLE 5 : SAUVEGARDER LA CONFIG FACILITIES
+---------------------------------------------
+
+const saveFacilityConfig = async (facilities) => {
+  try {
+    const response = await fetch('http://localhost:8000/items', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(facilities)
+    });
+
+    if (!response.ok) throw new Error('Erreur lors de la sauvegarde');
+
+    showToast('Configuration sauvegardée', 'success');
+
+  } catch (error) {
+    showToast('Erreur : ' + error.message, 'error');
+  }
+};
+
+
+================================================================================
+  POINTS D'ATTENTION CRITIQUES
+================================================================================
+
+1. ⏱️ TIMEOUT DES REQUÊTES DE GÉNÉRATION :
+   - Les endpoints /Reports_generation et /Group_Reports_generation peuvent
+     prendre 30 secondes à 5 minutes
+   - Configurer un timeout de 10 minutes minimum
+   - Afficher une modal de chargement pendant toute la durée
+   - Ne pas permettre à l'utilisateur de fermer la modal pendant la génération
+
+2. 📦 TÉLÉCHARGEMENT DE FICHIERS LOURDS :
+   - Les PDFs peuvent faire plusieurs MB
+   - Afficher une indication de téléchargement en cours
+   - Gérer les erreurs de téléchargement
+
+3. ☑️ GESTION DE LA SÉLECTION MULTIPLE :
+   - Synchroniser l'état des checkboxes
+   - Mettre à jour le compteur en temps réel
+   - Activer/désactiver les boutons selon la sélection
+   - Gérer le "Tout sélectionner" correctement
+
+4. 🖼️ UPLOAD D'IMAGES :
+   - Valider le type de fichier (jpg, png, svg)
+   - Limiter la taille (max 5MB)
+   - Afficher une prévisualisation
+   - Gérer les erreurs d'upload
+
+5. ✅ VALIDATION DES DATES :
+   - Date de début obligatoire
+   - Date de fin obligatoire
+   - Date de début < Date de fin
+   - Format YYYY-MM-DD pour l'API
+
+6. 🔄 RAFRAÎCHISSEMENT AUTOMATIQUE :
+   - Après génération d'un rapport : rappeler /api/reports/list
+   - Après suppression : mettre à jour le tableau
+   - Après sauvegarde : afficher confirmation
+
+7. 💾 SAUVEGARDE DES CONFIGURATIONS :
+   - Envoyer TOUT le tableau, pas juste les modifications
+   - Le backend remplace complètement les données
+   - Afficher confirmation de sauvegarde
+
+8. 🎨 RESPONSIVE :
+   - Tableaux : scroll horizontal sur mobile
+   - Formulaires : stack vertical sur mobile
+   - Modals : pleine largeur sur mobile
+
+
+================================================================================
+  LIVRABLES ATTENDUS
+================================================================================
+
+1. CODE SOURCE :
+   - Application React complète
+   - Composants réutilisables
+   - Code TypeScript typé
+   - Configuration TailwindCSS
+
+2. DOCUMENTATION :
+   - README avec instructions de lancement
+   - Variables d'environnement (API_BASE_URL)
+   - Dépendances npm
+
+3. TESTS (OPTIONNEL) :
+   - Tests unitaires des composants
+   - Tests d'intégration des appels API
+
+
+================================================================================
+  QUESTIONS / SUPPORT
+================================================================================
+
+Si vous avez des questions sur :
+- Les endpoints API
+- Le format des données
+- Le comportement attendu
+- Les cas d'erreur
+
+Contactez l'équipe backend Python.
+
+
+================================================================================
+  FIN DU BRIEF
+================================================================================
+
+Bon développement ! 🚀
