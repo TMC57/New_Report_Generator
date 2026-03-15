@@ -1,0 +1,47 @@
+# Uploads - fichiers uploadés par les utilisateurs
+uploads/*.jpg
+uploads/*.jpeg
+uploads/*.png
+uploads/*.webp
+uploads/*.gif
+
+# Garder le dossier mais ignorer son contenu
+!uploads/.gitkeep
+
+# Excel listings - données sensibles
+uploads/excel_listings/*.xlsx
+uploads/excel_listings/*.xls
+uploads/excel_listings/listing_data.json
+uploads/excel_listings/metadata.json
+
+# Cache - données temporaires
+cache/*.json
+!cache/.gitkeep
+
+# Reports - PDFs générés
+reports/**/*.pdf
+!reports/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+
+# Environnement
+.env
+.venv
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log

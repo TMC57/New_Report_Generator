@@ -1,0 +1,346 @@
+"""
+Application FastAPI principale du projet refactorisé
+Serveur autonome avec tous les endpoints nécessaires
+"""
+import os
+from pathlib import Path
+from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse, HTMLResponse
+
+from refactored.api.routes import router as reports_router
+from refactored.api.upload_routes import router as upload_router
+from refactored.api.config_routes import router as config_router
+
+# Créer l'application FastAPI
+app = FastAPI(
+    title="Générateur de Rapports E-Wash",
+    description="Système de génération de rapports de consommation - Version Refactorisée",
+    version="2.0.0",
+    docs_url="/api/docs",
+    redoc_url="/api/redoc"
+)
+
+# Monter tous les routers
+app.include_router(reports_router)
+app.include_router(upload_router)
+app.include_router(config_router)
+
+# Chemins des dossiers
+BASE_DIR = Path(__file__).parent.parent
+REFACTORED_DIR = Path(__file__).parent
+UPLOADS_DIR = REFACTORED_DIR / "uploads"
+IMAGES_DIR = REFACTORED_DIR / "images"
+REACT_BUILD_DIR = BASE_DIR / "pixel-perfect-replica-50" / "dist"
+
+# Créer les dossiers nécessaires
+UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
+IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+
+# Monter les dossiers statiques
+app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
+app.mount("/images", StaticFiles(directory=str(IMAGES_DIR)), name="images")
+
+# Servir le frontend React si disponible
+if REACT_BUILD_DIR.exists():
+    app.mount("/assets", StaticFiles(directory=str(REACT_BUILD_DIR / "assets")), name="assets")
+
+@app.get("/")
+async def get_home():
+    """
+    Page d'accueil - sert le frontend React
+    """
+    react_index = REACT_BUILD_DIR / "index.html"
+    if react_index.exists():
+        return FileResponse(react_index)
+    else:
+        return HTMLResponse("""
+        <html>
+            <head><title>Générateur de Rapports E-Wash</title></head>
+            <body>
+                <h1>Générateur de Rapports E-Wash</h1>
+                <p>Frontend non trouvé. Veuillez builder le frontend React avec 'npm run build'</p>
+                <p>API disponible sur <a href="/api/docs">/api/docs</a></p>
+            </body>
+        </html>
+        """, status_code=200)
+
+@app.get("/health")
+async def health_check():
+    """
+    Endpoint de santé pour vérifier que le serveur fonctionne
+    """
+    return {
+        "status": "healthy",
+        "version": "2.0.0",
+        "project": "refactored"
+    }
+
+# Endpoints de compatibilité pour le frontend
+@app.post("/upload-excel-listing")
+async def upload_excel_listing_compat(file: UploadFile = File(...)):
+    """
+    Endpoint de compatibilité pour l'upload Excel
+    Redirige vers le nouveau système
+    """
+    from fastapi import UploadFile, File
+    import json
+    import shutil
+    from datetime import datetime
+    
+    # Importer le parser Excel local
+    from refactored.excel_parser import parse_listing_clients_excel
+    
+    try:
+        if not file.filename.lower().endswith(('.xlsx', '.xls')):
+            raise HTTPException(status_code=400, detail="Le fichier doit être au format Excel (.xlsx ou .xls)")
+        
+        excel_listings_dir = REFACTORED_DIR / "uploads" / "excel_listings"
+        excel_listings_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Sauvegarder le fichier Excel
+        excel_file_path = excel_listings_dir / "current_listing.xlsx"
+        with open(excel_file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        
+        # Parser le fichier Excel
+        excel_data = parse_listing_clients_excel(str(excel_file_path))
+        
+        # Sauvegarder les données parsées
+        excel_data_path = excel_listings_dir / "listing_data.json"
+        with open(excel_data_path, "w", encoding="utf-8") as f:
+            json_data = {str(k): v for k, v in excel_data.items()}
+            json.dump(json_data, f, ensure_ascii=False, indent=2)
+        
+        # Sauvegarder les métadonnées
+        metadata_path = excel_listings_dir / "metadata.json"
+        with open(metadata_path, "w", encoding="utf-8") as f:
+            metadata = {
+                "filename": file.filename,
+                "facilities_count": len(excel_data),
+                "upload_date": datetime.now().isoformat()
+            }
+            json.dump(metadata, f, ensure_ascii=False, indent=2)
+        
+        return {
+            "success": True,
+            "filename": file.filename,
+            "facilities_count": len(excel_data),
+            "message": f"Fichier Excel parsé avec succès. {len(excel_data)} facilities trouvées."
+        }
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors du parsing: {str(e)}")
+
+@app.get("/excel-listing-status")
+async def get_excel_listing_status_compat():
+    """
+    Endpoint de compatibilité pour vérifier le statut Excel
+    """
+    import json
+    
+    excel_listings_dir = REFACTORED_DIR / "uploads" / "excel_listings"
+    metadata_path = excel_listings_dir / "metadata.json"
+    
+    if metadata_path.exists():
+        try:
+            with open(metadata_path, "r", encoding="utf-8") as f:
+                metadata = json.load(f)
+            return {
+                "uploaded": True,
+                "filename": metadata.get("filename"),
+                "facilities_count": metadata.get("facilities_count"),
+                "upload_date": metadata.get("upload_date")
+            }
+        except Exception:
+            return {"uploaded": False}
+    
+    return {"uploaded": False}
+
+@app.post("/upload")
+async def upload_file_compat(file: UploadFile = File(...)):
+    """
+    Endpoint de compatibilité pour l'upload d'images
+    """
+    import shutil
+    
+    try:
+        dst_path = UPLOADS_DIR / file.filename
+        with open(dst_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+        
+        return {"path": f"/uploads/{file.filename}"}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur upload: {str(e)}")
+
+@app.get("/api/reports/list")
+async def list_reports_compat():
+    """
+    Endpoint de compatibilité pour lister les rapports
+    """
+    import os
+    from datetime import datetime
+    
+    reports_dir = REFACTORED_DIR / "reports"
+    reports = []
+    
+    if not reports_dir.exists():
+        return reports
+    
+    for root, dirs, files in os.walk(reports_dir):
+        for file in files:
+            if file.endswith('.pdf'):
+                file_path = os.path.join(root, file)
+                stat = os.stat(file_path)
+                folder_name = os.path.basename(root)
+                
+                # Extraire les dates du nom du dossier
+                import re
+                pattern = r'(\d{4}-\d{2}-\d{2})\s+to\s+(\d{4}-\d{2}-\d{2})'
+                match = re.search(pattern, folder_name)
+                
+                date_range = None
+                if match:
+                    from_date, to_date = match.groups()
+                    date_range = {
+                        "from_date": from_date,
+                        "to_date": to_date,
+                        "formatted": f"Du {from_date} au {to_date}"
+                    }
+                
+                reports.append({
+                    "filename": file,
+                    "name": os.path.splitext(file)[0],
+                    "type": "group" if folder_name.startswith("group") else "individual",
+                    "size": stat.st_size,
+                    "date": datetime.fromtimestamp(stat.st_mtime).isoformat(),
+                    "date_range": date_range,
+                    "folder": folder_name,
+                    "path": file_path
+                })
+    
+    reports.sort(key=lambda x: x['date'], reverse=True)
+    return reports
+
+@app.delete("/api/reports/{filename}")
+async def delete_report_compat(filename: str):
+    """
+    Supprime un rapport PDF
+    """
+    import os
+    
+    reports_dir = REFACTORED_DIR / "reports"
+    
+    # Chercher le fichier dans tous les sous-dossiers
+    for root, dirs, files in os.walk(reports_dir):
+        if filename in files:
+            file_path = os.path.join(root, filename)
+            os.remove(file_path)
+            return {"success": True, "message": f"Rapport {filename} supprimé"}
+    
+    raise HTTPException(status_code=404, detail="Rapport non trouvé")
+
+@app.get("/api/reports/download/{filename}")
+async def download_report_compat(filename: str):
+    """
+    Télécharge un rapport PDF
+    """
+    import os
+    from fastapi.responses import FileResponse
+    
+    reports_dir = REFACTORED_DIR / "reports"
+    
+    # Chercher le fichier dans tous les sous-dossiers
+    for root, dirs, files in os.walk(reports_dir):
+        if filename in files:
+            file_path = os.path.join(root, filename)
+            return FileResponse(
+                file_path,
+                media_type="application/pdf",
+                filename=filename
+            )
+    
+    raise HTTPException(status_code=404, detail="Rapport non trouvé")
+
+@app.get("/api/reports/preview/{filename}")
+async def preview_report_compat(filename: str):
+    """
+    Prévisualise un rapport PDF dans le navigateur
+    """
+    import os
+    from fastapi.responses import FileResponse
+    
+    reports_dir = REFACTORED_DIR / "reports"
+    
+    # Chercher le fichier dans tous les sous-dossiers
+    for root, dirs, files in os.walk(reports_dir):
+        if filename in files:
+            file_path = os.path.join(root, filename)
+            return FileResponse(
+                file_path,
+                media_type="application/pdf",
+                headers={"Content-Disposition": "inline"}
+            )
+    
+    raise HTTPException(status_code=404, detail="Rapport non trouvé")
+
+@app.post("/api/reports/download-multiple")
+async def download_multiple_reports_compat(body: dict):
+    """
+    Télécharge plusieurs rapports dans un fichier ZIP
+    """
+    import os
+    import zipfile
+    from io import BytesIO
+    from fastapi.responses import StreamingResponse
+    
+    filenames = body.get("filenames", [])
+    if not filenames:
+        raise HTTPException(status_code=400, detail="Aucun fichier spécifié")
+    
+    reports_dir = REFACTORED_DIR / "reports"
+    
+    # Créer un fichier ZIP en mémoire
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        for filename in filenames:
+            # Chercher le fichier dans tous les sous-dossiers
+            found = False
+            for root, dirs, files in os.walk(reports_dir):
+                if filename in files:
+                    file_path = os.path.join(root, filename)
+                    zip_file.write(file_path, filename)
+                    found = True
+                    break
+            
+            if not found:
+                raise HTTPException(status_code=404, detail=f"Rapport {filename} non trouvé")
+    
+    zip_buffer.seek(0)
+    
+    return StreamingResponse(
+        zip_buffer,
+        media_type="application/zip",
+        headers={"Content-Disposition": "attachment; filename=rapports.zip"}
+    )
+
+# Événements de démarrage/arrêt
+@app.on_event("startup")
+async def startup_event():
+    """Actions au démarrage du serveur"""
+    print("=" * 60)
+    print("🚀 Serveur Générateur de Rapports E-Wash démarré")
+    print("=" * 60)
+    print(f"📁 Dossier uploads: {UPLOADS_DIR}")
+    print(f"📁 Dossier images: {IMAGES_DIR}")
+    print(f"📁 Frontend React: {REACT_BUILD_DIR}")
+    print("=" * 60)
+    print("📚 Documentation API: http://localhost:8000/api/docs")
+    print("🌐 Application: http://localhost:8000")
+    print("=" * 60)
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Actions à l'arrêt du serveur"""
+    print("\n👋 Serveur arrêté")

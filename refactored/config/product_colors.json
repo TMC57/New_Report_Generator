@@ -1,0 +1,34 @@
+{
+  "product_colors": {
+    "WNC 40": "#65C482",
+    "WNC 50": "#34A65F",
+    "WNC 60": "#1F8A4B",
+    "WNC 70": "#0F6A33",
+    "WNC 31": "#F7C844",
+    "Auto-séchant": "#8698CB",
+    "Purple": "#7B3FA7",
+    "Eau": "#90F1EF"
+  },
+  "color_names": {
+    "WNC 40": "Emerald",
+    "WNC 50": "Medium jungle",
+    "WNC 60": "Sea green",
+    "WNC 70": "Dark emerald",
+    "WNC 31": "Tuscan sun",
+    "Auto-séchant": "Wisteria blue",
+    "Purple": "Indigo bloom",
+    "Eau": "Soft cyan"
+  },
+  "product_references": {
+    "089047020": "WNC 40",
+    "08904701": "WNC 40",
+    "08904711": "WNC 50",
+    "0890473": "WNC 60",
+    "0893048200": "WNC 70",
+    "0893010725": "WNC 31",
+    "0893010720": "WNC 31",
+    "0893025020": "Auto-séchant",
+    "0893025650": "Auto-séchant",
+    "0893477009": "Purple"
+  }
+}
