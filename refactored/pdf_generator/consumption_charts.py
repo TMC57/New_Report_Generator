@@ -9,8 +9,9 @@ import matplotlib.dates as mdates
 from matplotlib.patches import Rectangle
 import numpy as np
 import io
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 from refactored.utils.product_colors import get_color_service
+import matplotlib.ticker as mticker
 
 
 class ConsumptionChartGenerator:
@@ -329,3 +330,178 @@ class ConsumptionChartGenerator:
             "min": np.min(quantities),
             "max": np.max(quantities)
         }
+    
+    def create_flowrate_chart(
+        self,
+        events_data: Dict,
+        device_serial: str,
+        zone: str,
+        from_date: str,
+        to_date: str
+    ) -> Optional[io.BytesIO]:
+        """
+        Crée un graphique de débit (flowrate) pour un device
+        Basé sur l'ancien scatter.py
+        
+        Args:
+            events_data: Données d'événements de débit depuis l'API
+            device_serial: Numéro de série du device
+            zone: Nom de la zone
+            from_date: Date de début (YYYY-MM-DD)
+            to_date: Date de fin (YYYY-MM-DD)
+            
+        Returns:
+            BytesIO contenant l'image PNG du graphique ou None si pas de données
+        """
+        # Extraire les données par pompe
+        series, pump_names = self._extract_flowrate_series(events_data)
+        
+        if not series:
+            return None
+        
+        # Créer le graphique
+        fig, ax = plt.subplots(figsize=(12, 6))
+        
+        # Convertir les dates limites
+        start_date = datetime.strptime(from_date, "%Y-%m-%d")
+        end_date = datetime.strptime(to_date, "%Y-%m-%d")
+        
+        # Griser les week-ends et jours fériés
+        current_date = start_date
+        while current_date <= end_date:
+            date_str = current_date.strftime("%Y-%m-%d")
+            if self.is_weekend_or_holiday(date_str):
+                ax.axvspan(current_date, current_date + timedelta(days=1), 
+                          color='lightgray', alpha=0.3, zorder=0)
+            current_date += timedelta(days=1)
+        
+        # Service de couleurs
+        color_service = get_color_service()
+        
+        # Tracer chaque pompe
+        for pump_idx, pts in series.items():
+            # Convertir timestamps en dates
+            dates = [datetime.fromtimestamp(ts / 1000.0) for ts, _ in pts]
+            # Valeurs en mL (division par 10 comme dans l'ancien code)
+            values = [v / 10.0 for _, v in pts]
+            
+            # Numéro de pompe (0 -> 1, etc.)
+            try:
+                pump_num = int(pump_idx) + 1
+            except Exception:
+                pump_num = "?"
+            
+            # Nom du produit pour cette pompe
+            prod_name = pump_names.get(pump_idx, "Produit")
+            label = prod_name  # Seulement le nom du produit, sans "Pompe X —"
+            
+            # Obtenir la couleur du produit
+            color = color_service.get_color_for_product(prod_name)
+            if not color:
+                color = color_service.get_default_colors()[int(pump_idx) % len(color_service.get_default_colors())]
+            
+            # Tracer la courbe
+            ax.plot(dates, values, marker='o', linewidth=3, markersize=8, 
+                   label=label, color=color)
+        
+        # Configuration du graphique (pas de titre, il est sur la page)
+        
+        # Grille
+        ax.grid(True, axis='y', linestyle='-', linewidth=0.8, 
+               color='black', alpha=0.3)
+        
+        # Format de l'axe Y (mL)
+        ax.yaxis.set_major_formatter(
+            mticker.FuncFormatter(lambda x, _: f"{int(x):,} ml".replace(',', ' '))
+        )
+        
+        # Format de l'axe X (dates)
+        ax.xaxis.set_major_locator(mdates.DayLocator(interval=1))
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%d/%m'))
+        plt.xticks(rotation=45, ha='right')
+        
+        # Légende en dessous
+        ax.legend(
+            loc='lower center',
+            bbox_to_anchor=(0.5, -0.25),
+            ncol=3,
+            fontsize=11,
+            frameon=False
+        )
+        
+        # Retirer les bordures
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        
+        # Ajuster la mise en page
+        plt.tight_layout()
+        
+        # Sauvegarder dans un buffer
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=150, bbox_inches='tight')
+        plt.close(fig)
+        buf.seek(0)
+        
+        return buf
+    
+    def _extract_flowrate_series(self, events_data: Dict) -> Tuple[Dict, Dict]:
+        """
+        Extrait les séries de données par pompe depuis les événements
+        
+        Args:
+            events_data: Données d'événements de l'API
+            
+        Returns:
+            Tuple (series, pump_names) où:
+            - series: {pump_idx: [(timestamp, value), ...]}
+            - pump_names: {pump_idx: product_name}
+        """
+        # Extraire les lignes de données
+        rows = []
+        data = events_data.get("data")
+        if isinstance(data, dict) and "results" in data:
+            rows = data.get("results", [])
+        elif isinstance(data, list):
+            rows = data
+        elif isinstance(events_data, list):
+            rows = events_data
+        
+        series = {}  # pump_idx -> [(ts, val)]
+        latest_name_by_pump = {}  # pump_idx -> (latest_ts, name)
+        
+        for r in rows:
+            # Extraire les champs (plusieurs noms possibles)
+            name = (r.get("productName") or r.get("product") or 
+                   r.get("name") or "Produit")
+            pump = r.get("pumpIdx") or r.get("pump") or r.get("pumpIndex")
+            ts = (r.get("timestamp") or r.get("eventDate") or 
+                 r.get("createDate") or r.get("date") or r.get("time"))
+            val = (r.get("value") or r.get("flowRate") or 
+                  r.get("qty") or r.get("quantity") or r.get("v"))
+            
+            if ts is None or val is None:
+                continue
+            
+            try:
+                ts = int(ts)
+                val = float(val)
+            except Exception:
+                continue
+            
+            # Clé de pompe
+            key = str(pump) if pump is not None else ""
+            series.setdefault(key, []).append((ts, val))
+            
+            # Mémoriser le nom le plus récent par timestamp
+            prev = latest_name_by_pump.get(key)
+            if prev is None or ts >= prev[0]:
+                latest_name_by_pump[key] = (ts, name)
+        
+        # Trier chaque série par temps croissant
+        for k in list(series.keys()):
+            series[k].sort(key=lambda x: x[0])
+        
+        # Construire le dict des noms
+        pump_names = {k: v[1] for k, v in latest_name_by_pump.items()}
+        
+        return series, pump_names

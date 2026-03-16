@@ -84,6 +84,9 @@ class PDFGenerator:
         
         story.extend(self._create_dilution_page(facility_data, styles))
         
+        # Pages de débit moyen par zone
+        story.extend(self._create_flowrate_pages(facility_data, from_date, to_date, styles))
+        
         # Pas de PageBreak ici car le premier graphique a déjà son PageBreak
         story.extend(self._create_consumption_pages(facility_data, from_date, to_date, styles))
         
@@ -600,12 +603,12 @@ class PDFGenerator:
             # Texte explicatif pour les parties grisées
             explanation_style = ParagraphStyle(
                 'TableExplanation',
-                fontName='Helvetica-Oblique',
+                fontName='Helvetica',
                 fontSize=8,
-                alignment=TA_CENTER,
-                textColor=colors.grey
+                alignment=TA_LEFT,
+                textColor=colors.black
             )
-            explanation = Paragraph("Les parties grisées correspondent aux week-ends et jours fériés.", explanation_style)
+            explanation = Paragraph("LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.", explanation_style)
             elements.append(explanation)
             elements.append(Spacer(1, 0.5*cm))
         
@@ -692,12 +695,12 @@ class PDFGenerator:
             # Texte explicatif pour les parties grisées
             explanation_style = ParagraphStyle(
                 'TableExplanation',
-                fontName='Helvetica-Oblique',
+                fontName='Helvetica',
                 fontSize=8,
-                alignment=TA_CENTER,
-                textColor=colors.grey
+                alignment=TA_LEFT,
+                textColor=colors.black
             )
-            explanation = Paragraph("Les parties grisées correspondent aux week-ends et jours fériés.", explanation_style)
+            explanation = Paragraph("LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.", explanation_style)
             elements.append(explanation)
             elements.append(Spacer(1, 0.5*cm))
         
@@ -752,7 +755,7 @@ class PDFGenerator:
             elements.append(Paragraph(f"<b>ZONE: {zone}</b>", zone_style))
             elements.append(Spacer(1, 0.3*cm))
             
-            explanation_text = "Les consommations sont exprimées en litres. Le graphique vous permet de suivre les pics d'activité sur le mois."
+            explanation_text = "LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES. LE GRAPHIQUE VOUS PERMET DE SUIVRE LES PICS D'ACTIVITÉ SUR LE MOIS."
             elements.append(Paragraph(explanation_text, text_style))
             elements.append(Spacer(1, 0.5*cm))
             
@@ -966,7 +969,7 @@ class PDFGenerator:
         elements.append(Paragraph("PRODUITS LIVRÉS".upper(), title_style))
         elements.append(Spacer(1, 0.3*cm))
         
-        explanation_text = "Ce tableau récapitule les produits livrés sur la période. Les données sont à venir."
+        explanation_text = "CE TABLEAU RÉCAPITULE LES PRODUITS LIVRÉS SUR LA PÉRIODE. LES DONNÉES SONT À VENIR."
         elements.append(Paragraph(explanation_text, text_style))
         elements.append(Spacer(1, 0.5*cm))
         
@@ -1104,6 +1107,119 @@ class PDFGenerator:
         
         canvas.restoreState()
     
+    def _create_flowrate_pages(self, facility_data: dict, from_date: str, to_date: str, styles):
+        """Crée les pages de débit moyen par zone"""
+        from .consumption_charts import ConsumptionChartGenerator
+        
+        elements = []
+        chart_gen = ConsumptionChartGenerator()
+        
+        title_style = ParagraphStyle(
+            'FlowrateTitle',
+            parent=styles['Title'],
+            fontName='Helvetica-Bold',
+            fontSize=14,
+            alignment=TA_CENTER
+        )
+        
+        text_style = ParagraphStyle(
+            'FlowrateText',
+            parent=styles['Normal'],
+            fontName='Helvetica',
+            fontSize=10,
+            alignment=TA_LEFT,
+            leading=14
+        )
+        
+        # Récupérer les données flowrate
+        flowrate_data = facility_data.get("flowrate_data", {})
+        
+        if not flowrate_data:
+            # Pas de données flowrate, ne rien générer
+            return elements
+        
+        # Récupérer les devices et zones
+        devices = facility_data.get("devices", [])
+        zones = facility_data.get("zones", ["GLOBAL"])
+        
+        # Créer une page par zone
+        for zone in zones:
+            # Filtrer les devices de cette zone
+            zone_devices = [d for d in devices if d.get("zone") == zone or (d.get("zone") is None and zone == "GLOBAL")]
+            
+            if not zone_devices:
+                continue
+            
+            # Regrouper toutes les données flowrate de la zone
+            zone_has_data = False
+            combined_events = {"data": {"results": []}}
+            
+            for device in zone_devices:
+                device_id = device.get("device_id")
+                
+                # Vérifier si on a des données flowrate pour ce device
+                if device_id in flowrate_data:
+                    events_data = flowrate_data[device_id]
+                    
+                    # Extraire les résultats
+                    if isinstance(events_data, dict):
+                        data = events_data.get("data")
+                        if isinstance(data, dict) and "results" in data:
+                            combined_events["data"]["results"].extend(data["results"])
+                            zone_has_data = True
+                        elif isinstance(data, list):
+                            combined_events["data"]["results"].extend(data)
+                            zone_has_data = True
+            
+            if not zone_has_data:
+                continue
+            
+            # Créer un seul graphique pour toute la zone
+            chart_buf = chart_gen.create_flowrate_chart(
+                combined_events,
+                "",  # Pas de serial number
+                zone,
+                from_date,
+                to_date
+            )
+            
+            if chart_buf:
+                # Nouvelle page pour cette zone
+                elements.append(PageBreak())
+                
+                # Titre de la page
+                elements.append(Paragraph("DÉBIT MOYEN PAR JOURS", title_style))
+                elements.append(Spacer(1, 0.3*cm))
+                
+                # Texte explicatif (sans mention de routeur)
+                explanation_text = f"GRAPHIQUE DE DÉBIT POUR LA ZONE {zone}"
+                elements.append(Paragraph(explanation_text, text_style))
+                elements.append(Spacer(1, 0.5*cm))
+                
+                # Ajouter le graphique (même taille que les graphiques de consommation)
+                img = Image(chart_buf, width=24*cm, height=12*cm)
+                img.hAlign = 'CENTER'
+                elements.append(img)
+                elements.append(Spacer(1, 0.3*cm))
+                
+                # Texte explicatif détaillé
+                explanation_style = ParagraphStyle(
+                    'FlowrateExplanation',
+                    fontName='Helvetica',
+                    fontSize=8,
+                    alignment=TA_LEFT,
+                    textColor=colors.black
+                )
+                detailed_explanation = (
+                    "• ZONE GRISÉE: WEEK-ENDS ET JOURS FÉRIÉS<br/>"
+                    "LES CONSOMMATIONS SONT EXPRIMÉES EN ML PAR UTILISATION DANS LA JOURNÉE. "
+                    "EXEMPLE : UN POINT À 200 ML SIGNIFIE QU'IL A FALLU EN MOYENNE 200 ML POUR LAVER CHAQUE VOITURE DANS LA JOURNÉE"
+                )
+                elements.append(Paragraph(detailed_explanation, explanation_style))
+                elements.append(Spacer(1, 0.5*cm))
+        
+        return elements
+    
     def _create_consumption_pages(self, facility_data: dict, from_date: str, to_date: str, styles):
         """Crée les pages de suivi de consommation par zone"""
         from .consumption_charts import ConsumptionChartGenerator
@@ -1179,10 +1295,17 @@ class PDFGenerator:
             elements.append(chart_img)
             elements.append(Spacer(1, 0.3*cm))
             
-            legend_text = """• <b>Zone grisée</b>: Week-ends et jours fériés<br/>
-Les consommations sont exprimées en mL par utilisation dans la journée. Exemple : un point à 200 mL signifie qu'il a fallu en moyenne 200 mL pour laver chaque voiture dans la journée."""
+            # Texte explicatif avec le même style que sous les tableaux
+            explanation_style = ParagraphStyle(
+                'ChartExplanation',
+                fontName='Helvetica',
+                fontSize=8,
+                alignment=TA_LEFT,
+                textColor=colors.black
+            )
+            legend_text = "• ZONE GRISÉE: WEEK-ENDS ET JOURS FÉRIÉS<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN ML PAR UTILISATION DANS LA JOURNÉE. EXEMPLE : UN POINT À 200 ML SIGNIFIE QU'IL A FALLU EN MOYENNE 200 ML POUR LAVER CHAQUE VOITURE DANS LA JOURNÉE"
             
-            elements.append(Paragraph(legend_text, text_style))
+            elements.append(Paragraph(legend_text, explanation_style))
             elements.append(Spacer(1, 0.5*cm))
         
         return elements

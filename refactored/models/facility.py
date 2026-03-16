@@ -42,6 +42,9 @@ class FacilityData:
     
     zones: List[str] = field(default_factory=list)
     
+    # Données de débit (flowrate) par device
+    flowrate_data: Dict[int, Dict] = field(default_factory=dict)  # {device_id: events_data}
+    
     excel_matched: bool = False
     excel_match_method: Optional[str] = None
     
@@ -233,5 +236,6 @@ class FacilityData:
                 }
                 for p in self.stock_products
             ],
-            "zones": self.zones
+            "zones": self.zones,
+            "flowrate_data": self.flowrate_data
         }

@@ -5,6 +5,7 @@ from refactored.models.product import Product, ProductConsumption
 from refactored.services.cm2w_service import CM2WService
 from refactored.services.excel_service import ExcelService
 from refactored.services.config_service import ConfigService
+from refactored.services.flowrate_service import FlowrateService
 from refactored.utils.logger import get_logger
 
 logger = get_logger("Facility_Service")
@@ -16,6 +17,7 @@ class FacilityService:
         self.cm2w = CM2WService()
         self.excel = ExcelService()
         self.config = ConfigService()
+        self.flowrate = FlowrateService()
     
     def get_complete_facility_data(
         self,
@@ -237,6 +239,25 @@ class FacilityService:
                             })
         
         logger.debug(f"  → Données quotidiennes et mensuelles ajoutées", facility_id)
+        
+        # Récupération des données de débit (flowrate)
+        logger.info(f"Récupération des données de débit (flowrate)...", facility_id)
+        device_ids = [device.device_id for device in facility.devices if device.device_id]
+        
+        if device_ids:
+            # Authentification pour flowrate
+            if self.flowrate.login():
+                flowrate_results = self.flowrate.get_flowrate_for_facility(
+                    device_ids, 
+                    from_date, 
+                    to_date
+                )
+                facility.flowrate_data = flowrate_results
+                logger.success(f"✅ Données flowrate récupérées pour {len(flowrate_results)} devices", facility_id)
+            else:
+                logger.warning(f"⚠️ Impossible de récupérer les données flowrate (échec authentification)", facility_id)
+        else:
+            logger.warning(f"⚠️ Aucun device ID trouvé, pas de données flowrate", facility_id)
         
         zones = set()
         for device in facility.devices:

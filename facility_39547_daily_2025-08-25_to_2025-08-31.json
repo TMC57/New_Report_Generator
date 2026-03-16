@@ -1,0 +1,318 @@
+{
+  "2025-08-25": {
+    "statusCode": "SUCCESS",
+    "data": {
+      "results": [
+        {
+          "_id": 39547,
+          "facilityId": 39547,
+          "facilityName": "1070866213 CASINO GARAGE",
+          "lq": 0,
+          "lQty": 0,
+          "products": [
+            {
+              "_id": 343246,
+              "productId": 343246,
+              "name": "AUTOSECHANT PORSCHE BEAUSOLEIL",
+              "qty": 2574,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 2574,
+              "isSolid": false,
+              "ratio": 1.0
+            },
+            {
+              "_id": 343249,
+              "productId": 343249,
+              "name": "WNC40 PORSCHE BEAUSOLEIL",
+              "qty": 26616,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 26616,
+              "isSolid": false,
+              "ratio": 1.0
+            }
+          ],
+          "clientPrice": 0,
+          "clientCur": null,
+          "w0": 0,
+          "w1": 0,
+          "w2": 0,
+          "w3": 0,
+          "w4": 0,
+          "w5": 0,
+          "w6": 0,
+          "w7": 0,
+          "w8": 0,
+          "w9": 0,
+          "tsd": "1756080000000"
+        }
+      ],
+      "startIndex": 0,
+      "endIndex": 1,
+      "itemCount": 1
+    },
+    "message": null,
+    "errors": null,
+    "errorCode": null,
+    "currentTime": 1773654777444
+  },
+  "2025-08-26": {
+    "statusCode": "SUCCESS",
+    "data": {
+      "results": [
+        {
+          "_id": 39547,
+          "facilityId": 39547,
+          "facilityName": "1070866213 CASINO GARAGE",
+          "lq": 0,
+          "lQty": 0,
+          "products": [
+            {
+              "_id": 343249,
+              "productId": 343249,
+              "name": "WNC40 PORSCHE BEAUSOLEIL",
+              "qty": 23981,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 23981,
+              "isSolid": false,
+              "ratio": 1.0
+            },
+            {
+              "_id": 343246,
+              "productId": 343246,
+              "name": "AUTOSECHANT PORSCHE BEAUSOLEIL",
+              "qty": 2344,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 2344,
+              "isSolid": false,
+              "ratio": 1.0
+            }
+          ],
+          "clientPrice": 0,
+          "clientCur": null,
+          "w0": 0,
+          "w1": 0,
+          "w2": 0,
+          "w3": 0,
+          "w4": 0,
+          "w5": 0,
+          "w6": 0,
+          "w7": 0,
+          "w8": 0,
+          "w9": 0,
+          "tsd": "1756166400000"
+        }
+      ],
+      "startIndex": 0,
+      "endIndex": 1,
+      "itemCount": 1
+    },
+    "message": null,
+    "errors": null,
+    "errorCode": null,
+    "currentTime": 1773654777806
+  },
+  "2025-08-27": {
+    "statusCode": "SUCCESS",
+    "data": {
+      "results": [
+        {
+          "_id": 39547,
+          "facilityId": 39547,
+          "facilityName": "1070866213 CASINO GARAGE",
+          "lq": 0,
+          "lQty": 0,
+          "products": [
+            {
+              "_id": 343246,
+              "productId": 343246,
+              "name": "AUTOSECHANT PORSCHE BEAUSOLEIL",
+              "qty": 2043,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 2043,
+              "isSolid": false,
+              "ratio": 1.0
+            },
+            {
+              "_id": 343249,
+              "productId": 343249,
+              "name": "WNC40 PORSCHE BEAUSOLEIL",
+              "qty": 23773,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 23773,
+              "isSolid": false,
+              "ratio": 1.0
+            }
+          ],
+          "clientPrice": 0,
+          "clientCur": null,
+          "w0": 0,
+          "w1": 0,
+          "w2": 0,
+          "w3": 0,
+          "w4": 0,
+          "w5": 0,
+          "w6": 0,
+          "w7": 0,
+          "w8": 0,
+          "w9": 0,
+          "tsd": "1756252800000"
+        }
+      ],
+      "startIndex": 0,
+      "endIndex": 1,
+      "itemCount": 1
+    },
+    "message": null,
+    "errors": null,
+    "errorCode": null,
+    "currentTime": 1773654778173
+  },
+  "2025-08-28": {
+    "statusCode": "SUCCESS",
+    "data": {
+      "results": [
+        {
+          "_id": 39547,
+          "facilityId": 39547,
+          "facilityName": "1070866213 CASINO GARAGE",
+          "lq": 0,
+          "lQty": 0,
+          "products": [
+            {
+              "_id": 343249,
+              "productId": 343249,
+              "name": "WNC40 PORSCHE BEAUSOLEIL",
+              "qty": 32159,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 32159,
+              "isSolid": false,
+              "ratio": 1.0
+            },
+            {
+              "_id": 343246,
+              "productId": 343246,
+              "name": "Autoséchant",
+              "qty": 1892,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 1892,
+              "isSolid": false,
+              "ratio": 1.0
+            }
+          ],
+          "clientPrice": 0,
+          "clientCur": null,
+          "w0": 0,
+          "w1": 0,
+          "w2": 0,
+          "w3": 0,
+          "w4": 0,
+          "w5": 0,
+          "w6": 0,
+          "w7": 0,
+          "w8": 0,
+          "w9": 0,
+          "tsd": "1756339200000"
+        }
+      ],
+      "startIndex": 0,
+      "endIndex": 1,
+      "itemCount": 1
+    },
+    "message": null,
+    "errors": null,
+    "errorCode": null,
+    "currentTime": 1773654778569
+  },
+  "2025-08-29": {
+    "statusCode": "SUCCESS",
+    "data": {
+      "results": [
+        {
+          "_id": 39547,
+          "facilityId": 39547,
+          "facilityName": "1070866213 CASINO GARAGE",
+          "lq": 0,
+          "lQty": 0,
+          "products": [
+            {
+              "_id": 343249,
+              "productId": 343249,
+              "name": "WNC40",
+              "qty": 31903,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 31903,
+              "isSolid": false,
+              "ratio": 1.0
+            },
+            {
+              "_id": 343246,
+              "productId": 343246,
+              "name": "Autoséchant",
+              "qty": 1927,
+              "price": 0.0,
+              "cur": "eu",
+              "gr": 1927,
+              "isSolid": false,
+              "ratio": 1.0
+            }
+          ],
+          "clientPrice": 0,
+          "clientCur": null,
+          "w0": 0,
+          "w1": 0,
+          "w2": 0,
+          "w3": 0,
+          "w4": 0,
+          "w5": 0,
+          "w6": 0,
+          "w7": 0,
+          "w8": 0,
+          "w9": 0,
+          "tsd": "1756425600000"
+        }
+      ],
+      "startIndex": 0,
+      "endIndex": 1,
+      "itemCount": 1
+    },
+    "message": null,
+    "errors": null,
+    "errorCode": null,
+    "currentTime": 1773654778934
+  },
+  "2025-08-30": {
+    "statusCode": "SUCCESS",
+    "data": {
+      "results": [],
+      "startIndex": 0,
+      "endIndex": 0,
+      "itemCount": 0
+    },
+    "message": null,
+    "errors": null,
+    "errorCode": null,
+    "currentTime": 1773654779300
+  },
+  "2025-08-31": {
+    "statusCode": "SUCCESS",
+    "data": {
+      "results": [],
+      "startIndex": 0,
+      "endIndex": 0,
+      "itemCount": 0
+    },
+    "message": null,
+    "errors": null,
+    "errorCode": null,
+    "currentTime": 1773654779606
+  }
+}
