@@ -75,7 +75,7 @@ class ConsumptionChartGenerator:
                 # FILTRER: ne garder que les dates dans la fourchette
                 if start_date <= item_date <= end_date:
                     dates.append(item_date)
-                    # Division par 10 pour convertir cL en mL (comme scatter.py ligne 92)
+                    # Diviser par 10 comme dans l'ancien projet (scatter.py ligne 92)
                     quantities.append(qty / 10)
         
         if not dates:
@@ -110,26 +110,30 @@ class ConsumptionChartGenerator:
             print(f"✅ Couleur trouvée pour '{product_name}': {product_color}")
         
         # Tracer la courbe de consommation
-        ax.plot(dates, quantities, marker='o', linewidth=2, markersize=4, 
+        ax.plot(dates, quantities, marker='o', linewidth=3, markersize=5, 
                color=product_color, label=product_name)
         
         # Calculer et afficher la médiane
         if quantities:
             median_qty = np.median(quantities)
+            # Formater avec virgule au lieu de point
+            median_str = f'{median_qty:.1f}'.replace('.', ',')
             ax.axhline(y=median_qty, color='green', linestyle='--', linewidth=1.5,
-                      label=f'Médiane: {median_qty:.0f} mL')
+                      label=f'Médiane: {median_str} mL')
             
             # Calculer les valeurs normales (entre Q1 et Q3)
             q1 = np.percentile(quantities, 25)
             q3 = np.percentile(quantities, 75)
+            # Formater avec virgules au lieu de points
+            q1_str = f'{q1:.1f}'.replace('.', ',')
+            q3_str = f'{q3:.1f}'.replace('.', ',')
             ax.axhspan(q1, q3, color='green', alpha=0.1, zorder=0,
-                      label=f'Plage normale (Q1-Q3): {q1:.0f}-{q3:.0f} mL')
+                      label=f'Plage normale (Q1-Q3): {q1_str}-{q3_str} mL')
         
         # Configuration des axes
-        ax.set_xlabel('Date', fontsize=11, fontweight='bold')
-        ax.set_ylabel('Consommation (mL)', fontsize=11, fontweight='bold')
-        ax.set_title(f'Suivi de la consommation quotidienne moyenne par lavage\n{product_name} - {zone}',
-                    fontsize=13, fontweight='bold', pad=15)
+        ax.set_xlabel('', fontsize=11, fontweight='bold')  # Pas de label 'Date'
+        ax.set_ylabel('', fontsize=11, fontweight='bold')  # Pas de label sur l'axe Y
+        # Pas de titre dans le graphique (il est déjà au-dessus)
         
         # Format des dates sur l'axe X
         ax.xaxis.set_major_formatter(mdates.DateFormatter('%d/%m'))
@@ -144,11 +148,23 @@ class ConsumptionChartGenerator:
         ax.xaxis.set_major_locator(mdates.DayLocator(interval=tick_interval))
         plt.xticks(rotation=45, ha='right')
         
-        # Grille
-        ax.grid(True, alpha=0.3, linestyle='--')
+        # Retirer les bordures (spines)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        ax.spines['bottom'].set_visible(False)
         
-        # Légende
-        ax.legend(loc='upper left', fontsize=9)
+        # Augmenter l'épaisseur des lignes des axes (ticks)
+        ax.tick_params(axis='both', which='major', width=2, length=6)
+        
+        # Ajouter 'ml' aux valeurs de l'axe Y avec espaces pour les milliers (format français)
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{int(x):,} ml'.replace(',', ' ')))
+        
+        # Grille avec lignes plus épaisses
+        ax.grid(True, alpha=0.3, linestyle='--', linewidth=1.5)
+        
+        # Légende plus grande
+        ax.legend(loc='upper left', fontsize=11)
         
         # Ajuster la mise en page
         plt.tight_layout()
@@ -227,14 +243,13 @@ class ConsumptionChartGenerator:
                 else:
                     print(f"✅ Couleur trouvée pour '{product_name}': {color}")
                 
-                ax.plot(dates, quantities, marker='o', linewidth=2, markersize=4, 
+                ax.plot(dates, quantities, marker='o', linewidth=3, markersize=5, 
                        color=color, label=product_name)
         
         # Configuration des axes
-        ax.set_xlabel('Date', fontsize=11, fontweight='bold')
-        ax.set_ylabel('Consommation (mL)', fontsize=11, fontweight='bold')
-        ax.set_title(f'Suivi de la consommation quotidienne moyenne par lavage',
-                    fontsize=13, fontweight='bold', pad=15)
+        ax.set_xlabel('', fontsize=11, fontweight='bold')  # Pas de label 'Date'
+        ax.set_ylabel('', fontsize=11, fontweight='bold')  # Pas de label sur l'axe Y
+        # Pas de titre dans le graphique (il est déjà au-dessus)
         
         # Format des dates sur l'axe X
         ax.xaxis.set_major_formatter(mdates.DateFormatter('%d/%m'))
@@ -249,11 +264,23 @@ class ConsumptionChartGenerator:
         ax.xaxis.set_major_locator(mdates.DayLocator(interval=tick_interval))
         plt.xticks(rotation=45, ha='right')
         
-        # Grille
-        ax.grid(True, alpha=0.3, linestyle='--')
+        # Retirer les bordures (spines)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        ax.spines['bottom'].set_visible(False)
         
-        # Légende
-        ax.legend(loc='upper left', fontsize=9)
+        # Augmenter l'épaisseur des lignes des axes (ticks)
+        ax.tick_params(axis='both', which='major', width=2, length=6)
+        
+        # Ajouter 'ml' aux valeurs de l'axe Y avec espaces pour les milliers (format français)
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{int(x):,} ml'.replace(',', ' ')))
+        
+        # Grille avec lignes plus épaisses
+        ax.grid(True, alpha=0.3, linestyle='--', linewidth=1.5)
+        
+        # Légende plus grande
+        ax.legend(loc='upper left', fontsize=11)
         
         # Ajuster la mise en page
         plt.tight_layout()

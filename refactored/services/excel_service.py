@@ -56,15 +56,18 @@ class ExcelService:
         if not excel_data:
             return None, None
         
-        logger.debug(f"Matching Excel pour facility {facility_id} '{facility_name}'")
+        logger.info(f"Matching Excel pour facility {facility_id} '{facility_name}'")
         
         client_number = None
         parts = facility_name.split()
         if parts and parts[0].isdigit():
             client_number = int(parts[0])
+            logger.info(f"  → N° client extrait du nom: {client_number}")
+        else:
+            logger.info(f"  → Aucun N° client trouvé au début du nom (première partie: '{parts[0] if parts else 'vide'}')")
         
         if client_number and client_number in excel_data:
-            logger.debug(f"  → Match par N° client extrait: {client_number}")
+            logger.info(f"  → ✅ Match par N° client extrait: {client_number}")
             return excel_data[client_number], f"N° client extrait du nom ({client_number})"
         
         if facility_id in excel_data:

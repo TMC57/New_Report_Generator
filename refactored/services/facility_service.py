@@ -91,10 +91,67 @@ class FacilityService:
                 facility.address = excel_info.get("address")
                 facility.group = excel_info.get("group")
                 
+                # Informations générales
+                facility.installation_date = excel_info.get("installation_date")
+                facility.zone_number = excel_info.get("zone_number")
+                facility.router_number = excel_info.get("router_number")
+                facility.last_intervention = excel_info.get("last_intervention")
+                
+                # Zone 1 (principale)
+                facility.produit_lavant = excel_info.get("produit_lavant")
+                facility.dilution_lavant = excel_info.get("dilution_lavant")
+                facility.couleur_buse_lavant = excel_info.get("couleur_buse_lavant")
+                facility.produit_sechant = excel_info.get("produit_sechant")
+                facility.dilution_sechant = excel_info.get("dilution_sechant")
+                facility.couleur_buse_sechant = excel_info.get("couleur_buse_sechant")
+                facility.autre_produit_lavant = excel_info.get("autre_produit_lavant")
+                facility.autre_dilution_lavant = excel_info.get("autre_dilution_lavant")
+                facility.autre_couleur_buse_lavant = excel_info.get("autre_couleur_buse_lavant")
+                facility.produit_jantes = excel_info.get("produit_jantes")
+                facility.dilution_jantes = excel_info.get("dilution_jantes")
+                
+                # Zone 2
+                facility.produit_lavant_zone2 = excel_info.get("produit_lavant_zone2")
+                facility.dilution_lavant_zone2 = excel_info.get("dilution_lavant_zone2")
+                facility.couleur_buse_lavant_zone2 = excel_info.get("couleur_buse_lavant_zone2")
+                facility.produit_sechant_zone2 = excel_info.get("produit_sechant_zone2")
+                facility.dilution_sechant_zone2 = excel_info.get("dilution_sechant_zone2")
+                facility.couleur_buse_sechant_zone2 = excel_info.get("couleur_buse_sechant_zone2")
+                facility.autre_produit_lavant_zone2 = excel_info.get("autre_produit_lavant_zone2")
+                facility.autre_dilution_lavant_zone2 = excel_info.get("autre_dilution_lavant_zone2")
+                facility.autre_couleur_buse_lavant_zone2 = excel_info.get("autre_couleur_buse_lavant_zone2")
+                
+                # Zone 3
+                facility.produit_lavant_zone3 = excel_info.get("produit_lavant_zone3")
+                facility.dilution_lavant_zone3 = excel_info.get("dilution_lavant_zone3")
+                facility.couleur_buse_lavant_zone3 = excel_info.get("couleur_buse_lavant_zone3")
+                facility.produit_sechant_zone3 = excel_info.get("produit_sechant_zone3")
+                facility.dilution_sechant_zone3 = excel_info.get("dilution_sechant_zone3")
+                facility.couleur_buse_sechant_zone3 = excel_info.get("couleur_buse_sechant_zone3")
+                
+                # Zone 4
+                facility.produit_lavant_zone4 = excel_info.get("produit_lavant_zone4")
+                facility.dilution_lavant_zone4 = excel_info.get("dilution_lavant_zone4")
+                facility.couleur_buse_lavant_zone4 = excel_info.get("couleur_buse_lavant_zone4")
+                facility.produit_sechant_zone4 = excel_info.get("produit_sechant_zone4")
+                facility.dilution_sechant_zone4 = excel_info.get("dilution_sechant_zone4")
+                facility.couleur_buse_sechant_zone4 = excel_info.get("couleur_buse_sechant_zone4")
+                
+                # Zone 5
+                facility.produit_lavant_zone5 = excel_info.get("produit_lavant_zone5")
+                facility.dilution_lavant_zone5 = excel_info.get("dilution_lavant_zone5")
+                facility.couleur_buse_lavant_zone5 = excel_info.get("couleur_buse_lavant_zone5")
+                facility.produit_sechant_zone5 = excel_info.get("produit_sechant_zone5")
+                facility.dilution_sechant_zone5 = excel_info.get("dilution_sechant_zone5")
+                facility.couleur_buse_sechant_zone5 = excel_info.get("couleur_buse_sechant_zone5")
+                
                 logger.success(f"✅ Excel matched via {match_method}", facility_id)
-                logger.debug(f"  → Client: {facility.client_name}", facility_id)
-                logger.debug(f"  → N°: {facility.client_number}", facility_id)
-                logger.debug(f"  → Adresse: {facility.address}", facility_id)
+                logger.info(f"  → Client: {facility.client_name}", facility_id)
+                logger.info(f"  → N°: {facility.client_number}", facility_id)
+                logger.info(f"  → Adresse: {facility.address}", facility_id)
+                logger.info(f"  → Date installation: {facility.installation_date}", facility_id)
+                logger.info(f"  → Produit lavant: {facility.produit_lavant}", facility_id)
+                logger.info(f"  → Dilution lavant: {facility.dilution_lavant}", facility_id)
             else:
                 logger.warning(f"⚠️ Aucune donnée Excel trouvée", facility_id)
         
@@ -121,10 +178,16 @@ class FacilityService:
             for result in qty_response["data"]["results"]:
                 if result.get("facilityId") == facility_id:
                     for product_data in result.get("products", []):
+                        product_id = product_data.get("_id")
+                        product_name = product_data.get("name", "")
+                        qty = float(product_data.get("qty", 0))
+                        
+                        logger.info(f"  🆕 Création produit: {product_name} | _id={product_id} | qty={qty}", facility_id)
+                        
                         consumption = ProductConsumption(
-                            product_id=product_data.get("productId"),
-                            name=product_data.get("name", ""),
-                            total_qty=float(product_data.get("qty", 0))
+                            product_id=product_id,
+                            name=product_name,
+                            total_qty=qty
                         )
                         facility.products.append(consumption)
             logger.debug(f"  → {len(facility.products)} produits consommés", facility_id)
@@ -138,9 +201,11 @@ class FacilityService:
                 if facility_data.get("facilityId") == facility_id:
                     logger.debug(f"  Facility {facility_id} - {len(facility_data.get('products', []))} produits", facility_id)
                     for product_data in facility_data.get("products", []):
-                        product_id = product_data.get("productId")
+                        product_id = product_data.get("_id")
                         product_name = product_data.get("name", "Unknown")
                         qty = float(product_data.get("qty", 0))
+                        
+                        logger.info(f"    📦 Produit: {product_name} | _id={product_id} | qty={qty}", facility_id)
                         
                         product = next((p for p in facility.products if p.product_id == product_id), None)
                         if product:
@@ -148,6 +213,9 @@ class FacilityService:
                                 "date": date_str,
                                 "qty": qty
                             })
+                            logger.info(f"      ✅ Ajouté à {product.name}", facility_id)
+                        else:
+                            logger.info(f"      ❌ Produit non trouvé dans la liste initiale", facility_id)
         
         logger.info(f"Récupération des données mensuelles...", facility_id)
         monthly_data = self.cm2w.get_monthly_quantities(to_date, facility_id, months_count=12)
@@ -157,7 +225,7 @@ class FacilityService:
             for facility_data in month_entry["data"]:
                 if facility_data.get("facilityId") == facility_id:
                     for product_data in facility_data.get("products", []):
-                        product_id = product_data.get("productId")
+                        product_id = product_data.get("_id")
                         qty = float(product_data.get("qty", 0))
                         
                         product = next((p for p in facility.products if p.product_id == product_id), None)

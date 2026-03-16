@@ -10,7 +10,7 @@ CM2W_API_BASE_URL = "https://app.cm2w.net/cm2w-api/v2/api-key-auth"
 CM2W_API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJmcm9tRGF0ZSI6MTc1NjI4NDQ4MzkxNSwibW9kZWwiOiJwYXJ0eSIsImlkIjo0MzUwfQ.MHOogWqC84PZOBDvl-KlASj07Ly-CuyqBbcIj8KFmsc"
 
 CONFIG_DIR = BASE_DIR / "Config"
-UPLOADS_DIR = BASE_DIR / "uploads"
+UPLOADS_DIR = REFACTORED_DIR / "uploads"
 EXCEL_LISTINGS_DIR = UPLOADS_DIR / "excel_listings"
 REPORTS_DIR = BASE_DIR / "Reports"
 

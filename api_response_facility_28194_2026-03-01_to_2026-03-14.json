@@ -1,0 +1,58 @@
+{
+  "statusCode": "SUCCESS",
+  "data": {
+    "results": [
+      {
+        "_id": 28194,
+        "facilityId": 28194,
+        "facilityName": "1070133631\tALTIS VANNES",
+        "lq": 0,
+        "lQty": 0,
+        "products": [
+          {
+            "_id": 214059,
+            "productId": 214059,
+            "name": "WNC40",
+            "qty": 108843,
+            "price": 0.0,
+            "cur": "eu",
+            "gr": 108843,
+            "isSolid": false,
+            "ratio": 1.0
+          },
+          {
+            "_id": 214053,
+            "productId": 214053,
+            "name": "Autoséchant",
+            "qty": 3278,
+            "price": 0.0,
+            "cur": "eu",
+            "gr": 3278,
+            "isSolid": false,
+            "ratio": 1.0
+          }
+        ],
+        "clientPrice": 0,
+        "clientCur": null,
+        "w0": 0,
+        "w1": 0,
+        "w2": 0,
+        "w3": 0,
+        "w4": 0,
+        "w5": 0,
+        "w6": 0,
+        "w7": 0,
+        "w8": 0,
+        "w9": 0,
+        "tsd": "1773360000000"
+      }
+    ],
+    "startIndex": 0,
+    "endIndex": 1,
+    "itemCount": 1
+  },
+  "message": null,
+  "errors": null,
+  "errorCode": null,
+  "currentTime": 1773620586660
+}

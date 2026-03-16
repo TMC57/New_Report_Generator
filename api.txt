@@ -1,0 +1,83 @@
+CM2W API Documentation: Total Quantity Report
+Introduction
+This API provides access to the Total Quantity Report of the facilities, accessible through a specific
+organization in the CM2W platform.
+Base URL
+https://dev.cm2w.net/cm2w-api/v2/api-key-auth
+Authentication
+Make sure to replace <API Key> in the Authorization header with the actual API key.
+headers: {
+ 'Authorization': 'Bearer <API Key>'
+}
+Response
+All responses from the API are in JSON format.
+Endpoint: /total-qty-report
+Method: GET
+Retrieve the Total Quantity Report grouped by facilities.
+Query Parameters
+ pageNumber (required): The page number for paginated results.
+ pageSize (required): The number of records per page.
+ fromDate (required): The start date of the report range in milliseconds since epoch (e.g.,
+1640988000000).
+ thruDate (required): The end date of the report range in milliseconds since epoch (e.g.,
+1648760399000).
+ reportType (required): Specifies the report type as "total-qty-facility".
+ facilityId (optional): Specifies the id of a specific facility under the viewed organization.
+ deviceId (optional): Specifies the id of a specific device, which is owned by a facility under
+the viewed organization.
+Example response
+{
+ "statusCode": "SUCCESS",
+ "data": {
+ "results": [
+ {
+ "_id": 13279,
+ "facilityId": 1,
+ "facilityName": "TEST",
+ "lq": 0,
+ "lQty": 0,
+ "w0": 0,
+ "products": [
+ {
+ "_id": 1,
+ "productId": 1,
+ "name": "PRODUCT 1",
+ "qty": 39930,
+ "price": 0.0,
+ "cur": "eu"
+ },
+ ],
+ "tsd": "1647043200000"
+ },
+ ],
+ "startIndex": 0,
+ "endIndex": 1,
+ "itemCount": 1
+ },
+ "message": null,
+ "errors": null,
+ "errorCode": null,
+ "currentTime": 1705583310053
+}
+Response data format
+ statusCode: Status of the API request.
+ data: Contains the Total Quantity Report grouped by facilities.
+ results: Array of facilities with their total quantities and product details.
+ products: Array of products with their quantities, prices, and currency.
+ tsd: Timestamp in milliseconds indicating the date of the report.
+ product – describe a product and its fields. Each element from array products is a product.
+◦ id – product identifier
+◦ name – name of the product
+◦ qty – dosed quantity of the product for certain facility in the specified time period. Unit
+of measurement(UOM) is 0.1ml
+◦ price - total price of the dosed product
+◦ cur – currency
+Generate and use the API key
+In order to enable and generate an API key which will give you access to the facilities in
+certain organization(the API key is related to an organization. In this way you can have
+granulated access to different organizations and sub-organizations) you have to:
+1. Find the organization:
+2. Enter Edit mode – press Edit button
+3. Select Advanced tab
+4. Enable, generate and copy the API key
+5. Use the API key as it is described above

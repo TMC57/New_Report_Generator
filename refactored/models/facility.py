@@ -45,6 +45,60 @@ class FacilityData:
     excel_matched: bool = False
     excel_match_method: Optional[str] = None
     
+    # Données Excel - Informations générales
+    installation_date: Optional[str] = None
+    zone_number: Optional[str] = None
+    router_number: Optional[str] = None
+    last_intervention: Optional[str] = None
+    
+    # Données Excel - Zone 1 (principale)
+    produit_lavant: Optional[str] = None
+    dilution_lavant: Optional[str] = None
+    couleur_buse_lavant: Optional[str] = None
+    produit_sechant: Optional[str] = None
+    dilution_sechant: Optional[str] = None
+    couleur_buse_sechant: Optional[str] = None
+    autre_produit_lavant: Optional[str] = None
+    autre_dilution_lavant: Optional[str] = None
+    autre_couleur_buse_lavant: Optional[str] = None
+    produit_jantes: Optional[str] = None
+    dilution_jantes: Optional[str] = None
+    
+    # Données Excel - Zone 2
+    produit_lavant_zone2: Optional[str] = None
+    dilution_lavant_zone2: Optional[str] = None
+    couleur_buse_lavant_zone2: Optional[str] = None
+    produit_sechant_zone2: Optional[str] = None
+    dilution_sechant_zone2: Optional[str] = None
+    couleur_buse_sechant_zone2: Optional[str] = None
+    autre_produit_lavant_zone2: Optional[str] = None
+    autre_dilution_lavant_zone2: Optional[str] = None
+    autre_couleur_buse_lavant_zone2: Optional[str] = None
+    
+    # Données Excel - Zone 3
+    produit_lavant_zone3: Optional[str] = None
+    dilution_lavant_zone3: Optional[str] = None
+    couleur_buse_lavant_zone3: Optional[str] = None
+    produit_sechant_zone3: Optional[str] = None
+    dilution_sechant_zone3: Optional[str] = None
+    couleur_buse_sechant_zone3: Optional[str] = None
+    
+    # Données Excel - Zone 4
+    produit_lavant_zone4: Optional[str] = None
+    dilution_lavant_zone4: Optional[str] = None
+    couleur_buse_lavant_zone4: Optional[str] = None
+    produit_sechant_zone4: Optional[str] = None
+    dilution_sechant_zone4: Optional[str] = None
+    couleur_buse_sechant_zone4: Optional[str] = None
+    
+    # Données Excel - Zone 5
+    produit_lavant_zone5: Optional[str] = None
+    dilution_lavant_zone5: Optional[str] = None
+    couleur_buse_lavant_zone5: Optional[str] = None
+    produit_sechant_zone5: Optional[str] = None
+    dilution_sechant_zone5: Optional[str] = None
+    couleur_buse_sechant_zone5: Optional[str] = None
+    
     def get_display_name(self) -> str:
         """Retourne le nom à afficher (priorité au nom Excel)"""
         return self.client_name or self.facility_name
@@ -104,6 +158,50 @@ class FacilityData:
             "material_picture_path": self.material_picture_path,
             "last_intervention_date": self.last_intervention_date,
             "buses_info": self.buses_info,
+            
+            # Données Excel
+            "installation_date": self.installation_date,
+            "zone_number": self.zone_number,
+            "router_number": self.router_number,
+            "last_intervention": self.last_intervention,
+            "produit_lavant": self.produit_lavant,
+            "dilution_lavant": self.dilution_lavant,
+            "couleur_buse_lavant": self.couleur_buse_lavant,
+            "produit_sechant": self.produit_sechant,
+            "dilution_sechant": self.dilution_sechant,
+            "couleur_buse_sechant": self.couleur_buse_sechant,
+            "autre_produit_lavant": self.autre_produit_lavant,
+            "autre_dilution_lavant": self.autre_dilution_lavant,
+            "autre_couleur_buse_lavant": self.autre_couleur_buse_lavant,
+            "produit_jantes": self.produit_jantes,
+            "dilution_jantes": self.dilution_jantes,
+            "produit_lavant_zone2": self.produit_lavant_zone2,
+            "dilution_lavant_zone2": self.dilution_lavant_zone2,
+            "couleur_buse_lavant_zone2": self.couleur_buse_lavant_zone2,
+            "produit_sechant_zone2": self.produit_sechant_zone2,
+            "dilution_sechant_zone2": self.dilution_sechant_zone2,
+            "couleur_buse_sechant_zone2": self.couleur_buse_sechant_zone2,
+            "autre_produit_lavant_zone2": self.autre_produit_lavant_zone2,
+            "autre_dilution_lavant_zone2": self.autre_dilution_lavant_zone2,
+            "autre_couleur_buse_lavant_zone2": self.autre_couleur_buse_lavant_zone2,
+            "produit_lavant_zone3": self.produit_lavant_zone3,
+            "dilution_lavant_zone3": self.dilution_lavant_zone3,
+            "couleur_buse_lavant_zone3": self.couleur_buse_lavant_zone3,
+            "produit_sechant_zone3": self.produit_sechant_zone3,
+            "dilution_sechant_zone3": self.dilution_sechant_zone3,
+            "couleur_buse_sechant_zone3": self.couleur_buse_sechant_zone3,
+            "produit_lavant_zone4": self.produit_lavant_zone4,
+            "dilution_lavant_zone4": self.dilution_lavant_zone4,
+            "couleur_buse_lavant_zone4": self.couleur_buse_lavant_zone4,
+            "produit_sechant_zone4": self.produit_sechant_zone4,
+            "dilution_sechant_zone4": self.dilution_sechant_zone4,
+            "couleur_buse_sechant_zone4": self.couleur_buse_sechant_zone4,
+            "produit_lavant_zone5": self.produit_lavant_zone5,
+            "dilution_lavant_zone5": self.dilution_lavant_zone5,
+            "couleur_buse_lavant_zone5": self.couleur_buse_lavant_zone5,
+            "produit_sechant_zone5": self.produit_sechant_zone5,
+            "dilution_sechant_zone5": self.dilution_sechant_zone5,
+            "couleur_buse_sechant_zone5": self.couleur_buse_sechant_zone5,
             "devices": [
                 {
                     "device_id": d.device_id,
