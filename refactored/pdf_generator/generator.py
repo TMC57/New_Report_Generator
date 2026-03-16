@@ -95,6 +95,8 @@ class PDFGenerator:
         story.extend(self._create_daily_consumption_tables(facility_data, from_date, to_date, styles))
         # 4. Tableau mensuel unique
         story.extend(self._create_monthly_consumption_table(facility_data, from_date, to_date, styles))
+        # 5. Tableau des produits livrés
+        story.extend(self._create_delivered_products_table(facility_data, from_date, to_date, styles))
         
         doc.build(story, onFirstPage=self._draw_first_page, onLaterPages=self._draw_logo)
     
@@ -936,6 +938,83 @@ class PDFGenerator:
                 ('FONTSIZE', (0, 1), (-1, -1), 8),
             ]))
             elements.append(table)
+        
+        return elements
+    
+    def _create_delivered_products_table(self, facility_data: dict, from_date: str, to_date: str, styles):
+        """Crée le tableau des produits livrés (vide pour l'instant, données Odoo à venir)"""
+        elements = []
+        
+        title_style = ParagraphStyle(
+            'DeliveredTitle',
+            parent=styles['Title'],
+            fontName='Helvetica-Bold',
+            fontSize=14,
+            alignment=TA_CENTER
+        )
+        
+        text_style = ParagraphStyle(
+            'ExplanationText',
+            parent=styles['Normal'],
+            fontName='Helvetica',
+            fontSize=10,
+            alignment=TA_LEFT,
+            leading=14
+        )
+        
+        elements.append(PageBreak())
+        elements.append(Paragraph("PRODUITS LIVRÉS".upper(), title_style))
+        elements.append(Spacer(1, 0.3*cm))
+        
+        explanation_text = "Ce tableau récapitule les produits livrés sur la période. Les données sont à venir."
+        elements.append(Paragraph(explanation_text, text_style))
+        elements.append(Spacer(1, 0.5*cm))
+        
+        # Générer les en-têtes des 12 derniers mois (rolling) à partir de to_date
+        end_date = datetime.strptime(to_date, "%Y-%m-%d")
+        
+        # Calculer les 12 derniers mois
+        month_headers = []
+        for i in range(11, -1, -1):  # De 11 mois en arrière à maintenant
+            year = end_date.year
+            month = end_date.month - i
+            while month <= 0:
+                month += 12
+                year -= 1
+            while month > 12:
+                month -= 12
+                year += 1
+            
+            month_headers.append(f"{month:02d}/{str(year)[-2:]}")
+        
+        # Créer un tableau vide avec structure
+        table_data = [["PRODUIT"] + month_headers]
+        
+        # Ajouter une ligne d'exemple pour montrer la structure
+        # (sera remplacée par les vraies données Odoo plus tard)
+        example_row = ["Aucune donnée disponible"] + ["-"] * 12
+        table_data.append(example_row)
+        
+        # Utiliser la largeur maximale disponible (A4 landscape = 29.7cm - marges 1cm = 28.7cm)
+        available_width = 28.7*cm
+        product_col_width = 6*cm
+        col_width = (available_width - product_col_width) / 12  # Reste divisé par 12 mois
+        table = Table(table_data, colWidths=[product_col_width] + [col_width]*12)
+        table.hAlign = 'CENTER'  # Centrer le tableau sur la page
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),  # En-tête gris neutre
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+            ('ALIGN', (0, 0), (0, -1), 'LEFT'),
+            ('ALIGN', (1, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 9),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.white),  # Données en blanc
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 1), (-1, -1), 8),
+        ]))
+        elements.append(table)
         
         return elements
     

@@ -113,10 +113,16 @@ class ConsumptionChartGenerator:
         ax.plot(dates, quantities, marker='o', linewidth=3, markersize=5, 
                color=product_color, label=product_name)
         
-        # Calculer et afficher la médiane
+        # Calculer et afficher la moyenne et la médiane
         if quantities:
+            # Moyenne
+            mean_qty = np.mean(quantities)
+            mean_str = f'{mean_qty:.1f}'.replace('.', ',')
+            ax.axhline(y=mean_qty, color='orange', linestyle='-.', linewidth=1.5,
+                      label=f'Moyenne: {mean_str} mL')
+            
+            # Médiane
             median_qty = np.median(quantities)
-            # Formater avec virgule au lieu de point
             median_str = f'{median_qty:.1f}'.replace('.', ',')
             ax.axhline(y=median_qty, color='green', linestyle='--', linewidth=1.5,
                       label=f'Médiane: {median_str} mL')
@@ -243,8 +249,16 @@ class ConsumptionChartGenerator:
                 else:
                     print(f"✅ Couleur trouvée pour '{product_name}': {color}")
                 
+                # Tracer la courbe du produit
                 ax.plot(dates, quantities, marker='o', linewidth=3, markersize=5, 
                        color=color, label=product_name)
+                
+                # Calculer et afficher la moyenne pour ce produit
+                if quantities:
+                    mean_qty = np.mean(quantities)
+                    mean_str = f'{mean_qty:.1f}'.replace('.', ',')
+                    ax.axhline(y=mean_qty, color=color, linestyle='-.', linewidth=1.5,
+                              label=f'Moyenne {product_name}: {mean_str} mL')
         
         # Configuration des axes
         ax.set_xlabel('', fontsize=11, fontweight='bold')  # Pas de label 'Date'
