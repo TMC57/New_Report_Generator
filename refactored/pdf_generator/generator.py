@@ -755,10 +755,27 @@ class PDFGenerator:
             elements.append(Spacer(1, 0.5*cm))
             
             # Récupérer les données mensuelles pour cette zone
-            # Générer les en-têtes de mois au format MM/YY
-            start_date = datetime.strptime(from_date, "%Y-%m-%d")
-            year_short = start_date.strftime("%y")
-            month_headers = [f"{m:02d}/{year_short}" for m in range(1, 13)]
+            # Générer les en-têtes des 12 derniers mois (rolling) à partir de to_date
+            end_date = datetime.strptime(to_date, "%Y-%m-%d")
+            
+            # Calculer les 12 derniers mois
+            month_headers = []
+            months_list = []  # Liste des (year, month) pour la recherche
+            for i in range(11, -1, -1):  # De 11 mois en arrière à maintenant
+                target_date = end_date.replace(day=1) - timedelta(days=i*30)  # Approximation
+                # Calculer le mois exact
+                year = end_date.year
+                month = end_date.month - i
+                while month <= 0:
+                    month += 12
+                    year -= 1
+                while month > 12:
+                    month -= 12
+                    year += 1
+                
+                month_headers.append(f"{month:02d}/{str(year)[-2:]}")
+                months_list.append((year, month))
+            
             table_data = [["PRODUIT"] + month_headers]
             
             # Pas de regroupement ici - garder les produits avec leurs zones
@@ -768,8 +785,9 @@ class PDFGenerator:
                 
                 row = [f"{product_name.upper()}"]
                 
-                for month in range(1, 13):
-                    month_data = next((m for m in monthly_quantities if m.get("month") == month), None)
+                # Chercher les données pour chaque mois des 12 derniers mois
+                for year, month in months_list:
+                    month_data = next((m for m in monthly_quantities if m.get("year") == year and m.get("month") == month), None)
                     if month_data:
                         qty_raw = month_data.get("qty", 0)
                         # Convertir en litres (diviser par 10000)
@@ -836,18 +854,33 @@ class PDFGenerator:
         products = facility_data.get("products", [])
         
         # Récupérer les données mensuelles
-        # Générer les en-têtes de mois au format MM/YY
-        start_date = datetime.strptime(from_date, "%Y-%m-%d")
-        year_short = start_date.strftime("%y")
-        month_headers = [f"{m:02d}/{year_short}" for m in range(1, 13)]
+        # Générer les en-têtes des 12 derniers mois (rolling) à partir de to_date
+        end_date = datetime.strptime(to_date, "%Y-%m-%d")
+        
+        # Calculer les 12 derniers mois
+        month_headers = []
+        months_list = []  # Liste des (year, month) pour la recherche
+        for i in range(11, -1, -1):  # De 11 mois en arrière à maintenant
+            year = end_date.year
+            month = end_date.month - i
+            while month <= 0:
+                month += 12
+                year -= 1
+            while month > 12:
+                month -= 12
+                year += 1
+            
+            month_headers.append(f"{month:02d}/{str(year)[-2:]}")
+            months_list.append((year, month))
+        
         table_data = [["PRODUIT"] + month_headers]
         
         # Regrouper les produits par nom (ignorer la zone)
+        import re
         products_by_name = {}
         for product in products:
             product_name_full = product.get("name", "")
             # Extraire le nom sans la zone (retirer " - ZONE X")
-            import re
             product_name = re.sub(r'\s*-\s*ZONE\s+\d+\s*$', '', product_name_full, flags=re.IGNORECASE).strip()
             monthly_quantities = product.get("monthly_quantities", [])
             
@@ -856,23 +889,27 @@ class PDFGenerator:
             
             # Additionner les quantités pour chaque mois
             for month_data in monthly_quantities:
+                year = month_data.get("year")
                 month = month_data.get("month")
                 qty_raw = month_data.get("qty", 0)
-                if month:
-                    if month not in products_by_name[product_name]:
-                        products_by_name[product_name][month] = 0
+                if year and month:
+                    key = (year, month)
+                    if key not in products_by_name[product_name]:
+                        products_by_name[product_name][key] = 0
                     # Convertir en litres (diviser par 10000)
                     qty_l = qty_raw / 10000
-                    products_by_name[product_name][month] += qty_l
+                    products_by_name[product_name][key] += qty_l
         
         # Créer les lignes du tableau
         for product_name, monthly_data in products_by_name.items():
             row = [f"{product_name.upper()}"]
             
-            for month in range(1, 13):
-                if month in monthly_data:
-                    qty_l = monthly_data[month]
-                    row.append(f"{qty_l:.0f}L")
+            # Chercher les données pour chaque mois des 12 derniers mois
+            for year, month in months_list:
+                key = (year, month)
+                if key in monthly_data:
+                    qty_l = monthly_data[key]
+                    row.append(f"{qty_l:.2f}L")
                 else:
                     row.append("-")
             
@@ -914,8 +951,8 @@ class PDFGenerator:
         # Texte du footer
         footer_text1 = "EN CAS DE PANNE SUR LE SYSTÈME VENTURI, CONTACTEZ LE SUPPORT TECHNIQUE AU 03 88 64 72 10."
         
-        # Position du footer : 1.5cm du bas de la page
-        y_position = 1.5*cm
+        # Position du footer : 1.0cm du bas de la page
+        y_position = 1.0*cm
         
         # Première ligne en noir
         canvas.setFont('Helvetica', 8)
