@@ -169,8 +169,8 @@ class ConsumptionChartGenerator:
         # Grille avec lignes plus épaisses
         ax.grid(True, alpha=0.3, linestyle='--', linewidth=1.5)
         
-        # Légende plus grande
-        ax.legend(loc='upper left', fontsize=11)
+        # Légende en dessous du graphique
+        ax.legend(loc='lower center', fontsize=11, bbox_to_anchor=(0.5, -0.25), ncol=2)
         
         # Ajuster la mise en page
         plt.tight_layout()
@@ -293,8 +293,8 @@ class ConsumptionChartGenerator:
         # Grille avec lignes plus épaisses
         ax.grid(True, alpha=0.3, linestyle='--', linewidth=1.5)
         
-        # Légende plus grande
-        ax.legend(loc='upper left', fontsize=11)
+        # Légende en dessous du graphique
+        ax.legend(loc='lower center', fontsize=11, bbox_to_anchor=(0.5, -0.25), ncol=2)
         
         # Ajuster la mise en page
         plt.tight_layout()
