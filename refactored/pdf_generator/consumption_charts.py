@@ -446,8 +446,12 @@ class ConsumptionChartGenerator:
             # Valeurs en mL (division par 10 comme dans l'ancien code)
             values = [v / 10.0 for _, v in pts]
             
-            # Nom du produit en majuscules
-            label = product_name.upper()
+            # Calculer la moyenne
+            avg_value = sum(values) / len(values) if values else 0
+            
+            # Nom du produit en majuscules avec la moyenne
+            avg_str = f"{int(avg_value):,} ml".replace(',', ' ')
+            label = f"{product_name.upper()} (MOY: {avg_str})"
             
             # Obtenir la couleur du produit
             color = color_service.get_color_for_product(product_name)
@@ -458,9 +462,8 @@ class ConsumptionChartGenerator:
             ax.plot(dates, values, marker='o', linewidth=3, markersize=8, 
                    label=label, color=color)
             
-            # Ajouter la ligne de moyenne en pointillé
+            # Ajouter la ligne de moyenne en pointillé (sans label séparé)
             if values:
-                avg_value = sum(values) / len(values)
                 ax.axhline(y=avg_value, color=color, linestyle='--', linewidth=2, alpha=0.7)
         
         # Configuration du graphique (pas de titre, il est sur la page)
@@ -479,13 +482,13 @@ class ConsumptionChartGenerator:
         ax.xaxis.set_major_formatter(mdates.DateFormatter('%d/%m'))
         plt.xticks(rotation=45, ha='right')
         
-        # Légende en dessous
+        # Légende en dessous avec cadre
         ax.legend(
             loc='lower center',
             bbox_to_anchor=(0.5, -0.25),
-            ncol=3,
+            ncol=2,
             fontsize=11,
-            frameon=False
+            frameon=True
         )
         
         # Retirer les bordures

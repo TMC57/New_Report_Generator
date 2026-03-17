@@ -282,13 +282,14 @@ class PDFGenerator:
             return str(val).upper()
         
         def format_dilution(val):
-            """Convertit une dilution en pourcentage (ex: 0.5 -> 0.5%, 2 -> 2%)"""
+            """Convertit une dilution en pourcentage (ex: 0.098 -> 9,80%)"""
             if val is None or val == "":
                 return "-"
             try:
-                # Si c'est déjà un nombre, l'afficher avec %
-                dilution_num = float(val)
-                return f"{dilution_num}%"
+                # Multiplier par 100 pour avoir le vrai pourcentage
+                dilution_num = float(val) * 100
+                # Formater avec 2 décimales et virgule
+                return f"{dilution_num:.2f}%".replace('.', ',')
             except (ValueError, TypeError):
                 return str(val).upper()
         
@@ -368,8 +369,8 @@ class PDFGenerator:
             table_data.append(["COULEUR BUSE SÉCHANT ZONE 5", format_value(facility_data.get("couleur_buse_sechant_zone5"))])
         
         if table_data:
-            # Tableau adaptatif : laisser ReportLab calculer la largeur optimale
-            table = Table(table_data)
+            # Tableau élargi avec colonnes définies
+            table = Table(table_data, colWidths=[10*cm, 14*cm])
             table.hAlign = 'CENTER'  # Centrer le tableau sur la page
             table.setStyle(TableStyle([
                 ('BACKGROUND', (0, 0), (0, -1), colors.lightgrey),  # En-tête (colonne gauche) gris neutre
@@ -465,7 +466,7 @@ class PDFGenerator:
                     if qty_data:
                         qty_raw = qty_data.get("qty", 0)
                         qty_l = qty_raw / 10000
-                        row.append(f"{qty_l:.2f}L")
+                        row.append(f"{qty_l:.2f}L".replace('.', ','))
                     else:
                         row.append("-")
                 
@@ -536,7 +537,7 @@ class PDFGenerator:
                         if qty_data:
                             qty_raw = qty_data.get("qty", 0)
                             qty_l = qty_raw / 10000
-                            row.append(f"{qty_l:.2f}L")
+                            row.append(f"{qty_l:.2f}L".replace('.', ','))
                         else:
                             row.append("-")
                     except ValueError:
@@ -672,7 +673,7 @@ class PDFGenerator:
             for day in range(1, 16):
                 if day in daily_data:
                     qty_l = daily_data[day]
-                    row.append(f"{qty_l:.1f}L")
+                    row.append(f"{qty_l:.2f}L".replace('.', ','))
                 else:
                     row.append("-")
             first_half_data.append(row)
@@ -763,7 +764,7 @@ class PDFGenerator:
             for day in range(16, last_day + 1):
                 if day in daily_data:
                     qty_l = daily_data[day]
-                    row.append(f"{qty_l:.1f}L")
+                    row.append(f"{qty_l:.2f}L".replace('.', ','))
                 else:
                     row.append("-")
             second_half_data.append(row)
@@ -881,26 +882,17 @@ class PDFGenerator:
             elements.append(Spacer(1, 0.5*cm))
             
             # Récupérer les données mensuelles pour cette zone
-            # Générer les en-têtes des 12 derniers mois (rolling) à partir de to_date
+            # Générer les en-têtes pour l'année en cours uniquement (janvier à décembre)
             end_date = datetime.strptime(to_date, "%Y-%m-%d")
+            current_year = end_date.year
+            current_month = end_date.month
             
-            # Calculer les 12 derniers mois
+            # Mois de janvier à décembre de l'année en cours
             month_headers = []
             months_list = []  # Liste des (year, month) pour la recherche
-            for i in range(11, -1, -1):  # De 11 mois en arrière à maintenant
-                target_date = end_date.replace(day=1) - timedelta(days=i*30)  # Approximation
-                # Calculer le mois exact
-                year = end_date.year
-                month = end_date.month - i
-                while month <= 0:
-                    month += 12
-                    year -= 1
-                while month > 12:
-                    month -= 12
-                    year += 1
-                
-                month_headers.append(f"{month:02d}/{str(year)[-2:]}")
-                months_list.append((year, month))
+            for month in range(1, 13):
+                month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
+                months_list.append((current_year, month))
             
             table_data = [["PRODUIT"] + month_headers]
             
@@ -914,14 +906,18 @@ class PDFGenerator:
                 # Utiliser Paragraph pour permettre le retour à la ligne
                 row = [Paragraph(excel_name.upper(), product_name_style)]
                 
-                # Chercher les données pour chaque mois des 12 derniers mois
+                # Chercher les données pour chaque mois de l'année en cours
                 for year, month in months_list:
+                    # Si le mois est dans le futur, laisser la case vide
+                    if month > current_month:
+                        row.append("")
+                        continue
                     month_data = next((m for m in monthly_quantities if m.get("year") == year and m.get("month") == month), None)
                     if month_data:
                         qty_raw = month_data.get("qty", 0)
                         # Convertir en litres (diviser par 10000)
                         qty_l = qty_raw / 10000
-                        row.append(f"{qty_l:.2f}L")
+                        row.append(f"{qty_l:.2f}L".replace('.', ','))
                     else:
                         row.append("-")
                 
@@ -990,24 +986,17 @@ class PDFGenerator:
         products = facility_data.get("products", [])
         
         # Récupérer les données mensuelles
-        # Générer les en-têtes des 12 derniers mois (rolling) à partir de to_date
+        # Générer les en-têtes pour l'année en cours uniquement (janvier à décembre)
         end_date = datetime.strptime(to_date, "%Y-%m-%d")
+        current_year = end_date.year
+        current_month = end_date.month
         
-        # Calculer les 12 derniers mois
+        # Mois de janvier à décembre de l'année en cours
         month_headers = []
         months_list = []  # Liste des (year, month) pour la recherche
-        for i in range(11, -1, -1):  # De 11 mois en arrière à maintenant
-            year = end_date.year
-            month = end_date.month - i
-            while month <= 0:
-                month += 12
-                year -= 1
-            while month > 12:
-                month -= 12
-                year += 1
-            
-            month_headers.append(f"{month:02d}/{str(year)[-2:]}")
-            months_list.append((year, month))
+        for month in range(1, 13):
+            month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
+            months_list.append((current_year, month))
         
         table_data = [["PRODUIT"] + month_headers]
         
@@ -1043,12 +1032,15 @@ class PDFGenerator:
             # Utiliser Paragraph pour permettre le retour à la ligne
             row = [Paragraph(excel_name.upper(), product_name_style)]
             
-            # Chercher les données pour chaque mois des 12 derniers mois
+            # Chercher les données pour chaque mois de l'année en cours
             for year, month in months_list:
                 key = (year, month)
-                if key in monthly_data:
+                # Si le mois est dans le futur, laisser la case vide
+                if month > current_month:
+                    row.append("")
+                elif key in monthly_data:
                     qty_l = monthly_data[key]
-                    row.append(f"{qty_l:.2f}L")
+                    row.append(f"{qty_l:.2f}L".replace('.', ','))
                 else:
                     row.append("-")
             
@@ -1113,22 +1105,15 @@ class PDFGenerator:
         elements.append(Paragraph("PRODUITS LIVRÉS", title_style))
         elements.append(Spacer(1, 0.5*cm))
         
-        # Générer les en-têtes des 12 derniers mois (rolling) à partir de to_date
+        # Générer les en-têtes pour l'année en cours uniquement (janvier à décembre)
         end_date = datetime.strptime(to_date, "%Y-%m-%d")
+        current_year = end_date.year
+        current_month = end_date.month
         
-        # Calculer les 12 derniers mois
+        # Mois de janvier à décembre de l'année en cours
         month_headers = []
-        for i in range(11, -1, -1):  # De 11 mois en arrière à maintenant
-            year = end_date.year
-            month = end_date.month - i
-            while month <= 0:
-                month += 12
-                year -= 1
-            while month > 12:
-                month -= 12
-                year += 1
-            
-            month_headers.append(f"{month:02d}/{str(year)[-2:]}")
+        for month in range(1, 13):
+            month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
         
         # Créer un tableau avec les produits de la facility
         table_data = [["PRODUIT"] + month_headers]
@@ -1141,11 +1126,22 @@ class PDFGenerator:
                 # Mapper vers le nom Excel
                 excel_name = get_excel_product_name(product_name, facility_data)
                 # Utiliser Paragraph pour permettre le retour à la ligne
-                row = [Paragraph(excel_name.upper(), product_name_style)] + ["-"] * 12
+                # Cases vides pour les mois futurs, "-" pour les mois passés sans données
+                row = [Paragraph(excel_name.upper(), product_name_style)]
+                for month in range(1, 13):
+                    if month > current_month:
+                        row.append("")  # Mois futur = case vide
+                    else:
+                        row.append("-")  # Mois passé sans données
                 table_data.append(row)
         else:
             # Ajouter une ligne d'exemple si pas de produits
-            example_row = [Paragraph("AUCUNE DONNÉE DISPONIBLE", product_name_style)] + ["-"] * 12
+            example_row = [Paragraph("AUCUNE DONNÉE DISPONIBLE", product_name_style)]
+            for month in range(1, 13):
+                if month > current_month:
+                    example_row.append("")
+                else:
+                    example_row.append("-")
             table_data.append(example_row)
         
         # Utiliser la largeur maximale disponible (A4 landscape = 29.7cm - marges 1cm = 28.7cm)
