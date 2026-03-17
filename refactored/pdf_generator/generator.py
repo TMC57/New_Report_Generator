@@ -166,10 +166,10 @@ class PDFGenerator:
         # Pas de PageBreak ici car le premier graphique a déjà son PageBreak
         story.extend(self._create_consumption_pages(facility_data, from_date, to_date, styles))
         
-        # 1. Tableau quotidien par zone (PREMIER) - TEMPORAIREMENT DÉSACTIVÉ
-        # story.extend(self._create_daily_average_by_zone_table(facility_data, from_date, to_date, styles))
-        # 2. Tableau total par zone (SECOND) - TEMPORAIREMENT DÉSACTIVÉ
-        # story.extend(self._create_daily_total_by_zone_table(facility_data, from_date, to_date, styles))
+        # 1. Tableau quotidien par zone (PREMIER)
+        story.extend(self._create_daily_average_by_zone_table(facility_data, from_date, to_date, styles))
+        # 2. Tableau total par zone (SECOND)
+        story.extend(self._create_daily_total_by_zone_table(facility_data, from_date, to_date, styles))
         # 3. Tableau quotidien global (ancien)
         story.extend(self._create_daily_consumption_tables(facility_data, from_date, to_date, styles))
         # 4. Tableau mensuel unique
@@ -429,7 +429,11 @@ class PDFGenerator:
         products = facility_data.get("products", [])
         zones = facility_data.get("zones", ["GLOBAL"])
         
-        # Créer une page par zone
+        # Créer les tableaux pour toutes les zones sur la même page
+        elements.append(PageBreak())
+        # Spacer pour centrer verticalement le contenu
+        elements.append(Spacer(1, 1*cm))
+        
         for zone_idx, zone in enumerate(zones):
             # Filtrer les produits de cette zone
             zone_products = [p for p in products if p.get("zone") == zone or (p.get("zone") is None and zone == "GLOBAL")]
@@ -437,16 +441,9 @@ class PDFGenerator:
             if not zone_products:
                 continue
             
-            # Nouvelle page pour chaque zone
-            elements.append(PageBreak())
-            # Spacer pour centrer verticalement le contenu
-            elements.append(Spacer(1, 3*cm))
-            elements.append(Paragraph("SUIVI DE LA CONSOMMATION QUOTIDIENNE MOYENNE PAR LAVAGE".upper(), title_style))
-            elements.append(Spacer(1, 0.2*cm))
-            
-            # Indication de la zone
-            elements.append(Paragraph(f"<b>ZONE: {zone}</b>", zone_style))
-            elements.append(Spacer(1, 0.5*cm))
+            # Titre avec la zone (pas de PageBreak entre les zones)
+            elements.append(Paragraph(f"SUIVI DE LA CONSOMMATION QUOTIDIENNE MOYENNE PAR LAVAGE - {zone.upper()}", title_style))
+            elements.append(Spacer(1, 0.3*cm))
             
             # Première quinzaine (jours 1-15)
             month_str = start_date.strftime("%m")
@@ -501,18 +498,6 @@ class PDFGenerator:
                 elements.append(table)
                 elements.append(Spacer(1, 0.3*cm))
                 
-                # Texte explicatif pour les parties grisées
-                explanation_style = ParagraphStyle(
-                    'TableExplanation',
-                    fontName='Helvetica-Oblique',
-                    fontSize=8,
-                    alignment=TA_CENTER,
-                    textColor=colors.grey
-                )
-                explanation = Paragraph("<b>ZONE GRISÉE</b>: WEEK-ENDS ET JOURS FÉRIÉS", explanation_style)
-                elements.append(explanation)
-                elements.append(Spacer(1, 0.5*cm))
-            
             # Deuxième quinzaine
             if start_date.month == 12:
                 next_month = start_date.replace(year=start_date.year + 1, month=1, day=1)
@@ -578,15 +563,15 @@ class PDFGenerator:
                 elements.append(table)
                 elements.append(Spacer(1, 0.3*cm))
                 
-                # Texte explicatif pour les parties grisées
+                # Texte explicatif pour les parties grisées (uniquement sous la 2ème partie)
                 explanation_style = ParagraphStyle(
                     'TableExplanation',
-                    fontName='Helvetica-Oblique',
+                    fontName='Helvetica',
                     fontSize=8,
                     alignment=TA_CENTER,
-                    textColor=colors.grey
+                    textColor=colors.black
                 )
-                explanation = Paragraph("<b>ZONE GRISÉE</b>: WEEK-ENDS ET JOURS FÉRIÉS", explanation_style)
+                explanation = Paragraph("LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.", explanation_style)
                 elements.append(explanation)
                 elements.append(Spacer(1, 0.5*cm))
         
@@ -707,18 +692,6 @@ class PDFGenerator:
             table.setStyle(TableStyle(style_list))
             elements.append(table)
             elements.append(Spacer(1, 0.3*cm))
-            
-            # Texte explicatif pour les parties grisées
-            explanation_style = ParagraphStyle(
-                'TableExplanation',
-                fontName='Helvetica',
-                fontSize=8,
-                alignment=TA_LEFT,
-                textColor=colors.black
-            )
-            explanation = Paragraph("LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.", explanation_style)
-            elements.append(explanation)
-            elements.append(Spacer(1, 0.5*cm))
         
         # Deuxième quinzaine (jours 16-fin du mois)
         # Calculer le dernier jour du mois
@@ -803,12 +776,12 @@ class PDFGenerator:
             elements.append(table)
             elements.append(Spacer(1, 0.3*cm))
             
-            # Texte explicatif pour les parties grisées
+            # Texte explicatif pour les parties grisées (uniquement sous la 2ème partie)
             explanation_style = ParagraphStyle(
                 'TableExplanation',
                 fontName='Helvetica',
                 fontSize=8,
-                alignment=TA_LEFT,
+                alignment=TA_CENTER,
                 textColor=colors.black
             )
             explanation = Paragraph("LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.", explanation_style)
@@ -858,7 +831,11 @@ class PDFGenerator:
         products = facility_data.get("products", [])
         zones = facility_data.get("zones", ["GLOBAL"])
         
-        # Créer une page par zone
+        # Créer les tableaux pour toutes les zones sur la même page
+        elements.append(PageBreak())
+        # Spacer pour centrer verticalement le contenu
+        elements.append(Spacer(1, 2*cm))
+        
         for zone_idx, zone in enumerate(zones):
             # Filtrer les produits de cette zone
             zone_products = [p for p in products if p.get("zone") == zone or (p.get("zone") is None and zone == "GLOBAL")]
@@ -866,20 +843,9 @@ class PDFGenerator:
             if not zone_products:
                 continue
             
-            # Nouvelle page pour chaque zone
-            elements.append(PageBreak())
-            # Spacer pour centrer verticalement le contenu
-            elements.append(Spacer(1, 3*cm))
-            elements.append(Paragraph("SUIVI DE LA CONSOMMATION QUOTIDIENNE TOTALE PAR PRODUITS".upper(), title_style))
-            elements.append(Spacer(1, 0.2*cm))
-            
-            # Indication de la zone
-            elements.append(Paragraph(f"<b>ZONE: {zone}</b>", zone_style))
+            # Titre avec la zone (pas de PageBreak entre les zones)
+            elements.append(Paragraph(f"SUIVI DE LA CONSOMMATION QUOTIDIENNE TOTALE PAR PRODUITS - {zone.upper()}", title_style))
             elements.append(Spacer(1, 0.3*cm))
-            
-            explanation_text = "LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES. LE GRAPHIQUE VOUS PERMET DE SUIVRE LES PICS D'ACTIVITÉ SUR LE MOIS."
-            elements.append(Paragraph(explanation_text, text_style))
-            elements.append(Spacer(1, 0.5*cm))
             
             # Récupérer les données mensuelles pour cette zone
             # Générer les en-têtes pour l'année en cours uniquement (janvier à décembre)
@@ -944,6 +910,7 @@ class PDFGenerator:
                     ('FONTSIZE', (0, 1), (-1, -1), 8),
                 ]))
                 elements.append(table)
+                elements.append(Spacer(1, 0.5*cm))  # Espace entre les tableaux de zones
         
         return elements
     
@@ -1340,7 +1307,7 @@ class PDFGenerator:
                     textColor=colors.black
                 )
                 detailed_explanation = (
-                    "<b>ZONE GRISÉE</b>: WEEK-ENDS ET JOURS FÉRIÉS<br/>"
+                    "LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.<br/>"
                     "LES CONSOMMATIONS SONT EXPRIMÉES EN ML PAR UTILISATION DANS LA JOURNÉE. "
                     "EXEMPLE : UN POINT À 200 ML SIGNIFIE QU'IL A FALLU EN MOYENNE 200 ML POUR LAVER CHAQUE VOITURE DANS LA JOURNÉE"
                 )
@@ -1432,7 +1399,7 @@ class PDFGenerator:
                 alignment=TA_LEFT,
                 textColor=colors.black
             )
-            legend_text = "<b>ZONE GRISÉE</b>: WEEK-ENDS ET JOURS FÉRIÉS<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES. LE GRAPHIQUE VOUS PERMET DE SUIVRE LES PICS D'ACTIVITÉ SUR LE MOIS."
+            legend_text = "LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES. LE GRAPHIQUE VOUS PERMET DE SUIVRE LES PICS D'ACTIVITÉ SUR LE MOIS."
             
             elements.append(Paragraph(legend_text, explanation_style))
             elements.append(Spacer(1, 0.5*cm))
