@@ -469,9 +469,9 @@ class ConsumptionChartGenerator:
         ax.grid(True, axis='y', linestyle='-', linewidth=0.8, 
                color='black', alpha=0.3)
         
-        # Format de l'axe Y (Litres)
+        # Format de l'axe Y (mL)
         ax.yaxis.set_major_formatter(
-            mticker.FuncFormatter(lambda x, _: f"{x/1000:.1f} L".replace('.', ','))
+            mticker.FuncFormatter(lambda x, _: f"{int(x):,} ml".replace(',', ' '))
         )
         
         # Format de l'axe X (dates)

@@ -438,6 +438,8 @@ class PDFGenerator:
             
             # Nouvelle page pour chaque zone
             elements.append(PageBreak())
+            # Spacer pour centrer verticalement le contenu
+            elements.append(Spacer(1, 3*cm))
             elements.append(Paragraph("SUIVI DE LA CONSOMMATION QUOTIDIENNE MOYENNE PAR LAVAGE".upper(), title_style))
             elements.append(Spacer(1, 0.2*cm))
             
@@ -611,6 +613,8 @@ class PDFGenerator:
         )
         
         elements.append(PageBreak())
+        # Spacer pour centrer verticalement le contenu (page A4 paysage ~21cm - marges)
+        elements.append(Spacer(1, 3*cm))
         elements.append(Paragraph("CONSOMMATION MENSUELLE - TABLEAU JOUR PAR JOUR".upper(), title_style))
         elements.append(Spacer(1, 0.5*cm))
         
@@ -863,6 +867,8 @@ class PDFGenerator:
             
             # Nouvelle page pour chaque zone
             elements.append(PageBreak())
+            # Spacer pour centrer verticalement le contenu
+            elements.append(Spacer(1, 3*cm))
             elements.append(Paragraph("SUIVI DE LA CONSOMMATION QUOTIDIENNE TOTALE PAR PRODUITS".upper(), title_style))
             elements.append(Spacer(1, 0.2*cm))
             
@@ -976,6 +982,8 @@ class PDFGenerator:
         )
         
         elements.append(PageBreak())
+        # Spacer pour centrer verticalement le contenu
+        elements.append(Spacer(1, 3*cm))
         elements.append(Paragraph("CONSOMMATION TOTALE MENSUELLE", title_style))
         elements.append(Spacer(1, 0.5*cm))
         
@@ -1336,7 +1344,7 @@ class PDFGenerator:
                     textColor=colors.black
                 )
                 detailed_explanation = (
-                    "• ZONE GRISÉE: WEEK-ENDS ET JOURS FÉRIÉS<br/>"
+                    "<b>ZONE GRISÉE</b>: WEEK-ENDS ET JOURS FÉRIÉS<br/>"
                     "LES CONSOMMATIONS SONT EXPRIMÉES EN ML PAR UTILISATION DANS LA JOURNÉE. "
                     "EXEMPLE : UN POINT À 200 ML SIGNIFIE QU'IL A FALLU EN MOYENNE 200 ML POUR LAVER CHAQUE VOITURE DANS LA JOURNÉE"
                 )
