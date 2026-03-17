@@ -164,8 +164,8 @@ class ConsumptionChartGenerator:
         # Augmenter l'épaisseur des lignes des axes (ticks)
         ax.tick_params(axis='both', which='major', width=2, length=6)
         
-        # Ajouter 'ml' aux valeurs de l'axe Y avec espaces pour les milliers (format français)
-        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{int(x):,} ml'.replace(',', ' ')))
+        # Ajouter 'L' aux valeurs de l'axe Y avec espaces pour les milliers (format français)
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{x/1000:.1f} L'.replace('.', ',')))
         
         # Grille avec lignes plus épaisses
         ax.grid(True, alpha=0.3, linestyle='--', linewidth=1.5)
@@ -288,8 +288,8 @@ class ConsumptionChartGenerator:
         # Augmenter l'épaisseur des lignes des axes (ticks)
         ax.tick_params(axis='both', which='major', width=2, length=6)
         
-        # Ajouter 'ml' aux valeurs de l'axe Y avec espaces pour les milliers (format français)
-        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{int(x):,} ml'.replace(',', ' ')))
+        # Ajouter 'L' aux valeurs de l'axe Y avec espaces pour les milliers (format français)
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{x/1000:.1f} L'.replace('.', ',')))
         
         # Grille avec lignes plus épaisses
         ax.grid(True, alpha=0.3, linestyle='--', linewidth=1.5)
@@ -469,9 +469,9 @@ class ConsumptionChartGenerator:
         ax.grid(True, axis='y', linestyle='-', linewidth=0.8, 
                color='black', alpha=0.3)
         
-        # Format de l'axe Y (mL)
+        # Format de l'axe Y (Litres)
         ax.yaxis.set_major_formatter(
-            mticker.FuncFormatter(lambda x, _: f"{int(x):,} ml".replace(',', ' '))
+            mticker.FuncFormatter(lambda x, _: f"{x/1000:.1f} L".replace('.', ','))
         )
         
         # Format de l'axe X (dates)

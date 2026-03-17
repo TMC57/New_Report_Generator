@@ -506,7 +506,7 @@ class PDFGenerator:
                     alignment=TA_CENTER,
                     textColor=colors.grey
                 )
-                explanation = Paragraph("LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.", explanation_style)
+                explanation = Paragraph("<b>ZONE GRISÉE</b>: WEEK-ENDS ET JOURS FÉRIÉS", explanation_style)
                 elements.append(explanation)
                 elements.append(Spacer(1, 0.5*cm))
             
@@ -583,7 +583,7 @@ class PDFGenerator:
                     alignment=TA_CENTER,
                     textColor=colors.grey
                 )
-                explanation = Paragraph("LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.", explanation_style)
+                explanation = Paragraph("<b>ZONE GRISÉE</b>: WEEK-ENDS ET JOURS FÉRIÉS", explanation_style)
                 elements.append(explanation)
                 elements.append(Spacer(1, 0.5*cm))
         
@@ -1315,8 +1315,9 @@ class PDFGenerator:
                 elements.append(Paragraph("DÉBIT MOYEN PAR JOURS", title_style))
                 elements.append(Spacer(1, 0.3*cm))
                 
-                # Texte explicatif avec ZONE en gras
-                explanation_text = f"GRAPHIQUE DE DÉBIT POUR LA <b>ZONE</b> {zone.upper()}"
+                # Texte explicatif avec ZONE en gras - zone contient déjà "Zone X"
+                # Donc on affiche juste la zone en gras
+                explanation_text = f"GRAPHIQUE DE DÉBIT POUR LA <b>{zone.upper()}</b>"
                 elements.append(Paragraph(explanation_text, text_style))
                 elements.append(Spacer(1, 0.5*cm))
                 
@@ -1427,7 +1428,7 @@ class PDFGenerator:
                 alignment=TA_LEFT,
                 textColor=colors.black
             )
-            legend_text = "• ZONE GRISÉE: WEEK-ENDS ET JOURS FÉRIÉS<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN ML PAR UTILISATION DANS LA JOURNÉE. EXEMPLE : UN POINT À 200 ML SIGNIFIE QU'IL A FALLU EN MOYENNE 200 ML POUR LAVER CHAQUE VOITURE DANS LA JOURNÉE"
+            legend_text = "<b>ZONE GRISÉE</b>: WEEK-ENDS ET JOURS FÉRIÉS<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES. LE GRAPHIQUE VOUS PERMET DE SUIVRE LES PICS D'ACTIVITÉ SUR LE MOIS."
             
             elements.append(Paragraph(legend_text, explanation_style))
             elements.append(Spacer(1, 0.5*cm))
