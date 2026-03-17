@@ -166,11 +166,14 @@ class PDFGenerator:
         # Pas de PageBreak ici car le premier graphique a déjà son PageBreak
         story.extend(self._create_consumption_pages(facility_data, from_date, to_date, styles))
         
-        # 1. Tableau quotidien par zone (PREMIER)
-        story.extend(self._create_daily_average_by_zone_table(facility_data, from_date, to_date, styles))
-        # 2. Tableau total par zone (SECOND)
-        story.extend(self._create_daily_total_by_zone_table(facility_data, from_date, to_date, styles))
-        # 3. Tableau quotidien global (ancien)
+        # Tableaux zonés uniquement si plus d'une zone
+        zones = facility_data.get("zones", ["GLOBAL"])
+        if len(zones) > 1:
+            # 1. Tableau quotidien par zone (PREMIER)
+            story.extend(self._create_daily_average_by_zone_table(facility_data, from_date, to_date, styles))
+            # 2. Tableau total par zone (SECOND)
+            story.extend(self._create_daily_total_by_zone_table(facility_data, from_date, to_date, styles))
+        # 3. Tableau quotidien global
         story.extend(self._create_daily_consumption_tables(facility_data, from_date, to_date, styles))
         # 4. Tableau mensuel unique
         story.extend(self._create_monthly_consumption_table(facility_data, from_date, to_date, styles))
@@ -601,7 +604,7 @@ class PDFGenerator:
         elements.append(PageBreak())
         # Spacer pour centrer verticalement le contenu (page A4 paysage ~21cm - marges)
         elements.append(Spacer(1, 3*cm))
-        elements.append(Paragraph("CONSOMMATION MENSUELLE - TABLEAU JOUR PAR JOUR".upper(), title_style))
+        elements.append(Paragraph("CONSOMMATION MENSUELLE GLOBALE - TABLEAU JOUR PAR JOUR", title_style))
         elements.append(Spacer(1, 0.5*cm))
         
         # Convertir les dates
