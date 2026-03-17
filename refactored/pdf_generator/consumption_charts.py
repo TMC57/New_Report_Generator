@@ -222,9 +222,14 @@ class ConsumptionChartGenerator:
         color_service = get_color_service()
         default_colors = color_service.get_default_colors()
         
-        # Tracer chaque produit
+        # Calculer le nombre de jours et la largeur des barres
+        num_days = (end_date - start_date).days + 1
+        num_products = len(products_data)
+        bar_width = 0.8 / max(num_products, 1)  # Largeur des barres
+        
+        # Tracer chaque produit en barres
         for idx, product_info in enumerate(products_data):
-            product_name = product_info.get("name", "Produit inconnu")
+            product_name = product_info.get("name", "PRODUIT INCONNU")
             daily_data = product_info.get("daily_data", [])
             
             # Filtrer et préparer les données
@@ -246,20 +251,15 @@ class ConsumptionChartGenerator:
                 color = color_service.get_color_for_product(product_name)
                 if not color:
                     color = default_colors[idx % len(default_colors)]
-                    print(f"⚠️ Couleur par défaut pour '{product_name}': {color}")
-                else:
-                    print(f"✅ Couleur trouvée pour '{product_name}': {color}")
                 
-                # Tracer la courbe du produit
-                ax.plot(dates, quantities, marker='o', linewidth=3, markersize=5, 
-                       color=color, label=product_name)
+                # Décaler les barres pour qu'elles soient entre les graduations (+0.5 jour)
+                # et décaler pour chaque produit si plusieurs produits
+                product_offset = (idx - num_products / 2 + 0.5) * bar_width
+                bar_dates = [d + timedelta(days=0.5 + product_offset) for d in dates]
                 
-                # Calculer et afficher la moyenne pour ce produit
-                if quantities:
-                    mean_qty = np.mean(quantities)
-                    mean_str = f'{mean_qty:.1f}'.replace('.', ',')
-                    ax.axhline(y=mean_qty, color=color, linestyle='-.', linewidth=1.5,
-                              label=f'Moyenne {product_name}: {mean_str} mL')
+                # Tracer les barres du produit (pas de moyenne)
+                ax.bar(bar_dates, quantities, width=bar_width * 0.9, 
+                       color=color, label=product_name.upper(), alpha=0.8)
         
         # Configuration des axes
         ax.set_xlabel('', fontsize=11, fontweight='bold')  # Pas de label 'Date'
@@ -353,10 +353,70 @@ class ConsumptionChartGenerator:
         Returns:
             BytesIO contenant l'image PNG du graphique ou None si pas de données
         """
+        print(f"\n{'='*60}")
+        print(f"🔍 create_flowrate_chart appelé pour zone: {zone}")
+        print(f"{'='*60}")
+        
+        # Debug: afficher le nombre de résultats dans events_data
+        results_count = 0
+        if isinstance(events_data, dict):
+            data = events_data.get("data")
+            if isinstance(data, dict) and "results" in data:
+                results_count = len(data.get("results", []))
+                # Afficher les noms de produits uniques
+                product_names = set()
+                for r in data.get("results", []):
+                    pn = r.get("productName", "")
+                    if pn:
+                        product_names.add(pn)
+                print(f"   📊 {results_count} événements flowrate, produits uniques: {product_names}")
+        
         # Extraire les données par pompe
         series, pump_names = self._extract_flowrate_series(events_data)
         
         if not series:
+            return None
+        
+        # Filtrer les séries par zone si une zone spécifique est demandée
+        if zone and zone != "GLOBAL":
+            import re
+            # Extraire le numéro de zone demandé (ex: "ZONE 2" -> "2")
+            requested_zone_match = re.search(r'(\d+)', zone)
+            requested_zone_num = requested_zone_match.group(1) if requested_zone_match else None
+            
+            print(f"🔍 Filtrage flowrate pour zone: {zone} (num={requested_zone_num})")
+            print(f"   Produits disponibles: {list(pump_names.values())}")
+            
+            filtered_series = {}
+            filtered_pump_names = {}
+            for pump_idx, pts in series.items():
+                prod_name = pump_names.get(pump_idx, "")
+                # Extraire le numéro de zone du nom du produit (ex: "WNC50 - Zone 1" -> "1")
+                product_zone_match = re.search(r'Zone\s*(\d+)', prod_name, re.IGNORECASE)
+                product_zone_num = product_zone_match.group(1) if product_zone_match else None
+                
+                print(f"   → Produit '{prod_name}' zone_num={product_zone_num} vs requested={requested_zone_num}")
+                
+                if product_zone_num and requested_zone_num:
+                    # Comparer les numéros de zone
+                    if product_zone_num == requested_zone_num:
+                        filtered_series[pump_idx] = pts
+                        filtered_pump_names[pump_idx] = prod_name
+                        print(f"     ✅ INCLUS")
+                    else:
+                        print(f"     ❌ EXCLU (zone {product_zone_num} != {requested_zone_num})")
+                elif not product_zone_num:
+                    # Produit sans zone spécifiée - ne pas l'inclure dans les zones spécifiques
+                    print(f"     ❌ EXCLU (pas de zone dans le nom)")
+            
+            print(f"   Résultat filtrage: {len(filtered_series)} produits")
+            
+            # Toujours utiliser les séries filtrées (même si vide)
+            series = filtered_series
+            pump_names = filtered_pump_names
+        
+        if not series:
+            print(f"   ⚠️ Aucun produit pour la zone {zone}, pas de graphique")
             return None
         
         # Créer le graphique
@@ -378,31 +438,30 @@ class ConsumptionChartGenerator:
         # Service de couleurs
         color_service = get_color_service()
         
-        # Tracer chaque pompe
-        for pump_idx, pts in series.items():
+        # Tracer chaque produit
+        default_colors = color_service.get_default_colors()
+        for idx, (product_name, pts) in enumerate(series.items()):
             # Convertir timestamps en dates
             dates = [datetime.fromtimestamp(ts / 1000.0) for ts, _ in pts]
             # Valeurs en mL (division par 10 comme dans l'ancien code)
             values = [v / 10.0 for _, v in pts]
             
-            # Numéro de pompe (0 -> 1, etc.)
-            try:
-                pump_num = int(pump_idx) + 1
-            except Exception:
-                pump_num = "?"
-            
-            # Nom du produit pour cette pompe
-            prod_name = pump_names.get(pump_idx, "Produit")
-            label = prod_name  # Seulement le nom du produit, sans "Pompe X —"
+            # Nom du produit en majuscules
+            label = product_name.upper()
             
             # Obtenir la couleur du produit
-            color = color_service.get_color_for_product(prod_name)
+            color = color_service.get_color_for_product(product_name)
             if not color:
-                color = color_service.get_default_colors()[int(pump_idx) % len(color_service.get_default_colors())]
+                color = default_colors[idx % len(default_colors)]
             
             # Tracer la courbe
             ax.plot(dates, values, marker='o', linewidth=3, markersize=8, 
                    label=label, color=color)
+            
+            # Ajouter la ligne de moyenne en pointillé
+            if values:
+                avg_value = sum(values) / len(values)
+                ax.axhline(y=avg_value, color=color, linestyle='--', linewidth=2, alpha=0.7)
         
         # Configuration du graphique (pas de titre, il est sur la page)
         
@@ -446,15 +505,15 @@ class ConsumptionChartGenerator:
     
     def _extract_flowrate_series(self, events_data: Dict) -> Tuple[Dict, Dict]:
         """
-        Extrait les séries de données par pompe depuis les événements
+        Extrait les séries de données par produit depuis les événements
         
         Args:
             events_data: Données d'événements de l'API
             
         Returns:
             Tuple (series, pump_names) où:
-            - series: {pump_idx: [(timestamp, value), ...]}
-            - pump_names: {pump_idx: product_name}
+            - series: {product_name: [(timestamp, value), ...]}
+            - pump_names: {product_name: product_name}
         """
         # Extraire les lignes de données
         rows = []
@@ -466,14 +525,12 @@ class ConsumptionChartGenerator:
         elif isinstance(events_data, list):
             rows = events_data
         
-        series = {}  # pump_idx -> [(ts, val)]
-        latest_name_by_pump = {}  # pump_idx -> (latest_ts, name)
+        series = {}  # product_name -> [(ts, val)]
         
         for r in rows:
             # Extraire les champs (plusieurs noms possibles)
             name = (r.get("productName") or r.get("product") or 
                    r.get("name") or "Produit")
-            pump = r.get("pumpIdx") or r.get("pump") or r.get("pumpIndex")
             ts = (r.get("timestamp") or r.get("eventDate") or 
                  r.get("createDate") or r.get("date") or r.get("time"))
             val = (r.get("value") or r.get("flowRate") or 
@@ -488,20 +545,15 @@ class ConsumptionChartGenerator:
             except Exception:
                 continue
             
-            # Clé de pompe
-            key = str(pump) if pump is not None else ""
+            # Clé = nom du produit (pour regrouper par produit, pas par pompe)
+            key = name
             series.setdefault(key, []).append((ts, val))
-            
-            # Mémoriser le nom le plus récent par timestamp
-            prev = latest_name_by_pump.get(key)
-            if prev is None or ts >= prev[0]:
-                latest_name_by_pump[key] = (ts, name)
         
         # Trier chaque série par temps croissant
         for k in list(series.keys()):
             series[k].sort(key=lambda x: x[0])
         
-        # Construire le dict des noms
-        pump_names = {k: v[1] for k, v in latest_name_by_pump.items()}
+        # Construire le dict des noms (clé = nom du produit)
+        pump_names = {k: k for k in series.keys()}
         
         return series, pump_names

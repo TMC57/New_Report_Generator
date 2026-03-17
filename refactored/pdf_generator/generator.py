@@ -15,7 +15,83 @@ import matplotlib.dates as mdates
 from matplotlib.patches import Rectangle
 import numpy as np
 import io
+import re
+import unicodedata
 from refactored.config.settings import REPORTS_OUTPUT_DIR, REFACTORED_DIR
+
+def normalize_product_name(name: str) -> str:
+    """Normalise un nom de produit pour le matching"""
+    if not name:
+        return ""
+    # Retirer les accents
+    name = ''.join(c for c in unicodedata.normalize('NFD', name) if unicodedata.category(c) != 'Mn')
+    # Majuscules, retirer espaces et tirets
+    name = name.upper().replace(" ", "").replace("-", "")
+    return name
+
+def get_excel_product_name(api_product_name: str, facility_data: dict) -> str:
+    """
+    Mappe un nom de produit API vers le nom Excel correspondant
+    
+    Args:
+        api_product_name: Nom du produit depuis l'API (ex: "WNC50 - Zone 1")
+        facility_data: Données de la facility contenant les produits Excel
+        
+    Returns:
+        Nom du produit Excel ou le nom API si pas de match
+    """
+    # Extraire tous les produits Excel de la facility
+    excel_products = []
+    
+    # Produits par zone
+    for zone_num in range(1, 6):
+        for prod_type in ["lavant", "sechant", "jantes", "mousse"]:
+            key = f"produit_{prod_type}_zone{zone_num}"
+            excel_name = facility_data.get(key)
+            if excel_name:
+                excel_products.append((prod_type, excel_name))
+    
+    # Produits globaux (sans zone)
+    for prod_type in ["lavant", "sechant", "jantes", "mousse"]:
+        key = f"produit_{prod_type}"
+        excel_name = facility_data.get(key)
+        if excel_name:
+            excel_products.append((prod_type, excel_name))
+    
+    # Normaliser le nom API
+    normalized_api = normalize_product_name(api_product_name)
+    
+    # Chercher le meilleur match
+    for prod_type, excel_name in excel_products:
+        if not excel_name:
+            continue
+        
+        normalized_excel = normalize_product_name(excel_name)
+        
+        # Match direct
+        if normalized_api in normalized_excel:
+            return excel_name
+        
+        # Match spécial pour autoséchant
+        if prod_type == "sechant":
+            if "AUTOSECHANT" in normalized_api or "SECHANT" in normalized_api:
+                return excel_name
+        
+        # Match par numéro WNC
+        api_wnc_match = re.search(r'WNC\s*(\d+)', normalized_api, re.IGNORECASE)
+        excel_wnc_match = re.search(r'WNC\s*(\d+)', normalized_excel, re.IGNORECASE)
+        if api_wnc_match and excel_wnc_match:
+            api_wnc_num = api_wnc_match.group(1)
+            excel_wnc_num = excel_wnc_match.group(1)
+            if api_wnc_num == excel_wnc_num:
+                # Vérifier aussi UC/ULTRACONCENTRÉ
+                if "UC" in normalized_api and "ULTRACONCENTRE" in normalized_excel:
+                    return excel_name
+                if "UC" not in normalized_api and "ULTRACONCENTRE" not in normalized_excel:
+                    return excel_name
+    
+    # Pas de match trouvé, retourner le nom API
+    return api_product_name
 
 class PDFGenerator:
     """Générateur de PDF utilisant ReportLab"""
@@ -90,10 +166,10 @@ class PDFGenerator:
         # Pas de PageBreak ici car le premier graphique a déjà son PageBreak
         story.extend(self._create_consumption_pages(facility_data, from_date, to_date, styles))
         
-        # 1. Tableau quotidien par zone (PREMIER)
-        story.extend(self._create_daily_average_by_zone_table(facility_data, from_date, to_date, styles))
-        # 2. Tableau total par zone (SECOND)
-        story.extend(self._create_daily_total_by_zone_table(facility_data, from_date, to_date, styles))
+        # 1. Tableau quotidien par zone (PREMIER) - TEMPORAIREMENT DÉSACTIVÉ
+        # story.extend(self._create_daily_average_by_zone_table(facility_data, from_date, to_date, styles))
+        # 2. Tableau total par zone (SECOND) - TEMPORAIREMENT DÉSACTIVÉ
+        # story.extend(self._create_daily_total_by_zone_table(facility_data, from_date, to_date, styles))
         # 3. Tableau quotidien global (ancien)
         story.extend(self._create_daily_consumption_tables(facility_data, from_date, to_date, styles))
         # 4. Tableau mensuel unique
@@ -336,6 +412,15 @@ class PDFGenerator:
             alignment=TA_CENTER
         )
         
+        # Style pour les noms de produits (permet le retour à la ligne)
+        product_name_style = ParagraphStyle(
+            'ProductName',
+            fontName='Helvetica',
+            fontSize=8,
+            leading=9,
+            alignment=TA_LEFT
+        )
+        
         # Convertir les dates
         start_date = datetime.strptime(from_date, "%Y-%m-%d")
         end_date = datetime.strptime(to_date, "%Y-%m-%d")
@@ -368,7 +453,10 @@ class PDFGenerator:
                 product_name = product.get("name", "")
                 daily_quantities = product.get("daily_quantities", [])
                 
-                row = [f"{product_name.upper()}"]
+                # Mapper vers le nom Excel
+                excel_name = get_excel_product_name(product_name, facility_data)
+                # Utiliser Paragraph pour permettre le retour à la ligne
+                row = [Paragraph(excel_name.upper(), product_name_style)]
                 for day in range(1, 16):
                     date_str = start_date.replace(day=day).strftime("%Y-%m-%d")
                     qty_data = next((q for q in daily_quantities if q.get("date") == date_str), None)
@@ -418,7 +506,7 @@ class PDFGenerator:
                     alignment=TA_CENTER,
                     textColor=colors.grey
                 )
-                explanation = Paragraph("Les parties grisées correspondent aux week-ends et jours fériés.", explanation_style)
+                explanation = Paragraph("LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.", explanation_style)
                 elements.append(explanation)
                 elements.append(Spacer(1, 0.5*cm))
             
@@ -435,7 +523,10 @@ class PDFGenerator:
                 product_name = product.get("name", "")
                 daily_quantities = product.get("daily_quantities", [])
                 
-                row = [f"{product_name.upper()}"]
+                # Mapper vers le nom Excel
+                excel_name = get_excel_product_name(product_name, facility_data)
+                # Utiliser Paragraph pour permettre le retour à la ligne
+                row = [Paragraph(excel_name.upper(), product_name_style)]
                 for day in range(16, last_day + 1):
                     try:
                         date_str = start_date.replace(day=day).strftime("%Y-%m-%d")
@@ -492,7 +583,7 @@ class PDFGenerator:
                     alignment=TA_CENTER,
                     textColor=colors.grey
                 )
-                explanation = Paragraph("Les parties grisées correspondent aux week-ends et jours fériés.", explanation_style)
+                explanation = Paragraph("LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.", explanation_style)
                 elements.append(explanation)
                 elements.append(Spacer(1, 0.5*cm))
         
@@ -559,9 +650,21 @@ class PDFGenerator:
                         products_by_name_first[product_name][day] = 0
                     products_by_name_first[product_name][day] += qty_l
         
+        # Style pour les noms de produits (permet le retour à la ligne)
+        product_name_style = ParagraphStyle(
+            'ProductName',
+            fontName='Helvetica',
+            fontSize=8,
+            leading=9,
+            alignment=TA_LEFT
+        )
+        
         # Créer les lignes du tableau
         for product_name, daily_data in products_by_name_first.items():
-            row = [f"{product_name.upper()}"]
+            # Mapper vers le nom Excel
+            excel_name = get_excel_product_name(product_name, facility_data)
+            # Utiliser Paragraph pour permettre le retour à la ligne
+            row = [Paragraph(excel_name.upper(), product_name_style)]
             for day in range(1, 16):
                 if day in daily_data:
                     qty_l = daily_data[day]
@@ -649,7 +752,10 @@ class PDFGenerator:
         
         # Créer les lignes du tableau
         for product_name, daily_data in products_by_name_second.items():
-            row = [f"{product_name.upper()}"]
+            # Mapper vers le nom Excel
+            excel_name = get_excel_product_name(product_name, facility_data)
+            # Utiliser Paragraph pour permettre le retour à la ligne
+            row = [Paragraph(excel_name.upper(), product_name_style)]
             for day in range(16, last_day + 1):
                 if day in daily_data:
                     qty_l = daily_data[day]
@@ -735,6 +841,15 @@ class PDFGenerator:
             leading=14
         )
         
+        # Style pour les noms de produits (permet le retour à la ligne)
+        product_name_style = ParagraphStyle(
+            'ProductName',
+            fontName='Helvetica',
+            fontSize=8,
+            leading=9,
+            alignment=TA_LEFT
+        )
+        
         products = facility_data.get("products", [])
         zones = facility_data.get("zones", ["GLOBAL"])
         
@@ -788,7 +903,10 @@ class PDFGenerator:
                 product_name = product.get("name", "")
                 monthly_quantities = product.get("monthly_quantities", [])
                 
-                row = [f"{product_name.upper()}"]
+                # Mapper vers le nom Excel
+                excel_name = get_excel_product_name(product_name, facility_data)
+                # Utiliser Paragraph pour permettre le retour à la ligne
+                row = [Paragraph(excel_name.upper(), product_name_style)]
                 
                 # Chercher les données pour chaque mois des 12 derniers mois
                 for year, month in months_list:
@@ -848,12 +966,17 @@ class PDFGenerator:
             leading=14
         )
         
-        elements.append(PageBreak())
-        elements.append(Paragraph("CONSOMMATION TOTALE MENSUELLE".upper(), title_style))
-        elements.append(Spacer(1, 0.3*cm))
+        # Style pour les noms de produits (permet le retour à la ligne)
+        product_name_style = ParagraphStyle(
+            'ProductName',
+            fontName='Helvetica',
+            fontSize=8,
+            leading=9,
+            alignment=TA_LEFT
+        )
         
-        explanation_text = "Les consommations sont exprimées en litres. Le graphique vous permet de suivre les pics d'activité sur le mois."
-        elements.append(Paragraph(explanation_text, text_style))
+        elements.append(PageBreak())
+        elements.append(Paragraph("CONSOMMATION TOTALE MENSUELLE", title_style))
         elements.append(Spacer(1, 0.5*cm))
         
         products = facility_data.get("products", [])
@@ -907,7 +1030,10 @@ class PDFGenerator:
         
         # Créer les lignes du tableau
         for product_name, monthly_data in products_by_name.items():
-            row = [f"{product_name.upper()}"]
+            # Mapper vers le nom Excel
+            excel_name = get_excel_product_name(product_name, facility_data)
+            # Utiliser Paragraph pour permettre le retour à la ligne
+            row = [Paragraph(excel_name.upper(), product_name_style)]
             
             # Chercher les données pour chaque mois des 12 derniers mois
             for year, month in months_list:
@@ -965,12 +1091,18 @@ class PDFGenerator:
             leading=14
         )
         
-        elements.append(PageBreak())
-        elements.append(Paragraph("PRODUITS LIVRÉS".upper(), title_style))
-        elements.append(Spacer(1, 0.3*cm))
+        # Style pour les noms de produits (permet le retour à la ligne)
+        product_name_style = ParagraphStyle(
+            'ProductName',
+            fontName='Helvetica',
+            fontSize=8,
+            leading=9,
+            alignment=TA_LEFT
+        )
         
-        explanation_text = "CE TABLEAU RÉCAPITULE LES PRODUITS LIVRÉS SUR LA PÉRIODE. LES DONNÉES SONT À VENIR."
-        elements.append(Paragraph(explanation_text, text_style))
+        # Pas de PageBreak - on reste sur la même page que CONSOMMATION TOTALE MENSUELLE
+        elements.append(Spacer(1, 1*cm))
+        elements.append(Paragraph("PRODUITS LIVRÉS", title_style))
         elements.append(Spacer(1, 0.5*cm))
         
         # Générer les en-têtes des 12 derniers mois (rolling) à partir de to_date
@@ -990,13 +1122,23 @@ class PDFGenerator:
             
             month_headers.append(f"{month:02d}/{str(year)[-2:]}")
         
-        # Créer un tableau vide avec structure
+        # Créer un tableau avec les produits de la facility
         table_data = [["PRODUIT"] + month_headers]
         
-        # Ajouter une ligne d'exemple pour montrer la structure
-        # (sera remplacée par les vraies données Odoo plus tard)
-        example_row = ["Aucune donnée disponible"] + ["-"] * 12
-        table_data.append(example_row)
+        # Récupérer les produits et utiliser le mapping Excel
+        products = facility_data.get("products", [])
+        if products:
+            for product in products:
+                product_name = product.get("name", "")
+                # Mapper vers le nom Excel
+                excel_name = get_excel_product_name(product_name, facility_data)
+                # Utiliser Paragraph pour permettre le retour à la ligne
+                row = [Paragraph(excel_name.upper(), product_name_style)] + ["-"] * 12
+                table_data.append(row)
+        else:
+            # Ajouter une ligne d'exemple si pas de produits
+            example_row = [Paragraph("AUCUNE DONNÉE DISPONIBLE", product_name_style)] + ["-"] * 12
+            table_data.append(example_row)
         
         # Utiliser la largeur maximale disponible (A4 landscape = 29.7cm - marges 1cm = 28.7cm)
         available_width = 28.7*cm
@@ -1138,45 +1280,27 @@ class PDFGenerator:
             # Pas de données flowrate, ne rien générer
             return elements
         
-        # Récupérer les devices et zones
-        devices = facility_data.get("devices", [])
+        # Récupérer les zones
         zones = facility_data.get("zones", ["GLOBAL"])
         
-        # Créer une page par zone
+        # Regrouper TOUTES les données flowrate de tous les devices
+        all_events = {"data": {"results": []}}
+        for device_id, events_data in flowrate_data.items():
+            if isinstance(events_data, dict):
+                data = events_data.get("data")
+                if isinstance(data, dict) and "results" in data:
+                    all_events["data"]["results"].extend(data["results"])
+                elif isinstance(data, list):
+                    all_events["data"]["results"].extend(data)
+        
+        if not all_events["data"]["results"]:
+            return elements
+        
+        # Créer une page par zone - le filtrage par produit se fait dans create_flowrate_chart
         for zone in zones:
-            # Filtrer les devices de cette zone
-            zone_devices = [d for d in devices if d.get("zone") == zone or (d.get("zone") is None and zone == "GLOBAL")]
-            
-            if not zone_devices:
-                continue
-            
-            # Regrouper toutes les données flowrate de la zone
-            zone_has_data = False
-            combined_events = {"data": {"results": []}}
-            
-            for device in zone_devices:
-                device_id = device.get("device_id")
-                
-                # Vérifier si on a des données flowrate pour ce device
-                if device_id in flowrate_data:
-                    events_data = flowrate_data[device_id]
-                    
-                    # Extraire les résultats
-                    if isinstance(events_data, dict):
-                        data = events_data.get("data")
-                        if isinstance(data, dict) and "results" in data:
-                            combined_events["data"]["results"].extend(data["results"])
-                            zone_has_data = True
-                        elif isinstance(data, list):
-                            combined_events["data"]["results"].extend(data)
-                            zone_has_data = True
-            
-            if not zone_has_data:
-                continue
-            
-            # Créer un seul graphique pour toute la zone
+            # Créer le graphique pour cette zone (le filtrage par nom de produit se fait dans create_flowrate_chart)
             chart_buf = chart_gen.create_flowrate_chart(
-                combined_events,
+                all_events,
                 "",  # Pas de serial number
                 zone,
                 from_date,
@@ -1191,8 +1315,8 @@ class PDFGenerator:
                 elements.append(Paragraph("DÉBIT MOYEN PAR JOURS", title_style))
                 elements.append(Spacer(1, 0.3*cm))
                 
-                # Texte explicatif (sans mention de routeur)
-                explanation_text = f"GRAPHIQUE DE DÉBIT POUR LA ZONE {zone}"
+                # Texte explicatif avec ZONE en gras
+                explanation_text = f"GRAPHIQUE DE DÉBIT POUR LA <b>ZONE</b> {zone.upper()}"
                 elements.append(Paragraph(explanation_text, text_style))
                 elements.append(Spacer(1, 0.5*cm))
                 
@@ -1272,13 +1396,13 @@ class PDFGenerator:
             
             # Titre de la section
             elements.append(Paragraph(
-                f"Suivi de la consommation quotidienne moyenne par lavage",
+                f"SUIVI DE LA CONSOMMATION QUOTIDIENNE TOTALE PAR PRODUITS",
                 title_style
             ))
             elements.append(Spacer(1, 0.5*cm))
             
             elements.append(Paragraph(
-                f"<b>Zone:</b> {zone} | <b>Produits:</b> {len(products_data)} produit(s)",
+                f"<b>ZONE:</b> {zone.upper()} | <b>PRODUITS:</b> {len(products_data)} PRODUIT(S)",
                 text_style
             ))
             elements.append(Spacer(1, 0.3*cm))
