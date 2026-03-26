@@ -4,13 +4,14 @@ Serveur autonome avec tous les endpoints nécessaires
 """
 import os
 from pathlib import Path
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException, Request, Depends
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 
 from refactored.api.routes import router as reports_router
 from refactored.api.upload_routes import router as upload_router
 from refactored.api.config_routes import router as config_router
+from refactored.auth import verify_odoo_token, get_current_user, require_auth
 
 # Créer l'application FastAPI
 app = FastAPI(
@@ -46,10 +47,16 @@ if REACT_BUILD_DIR.exists():
     app.mount("/assets", StaticFiles(directory=str(REACT_BUILD_DIR / "assets")), name="assets")
 
 @app.get("/")
-async def get_home():
+async def get_home(request: Request):
     """
     Page d'accueil - sert le frontend React
+    Requiert une authentification via Odoo
     """
+    # Vérifier l'authentification
+    user_token = await get_current_user(request)
+    if not user_token:
+        return RedirectResponse(url="/login-required", status_code=302)
+    
     react_index = REACT_BUILD_DIR / "index.html"
     if react_index.exists():
         return FileResponse(react_index)
@@ -75,6 +82,80 @@ async def health_check():
         "version": "2.0.0",
         "project": "refactored"
     }
+
+# ==================== ENDPOINTS D'AUTHENTIFICATION ODOO ====================
+
+@app.get("/auth")
+async def authenticate_with_token(request: Request, token: str):
+    """
+    Endpoint d'authentification avec token Odoo
+    URL: /auth?token=xxx
+    """
+    if await verify_odoo_token(token):
+        response = RedirectResponse(url="/", status_code=302)
+        response.set_cookie(
+            key="auth_token",
+            value=token,
+            max_age=3600,  # 1 heure
+            httponly=True,
+            secure=False,  # Mettre True en HTTPS
+            path="/",
+            samesite='lax'
+        )
+        return response
+    else:
+        raise HTTPException(status_code=401, detail="Token invalide")
+
+@app.get("/logout")
+async def logout(request: Request):
+    """
+    Déconnexion - supprime la session
+    """
+    response = RedirectResponse(url="/login-required", status_code=302)
+    response.delete_cookie("auth_token")
+    return response
+
+@app.get("/login-required")
+async def login_required():
+    """
+    Page affichée quand l'authentification est requise
+    """
+    return HTMLResponse("""
+    <html>
+        <head>
+            <title>Authentification requise</title>
+            <style>
+                body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f5f5f5; }
+                .container { text-align: center; padding: 40px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+                h1 { color: #333; }
+                p { color: #666; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>🔒 Authentification requise</h1>
+                <p>Vous devez vous connecter depuis Odoo pour accéder à cette application.</p>
+                <p>Veuillez retourner dans Odoo et utiliser le lien d'accès approprié.</p>
+            </div>
+        </body>
+    </html>
+    """)
+
+@app.post("/api/verify-token")
+async def verify_token_endpoint(request: Request):
+    """
+    Endpoint pour qu'Odoo vérifie un token
+    """
+    data = await request.json()
+    token = data.get("token")
+
+    if not token:
+        raise HTTPException(status_code=400, detail="Token manquant")
+
+    is_valid = await verify_odoo_token(token)
+    return {"valid": is_valid}
+
+# ==================== FIN AUTHENTIFICATION ====================
 
 # Endpoints de compatibilité pour le frontend
 @app.post("/upload-excel-listing")

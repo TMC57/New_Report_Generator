@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  tmh-api:
+    build: .
+    container_name: tmh-container-v2
+    environment:
+      - DATA_ROOT=/app/reports
+      - TZ=Europe/Paris
+      - ODOO_URL=https://tmh-corporation-odoo.odoo.com
+    volumes:
+      - ./reports:/app/reports
+      - ./uploads:/app/uploads
+      - ./config:/app/config
+      - ./cache:/app/cache
+    networks:
+      - web
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tmh-api-v2.rule=Host(`tmh-reports.duckdns.org`)"
+      - "traefik.http.routers.tmh-api-v2.entrypoints=websecure"
+      - "traefik.http.routers.tmh-api-v2.tls.certresolver=myresolver"
+      - "traefik.http.services.tmh-api-v2.loadbalancer.server.port=8000"
+
+  traefik:
+    image: traefik:v2.9
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=votre@email.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./letsencrypt:/letsencrypt"
+    networks:
+      - web
+
+networks:
+  web:
+    external: false
