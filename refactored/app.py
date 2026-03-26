@@ -32,7 +32,11 @@ BASE_DIR = Path(__file__).parent.parent
 REFACTORED_DIR = Path(__file__).parent
 UPLOADS_DIR = REFACTORED_DIR / "uploads"
 IMAGES_DIR = REFACTORED_DIR / "images"
-REACT_BUILD_DIR = BASE_DIR / "pixel-perfect-replica-50" / "dist"
+
+# Frontend React - chercher d'abord dans refactored/frontend (Docker) puis dans pixel-perfect-replica-50/dist (local)
+REACT_BUILD_DIR = REFACTORED_DIR / "frontend"
+if not REACT_BUILD_DIR.exists():
+    REACT_BUILD_DIR = BASE_DIR / "pixel-perfect-replica-50" / "dist"
 
 # Créer les dossiers nécessaires
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
