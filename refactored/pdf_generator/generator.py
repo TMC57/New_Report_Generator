@@ -445,7 +445,7 @@ class PDFGenerator:
                 continue
             
             # Titre avec la zone (pas de PageBreak entre les zones)
-            elements.append(Paragraph(f"SUIVI DE LA CONSOMMATION QUOTIDIENNE MOYENNE PAR LAVAGE - {zone.upper()}", title_style))
+            elements.append(Paragraph(f"CONSOMMATION MENSUELLE TOTALE - JOUR PAR JOUR - {zone.upper()}", title_style))
             elements.append(Spacer(1, 0.3*cm))
             
             # Première quinzaine (jours 1-15)
@@ -847,7 +847,7 @@ class PDFGenerator:
                 continue
             
             # Titre avec la zone (pas de PageBreak entre les zones)
-            elements.append(Paragraph(f"SUIVI DE LA CONSOMMATION QUOTIDIENNE TOTALE PAR PRODUITS - {zone.upper()}", title_style))
+            elements.append(Paragraph(f"CONSOMMATION TOTALE MENSUELLE - {zone.upper()}", title_style))
             elements.append(Spacer(1, 0.3*cm))
             
             # Récupérer les données mensuelles pour cette zone
@@ -918,7 +918,7 @@ class PDFGenerator:
         return elements
     
     def _create_monthly_consumption_table(self, facility_data: dict, from_date: str, to_date: str, styles):
-        """Crée le tableau de consommation totale mensuelle"""
+        """Crée le tableau de consommation globale mensuelle"""
         elements = []
         
         title_style = ParagraphStyle(
@@ -950,7 +950,7 @@ class PDFGenerator:
         elements.append(PageBreak())
         # Spacer pour centrer verticalement le contenu
         elements.append(Spacer(1, 3*cm))
-        elements.append(Paragraph("CONSOMMATION TOTALE MENSUELLE", title_style))
+        elements.append(Paragraph("CONSOMMATION GLOBALE MENSUELLE", title_style))
         elements.append(Spacer(1, 0.5*cm))
         
         products = facility_data.get("products", [])
@@ -1070,7 +1070,7 @@ class PDFGenerator:
             alignment=TA_LEFT
         )
         
-        # Pas de PageBreak - on reste sur la même page que CONSOMMATION TOTALE MENSUELLE
+        # Pas de PageBreak - on reste sur la même page que CONSOMMATION GLOBALE MENSUELLE
         elements.append(Spacer(1, 1*cm))
         elements.append(Paragraph("PRODUITS LIVRÉS", title_style))
         elements.append(Spacer(1, 0.5*cm))
