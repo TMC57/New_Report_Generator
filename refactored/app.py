@@ -3,15 +3,26 @@ Application FastAPI principale du projet refactorisé
 Serveur autonome avec tous les endpoints nécessaires
 """
 import os
+import sys
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, HTTPException, Request, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 
-from refactored.api.routes import router as reports_router
-from refactored.api.upload_routes import router as upload_router
-from refactored.api.config_routes import router as config_router
-from refactored.auth import verify_odoo_token, get_current_user, require_auth
+# Ajouter le dossier parent au path pour les imports
+sys.path.insert(0, str(Path(__file__).parent))
+
+try:
+    from api.routes import router as reports_router
+    from api.upload_routes import router as upload_router
+    from api.config_routes import router as config_router
+    from auth import verify_odoo_token, get_current_user, require_auth
+except ImportError:
+    # Fallback pour développement local
+    from refactored.api.routes import router as reports_router
+    from refactored.api.upload_routes import router as upload_router
+    from refactored.api.config_routes import router as config_router
+    from refactored.auth import verify_odoo_token, get_current_user, require_auth
 
 # Créer l'application FastAPI
 app = FastAPI(
@@ -170,7 +181,10 @@ async def upload_excel_listing_compat(file: UploadFile = File(...)):
     from datetime import datetime
     
     # Importer le parser Excel local
-    from refactored.excel_parser import parse_listing_clients_excel
+    try:
+        from excel_parser import parse_listing_clients_excel
+    except ImportError:
+        from refactored.excel_parser import parse_listing_clients_excel
     
     try:
         if not file.filename.lower().endswith(('.xlsx', '.xls')):
