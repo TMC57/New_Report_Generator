@@ -1,13 +1,3 @@
-# Uploads - fichiers uploadés par les utilisateurs
-uploads/*.jpg
-uploads/*.jpeg
-uploads/*.png
-uploads/*.webp
-uploads/*.gif
-
-# Garder le dossier mais ignorer son contenu
-!uploads/.gitkeep
-
 # Excel listings - données sensibles
 uploads/excel_listings/*.xlsx
 uploads/excel_listings/*.xls
