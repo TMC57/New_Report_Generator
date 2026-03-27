@@ -4,6 +4,7 @@ Routes API pour la génération de rapports de groupe
 from fastapi import APIRouter, HTTPException
 from datetime import datetime, timedelta
 from typing import Optional
+from pathlib import Path
 from refactored.services.cm2w_service import CM2WService
 from refactored.services.group_service import GroupService
 from refactored.utils.logger import get_logger
@@ -79,30 +80,25 @@ async def generate_group_reports(
         # 6. Générer les PDFs de groupe
         logger.info("6️⃣ Génération des PDFs de groupe...")
         
-        # TODO: Implémenter la génération des PDFs
-        # from refactored.pdf_generator.group_generator import GroupPDFGenerator
-        # generator = GroupPDFGenerator()
-        # pdfs_generated = generator.generate_all_group_pdfs(
-        #     grouped_qty,
-        #     grouped_stock,
-        #     group_config_result["groups"],
-        #     from_date,
-        #     to_date
-        # )
+        from refactored.pdf_generator.group_generator import GroupPDFGenerator
+        generator = GroupPDFGenerator()
+        pdfs_generated = generator.generate_all_group_pdfs(
+            grouped_qty,
+            grouped_stock,
+            group_config_result["groups"],
+            from_date,
+            to_date
+        )
         
-        # Pour l'instant, on retourne juste les données groupées
-        logger.success(f"✅ Rapports de groupe préparés pour {owners_count} owners")
+        logger.success(f"✅ {len(pdfs_generated)} rapports de groupe générés")
         
         return {
             "success": True,
             "groups_found": owners_count,
             "groups_in_config": groups_count,
-            "message": f"{owners_count} rapports de groupe prêts à être générés",
-            "data": {
-                "grouped_quantities": grouped_qty,
-                "grouped_stock": grouped_stock,
-                "group_config": group_config_result["groups"]
-            }
+            "pdfs_generated": len(pdfs_generated),
+            "message": f"{len(pdfs_generated)} rapports de groupe générés avec succès",
+            "pdf_files": [str(Path(p).name) for p in pdfs_generated]
         }
         
     except HTTPException:
