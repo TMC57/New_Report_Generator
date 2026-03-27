@@ -302,7 +302,11 @@ class PDFGenerator:
         table_data.append(["N° DE ROUTEUR", format_value(facility_data.get("router_number"))])
         table_data.append(["DATE DERNIÈRE INTERVENTION", format_value(facility_data.get("last_intervention"))])
         
+        # Marqueur pour les séparateurs de zones
+        zone_separators = [3]  # Après les infos générales (ligne 3)
+        
         # Zone 1 (principale)
+        zone1_start = len(table_data)
         if facility_data.get("produit_lavant"):
             table_data.append(["PRODUIT LAVANT", format_value(facility_data.get("produit_lavant"))])
             table_data.append(["DILUTION LAVANT", format_dilution(facility_data.get("dilution_lavant"))])
@@ -323,7 +327,10 @@ class PDFGenerator:
             table_data.append(["DILUTION JANTES", format_dilution(facility_data.get("dilution_jantes"))])
         
         # Zone 2
+        zone2_start = len(table_data)
         if facility_data.get("produit_lavant_zone2"):
+            if zone2_start > zone1_start:
+                zone_separators.append(zone2_start - 1)
             table_data.append(["PRODUIT LAVANT ZONE 2", format_value(facility_data.get("produit_lavant_zone2"))])
             table_data.append(["DILUTION LAVANT ZONE 2", format_dilution(facility_data.get("dilution_lavant_zone2"))])
             table_data.append(["COULEUR BUSE LAVANT ZONE 2", format_value(facility_data.get("couleur_buse_lavant_zone2"))])
@@ -339,7 +346,10 @@ class PDFGenerator:
             table_data.append(["AUTRE COULEUR BUSE LAVANT ZONE 2", format_value(facility_data.get("autre_couleur_buse_lavant_zone2"))])
         
         # Zone 3
+        zone3_start = len(table_data)
         if facility_data.get("produit_lavant_zone3"):
+            if zone3_start > zone2_start:
+                zone_separators.append(zone3_start - 1)
             table_data.append(["PRODUIT LAVANT ZONE 3", format_value(facility_data.get("produit_lavant_zone3"))])
             table_data.append(["DILUTION LAVANT ZONE 3", format_dilution(facility_data.get("dilution_lavant_zone3"))])
             table_data.append(["COULEUR BUSE LAVANT ZONE 3", format_value(facility_data.get("couleur_buse_lavant_zone3"))])
@@ -350,7 +360,10 @@ class PDFGenerator:
             table_data.append(["COULEUR BUSE SÉCHANT ZONE 3", format_value(facility_data.get("couleur_buse_sechant_zone3"))])
         
         # Zone 4
+        zone4_start = len(table_data)
         if facility_data.get("produit_lavant_zone4"):
+            if zone4_start > zone3_start:
+                zone_separators.append(zone4_start - 1)
             table_data.append(["PRODUIT LAVANT ZONE 4", format_value(facility_data.get("produit_lavant_zone4"))])
             table_data.append(["DILUTION LAVANT ZONE 4", format_dilution(facility_data.get("dilution_lavant_zone4"))])
             table_data.append(["COULEUR BUSE LAVANT ZONE 4", format_value(facility_data.get("couleur_buse_lavant_zone4"))])
@@ -361,7 +374,10 @@ class PDFGenerator:
             table_data.append(["COULEUR BUSE SÉCHANT ZONE 4", format_value(facility_data.get("couleur_buse_sechant_zone4"))])
         
         # Zone 5
+        zone5_start = len(table_data)
         if facility_data.get("produit_lavant_zone5"):
+            if zone5_start > zone4_start:
+                zone_separators.append(zone5_start - 1)
             table_data.append(["PRODUIT LAVANT ZONE 5", format_value(facility_data.get("produit_lavant_zone5"))])
             table_data.append(["DILUTION LAVANT ZONE 5", format_dilution(facility_data.get("dilution_lavant_zone5"))])
             table_data.append(["COULEUR BUSE LAVANT ZONE 5", format_value(facility_data.get("couleur_buse_lavant_zone5"))])
@@ -375,7 +391,9 @@ class PDFGenerator:
             # Tableau élargi avec colonnes définies
             table = Table(table_data, colWidths=[10*cm, 14*cm])
             table.hAlign = 'CENTER'  # Centrer le tableau sur la page
-            table.setStyle(TableStyle([
+            
+            # Style de base
+            style_commands = [
                 ('BACKGROUND', (0, 0), (0, -1), colors.lightgrey),  # En-tête (colonne gauche) gris neutre
                 ('TEXTCOLOR', (0, 0), (0, -1), colors.black),
                 ('ALIGN', (0, 0), (0, -1), 'LEFT'),
@@ -389,7 +407,14 @@ class PDFGenerator:
                 ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
                 ('BACKGROUND', (1, 0), (1, -1), colors.white),  # Données (colonne droite) en blanc
                 ('GRID', (0, 0), (-1, -1), 1, colors.black),
-            ]))
+            ]
+            
+            # Ajouter des lignes épaisses entre les zones
+            for separator_row in zone_separators:
+                if separator_row < len(table_data) - 1:
+                    style_commands.append(('LINEBELOW', (0, separator_row), (-1, separator_row), 2.5, colors.black))
+            
+            table.setStyle(TableStyle(style_commands))
             
             elements.append(table)
             elements.append(Spacer(1, 0.5*cm))
@@ -1286,7 +1311,7 @@ class PDFGenerator:
                 elements.append(PageBreak())
                 
                 # Titre de la page
-                elements.append(Paragraph("DÉBIT MOYEN PAR JOURS", title_style))
+                elements.append(Paragraph("DÉBIT MOYEN JOURNALIER", title_style))
                 elements.append(Spacer(1, 0.3*cm))
                 
                 # Texte explicatif avec ZONE en gras - zone contient déjà "Zone X"
