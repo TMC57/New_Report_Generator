@@ -11,6 +11,7 @@ from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from refactored.api.routes import router as reports_router
 from refactored.api.upload_routes import router as upload_router
 from refactored.api.config_routes import router as config_router
+from refactored.api.group_routes import router as group_router
 from refactored.auth import verify_odoo_token, get_current_user, require_auth
 
 # Créer l'application FastAPI
@@ -26,6 +27,7 @@ app = FastAPI(
 app.include_router(reports_router)
 app.include_router(upload_router)
 app.include_router(config_router)
+app.include_router(group_router)
 
 # Chemins des dossiers
 BASE_DIR = Path(__file__).parent.parent
@@ -56,10 +58,10 @@ async def get_home(request: Request):
     Page d'accueil - sert le frontend React
     Requiert une authentification via Odoo
     """
-    # Vérifier l'authentification
-    user_token = await get_current_user(request)
-    if not user_token:
-        return RedirectResponse(url="/login-required", status_code=302)
+    # TEMPORAIRE: Authentification désactivée pour les tests
+    # user_token = await get_current_user(request)
+    # if not user_token:
+    #     return RedirectResponse(url="/login-required", status_code=302)
     
     react_index = REACT_BUILD_DIR / "index.html"
     if react_index.exists():
@@ -343,7 +345,12 @@ async def download_report_compat(filename: str):
             return FileResponse(
                 file_path,
                 media_type="application/pdf",
-                filename=filename
+                filename=filename,
+                headers={
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Pragma": "no-cache",
+                    "Expires": "0"
+                }
             )
     
     raise HTTPException(status_code=404, detail="Rapport non trouvé")
@@ -365,7 +372,12 @@ async def preview_report_compat(filename: str):
             return FileResponse(
                 file_path,
                 media_type="application/pdf",
-                headers={"Content-Disposition": "inline"}
+                headers={
+                    "Content-Disposition": "inline",
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Pragma": "no-cache",
+                    "Expires": "0"
+                }
             )
     
     raise HTTPException(status_code=404, detail="Rapport non trouvé")

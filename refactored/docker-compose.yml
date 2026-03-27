@@ -11,6 +11,8 @@ services:
       - ODOO_URL=https://tmh-corporation-odoo.odoo.com
     volumes:
       - ./reports:/app/reports
+      - ./reports:/app/refactored/reports
       - ./uploads:/app/uploads
+      - ./uploads:/app/refactored/uploads
       - ./config:/app/config
       - ./cache:/app/cache

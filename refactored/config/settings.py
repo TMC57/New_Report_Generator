@@ -12,15 +12,14 @@ CM2W_API_KEY = "eyJhbGciOiJIUzI1NiJ9.eyJmcm9tRGF0ZSI6MTc1NjI4NDQ4MzkxNSwibW9kZWw
 CONFIG_DIR = BASE_DIR / "Config"
 UPLOADS_DIR = REFACTORED_DIR / "uploads"
 EXCEL_LISTINGS_DIR = UPLOADS_DIR / "excel_listings"
-REPORTS_DIR = BASE_DIR / "Reports"
+
+# Tous les rapports dans un seul dossier unifié
+REPORTS_DIR = REFACTORED_DIR / "reports"
+REPORTS_OUTPUT_DIR = REFACTORED_DIR / "reports"
+PDF_OUTPUT_DIR = REFACTORED_DIR / "reports"
 
 DATA_CACHE_DIR = REFACTORED_DIR / "cache"
 DATA_CACHE_DIR.mkdir(exist_ok=True)
-
-REPORTS_OUTPUT_DIR = REFACTORED_DIR / "reports"
-REPORTS_OUTPUT_DIR.mkdir(exist_ok=True)
-
-PDF_OUTPUT_DIR = REFACTORED_DIR / "reports"
-PDF_OUTPUT_DIR.mkdir(exist_ok=True)
+REPORTS_DIR.mkdir(exist_ok=True)
 
 CACHE_TTL_SECONDS = 3600
