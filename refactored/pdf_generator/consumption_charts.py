@@ -560,3 +560,428 @@ class ConsumptionChartGenerator:
         pump_names = {k: k for k in series.keys()}
         
         return series, pump_names
+    
+    def _get_base_product_name(self, product_name: str) -> str:
+        """
+        Extrait le nom de base d'un produit en supprimant le suffixe après '-'.
+        Ex: "WNC50 - zone 1" -> "WNC50"
+        Ex: "AUTOSÉCHANT - Zone 2" -> "AUTOSÉCHANT"
+        """
+        if " - " in product_name:
+            return product_name.split(" - ")[0].strip()
+        elif " -" in product_name:
+            return product_name.split(" -")[0].strip()
+        elif "- " in product_name:
+            return product_name.split("- ")[0].strip()
+        return product_name.strip()
+    
+    def create_group_facility_chart(
+        self,
+        facilities_data: List[Dict],
+        owner_name: str
+    ) -> io.BytesIO:
+        """
+        Crée un graphique à barres groupées par facility pour les rapports de groupe.
+        Axe X = noms des facilities, chaque facility a plusieurs barres (une par produit).
+        Les produits sont groupés par nom de base (sans suffixe après "-").
+        
+        Args:
+            facilities_data: Liste de {
+                "facilityName": str,
+                "products": [{
+                    "name": str,
+                    "qty": float (en unités API, sera divisé par 10000 pour litres)
+                }]
+            }
+            owner_name: Nom du groupe/owner
+            
+        Returns:
+            BytesIO contenant l'image PNG du graphique
+        """
+        fig, ax = plt.subplots(figsize=(14, 4))  # Hauteur réduite pour laisser place au tableau
+        
+        # 1) Agréger les produits par nom de base pour chaque facility
+        # Structure: {facility_idx: {base_product_name: total_qty}}
+        aggregated_data = []
+        all_base_products = set()
+        
+        for facility in facilities_data:
+            facility_products = {}
+            for product in facility.get("products", []):
+                raw_name = product.get("name", "Produit inconnu")
+                base_name = self._get_base_product_name(raw_name)
+                raw_qty = product.get("qty", 0) or product.get("total_qty", 0) or 0
+                qty_liters = raw_qty / 10000
+                
+                # Agréger les quantités pour le même produit de base
+                if base_name in facility_products:
+                    facility_products[base_name] += qty_liters
+                else:
+                    facility_products[base_name] = qty_liters
+                
+                all_base_products.add(base_name)
+            
+            aggregated_data.append({
+                "facilityName": facility.get("facilityName", ""),
+                "products": facility_products
+            })
+        
+        all_base_products = sorted(list(all_base_products))
+        num_products = len(all_base_products)
+        num_facilities = len(aggregated_data)
+        
+        if num_facilities == 0 or num_products == 0:
+            ax.text(0.5, 0.5, "Aucune donnée disponible", 
+                   ha='center', va='center', transform=ax.transAxes, fontsize=14)
+            buf = io.BytesIO()
+            plt.savefig(buf, format='png', dpi=150, bbox_inches='tight')
+            plt.close(fig)
+            buf.seek(0)
+            return buf
+        
+        # Service de couleurs pour les produits
+        color_service = get_color_service()
+        default_colors = color_service.get_default_colors()
+        
+        # Positions des groupes de barres (une position par facility)
+        x_positions = np.arange(num_facilities)
+        bar_width = 0.8 / max(num_products, 1)
+        
+        # 2) Créer les barres pour chaque produit de base
+        for product_idx, base_product_name in enumerate(all_base_products):
+            # Récupérer la quantité de ce produit pour chaque facility
+            quantities = []
+            for fac_data in aggregated_data:
+                qty = fac_data["products"].get(base_product_name, 0)
+                quantities.append(qty)
+            
+            # Obtenir la couleur du produit (utiliser le nom de base pour la correspondance)
+            color = color_service.get_color_for_product(base_product_name)
+            if not color:
+                color = default_colors[product_idx % len(default_colors)]
+            
+            # Calculer le décalage pour ce produit
+            offset = (product_idx - num_products / 2 + 0.5) * bar_width
+            
+            # Tracer les barres
+            bars = ax.bar(
+                x_positions + offset,
+                quantities,
+                width=bar_width * 0.9,
+                color=color,
+                label=base_product_name.upper(),
+                alpha=0.85
+            )
+        
+        # 3) Configuration des axes - Style avec cases délimitées pour l'axe X
+        ax.set_xlabel('', fontsize=11, fontweight='bold')
+        ax.set_ylabel('', fontsize=11, fontweight='bold')
+        
+        # Format de l'axe Y en litres avec virgule française
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{x:.2f} L'.replace('.', ',')))
+        
+        # Labels des facilities sur l'axe X - Style tableau
+        facility_names = []
+        for f in aggregated_data:
+            name = f.get("facilityName", "")
+            # Extraire un nom court (après le dernier "|" ou les 20 premiers caractères)
+            if "|" in name:
+                name = name.split("|")[-1].strip()
+            if len(name) > 20:
+                name = name[:17] + "..."
+            facility_names.append(name.upper())  # MAJUSCULES
+        
+        ax.set_xticks(x_positions)
+        ax.set_xticklabels([])  # On va dessiner les labels manuellement
+        
+        # Retirer les bordures du graphique
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        ax.spines['bottom'].set_visible(True)
+        ax.spines['bottom'].set_linewidth(1.5)
+        
+        # Grille horizontale
+        ax.grid(True, axis='y', alpha=0.3, linestyle='-', linewidth=0.8)
+        
+        # 4) Dessiner les cases de l'axe X comme un tableau
+        # Calculer les limites du graphique
+        y_min, y_max = ax.get_ylim()
+        box_height = (y_max - y_min) * 0.12  # Hauteur des cases
+        box_y = y_min - box_height * 1.2  # Position Y des cases
+        
+        for idx, name in enumerate(facility_names):
+            # Dessiner un rectangle pour chaque facility - utiliser plus d'espace
+            box_left = idx - 0.48
+            box_right = idx + 0.48
+            
+            # Rectangle avec bordure
+            rect = Rectangle(
+                (box_left, box_y),
+                box_right - box_left,
+                box_height,
+                linewidth=1,
+                edgecolor='black',
+                facecolor='white',
+                clip_on=False,
+                zorder=10
+            )
+            ax.add_patch(rect)
+            
+            # Texte centré dans le rectangle (MAJUSCULES) - ajuster la taille selon la longueur
+            display_name = name.upper()
+            font_size = 7 if len(display_name) > 15 else 8
+            ax.text(
+                idx, box_y + box_height / 2,
+                display_name,
+                ha='center', va='center',
+                fontsize=font_size, fontweight='bold',
+                clip_on=False,
+                zorder=11
+            )
+        
+        # Ajuster les limites Y pour faire de la place aux cases
+        ax.set_ylim(y_min, y_max)
+        
+        # 5) Légende des produits
+        ax.legend(
+            loc='upper center',
+            bbox_to_anchor=(0.5, -0.22),
+            ncol=min(4, num_products),
+            fontsize=8,
+            frameon=True
+        )
+        
+        # Ajuster la mise en page
+        plt.tight_layout()
+        plt.subplots_adjust(bottom=0.28)  # Espace pour les cases et la légende
+        
+        # Sauvegarder dans un buffer
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=150, bbox_inches='tight')
+        plt.close(fig)
+        buf.seek(0)
+        
+        return buf
+    
+    def get_aggregated_facility_data(
+        self,
+        facilities_data: List[Dict]
+    ) -> Tuple[List[str], List[str], Dict[str, Dict[str, float]]]:
+        """
+        Retourne les données agrégées pour construire le tableau.
+        
+        Returns:
+            Tuple de:
+            - Liste des noms de facilities (colonnes)
+            - Liste des noms de produits de base (lignes)
+            - Dict {product_name: {facility_name: qty_liters}}
+        """
+        aggregated_data = []
+        all_base_products = set()
+        
+        for facility in facilities_data:
+            facility_name = facility.get("facilityName", "")
+            if "|" in facility_name:
+                facility_name = facility_name.split("|")[-1].strip()
+            if len(facility_name) > 20:
+                facility_name = facility_name[:17] + "..."
+            
+            facility_products = {}
+            for product in facility.get("products", []):
+                raw_name = product.get("name", "Produit inconnu")
+                base_name = self._get_base_product_name(raw_name)
+                raw_qty = product.get("qty", 0) or product.get("total_qty", 0) or 0
+                qty_liters = raw_qty / 10000
+                
+                if base_name in facility_products:
+                    facility_products[base_name] += qty_liters
+                else:
+                    facility_products[base_name] = qty_liters
+                
+                all_base_products.add(base_name)
+            
+            aggregated_data.append({
+                "facilityName": facility_name,
+                "products": facility_products
+            })
+        
+        facility_names = [f["facilityName"].upper() for f in aggregated_data]
+        product_names = sorted(list(all_base_products))
+        
+        # Construire le dict {product: {facility: qty}}
+        product_facility_qty = {}
+        for product_name in product_names:
+            product_facility_qty[product_name] = {}
+            for fac_data in aggregated_data:
+                fac_name = fac_data["facilityName"].upper()
+                qty = fac_data["products"].get(product_name, 0)
+                product_facility_qty[product_name][fac_name] = qty
+        
+        return facility_names, product_names, product_facility_qty
+    
+    def create_group_product_total_chart(
+        self,
+        facilities_data: List[Dict],
+        owner_name: str
+    ) -> io.BytesIO:
+        """
+        Crée un graphique à barres avec le total de consommation par produit pour tout le owner.
+        Axe X = noms des produits (avec cases style tableau + valeur en litres en dessous).
+        Une barre par produit.
+        
+        Args:
+            facilities_data: Liste des facilities avec leurs produits
+            owner_name: Nom du groupe/owner
+            
+        Returns:
+            BytesIO contenant l'image PNG du graphique
+        """
+        fig, ax = plt.subplots(figsize=(14, 5))
+        
+        # 1) Agréger les produits par nom de base pour TOUT le owner
+        product_totals = {}
+        
+        for facility in facilities_data:
+            for product in facility.get("products", []):
+                raw_name = product.get("name", "Produit inconnu")
+                base_name = self._get_base_product_name(raw_name)
+                raw_qty = product.get("qty", 0) or product.get("total_qty", 0) or 0
+                qty_liters = raw_qty / 10000
+                
+                if base_name in product_totals:
+                    product_totals[base_name] += qty_liters
+                else:
+                    product_totals[base_name] = qty_liters
+        
+        if not product_totals:
+            ax.text(0.5, 0.5, "AUCUNE DONNÉE DISPONIBLE", 
+                   ha='center', va='center', transform=ax.transAxes, fontsize=14)
+            buf = io.BytesIO()
+            plt.savefig(buf, format='png', dpi=150, bbox_inches='tight')
+            plt.close(fig)
+            buf.seek(0)
+            return buf
+        
+        # Trier par nom de produit
+        product_names = sorted(product_totals.keys())
+        quantities = [product_totals[p] for p in product_names]
+        num_products = len(product_names)
+        
+        # Service de couleurs
+        color_service = get_color_service()
+        default_colors = color_service.get_default_colors()
+        
+        # Positions des barres
+        x_positions = np.arange(num_products)
+        
+        # 2) Créer les barres
+        colors = []
+        for idx, product_name in enumerate(product_names):
+            color = color_service.get_color_for_product(product_name)
+            if not color:
+                color = default_colors[idx % len(default_colors)]
+            colors.append(color)
+        
+        bars = ax.bar(
+            x_positions,
+            quantities,
+            width=0.6,
+            color=colors,
+            alpha=0.85
+        )
+        
+        # 3) Configuration des axes
+        ax.set_xlabel('', fontsize=11, fontweight='bold')
+        ax.set_ylabel('', fontsize=11, fontweight='bold')
+        
+        # Format de l'axe Y en litres avec virgule française
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'{x:.2f} L'.replace('.', ',')))
+        
+        ax.set_xticks(x_positions)
+        ax.set_xticklabels([])  # Labels manuels
+        
+        # Retirer les bordures
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        ax.spines['bottom'].set_visible(True)
+        ax.spines['bottom'].set_linewidth(1.5)
+        
+        # Grille horizontale
+        ax.grid(True, axis='y', alpha=0.3, linestyle='-', linewidth=0.8)
+        
+        # 4) Dessiner les cases de l'axe X avec nom du produit ET valeur en litres
+        y_min, y_max = ax.get_ylim()
+        box_height = (y_max - y_min) * 0.10
+        box_y_name = y_min - box_height * 1.1  # Case pour le nom
+        box_y_value = y_min - box_height * 2.2  # Case pour la valeur
+        
+        for idx, (product_name, qty) in enumerate(zip(product_names, quantities)):
+            box_left = idx - 0.45
+            box_right = idx + 0.45
+            box_width = box_right - box_left
+            
+            # Rectangle pour le nom du produit
+            rect_name = Rectangle(
+                (box_left, box_y_name),
+                box_width,
+                box_height,
+                linewidth=1,
+                edgecolor='black',
+                facecolor='white',
+                clip_on=False,
+                zorder=10
+            )
+            ax.add_patch(rect_name)
+            
+            # Nom du produit (MAJUSCULES) - ajuster taille selon longueur
+            display_name = product_name.upper()
+            font_size = 7 if len(display_name) > 12 else 8
+            ax.text(
+                idx, box_y_name + box_height / 2,
+                display_name,
+                ha='center', va='center',
+                fontsize=font_size, fontweight='bold',
+                clip_on=False,
+                zorder=11
+            )
+            
+            # Rectangle pour la valeur en litres
+            rect_value = Rectangle(
+                (box_left, box_y_value),
+                box_width,
+                box_height,
+                linewidth=1,
+                edgecolor='black',
+                facecolor='#e8e8e8',  # Gris clair
+                clip_on=False,
+                zorder=10
+            )
+            ax.add_patch(rect_value)
+            
+            # Valeur en litres
+            qty_str = f"{qty:.2f} L".replace('.', ',')
+            ax.text(
+                idx, box_y_value + box_height / 2,
+                qty_str,
+                ha='center', va='center',
+                fontsize=8, fontweight='bold',
+                clip_on=False,
+                zorder=11
+            )
+        
+        # Ajuster les limites Y
+        ax.set_ylim(y_min, y_max)
+        
+        # Ajuster la mise en page
+        plt.tight_layout()
+        plt.subplots_adjust(bottom=0.22)
+        
+        # Sauvegarder dans un buffer
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=150, bbox_inches='tight')
+        plt.close(fig)
+        buf.seek(0)
+        
+        return buf

@@ -15,6 +15,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from PIL import Image as PILImage
 from refactored.utils.logger import get_logger
+from refactored.pdf_generator.consumption_charts import ConsumptionChartGenerator
 
 logger = get_logger("Group_PDF_Generator")
 
@@ -109,6 +110,12 @@ class GroupPDFGenerator:
         
         # Page de garde
         self._add_cover_page(elements, owner_name, owner_data, owner_config, from_date, to_date)
+        
+        # Page de graphique de consommation par facility
+        self._add_facility_consumption_chart(elements, owner_name, owner_data, from_date, to_date)
+        
+        # Page de graphique de consommation totale par produit
+        self._add_product_total_chart(elements, owner_name, owner_data, from_date, to_date)
         
         # Construire le PDF avec les logos
         doc.build(elements, onFirstPage=self._draw_first_page, onLaterPages=self._draw_logo)
@@ -291,3 +298,246 @@ class GroupPDFGenerator:
                 logger.warning(f"Erreur lors du chargement du logo TMH: {e}")
         
         canvas.restoreState()
+    
+    def _add_facility_consumption_chart(
+        self,
+        elements: List,
+        owner_name: str,
+        owner_data: Dict[str, Any],
+        from_date: str,
+        to_date: str
+    ):
+        """
+        Ajoute une page avec le graphique de consommation par facility
+        Axe X = facilities, barres groupées par produit
+        """
+        styles = getSampleStyleSheet()
+        
+        title_style = ParagraphStyle(
+            'ChartTitle',
+            parent=styles['Title'],
+            fontName='Helvetica-Bold',
+            fontSize=14,
+            alignment=TA_CENTER
+        )
+        
+        # Nouvelle page
+        elements.append(PageBreak())
+        elements.append(Spacer(1, 0.5*cm))
+        
+        # Titre
+        elements.append(Paragraph(
+            "SUIVI DE LA CONSOMMATION TOTALE PAR SITE",
+            title_style
+        ))
+        elements.append(Spacer(1, 0.3*cm))
+        
+        # Sous-titre avec période
+        from_date_formatted = datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+        to_date_formatted = datetime.strptime(to_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+        
+        subtitle_style = ParagraphStyle(
+            'ChartSubtitle',
+            parent=styles['Normal'],
+            fontName='Helvetica',
+            fontSize=10,
+            alignment=TA_CENTER
+        )
+        elements.append(Paragraph(
+            f"Période du {from_date_formatted} au {to_date_formatted}",
+            subtitle_style
+        ))
+        elements.append(Spacer(1, 0.5*cm))
+        
+        # Préparer les données pour le graphique
+        facilities_data = []
+        for facility in owner_data.get("facilities", []):
+            facility_info = {
+                "facilityName": facility.get("facilityName", ""),
+                "products": facility.get("products", [])
+            }
+            facilities_data.append(facility_info)
+        
+        # Debug: afficher les données
+        logger.info(f"📊 Graphique pour {owner_name}: {len(facilities_data)} facilities")
+        for fd in facilities_data:
+            products_count = len(fd.get("products", []))
+            logger.info(f"   → {fd.get('facilityName')}: {products_count} produits")
+            for p in fd.get("products", [])[:3]:  # Afficher les 3 premiers
+                logger.info(f"      - {p.get('name')}: qty={p.get('qty', 0)}")
+        
+        if not facilities_data:
+            elements.append(Paragraph(
+                "Aucune donnée de consommation disponible pour ce groupe.",
+                subtitle_style
+            ))
+            return
+        
+        # Créer le graphique
+        chart_gen = ConsumptionChartGenerator()
+        chart_buffer = chart_gen.create_group_facility_chart(
+            facilities_data,
+            owner_name
+        )
+        
+        # Ajouter le graphique au PDF (hauteur réduite)
+        chart_img = Image(chart_buffer, width=26*cm, height=7*cm)
+        elements.append(chart_img)
+        elements.append(Spacer(1, 0.5*cm))  # Espace entre graphique et tableau
+        
+        # Récupérer les données agrégées pour le tableau
+        facility_names, product_names, product_facility_qty = chart_gen.get_aggregated_facility_data(facilities_data)
+        
+        # Créer le tableau (lignes = produits, colonnes = facilities)
+        if facility_names and product_names:
+            # Entête: vide + noms des facilities
+            header_row = ["PRODUIT"] + facility_names
+            
+            # Lignes de données
+            table_data = [header_row]
+            for product_name in product_names:
+                row = [product_name.upper()]
+                for fac_name in facility_names:
+                    qty = product_facility_qty.get(product_name, {}).get(fac_name, 0)
+                    qty_str = f"{qty:.2f} L".replace('.', ',')
+                    row.append(qty_str)
+                table_data.append(row)
+            
+            # Calculer les largeurs de colonnes
+            num_cols = len(header_row)
+            first_col_width = 4*cm
+            remaining_width = 22*cm
+            other_col_width = remaining_width / max(num_cols - 1, 1)
+            col_widths = [first_col_width] + [other_col_width] * (num_cols - 1)
+            
+            # Créer le tableau
+            table = Table(table_data, colWidths=col_widths)
+            table.setStyle(TableStyle([
+                # Entête grisée
+                ('BACKGROUND', (0, 0), (-1, 0), colors.Color(0.85, 0.85, 0.85)),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, 0), 8),
+                ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
+                ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
+                # Première colonne (noms produits)
+                ('BACKGROUND', (0, 1), (0, -1), colors.Color(0.95, 0.95, 0.95)),
+                ('FONTNAME', (0, 1), (0, -1), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 1), (0, -1), 8),
+                ('ALIGN', (0, 1), (0, -1), 'LEFT'),
+                # Données
+                ('FONTNAME', (1, 1), (-1, -1), 'Helvetica'),
+                ('FONTSIZE', (1, 1), (-1, -1), 8),
+                ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
+                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+                # Bordures
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+                ('BOX', (0, 0), (-1, -1), 1, colors.black),
+                # Padding
+                ('TOPPADDING', (0, 0), (-1, -1), 4),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+            ]))
+            elements.append(table)
+            elements.append(Spacer(1, 0.5*cm))  # Espace entre tableau et texte explicatif
+        
+        # Texte explicatif
+        explanation_style = ParagraphStyle(
+            'ChartExplanation',
+            fontName='Helvetica',
+            fontSize=8,
+            alignment=TA_LEFT,
+            textColor=colors.black
+        )
+        legend_text = "CE GRAPHIQUE ET CE TABLEAU PRÉSENTENT LA CONSOMMATION TOTALE PAR PRODUIT POUR CHAQUE SITE DU GROUPE SUR LA PÉRIODE SÉLECTIONNÉE.<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES."
+        
+        elements.append(Paragraph(legend_text, explanation_style))
+    
+    def _add_product_total_chart(
+        self,
+        elements: List,
+        owner_name: str,
+        owner_data: Dict[str, Any],
+        from_date: str,
+        to_date: str
+    ):
+        """
+        Ajoute une page avec le graphique de consommation totale par produit
+        Axe X = produits, une barre par produit avec le total pour tout le owner
+        """
+        styles = getSampleStyleSheet()
+        
+        title_style = ParagraphStyle(
+            'ChartTitle2',
+            parent=styles['Title'],
+            fontName='Helvetica-Bold',
+            fontSize=14,
+            alignment=TA_CENTER
+        )
+        
+        # Nouvelle page
+        elements.append(PageBreak())
+        elements.append(Spacer(1, 0.5*cm))
+        
+        # Titre
+        elements.append(Paragraph(
+            "SUIVI DE LA CONSOMMATION TOTALE PAR PRODUIT",
+            title_style
+        ))
+        elements.append(Spacer(1, 0.3*cm))
+        
+        # Sous-titre avec période
+        from_date_formatted = datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+        to_date_formatted = datetime.strptime(to_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+        
+        subtitle_style = ParagraphStyle(
+            'ChartSubtitle2',
+            parent=styles['Normal'],
+            fontName='Helvetica',
+            fontSize=10,
+            alignment=TA_CENTER
+        )
+        elements.append(Paragraph(
+            f"PÉRIODE DU {from_date_formatted} AU {to_date_formatted}",
+            subtitle_style
+        ))
+        elements.append(Spacer(1, 0.5*cm))
+        
+        # Préparer les données pour le graphique
+        facilities_data = []
+        for facility in owner_data.get("facilities", []):
+            facility_info = {
+                "facilityName": facility.get("facilityName", ""),
+                "products": facility.get("products", [])
+            }
+            facilities_data.append(facility_info)
+        
+        if not facilities_data:
+            elements.append(Paragraph(
+                "AUCUNE DONNÉE DE CONSOMMATION DISPONIBLE POUR CE GROUPE.",
+                subtitle_style
+            ))
+            return
+        
+        # Créer le graphique
+        chart_gen = ConsumptionChartGenerator()
+        chart_buffer = chart_gen.create_group_product_total_chart(
+            facilities_data,
+            owner_name
+        )
+        
+        # Ajouter le graphique au PDF
+        chart_img = Image(chart_buffer, width=26*cm, height=10*cm)
+        elements.append(chart_img)
+        elements.append(Spacer(1, 0.5*cm))
+        
+        # Texte explicatif
+        explanation_style = ParagraphStyle(
+            'ChartExplanation2',
+            fontName='Helvetica',
+            fontSize=8,
+            alignment=TA_LEFT,
+            textColor=colors.black
+        )
+        legend_text = "CE GRAPHIQUE PRÉSENTE LA CONSOMMATION TOTALE PAR PRODUIT POUR L'ENSEMBLE DES SITES DU GROUPE SUR LA PÉRIODE SÉLECTIONNÉE.<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES."
+        
+        elements.append(Paragraph(legend_text, explanation_style))
