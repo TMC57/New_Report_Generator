@@ -43,6 +43,13 @@ class GroupPDFGenerator:
         """
         generated_pdfs = []
         
+        # Supprimer le dossier existant pour forcer la régénération
+        output_folder = self.reports_dir / f"group_reports {from_date} to {to_date}"
+        if output_folder.exists():
+            import shutil
+            shutil.rmtree(output_folder)
+            logger.info(f"🗑️ Ancien dossier supprimé: {output_folder}")
+        
         # Créer un dictionnaire owner -> config pour un accès rapide
         config_by_owner = {cfg.get("owner"): cfg for cfg in group_configs}
         
@@ -162,20 +169,30 @@ class GroupPDFGenerator:
         elements.append(Paragraph(owner_name.upper(), title_style))
         elements.append(Spacer(1, 0.3*cm))
         
-        # Liste des facilities du groupe
+        # Liste des facilities du groupe avec adresses
         facilities = owner_data.get("facilities", [])
         if facilities:
-            facility_names = [f.get("facilityName", "") for f in facilities]
-            # Séparateur plus visible: " | " en gras
-            facilities_text = " <b>|</b> ".join([f"<b>{name.upper()}</b>" for name in facility_names])
+            # Construire la liste avec nom et adresse
+            facility_entries = []
+            for f in facilities:
+                name = f.get("facilityName", "")
+                address = f.get("address", "")
+                if address:
+                    facility_entries.append(f"<b>{name.upper()}</b> - {address.upper()}")
+                else:
+                    facility_entries.append(f"<b>{name.upper()}</b>")
+            
+            # Séparateur plus visible: " | " en gras et plus gros
+            facilities_text = " <font size='14'><b>|</b></font> ".join(facility_entries)
             
             # Style pour la liste des facilities - en gras
             facilities_style = ParagraphStyle(
                 'FacilitiesList',
                 parent=styles['Normal'],
                 fontName='Helvetica-Bold',
-                fontSize=11,
-                alignment=TA_CENTER
+                fontSize=10,
+                alignment=TA_CENTER,
+                leading=14
             )
             elements.append(Paragraph(facilities_text, facilities_style))
         
@@ -478,10 +495,8 @@ class GroupPDFGenerator:
         # Nouvelle page
         elements.append(PageBreak())
         
-        # Espace pour centrer verticalement (page paysage A4 = ~21cm de hauteur utile)
-        # Graphique ~10cm + titre ~1cm + sous-titre ~0.5cm + texte ~0.5cm = ~12cm
-        # Espace restant = ~9cm, donc ~4cm en haut
-        elements.append(Spacer(1, 3*cm))
+        # Titre en haut de page (pas d'espace avant)
+        elements.append(Spacer(1, 0.5*cm))
         
         # Titre
         elements.append(Paragraph(
@@ -505,7 +520,11 @@ class GroupPDFGenerator:
             f"PÉRIODE DU {from_date_formatted} AU {to_date_formatted}",
             subtitle_style
         ))
-        elements.append(Spacer(1, 0.5*cm))
+        
+        # Espace pour centrer le graphique verticalement sur la page
+        # Page paysage A4 hauteur utile ~14cm (après marges et header)
+        # Graphique ~10cm, donc espace avant = (14 - 10) / 2 = ~2cm
+        elements.append(Spacer(1, 2*cm))
         
         # Préparer les données pour le graphique
         facilities_data = []

@@ -6,6 +6,7 @@ from pathlib import Path
 import json
 from collections import defaultdict
 from refactored.utils.logger import get_logger
+from refactored.services.excel_service import ExcelService
 
 logger = get_logger("Group_Service")
 
@@ -14,6 +15,7 @@ class GroupService:
     
     def __init__(self):
         self.config_file = Path("refactored/config/GroupConfigJson.json")
+        self.excel_service = ExcelService()
         
         # Fallback vers l'ancien chemin si nécessaire
         old_config = Path("Config/GroupConfigJson.json")
@@ -131,12 +133,27 @@ class GroupService:
           ]
         }
         """
-        # 1) Dictionnaire: facilityId -> (owner, facilityName)
+        # 1) Dictionnaire: facilityId -> (owner, facilityName, address)
         fac_to_owner: Dict[int, Dict[str, str]] = {}
+        
+        # Charger les données Excel pour récupérer les adresses
+        excel_data = self.excel_service.load_excel_data()
+        
         for fac in (devices_list_json or {}).get("data", []):
-            fac_to_owner[fac.get("facilityId")] = {
+            fac_id = fac.get("facilityId")
+            fac_name = fac.get("facilityName") or ""
+            
+            # Chercher l'adresse dans le fichier Excel
+            address = ""
+            if excel_data and fac_id:
+                excel_info, _ = self.excel_service.match_facility_to_excel(fac_id, fac_name, excel_data)
+                if excel_info:
+                    address = excel_info.get("address", "") or ""
+            
+            fac_to_owner[fac_id] = {
                 "owner": fac.get("owner") or "OWNER_INCONNU",
-                "facilityName": fac.get("facilityName") or ""
+                "facilityName": fac_name,
+                "address": address
             }
         
         # 2) Agrégation par owner -> facility -> product
@@ -146,6 +163,7 @@ class GroupService:
             "facilities": defaultdict(lambda: {
                 "facilityId": None,
                 "facilityName": "",
+                "address": "",
                 "totalQty": 0.0,
                 "products": defaultdict(lambda: {"productId": None, "name": "", "qty": 0.0})
             })
@@ -155,7 +173,7 @@ class GroupService:
         for row in results:
             fac_id = row.get("facilityId")
             fac_name = row.get("facilityName") or ""
-            meta = fac_to_owner.get(fac_id, {"owner": "OWNER_INCONNU", "facilityName": fac_name})
+            meta = fac_to_owner.get(fac_id, {"owner": "OWNER_INCONNU", "facilityName": fac_name, "address": ""})
             owner_name = meta["owner"]
             
             # Initialise structures
@@ -164,6 +182,7 @@ class GroupService:
             fac_bucket = owner_bucket["facilities"][fac_id]
             fac_bucket["facilityId"] = fac_id
             fac_bucket["facilityName"] = fac_name or meta.get("facilityName", "")
+            fac_bucket["address"] = meta.get("address", "")
             
             # Produits pour cette ligne
             for p in (row.get("products") or []):
@@ -203,6 +222,7 @@ class GroupService:
                 facilities_list.append({
                     "facilityId": fb["facilityId"],
                     "facilityName": fb["facilityName"],
+                    "address": fb.get("address", ""),
                     "totalQty": fb["totalQty"],
                     "products": products_list
                 })
