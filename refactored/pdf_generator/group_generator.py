@@ -166,17 +166,18 @@ class GroupPDFGenerator:
         facilities = owner_data.get("facilities", [])
         if facilities:
             facility_names = [f.get("facilityName", "") for f in facilities]
-            facilities_text = " / ".join(facility_names)
+            # Séparateur plus visible: " | " en gras
+            facilities_text = " <b>|</b> ".join([f"<b>{name.upper()}</b>" for name in facility_names])
             
-            # Style plus petit pour la liste des facilities
+            # Style pour la liste des facilities - en gras
             facilities_style = ParagraphStyle(
                 'FacilitiesList',
                 parent=styles['Normal'],
-                fontName='Helvetica',
-                fontSize=10,
+                fontName='Helvetica-Bold',
+                fontSize=11,
                 alignment=TA_CENTER
             )
-            elements.append(Paragraph(facilities_text.upper(), facilities_style))
+            elements.append(Paragraph(facilities_text, facilities_style))
         
         elements.append(Spacer(1, 0.5*cm))
         
@@ -476,7 +477,11 @@ class GroupPDFGenerator:
         
         # Nouvelle page
         elements.append(PageBreak())
-        elements.append(Spacer(1, 0.5*cm))
+        
+        # Espace pour centrer verticalement (page paysage A4 = ~21cm de hauteur utile)
+        # Graphique ~10cm + titre ~1cm + sous-titre ~0.5cm + texte ~0.5cm = ~12cm
+        # Espace restant = ~9cm, donc ~4cm en haut
+        elements.append(Spacer(1, 3*cm))
         
         # Titre
         elements.append(Paragraph(
