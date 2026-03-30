@@ -16,6 +16,8 @@ from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from PIL import Image as PILImage
 from refactored.utils.logger import get_logger
 from refactored.pdf_generator.consumption_charts import ConsumptionChartGenerator
+from refactored.pdf_generator.generator import get_excel_product_name
+from refactored.services.excel_service import ExcelService
 
 logger = get_logger("Group_PDF_Generator")
 
@@ -123,6 +125,9 @@ class GroupPDFGenerator:
         
         # Page de graphique de consommation totale par produit
         self._add_product_total_chart(elements, owner_name, owner_data, from_date, to_date)
+        
+        # Page des produits livrés (dernière page)
+        self._add_delivered_products_page(elements, owner_name, owner_data, from_date, to_date)
         
         # Construire le PDF avec les logos
         doc.build(elements, onFirstPage=self._draw_first_page, onLaterPages=self._draw_logo)
@@ -565,3 +570,140 @@ class GroupPDFGenerator:
         legend_text = "CE GRAPHIQUE PRÉSENTE LA CONSOMMATION TOTALE PAR PRODUIT POUR L'ENSEMBLE DES SITES DU GROUPE SUR LA PÉRIODE SÉLECTIONNÉE.<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES."
         
         elements.append(Paragraph(legend_text, explanation_style))
+    
+    def _add_delivered_products_page(
+        self,
+        elements: List,
+        owner_name: str,
+        owner_data: Dict[str, Any],
+        from_date: str,
+        to_date: str
+    ):
+        """
+        Ajoute la page des produits livrés (dernière page du rapport de groupe)
+        Même format que les rapports individuels, centré en hauteur
+        """
+        styles = getSampleStyleSheet()
+        
+        # Saut de page
+        elements.append(PageBreak())
+        
+        # Style pour le titre
+        title_style = ParagraphStyle(
+            'DeliveredTitle',
+            parent=styles['Title'],
+            fontName='Helvetica-Bold',
+            fontSize=14,
+            alignment=TA_CENTER
+        )
+        
+        # Style pour les noms de produits (permet le retour à la ligne)
+        product_name_style = ParagraphStyle(
+            'ProductName',
+            fontName='Helvetica',
+            fontSize=8,
+            leading=9,
+            alignment=TA_LEFT
+        )
+        
+        # Calculer l'espace pour centrer verticalement
+        # Page A4 paysage: hauteur utilisable ~14cm (après marges et logos)
+        # On estime la hauteur du contenu et on ajoute un spacer pour centrer
+        
+        # Charger les données Excel pour le mapping des noms de produits
+        excel_service = ExcelService()
+        excel_data = excel_service.load_excel_data()
+        
+        # Récupérer tous les produits uniques du groupe avec mapping Excel
+        all_products = set()
+        facilities = owner_data.get("facilities", [])
+        for facility in facilities:
+            facility_id = facility.get("facilityId")
+            facility_name = facility.get("facilityName", "")
+            
+            # Récupérer les données Excel pour cette facility
+            facility_excel_data = {}
+            if excel_data and facility_id:
+                excel_info, _ = excel_service.match_facility_to_excel(facility_id, facility_name, excel_data)
+                if excel_info:
+                    facility_excel_data = excel_info
+            
+            products = facility.get("products", [])
+            for product in products:
+                product_name = product.get("name", "")
+                if product_name:
+                    # Mapper vers le nom Excel pour cette page uniquement
+                    excel_name = get_excel_product_name(product_name, facility_excel_data)
+                    all_products.add(excel_name.upper())
+        
+        # Calculer la hauteur approximative du tableau
+        num_products = max(len(all_products), 1)
+        row_height = 0.6  # cm par ligne environ
+        table_height = (num_products + 1) * row_height  # +1 pour l'en-tête
+        title_height = 1.5  # cm pour le titre et espacements
+        total_content_height = table_height + title_height
+        
+        # Hauteur disponible sur la page (A4 paysage moins marges)
+        available_height = 14  # cm environ
+        
+        # Spacer pour centrer verticalement
+        top_spacer = max((available_height - total_content_height) / 2, 0.5)
+        elements.append(Spacer(1, top_spacer*cm))
+        
+        # Titre
+        elements.append(Paragraph("PRODUITS LIVRÉS", title_style))
+        elements.append(Spacer(1, 0.5*cm))
+        
+        # Générer les en-têtes pour l'année en cours (janvier à décembre)
+        end_date = datetime.strptime(to_date, "%Y-%m-%d")
+        current_year = end_date.year
+        current_month = end_date.month
+        
+        # Mois de janvier à décembre de l'année en cours
+        month_headers = []
+        for month in range(1, 13):
+            month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
+        
+        # Créer le tableau avec les produits du groupe
+        table_data = [["PRODUIT"] + month_headers]
+        
+        if all_products:
+            for product_name in sorted(all_products):
+                # Utiliser Paragraph pour permettre le retour à la ligne
+                row = [Paragraph(product_name, product_name_style)]
+                for month in range(1, 13):
+                    if month > current_month:
+                        row.append("")  # Mois futur = case vide
+                    else:
+                        row.append("-")  # Mois passé sans données
+                table_data.append(row)
+        else:
+            # Ajouter une ligne si pas de produits
+            example_row = [Paragraph("AUCUNE DONNÉE DISPONIBLE", product_name_style)]
+            for month in range(1, 13):
+                if month > current_month:
+                    example_row.append("")
+                else:
+                    example_row.append("-")
+            table_data.append(example_row)
+        
+        # Utiliser la largeur maximale disponible (A4 landscape = 29.7cm - marges 1cm = 28.7cm)
+        available_width = 28.7*cm
+        product_col_width = 6*cm
+        col_width = (available_width - product_col_width) / 12  # Reste divisé par 12 mois
+        table = Table(table_data, colWidths=[product_col_width] + [col_width]*12)
+        table.hAlign = 'CENTER'  # Centrer le tableau sur la page
+        table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),  # En-tête gris neutre
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+            ('ALIGN', (0, 0), (0, -1), 'LEFT'),
+            ('ALIGN', (1, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 9),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.white),  # Données en blanc
+            ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+            ('FONTSIZE', (0, 1), (-1, -1), 8),
+        ]))
+        elements.append(table)
