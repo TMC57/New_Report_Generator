@@ -18,3 +18,4 @@ services:
       - ./config:/app/refactored/config
       - ./cache:/app/cache
       - ./cache:/app/refactored/cache
+      - ./frontend:/app/refactored/frontend
