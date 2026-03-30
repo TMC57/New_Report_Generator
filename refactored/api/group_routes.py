@@ -7,6 +7,7 @@ from typing import Optional
 from pathlib import Path
 from refactored.services.cm2w_service import CM2WService
 from refactored.services.group_service import GroupService
+from refactored.services.config_service import ConfigService
 from refactored.utils.logger import get_logger
 
 logger = get_logger("Group_Routes")
@@ -41,6 +42,7 @@ async def generate_group_reports(
         # Services
         cm2w = CM2WService()
         group_service = GroupService()
+        config_service = ConfigService()
         
         # 1. Récupérer devices_list
         logger.info("1️⃣ Récupération de devices_list...")
@@ -48,14 +50,18 @@ async def generate_group_reports(
         if not devices_response or not devices_response.get("data"):
             raise HTTPException(status_code=500, detail="Impossible de récupérer devices_list")
         
-        # 2. Mettre à jour GroupConfigJson.json
-        logger.info("2️⃣ Mise à jour de GroupConfigJson.json...")
+        # 2. Mettre à jour configJson.json (facilities individuelles)
+        logger.info("2️⃣ Mise à jour de configJson.json...")
+        config_service.update_config_from_devices(devices_response)
+        
+        # 3. Mettre à jour GroupConfigJson.json (groupes)
+        logger.info("3️⃣ Mise à jour de GroupConfigJson.json...")
         group_config_result = group_service.update_group_config_from_devices(devices_response)
         groups_count = len(group_config_result.get("groups", []))
         logger.info(f"   → {groups_count} groupes dans la configuration")
         
-        # 3. Récupérer total_qty (ajouter +1 jour à to_date pour l'API)
-        logger.info("3️⃣ Récupération des quantités consommées...")
+        # 4. Récupérer total_qty (ajouter +1 jour à to_date pour l'API)
+        logger.info("4️⃣ Récupération des quantités consommées...")
         to_date_obj = datetime.strptime(to_date, "%Y-%m-%d") + timedelta(days=1)
         to_date_plus_one = to_date_obj.strftime("%Y-%m-%d")
         
@@ -63,22 +69,22 @@ async def generate_group_reports(
         if not total_qty_response:
             raise HTTPException(status_code=500, detail="Impossible de récupérer total_qty")
         
-        # 4. Récupérer stock_levels
-        logger.info("4️⃣ Récupération des niveaux de stock...")
+        # 5. Récupérer stock_levels
+        logger.info("5️⃣ Récupération des niveaux de stock...")
         stock_levels_response = cm2w.get_stock_levels()
         if not stock_levels_response:
             raise HTTPException(status_code=500, detail="Impossible de récupérer stock_levels")
         
-        # 5. Grouper les données par owner
-        logger.info("5️⃣ Groupement des données par owner...")
+        # 6. Grouper les données par owner
+        logger.info("6️⃣ Groupement des données par owner...")
         grouped_qty = group_service.group_quantities_by_owner(total_qty_response, devices_response)
         grouped_stock = group_service.group_stock_levels_by_owner(stock_levels_response, devices_response)
         
         owners_count = len(grouped_qty.get("owners", []))
         logger.info(f"   → {owners_count} owners trouvés avec des données")
         
-        # 6. Générer les PDFs de groupe
-        logger.info("6️⃣ Génération des PDFs de groupe...")
+        # 7. Générer les PDFs de groupe
+        logger.info("7️⃣ Génération des PDFs de groupe...")
         
         from refactored.pdf_generator.group_generator import GroupPDFGenerator
         generator = GroupPDFGenerator()

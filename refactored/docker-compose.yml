@@ -15,4 +15,6 @@ services:
       - ./uploads:/app/uploads
       - ./uploads:/app/refactored/uploads
       - ./config:/app/config
+      - ./config:/app/refactored/config
       - ./cache:/app/cache
+      - ./cache:/app/refactored/cache

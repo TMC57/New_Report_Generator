@@ -345,7 +345,7 @@ class GroupPDFGenerator:
         
         # Titre
         elements.append(Paragraph(
-            "SUIVI DE LA CONSOMMATION TOTALE PAR SITE",
+            "REPARTITION DES CONSOMMATIONS DE PRODUITS PAR SITE",
             title_style
         ))
         elements.append(Spacer(1, 0.3*cm))

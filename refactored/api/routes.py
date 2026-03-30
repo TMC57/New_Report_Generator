@@ -2,6 +2,7 @@ import os
 from fastapi import APIRouter, HTTPException
 from typing import Optional
 from refactored.services.facility_service import FacilityService
+from refactored.services.config_service import ConfigService
 from refactored.pdf_generator.generator import PDFGenerator
 from refactored.utils.logger import get_logger
 from refactored.config.settings import DATA_CACHE_DIR
@@ -133,6 +134,12 @@ def reports_generation_v2(
         
         service = FacilityService()
         pdf_gen = PDFGenerator()
+        config_service = ConfigService()
+        
+        # Mettre à jour configJson.json automatiquement au début
+        devices_response = service.cm2w.get_devices_list()
+        if devices_response and devices_response.get("data"):
+            config_service.update_config_from_devices(devices_response)
         
         if facility_id:
             facility = service.get_complete_facility_data(facility_id, from_date, to_date)
@@ -169,8 +176,7 @@ def reports_generation_v2(
                 }
             }
         else:
-            # Récupérer la liste des facility IDs
-            devices_response = service.cm2w.get_devices_list()
+            # devices_response déjà récupéré au début pour la mise à jour de configJson.json
             if not devices_response or not devices_response.get("data"):
                 raise HTTPException(status_code=500, detail="Impossible de récupérer la liste des devices")
             

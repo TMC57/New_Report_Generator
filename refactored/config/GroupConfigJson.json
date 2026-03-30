@@ -358,7 +358,7 @@
     "facilities": [
       {
         "facilityId": 27240,
-        "facilityName": "TECMAT SERVICE"
+        "facilityName": "1070702325 TECMAT"
       },
       {
         "facilityId": 32486,
@@ -389,14 +389,6 @@
       {
         "facilityId": 39151,
         "facilityName": "1070446250\tGÉNÉRAL AUTOMOBILE ORVAULT"
-      },
-      {
-        "facilityId": 39154,
-        "facilityName": "1070194240\tGÉNÉRAL AUTOMOBILE GUERANDE"
-      },
-      {
-        "facilityId": 39157,
-        "facilityName": "1070093697\tGENERAL AUTOMOBILE SAUTRON"
       }
     ],
     "cover_picture": "/uploads/Général Automobile.jpg",
@@ -468,7 +460,7 @@
     "facilities": [
       {
         "facilityId": 23981,
-        "facilityName": "GROUPE COBREDIA / SOMODA"
+        "facilityName": "1071216159 GROUPE COBREDIA / SOMODA"
       }
     ],
     "cover_picture": "/uploads/Croix rouge.jpg",
@@ -722,7 +714,7 @@
       },
       {
         "facilityId": 31088,
-        "facilityName": "JEANNIN AUTOMOBILES - TROYES"
+        "facilityName": "1070100557 JEANNIN AUTOMOBILES TROYES"
       },
       {
         "facilityId": 31091,
@@ -730,7 +722,7 @@
       },
       {
         "facilityId": 31094,
-        "facilityName": "JEANNIN AUTOMOBILES - AVALLON"
+        "facilityName": "1071145108 JEANNIN AUTOMOBILES AVALON"
       },
       {
         "facilityId": 31517,
@@ -742,7 +734,7 @@
       },
       {
         "facilityId": 31523,
-        "facilityName": "1071168149\tJEANNIN SMDA LAVAGE VSD"
+        "facilityName": "1071007319 \tJEANNIN SMDA LAVAGE VSD"
       },
       {
         "facilityId": 33107,
@@ -758,11 +750,11 @@
       },
       {
         "facilityId": 34532,
-        "facilityName": "1071174189\tJEANNIN AUTOMOBILES OCCASIONS"
+        "facilityName": "1071174159\tJEANNIN AUTOMOBILES OCCASIONS"
       },
       {
         "facilityId": 35756,
-        "facilityName": "1071168149\tJEANNIN SMDA LAVAGE VSD"
+        "facilityName": "1071198653\tJEANNIN ADVANCED CAR VSD"
       },
       {
         "facilityId": 36442,
@@ -848,7 +840,7 @@
     "facilities": [
       {
         "facilityId": 31709,
-        "facilityName": "SEAT | SKODA - Espace Saint Maximin"
+        "facilityName": "1070602483 ST MAXIMIN AUTOMOBILES SEAT"
       }
     ],
     "cover_picture": "/uploads/Croix rouge.jpg",
@@ -874,7 +866,7 @@
     "facilities": [
       {
         "facilityId": 33383,
-        "facilityName": "TAXI RONDET"
+        "facilityName": "1070002822 ABCD DU TAXI RONDET SAS"
       }
     ],
     "cover_picture": "/uploads/Croix rouge.jpg",
@@ -900,7 +892,7 @@
     "facilities": [
       {
         "facilityId": 31271,
-        "facilityName": "TECHSTAR OUEST"
+        "facilityName": "1070170751 TECHSTAR OUEST BY AUTOSPHERE"
       }
     ],
     "cover_picture": "/uploads/Croix rouge.jpg",
@@ -978,7 +970,7 @@
     "facilities": [
       {
         "facilityId": 30376,
-        "facilityName": "Vikings Auto Blet Sud"
+        "facilityName": "1070761966 VIKING AUTO BLET SA"
       },
       {
         "facilityId": 30379,
@@ -1041,20 +1033,12 @@
         "facilityName": "GENERAL AUTOMOBILE"
       },
       {
-        "facilityId": 25634,
-        "facilityName": "FG AUTOMOBILES"
-      },
-      {
         "facilityId": 26757,
-        "facilityName": "VW - INTENZ POITOU by AUTOSPHERE - POITIERS"
+        "facilityName": "1070860704 INTENZ POITOU AUTOSPHÈRE"
       },
       {
         "facilityId": 26760,
-        "facilityName": "Mercedes - TECHSTAR POITIERS by AUTOSPHERE"
-      },
-      {
-        "facilityId": 27789,
-        "facilityName": "1070747601\tARAVIS ROSSI AUTO"
+        "facilityName": "1070342488 TECHSTAR POITIERS AUTOSPHÈRE"
       },
       {
         "facilityId": 28194,
@@ -1063,10 +1047,6 @@
       {
         "facilityId": 35939,
         "facilityName": "1070736691\tINTENZ POITOU BY AUTOSPHERE"
-      },
-      {
-        "facilityId": 39133,
-        "facilityName": "1070985702\tUNIMARK"
       }
     ],
     "cover_picture": "/uploads/Croix rouge.jpg",
@@ -1086,5 +1066,25 @@
       "phone_number": ""
     },
     "primary_company_brand": ""
+  },
+  {
+    "owner": "Kermovant Automobiles",
+    "facilities": [
+      {
+        "facilityId": 40569,
+        "facilityName": "1070563456 Kermorvant automobile"
+      }
+    ],
+    "cover_picture": ""
+  },
+  {
+    "owner": "STA",
+    "facilities": [
+      {
+        "facilityId": 40851,
+        "facilityName": "1070917624 STA 91"
+      }
+    ],
+    "cover_picture": ""
   }
 ]

@@ -161,9 +161,10 @@ class FacilityService:
         if config:
             facility.local_config = config
             facility.cover_picture_path = config.cover_picture or ""
-            facility.material_picture_path = config.material_picture or ""
-            facility.last_intervention_date = config.derniere_intervention or ""
-            facility.buses_info = config.releves_buses or ""
+            # Les champs suivants ne sont plus dans FacilityConfig simplifié
+            facility.material_picture_path = ""
+            facility.last_intervention_date = ""
+            facility.buses_info = ""
             logger.debug(f"  → Config locale chargée", facility_id)
         
         stock_response = self.cm2w.get_stock_levels(facility_id)

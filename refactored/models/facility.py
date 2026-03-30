@@ -7,14 +7,8 @@ from .product import Product, ProductConsumption
 class FacilityConfig:
     """Configuration locale d'une facility (depuis configJson.json)"""
     facility_id: int
+    facility_name: str = ""
     cover_picture: str = ""
-    material_picture: str = ""
-    inventory_monitoring_manager: Dict[str, str] = field(default_factory=dict)
-    customer_technical_relay_manager: Dict[str, str] = field(default_factory=dict)
-    file_referent: Dict[str, str] = field(default_factory=dict)
-    primary_company_brand: str = ""
-    derniere_intervention: str = ""
-    releves_buses: str = ""
 
 @dataclass
 class FacilityData:
