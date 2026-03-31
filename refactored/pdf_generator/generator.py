@@ -308,22 +308,22 @@ class PDFGenerator:
         # Zone 1 (principale)
         zone1_start = len(table_data)
         if facility_data.get("produit_lavant"):
-            table_data.append(["PRODUIT LAVANT", format_value(facility_data.get("produit_lavant"))])
+            table_data.append(["PRODUITS LAVANT", format_value(facility_data.get("produit_lavant"))])
             table_data.append(["DILUTION LAVANT", format_dilution(facility_data.get("dilution_lavant"))])
             table_data.append(["COULEUR BUSE LAVANT", format_value(facility_data.get("couleur_buse_lavant"))])
         
         if facility_data.get("produit_sechant"):
-            table_data.append(["PRODUIT SÉCHANT", format_value(facility_data.get("produit_sechant"))])
+            table_data.append(["PRODUITS SÉCHANT", format_value(facility_data.get("produit_sechant"))])
             table_data.append(["DILUTION SÉCHANT", format_dilution(facility_data.get("dilution_sechant"))])
             table_data.append(["COULEUR BUSE SÉCHANT", format_value(facility_data.get("couleur_buse_sechant"))])
         
         if facility_data.get("autre_produit_lavant"):
-            table_data.append(["AUTRE PRODUIT LAVANT", format_value(facility_data.get("autre_produit_lavant"))])
+            table_data.append(["AUTRES PRODUITS LAVANT", format_value(facility_data.get("autre_produit_lavant"))])
             table_data.append(["AUTRE DILUTION LAVANT", format_dilution(facility_data.get("autre_dilution_lavant"))])
             table_data.append(["AUTRE COULEUR BUSE LAVANT", format_value(facility_data.get("autre_couleur_buse_lavant"))])
         
         if facility_data.get("produit_jantes"):
-            table_data.append(["PRODUIT JANTES", format_value(facility_data.get("produit_jantes"))])
+            table_data.append(["PRODUITS JANTES", format_value(facility_data.get("produit_jantes"))])
             table_data.append(["DILUTION JANTES", format_dilution(facility_data.get("dilution_jantes"))])
         
         # Zone 2
@@ -331,17 +331,17 @@ class PDFGenerator:
         if facility_data.get("produit_lavant_zone2"):
             if zone2_start > zone1_start:
                 zone_separators.append(zone2_start - 1)
-            table_data.append(["PRODUIT LAVANT ZONE 2", format_value(facility_data.get("produit_lavant_zone2"))])
+            table_data.append(["PRODUITS LAVANT ZONE 2", format_value(facility_data.get("produit_lavant_zone2"))])
             table_data.append(["DILUTION LAVANT ZONE 2", format_dilution(facility_data.get("dilution_lavant_zone2"))])
             table_data.append(["COULEUR BUSE LAVANT ZONE 2", format_value(facility_data.get("couleur_buse_lavant_zone2"))])
         
         if facility_data.get("produit_sechant_zone2"):
-            table_data.append(["PRODUIT SÉCHANT ZONE 2", format_value(facility_data.get("produit_sechant_zone2"))])
+            table_data.append(["PRODUITS SÉCHANT ZONE 2", format_value(facility_data.get("produit_sechant_zone2"))])
             table_data.append(["DILUTION SÉCHANT ZONE 2", format_dilution(facility_data.get("dilution_sechant_zone2"))])
             table_data.append(["COULEUR BUSE SÉCHANT ZONE 2", format_value(facility_data.get("couleur_buse_sechant_zone2"))])
         
         if facility_data.get("autre_produit_lavant_zone2"):
-            table_data.append(["AUTRE PRODUIT LAVANT ZONE 2", format_value(facility_data.get("autre_produit_lavant_zone2"))])
+            table_data.append(["AUTRES PRODUITS LAVANT ZONE 2", format_value(facility_data.get("autre_produit_lavant_zone2"))])
             table_data.append(["AUTRE DILUTION LAVANT ZONE 2", format_dilution(facility_data.get("autre_dilution_lavant_zone2"))])
             table_data.append(["AUTRE COULEUR BUSE LAVANT ZONE 2", format_value(facility_data.get("autre_couleur_buse_lavant_zone2"))])
         
@@ -350,12 +350,12 @@ class PDFGenerator:
         if facility_data.get("produit_lavant_zone3"):
             if zone3_start > zone2_start:
                 zone_separators.append(zone3_start - 1)
-            table_data.append(["PRODUIT LAVANT ZONE 3", format_value(facility_data.get("produit_lavant_zone3"))])
+            table_data.append(["PRODUITS LAVANT ZONE 3", format_value(facility_data.get("produit_lavant_zone3"))])
             table_data.append(["DILUTION LAVANT ZONE 3", format_dilution(facility_data.get("dilution_lavant_zone3"))])
             table_data.append(["COULEUR BUSE LAVANT ZONE 3", format_value(facility_data.get("couleur_buse_lavant_zone3"))])
         
         if facility_data.get("produit_sechant_zone3"):
-            table_data.append(["PRODUIT SÉCHANT ZONE 3", format_value(facility_data.get("produit_sechant_zone3"))])
+            table_data.append(["PRODUITS SÉCHANT ZONE 3", format_value(facility_data.get("produit_sechant_zone3"))])
             table_data.append(["DILUTION SÉCHANT ZONE 3", format_dilution(facility_data.get("dilution_sechant_zone3"))])
             table_data.append(["COULEUR BUSE SÉCHANT ZONE 3", format_value(facility_data.get("couleur_buse_sechant_zone3"))])
         
@@ -364,12 +364,12 @@ class PDFGenerator:
         if facility_data.get("produit_lavant_zone4"):
             if zone4_start > zone3_start:
                 zone_separators.append(zone4_start - 1)
-            table_data.append(["PRODUIT LAVANT ZONE 4", format_value(facility_data.get("produit_lavant_zone4"))])
+            table_data.append(["PRODUITS LAVANT ZONE 4", format_value(facility_data.get("produit_lavant_zone4"))])
             table_data.append(["DILUTION LAVANT ZONE 4", format_dilution(facility_data.get("dilution_lavant_zone4"))])
             table_data.append(["COULEUR BUSE LAVANT ZONE 4", format_value(facility_data.get("couleur_buse_lavant_zone4"))])
         
         if facility_data.get("produit_sechant_zone4"):
-            table_data.append(["PRODUIT SÉCHANT ZONE 4", format_value(facility_data.get("produit_sechant_zone4"))])
+            table_data.append(["PRODUITS SÉCHANT ZONE 4", format_value(facility_data.get("produit_sechant_zone4"))])
             table_data.append(["DILUTION SÉCHANT ZONE 4", format_dilution(facility_data.get("dilution_sechant_zone4"))])
             table_data.append(["COULEUR BUSE SÉCHANT ZONE 4", format_value(facility_data.get("couleur_buse_sechant_zone4"))])
         
@@ -378,12 +378,12 @@ class PDFGenerator:
         if facility_data.get("produit_lavant_zone5"):
             if zone5_start > zone4_start:
                 zone_separators.append(zone5_start - 1)
-            table_data.append(["PRODUIT LAVANT ZONE 5", format_value(facility_data.get("produit_lavant_zone5"))])
+            table_data.append(["PRODUITS LAVANT ZONE 5", format_value(facility_data.get("produit_lavant_zone5"))])
             table_data.append(["DILUTION LAVANT ZONE 5", format_dilution(facility_data.get("dilution_lavant_zone5"))])
             table_data.append(["COULEUR BUSE LAVANT ZONE 5", format_value(facility_data.get("couleur_buse_lavant_zone5"))])
         
         if facility_data.get("produit_sechant_zone5"):
-            table_data.append(["PRODUIT SÉCHANT ZONE 5", format_value(facility_data.get("produit_sechant_zone5"))])
+            table_data.append(["PRODUITS SÉCHANT ZONE 5", format_value(facility_data.get("produit_sechant_zone5"))])
             table_data.append(["DILUTION SÉCHANT ZONE 5", format_dilution(facility_data.get("dilution_sechant_zone5"))])
             table_data.append(["COULEUR BUSE SÉCHANT ZONE 5", format_value(facility_data.get("couleur_buse_sechant_zone5"))])
         
@@ -475,7 +475,7 @@ class PDFGenerator:
             
             # Première quinzaine (jours 1-15)
             month_str = start_date.strftime("%m")
-            first_half_data = [["PRODUIT"] + [f"{d:02d}/{month_str}" for d in range(1, 16)]]
+            first_half_data = [["PRODUITS"] + [f"{d:02d}/{month_str}" for d in range(1, 16)]]
             
             for product in zone_products:
                 product_name = product.get("name", "")
@@ -533,7 +533,7 @@ class PDFGenerator:
                 next_month = start_date.replace(month=start_date.month + 1, day=1)
             last_day = (next_month - timedelta(days=1)).day
             
-            second_half_data = [["PRODUIT"] + [f"{d:02d}/{start_date.strftime('%m')}" for d in range(16, last_day + 1)]]
+            second_half_data = [["PRODUITS"] + [f"{d:02d}/{start_date.strftime('%m')}" for d in range(16, last_day + 1)]]
             
             for product in zone_products:
                 product_name = product.get("name", "")
@@ -643,7 +643,7 @@ class PDFGenerator:
         
         # Première quinzaine (jours 1-15)
         month_str = start_date.strftime("%m")
-        first_half_data = [["PRODUIT"] + [f"{d:02d}/{month_str}" for d in range(1, 16)]]
+        first_half_data = [["PRODUITS"] + [f"{d:02d}/{month_str}" for d in range(1, 16)]]
         
         # Regrouper les produits par nom (ignorer la zone)
         import re
@@ -729,7 +729,7 @@ class PDFGenerator:
             next_month = start_date.replace(month=start_date.month + 1, day=1)
         last_day = (next_month - timedelta(days=1)).day
         
-        second_half_data = [["PRODUIT"] + [f"{d:02d}/{start_date.strftime('%m')}" for d in range(16, last_day + 1)]]
+        second_half_data = [["PRODUITS"] + [f"{d:02d}/{start_date.strftime('%m')}" for d in range(16, last_day + 1)]]
         
         # Regrouper les produits par nom (ignorer la zone)
         products_by_name_second = {}
@@ -888,7 +888,7 @@ class PDFGenerator:
                 month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
                 months_list.append((current_year, month))
             
-            table_data = [["PRODUIT"] + month_headers]
+            table_data = [["PRODUITS"] + month_headers]
             
             # Pas de regroupement ici - garder les produits avec leurs zones
             for product in zone_products:
@@ -993,7 +993,7 @@ class PDFGenerator:
             month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
             months_list.append((current_year, month))
         
-        table_data = [["PRODUIT"] + month_headers]
+        table_data = [["PRODUITS"] + month_headers]
         
         # Regrouper les produits par nom (ignorer la zone)
         import re
@@ -1102,60 +1102,38 @@ class PDFGenerator:
             month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
         
         # Créer un tableau avec les produits livrés depuis Odoo
-        table_data = [["PRODUIT"] + month_headers]
+        table_data = [["PRODUITS"] + month_headers]
         
-        # Récupérer les données Odoo
+        # Récupérer les données Odoo (nouvelle structure)
         odoo_data = facility_data.get("odoo_delivered_products", {})
-        orders = odoo_data.get("orders", [])
         
-        # Agréger les produits par nom et par mois (année en cours uniquement)
-        products_by_month = {}  # {product_name: {month: qty}}
+        # Utiliser products_by_month directement depuis le cache (déjà agrégé)
+        products_by_month_raw = odoo_data.get("products_by_month", {})
         
-        for order in orders:
-            date_order = order.get("date_order", "")
-            if not date_order:
-                continue
-            
-            # Parser la date de commande
-            try:
-                order_date = datetime.strptime(date_order[:10], "%Y-%m-%d")
-            except:
-                continue
-            
-            # Filtrer par année en cours
-            if order_date.year != current_year:
-                continue
-            
-            order_month = order_date.month
-            
-            # Parcourir les lignes de commande
-            for line in order.get("order_lines_details", []):
-                # Récupérer le nom du produit
-                product_id = line.get("product_id")
-                if product_id and isinstance(product_id, list) and len(product_id) > 1:
-                    product_name = product_id[1]  # Format: [id, "nom du produit"]
-                else:
-                    product_name = line.get("name", "")
-                
-                # Ignorer les lignes sans produit ou avec quantité 0
-                qty = line.get("product_uom_qty", 0)
-                if not product_name or qty <= 0:
+        # Convertir les clés de mois "YYYY-MM" en numéro de mois
+        products_by_month = {}  # {product_name: {month_int: qty}}
+        
+        for product_name, months_data in products_by_month_raw.items():
+            products_by_month[product_name] = {}
+            for month_key, qty in months_data.items():
+                try:
+                    # month_key est au format "YYYY-MM"
+                    year_str, month_str = month_key.split("-")
+                    if int(year_str) == current_year:
+                        month_int = int(month_str)
+                        products_by_month[product_name][month_int] = qty
+                except:
                     continue
-                
-                # Agréger par produit et par mois
-                if product_name not in products_by_month:
-                    products_by_month[product_name] = {}
-                
-                if order_month not in products_by_month[product_name]:
-                    products_by_month[product_name][order_month] = 0
-                
-                products_by_month[product_name][order_month] += qty
+            
+            # Supprimer les produits sans données pour l'année en cours
+            if not products_by_month[product_name]:
+                del products_by_month[product_name]
         
         # Créer les lignes du tableau
         if products_by_month:
             for product_name in sorted(products_by_month.keys()):
                 monthly_data = products_by_month[product_name]
-                row = [Paragraph(product_name, product_name_style)]
+                row = [Paragraph(product_name.upper(), product_name_style)]
                 
                 for month in range(1, 13):
                     if month in monthly_data:
@@ -1426,7 +1404,7 @@ class PDFGenerator:
                 daily_quantities = product.get("daily_quantities", [])
                 if daily_quantities:
                     products_data.append({
-                        "name": product.get("name", "Produit inconnu"),
+                        "name": product.get("name", "PRODUITS INCONNUS"),
                         "daily_data": daily_quantities
                     })
             

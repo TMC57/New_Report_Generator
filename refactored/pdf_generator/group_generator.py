@@ -414,7 +414,7 @@ class GroupPDFGenerator:
         # Créer le tableau (lignes = produits, colonnes = facilities)
         if facility_names and product_names:
             # Entête: vide + noms des facilities
-            header_row = ["PRODUIT"] + facility_names
+            header_row = ["PRODUITS"] + facility_names
             
             # Lignes de données
             table_data = [header_row]
@@ -665,7 +665,7 @@ class GroupPDFGenerator:
             month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
         
         # Créer le tableau avec les produits du groupe
-        table_data = [["PRODUIT"] + month_headers]
+        table_data = [["PRODUITS"] + month_headers]
         
         if all_products:
             for product_name in sorted(all_products):

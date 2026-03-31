@@ -229,7 +229,7 @@ class ConsumptionChartGenerator:
         
         # Tracer chaque produit en barres
         for idx, product_info in enumerate(products_data):
-            product_name = product_info.get("name", "PRODUIT INCONNU")
+            product_name = product_info.get("name", "PRODUITS INCONNUS")
             daily_data = product_info.get("daily_data", [])
             
             # Filtrer et préparer les données
@@ -608,7 +608,7 @@ class ConsumptionChartGenerator:
         for facility in facilities_data:
             facility_products = {}
             for product in facility.get("products", []):
-                raw_name = product.get("name", "Produit inconnu")
+                raw_name = product.get("name", "PRODUITS INCONNUS")
                 base_name = self._get_base_product_name(raw_name)
                 raw_qty = product.get("qty", 0) or product.get("total_qty", 0) or 0
                 qty_liters = raw_qty / 10000
@@ -789,7 +789,7 @@ class ConsumptionChartGenerator:
             
             facility_products = {}
             for product in facility.get("products", []):
-                raw_name = product.get("name", "Produit inconnu")
+                raw_name = product.get("name", "PRODUITS INCONNUS")
                 base_name = self._get_base_product_name(raw_name)
                 raw_qty = product.get("qty", 0) or product.get("total_qty", 0) or 0
                 qty_liters = raw_qty / 10000
@@ -844,7 +844,7 @@ class ConsumptionChartGenerator:
         
         for facility in facilities_data:
             for product in facility.get("products", []):
-                raw_name = product.get("name", "Produit inconnu")
+                raw_name = product.get("name", "PRODUITS INCONNUS")
                 base_name = self._get_base_product_name(raw_name)
                 raw_qty = product.get("qty", 0) or product.get("total_qty", 0) or 0
                 qty_liters = raw_qty / 10000

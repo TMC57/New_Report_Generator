@@ -147,30 +147,51 @@ class OdooService:
         
         # Construire le domaine de recherche directement sur sale.order
         # Le champ correct est partner_shipping_id.x_studio_code_client (champ Studio personnalisé)
+        # Format Odoo: liste de tuples (field, operator, value)
+        # Filtrer uniquement les devis de la société "TMH Corporation SA"
         domain = [
-            ['partner_shipping_id.x_studio_code_client', '=', client_code]
+            ('partner_shipping_id.x_studio_code_client', '=', client_code),
+            ('company_id.name', '=', 'TMH Corporation SA')
         ]
         
-        # NOTE: On ne filtre PAS par date pour l'instant - on récupère tous les devis
-        # et on filtrera par année dans le tableau des produits livrés
+        # Filtrer par date si fourni (pour limiter aux commandes de l'année en cours)
+        if from_date:
+            domain.append(('date_order', '>=', f"{from_date} 00:00:00"))
+        if to_date:
+            domain.append(('date_order', '<=', f"{to_date} 23:59:59"))
         
-        # Récupérer les devis
+        logger.info(f"   Domaine de recherche: {domain}")
+        
+        # Utiliser search puis read au lieu de search_read pour s'assurer que le filtre fonctionne
+        order_ids = self._call(
+            'sale.order',
+            'search',
+            [domain],
+            {'order': 'date_order desc'}
+        )
+        
+        if not order_ids:
+            logger.info(f"   Aucun devis trouvé pour {client_code}")
+            return []
+        
+        logger.info(f"   {len(order_ids)} IDs de devis trouvés: {order_ids}")
+        
+        # Récupérer les détails des commandes
         orders = self._call(
             'sale.order',
-            'search_read',
-            [domain],
+            'read',
+            [order_ids],
             {
                 'fields': [
                     'id',
-                    'name',  # Référence du devis (ex: S00123)
+                    'name',
                     'date_order',
                     'partner_id',
                     'partner_shipping_id',
                     'state',
                     'amount_total',
                     'order_line'
-                ],
-                'order': 'date_order desc'
+                ]
             }
         )
         
@@ -178,7 +199,11 @@ class OdooService:
             logger.info(f"   Aucun devis trouvé pour {client_code}")
             return []
         
-        logger.info(f"   {len(orders)} devis trouvés")
+        logger.info(f"   {len(orders)} devis récupérés:")
+        for order in orders:
+            partner_shipping = order.get('partner_shipping_id', [])
+            partner_name = partner_shipping[1] if isinstance(partner_shipping, list) and len(partner_shipping) > 1 else str(partner_shipping)
+            logger.info(f"      - {order.get('name')} (ID:{order.get('id')}): {order.get('date_order')} - Partner: {partner_name}")
         
         # Récupérer les détails des lignes de commande
         for order in orders:
@@ -212,74 +237,116 @@ class OdooService:
         to_date: Optional[str] = None
     ) -> Dict[str, Any]:
         """
-        Récupère les produits livrés pour une facility
+        Récupère les produits livrés pour une facility donnée
         
         Args:
-            facility_name: Nom de la facility (contient le code client)
-            from_date: Date de début (format YYYY-MM-DD)
-            to_date: Date de fin (format YYYY-MM-DD)
+            facility_name: Nom de la facility (ex: "1070280831 GARAGE PARIS BREST PROCUREUR")
+            from_date: Date de début (format YYYY-MM-DD) - utilisé pour déterminer l'année
+            to_date: Date de fin (format YYYY-MM-DD) - utilisé pour déterminer l'année
             
         Returns:
-            Dictionnaire avec les devis et produits livrés
+            Dictionnaire avec les devis et produits agrégés
         """
         # Extraire le code client du nom de la facility
         client_code = self.extract_client_code(facility_name)
         
         if not client_code:
-            logger.warning(f"⚠️ Impossible d'extraire le code client de: {facility_name}")
+            logger.warning(f"⚠️ Impossible d'extraire le code client de '{facility_name}'")
             return {
                 "facility_name": facility_name,
                 "client_code": None,
+                "from_date": from_date,
+                "to_date": to_date,
+                "orders_count": 0,
                 "orders": [],
                 "products_summary": {}
             }
         
-        logger.info(f"📦 Récupération des produits livrés pour {facility_name}")
-        logger.info(f"   Code client extrait: {client_code}")
+        # Calculer les dates de début et fin de l'année en cours
+        # On utilise to_date pour déterminer l'année
+        if to_date:
+            try:
+                end_date = datetime.strptime(to_date, "%Y-%m-%d")
+                current_year = end_date.year
+            except:
+                current_year = datetime.now().year
+        else:
+            current_year = datetime.now().year
+        
+        # Récupérer toutes les commandes de l'année en cours (janvier à décembre)
+        year_start = f"{current_year}-01-01"
+        year_end = f"{current_year}-12-31"
+        
+        logger.info(f"   Récupération des commandes pour l'année {current_year} ({year_start} à {year_end})")
         
         # Récupérer les devis
-        orders = self.get_sales_orders_by_client_code(client_code, from_date, to_date)
+        orders = self.get_sales_orders_by_client_code(client_code, year_start, year_end)
         
-        # Agréger les produits par nom
-        products_summary = {}
+        # Structurer les commandes de manière claire
+        # Chaque commande contient ses articles avec leurs quantités
+        orders_structured = []
+        products_by_month = {}  # Pour l'agrégation par mois
+        
         for order in orders:
+            order_name = order.get('name', '')
             order_date = order.get('date_order', '')
+            
+            # Extraire le mois
+            month_key = "unknown"
             if order_date:
-                # Extraire le mois de la commande
                 try:
                     dt = datetime.strptime(order_date[:10], "%Y-%m-%d")
                     month_key = dt.strftime("%Y-%m")
                 except:
-                    month_key = "unknown"
-            else:
-                month_key = "unknown"
+                    pass
             
+            # Structurer les articles de cette commande
+            articles = []
             for line in order.get('order_lines_details', []):
                 product_name = line.get('name', 'Produit inconnu')
                 qty = line.get('product_uom_qty', 0)
                 
-                if product_name not in products_summary:
-                    products_summary[product_name] = {
-                        "total_qty": 0,
-                        "by_month": {}
-                    }
+                # Ignorer les lignes sans produit (qty = 0 et pas de product_id)
+                if qty == 0 and not line.get('product_id'):
+                    continue
                 
-                products_summary[product_name]["total_qty"] += qty
+                articles.append({
+                    "product_name": product_name,
+                    "quantity": qty
+                })
                 
-                if month_key not in products_summary[product_name]["by_month"]:
-                    products_summary[product_name]["by_month"][month_key] = 0
-                products_summary[product_name]["by_month"][month_key] += qty
+                # Agrégation par mois
+                if product_name not in products_by_month:
+                    products_by_month[product_name] = {}
+                if month_key not in products_by_month[product_name]:
+                    products_by_month[product_name][month_key] = 0
+                products_by_month[product_name][month_key] += qty
+            
+            # Ajouter la commande structurée
+            if articles:  # Seulement si la commande a des articles
+                orders_structured.append({
+                    "order_ref": order_name,
+                    "date": order_date[:10] if order_date else "",
+                    "month": month_key,
+                    "articles": articles
+                })
+        
+        # Log des commandes pour debug
+        logger.info(f"   Commandes structurées:")
+        for o in orders_structured:
+            logger.info(f"      {o['order_ref']} ({o['date']}): {len(o['articles'])} articles")
+            for a in o['articles']:
+                logger.info(f"         - {a['product_name']}: {a['quantity']}")
         
         result = {
             "facility_name": facility_name,
             "client_code": client_code,
-            "from_date": from_date,
-            "to_date": to_date,
-            "orders_count": len(orders),
-            "orders": orders,
-            "products_summary": products_summary
+            "year": current_year,
+            "orders_count": len(orders_structured),
+            "orders": orders_structured,
+            "products_by_month": products_by_month
         }
         
-        logger.success(f"✅ {len(orders)} devis, {len(products_summary)} produits uniques")
+        logger.success(f"✅ {len(orders_structured)} commandes, {len(products_by_month)} produits uniques")
         
         return result
