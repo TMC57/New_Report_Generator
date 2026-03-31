@@ -312,3 +312,131 @@ class GroupService:
             "owners": owners_list,
             "currentTime": stock_levels_json.get("currentTime")
         }
+    
+    def _normalize_product_name(self, name: str) -> str:
+        """
+        Normalise un nom de produit pour éviter les doublons
+        - Supprime les espaces multiples
+        - Supprime les retours à la ligne
+        - Met en majuscules
+        - Supprime les espaces en début/fin
+        - Unifie les variantes de volume (LITRES -> L)
+        """
+        if not name:
+            return ""
+        # Remplacer les retours à la ligne par des espaces
+        name = name.replace('\n', ' ').replace('\r', ' ')
+        # Supprimer les espaces multiples
+        import re
+        name = re.sub(r'\s+', ' ', name)
+        # Supprimer les espaces en début/fin et mettre en majuscules
+        name = name.strip().upper()
+        # Unifier les variantes de volume : "200 LITRES" -> "200 L", "1000 LITRES" -> "1000 L", etc.
+        name = re.sub(r'(\d+)\s*LITRES?\b', r'\1 L', name)
+        # Supprimer les espaces multiples créés par les remplacements
+        name = re.sub(r'\s+', ' ', name)
+        return name.strip()
+    
+    def group_odoo_deliveries_by_owner(
+        self,
+        facilities_odoo_data: Dict[int, Dict[str, Any]],
+        devices_list_json: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        Regroupe les données Odoo (produits livrés) par owner
+        
+        Args:
+            facilities_odoo_data: {facility_id: odoo_data}
+            devices_list_json: Données des devices pour le mapping facility -> owner
+            
+        Returns:
+            {
+              "owners": [
+                {
+                  "owner": "...",
+                  "products_by_month": {product_name: {month: qty}},
+                  "facilities": [
+                    {
+                      "facilityId": ...,
+                      "facilityName": "...",
+                      "products_by_month": {product_name: {month: qty}}
+                    }
+                  ]
+                }
+              ]
+            }
+        """
+        # 1) facilityId -> owner, facilityName
+        fac_to_owner: Dict[int, Dict[str, str]] = {}
+        for fac in (devices_list_json or {}).get("data", []):
+            fac_to_owner[fac.get("facilityId")] = {
+                "owner": fac.get("owner") or "OWNER_INCONNU",
+                "facilityName": fac.get("facilityName") or ""
+            }
+        
+        # 2) Agrégation par owner
+        owners = defaultdict(lambda: {
+            "owner": None,
+            "products_by_month": defaultdict(lambda: defaultdict(float)),
+            "facilities": defaultdict(lambda: {
+                "facilityId": None,
+                "facilityName": "",
+                "products_by_month": {}
+            })
+        })
+        
+        # 3) Parcourir les données Odoo de chaque facility
+        for facility_id, odoo_data in facilities_odoo_data.items():
+            if not odoo_data or not odoo_data.get("products_by_month"):
+                continue
+            
+            meta = fac_to_owner.get(
+                facility_id,
+                {"owner": "OWNER_INCONNU", "facilityName": ""}
+            )
+            owner_name = meta["owner"]
+            
+            owner_bucket = owners[owner_name]
+            owner_bucket["owner"] = owner_name
+            
+            fac_bucket = owner_bucket["facilities"][facility_id]
+            fac_bucket["facilityId"] = facility_id
+            fac_bucket["facilityName"] = meta.get("facilityName", "")
+            fac_bucket["products_by_month"] = odoo_data.get("products_by_month", {})
+            
+            # Agréger au niveau owner - regrouper par nom de produit NORMALISÉ
+            # Si plusieurs facilities commandent le même produit, les quantités sont sommées
+            for product_name, months_data in odoo_data.get("products_by_month", {}).items():
+                # Normaliser le nom du produit pour éviter les doublons
+                normalized_name = self._normalize_product_name(product_name)
+                if not normalized_name:
+                    continue
+                for month_key, qty in months_data.items():
+                    # Les produits avec le même nom normalisé sont regroupés
+                    owner_bucket["products_by_month"][normalized_name][month_key] += qty
+        
+        # 4) Mise en forme finale
+        owners_list = []
+        for owner_name, ob in owners.items():
+            # Convertir defaultdict en dict normal
+            products_by_month_dict = {}
+            for product_name, months_data in ob["products_by_month"].items():
+                products_by_month_dict[product_name] = dict(months_data)
+            
+            facilities_list = []
+            for fac_id, fb in ob["facilities"].items():
+                facilities_list.append({
+                    "facilityId": fb["facilityId"],
+                    "facilityName": fb["facilityName"],
+                    "products_by_month": fb.get("products_by_month", {})
+                })
+            
+            facilities_list.sort(key=lambda x: (x["facilityName"] or "", x["facilityId"] or 0))
+            owners_list.append({
+                "owner": ob["owner"] or owner_name,
+                "products_by_month": products_by_month_dict,
+                "facilities": facilities_list
+            })
+        
+        owners_list.sort(key=lambda x: x["owner"] or "")
+        return {"owners": owners_list}

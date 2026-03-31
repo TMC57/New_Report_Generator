@@ -1110,30 +1110,71 @@ class PDFGenerator:
         # Utiliser products_by_month directement depuis le cache (déjà agrégé)
         products_by_month_raw = odoo_data.get("products_by_month", {})
         
+        # Fonction pour extraire la référence produit (numéro entre crochets)
+        def extract_product_ref(name: str) -> str:
+            """Extrait la référence produit (ex: [0893025650073] -> 0893025650073)"""
+            if not name:
+                return ""
+            match = re.search(r'\[(\d+)\]', name)
+            if match:
+                return match.group(1)
+            return ""
+        
+        def clean_product_name(name: str) -> str:
+            """Nettoie le nom du produit pour l'affichage"""
+            if not name:
+                return ""
+            name = name.replace('\n', ' ').replace('\r', ' ')
+            name = re.sub(r'\s+', ' ', name)
+            return name.strip().upper()
+        
         # Convertir les clés de mois "YYYY-MM" en numéro de mois
-        products_by_month = {}  # {product_name: {month_int: qty}}
+        # Regrouper par RÉFÉRENCE PRODUIT (numéro), garder le premier nom rencontré
+        products_by_ref = {}  # {ref: {"name": first_name, "months": {month_int: qty}}}
         
         for product_name, months_data in products_by_month_raw.items():
-            products_by_month[product_name] = {}
+            # Extraire la référence produit
+            ref = extract_product_ref(product_name)
+            if not ref:
+                # Si pas de référence, utiliser le nom nettoyé comme clé
+                ref = clean_product_name(product_name)
+            if not ref:
+                continue
+            
+            # Initialiser si nécessaire, garder le premier nom rencontré
+            if ref not in products_by_ref:
+                products_by_ref[ref] = {
+                    "name": clean_product_name(product_name),
+                    "months": {}
+                }
+            
             for month_key, qty in months_data.items():
                 try:
                     # month_key est au format "YYYY-MM"
                     year_str, month_str = month_key.split("-")
                     if int(year_str) == current_year:
                         month_int = int(month_str)
-                        products_by_month[product_name][month_int] = qty
+                        # Additionner les quantités si le mois existe déjà
+                        if month_int in products_by_ref[ref]["months"]:
+                            products_by_ref[ref]["months"][month_int] += qty
+                        else:
+                            products_by_ref[ref]["months"][month_int] = qty
                 except:
                     continue
-            
-            # Supprimer les produits sans données pour l'année en cours
-            if not products_by_month[product_name]:
-                del products_by_month[product_name]
+        
+        # Supprimer les produits sans données pour l'année en cours
+        products_by_ref = {k: v for k, v in products_by_ref.items() if v["months"]}
+        
+        # Convertir en format pour l'affichage: {display_name: {month: qty}}
+        products_by_month = {}
+        for ref, data in products_by_ref.items():
+            products_by_month[data["name"]] = data["months"]
         
         # Créer les lignes du tableau
         if products_by_month:
             for product_name in sorted(products_by_month.keys()):
                 monthly_data = products_by_month[product_name]
-                row = [Paragraph(product_name.upper(), product_name_style)]
+                row = [Paragraph(product_name, product_name_style)]
                 
                 for month in range(1, 13):
                     if month in monthly_data:

@@ -581,7 +581,7 @@ class GroupPDFGenerator:
     ):
         """
         Ajoute la page des produits livrés (dernière page du rapport de groupe)
-        Même format que les rapports individuels, centré en hauteur
+        Utilise les vraies données Odoo agrégées par owner
         """
         styles = getSampleStyleSheet()
         
@@ -606,38 +606,77 @@ class GroupPDFGenerator:
             alignment=TA_LEFT
         )
         
-        # Calculer l'espace pour centrer verticalement
-        # Page A4 paysage: hauteur utilisable ~14cm (après marges et logos)
-        # On estime la hauteur du contenu et on ajoute un spacer pour centrer
+        # Récupérer les données Odoo agrégées pour ce owner
+        products_by_month_raw = owner_data.get("odoo_products_by_month", {})
         
-        # Charger les données Excel pour le mapping des noms de produits
-        excel_service = ExcelService()
-        excel_data = excel_service.load_excel_data()
+        # Générer les en-têtes pour l'année en cours (janvier à décembre)
+        end_date = datetime.strptime(to_date, "%Y-%m-%d")
+        current_year = end_date.year
+        current_month = end_date.month
         
-        # Récupérer tous les produits uniques du groupe avec mapping Excel
-        all_products = set()
-        facilities = owner_data.get("facilities", [])
-        for facility in facilities:
-            facility_id = facility.get("facilityId")
-            facility_name = facility.get("facilityName", "")
+        # Fonction pour extraire la référence produit (numéro entre crochets)
+        import re
+        def extract_product_ref(name: str) -> str:
+            """Extrait la référence produit (ex: [0893025650073] -> 0893025650073)"""
+            if not name:
+                return ""
+            match = re.search(r'\[(\d+)\]', name)
+            if match:
+                return match.group(1)
+            return ""
+        
+        def clean_product_name(name: str) -> str:
+            """Nettoie le nom du produit pour l'affichage"""
+            if not name:
+                return ""
+            name = name.replace('\n', ' ').replace('\r', ' ')
+            name = re.sub(r'\s+', ' ', name)
+            return name.strip().upper()
+        
+        # Convertir les clés de mois "YYYY-MM" en numéro de mois
+        # Regrouper par RÉFÉRENCE PRODUIT (numéro), garder le premier nom rencontré
+        products_by_ref = {}  # {ref: {"name": first_name, "months": {month_int: qty}}}
+        
+        for product_name, months_data in products_by_month_raw.items():
+            # Extraire la référence produit
+            ref = extract_product_ref(product_name)
+            if not ref:
+                # Si pas de référence, utiliser le nom nettoyé comme clé
+                ref = clean_product_name(product_name)
+            if not ref:
+                continue
             
-            # Récupérer les données Excel pour cette facility
-            facility_excel_data = {}
-            if excel_data and facility_id:
-                excel_info, _ = excel_service.match_facility_to_excel(facility_id, facility_name, excel_data)
-                if excel_info:
-                    facility_excel_data = excel_info
+            # Initialiser si nécessaire, garder le premier nom rencontré
+            if ref not in products_by_ref:
+                products_by_ref[ref] = {
+                    "name": clean_product_name(product_name),
+                    "months": {}
+                }
             
-            products = facility.get("products", [])
-            for product in products:
-                product_name = product.get("name", "")
-                if product_name:
-                    # Mapper vers le nom Excel pour cette page uniquement
-                    excel_name = get_excel_product_name(product_name, facility_excel_data)
-                    all_products.add(excel_name.upper())
+            for month_key, qty in months_data.items():
+                try:
+                    # month_key est au format "YYYY-MM"
+                    year_str, month_str = month_key.split("-")
+                    if int(year_str) == current_year:
+                        month_int = int(month_str)
+                        # Additionner les quantités si le mois existe déjà
+                        if month_int in products_by_ref[ref]["months"]:
+                            products_by_ref[ref]["months"][month_int] += qty
+                        else:
+                            products_by_ref[ref]["months"][month_int] = qty
+                except:
+                    continue
+        
+        # Supprimer les produits sans données pour l'année en cours
+        products_by_ref = {k: v for k, v in products_by_ref.items() if v["months"]}
+        
+        # Convertir en format pour l'affichage: {display_name: {month: qty}}
+        products_by_month = {}
+        for ref, data in products_by_ref.items():
+            products_by_month[data["name"]] = data["months"]
         
         # Calculer la hauteur approximative du tableau
-        num_products = max(len(all_products), 1)
+        num_products = max(len(products_by_month), 1)
         row_height = 0.6  # cm par ligne environ
         table_height = (num_products + 1) * row_height  # +1 pour l'en-tête
         title_height = 1.5  # cm pour le titre et espacements
@@ -654,32 +693,36 @@ class GroupPDFGenerator:
         elements.append(Paragraph("PRODUITS LIVRÉS", title_style))
         elements.append(Spacer(1, 0.5*cm))
         
-        # Générer les en-têtes pour l'année en cours (janvier à décembre)
-        end_date = datetime.strptime(to_date, "%Y-%m-%d")
-        current_year = end_date.year
-        current_month = end_date.month
-        
         # Mois de janvier à décembre de l'année en cours
         month_headers = []
         for month in range(1, 13):
             month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
         
-        # Créer le tableau avec les produits du groupe
+        # Créer le tableau avec les produits livrés depuis Odoo
         table_data = [["PRODUITS"] + month_headers]
         
-        if all_products:
-            for product_name in sorted(all_products):
-                # Utiliser Paragraph pour permettre le retour à la ligne
+        if products_by_month:
+            for product_name in sorted(products_by_month.keys()):
+                monthly_data = products_by_month[product_name]
                 row = [Paragraph(product_name, product_name_style)]
+                
                 for month in range(1, 13):
-                    if month > current_month:
+                    if month in monthly_data:
+                        qty = monthly_data[month]
+                        # Afficher la quantité (entier si pas de décimales)
+                        if qty == int(qty):
+                            row.append(str(int(qty)))
+                        else:
+                            row.append(f"{qty:.1f}")
+                    elif month > current_month:
                         row.append("")  # Mois futur = case vide
                     else:
-                        row.append("-")  # Mois passé sans données
+                        row.append("-")  # Mois passé sans livraison
+                
                 table_data.append(row)
         else:
-            # Ajouter une ligne si pas de produits
-            example_row = [Paragraph("AUCUNE DONNÉE DISPONIBLE", product_name_style)]
+            # Aucune donnée Odoo disponible
+            example_row = [Paragraph("AUCUNE LIVRAISON", product_name_style)]
             for month in range(1, 13):
                 if month > current_month:
                     example_row.append("")
