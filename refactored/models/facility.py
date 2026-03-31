@@ -39,6 +39,9 @@ class FacilityData:
     # Données de débit (flowrate) par device
     flowrate_data: Dict[int, Dict] = field(default_factory=dict)  # {device_id: events_data}
     
+    # Données Odoo (produits livrés)
+    odoo_delivered_products: Dict = field(default_factory=dict)  # {orders, products_summary, ...}
+    
     excel_matched: bool = False
     excel_match_method: Optional[str] = None
     
@@ -231,5 +234,6 @@ class FacilityData:
                 for p in self.stock_products
             ],
             "zones": self.zones,
-            "flowrate_data": self.flowrate_data
+            "flowrate_data": self.flowrate_data,
+            "odoo_delivered_products": self.odoo_delivered_products
         }

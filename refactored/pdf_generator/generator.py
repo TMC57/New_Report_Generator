@@ -1066,7 +1066,7 @@ class PDFGenerator:
         return elements
     
     def _create_delivered_products_table(self, facility_data: dict, from_date: str, to_date: str, styles):
-        """Crée le tableau des produits livrés (vide pour l'instant, données Odoo à venir)"""
+        """Crée le tableau des produits livrés à partir des données Odoo"""
         elements = []
         
         title_style = ParagraphStyle(
@@ -1075,15 +1075,6 @@ class PDFGenerator:
             fontName='Helvetica-Bold',
             fontSize=14,
             alignment=TA_CENTER
-        )
-        
-        text_style = ParagraphStyle(
-            'ExplanationText',
-            parent=styles['Normal'],
-            fontName='Helvetica',
-            fontSize=10,
-            alignment=TA_LEFT,
-            leading=14
         )
         
         # Style pour les noms de produits (permet le retour à la ligne)
@@ -1110,28 +1101,79 @@ class PDFGenerator:
         for month in range(1, 13):
             month_headers.append(f"{month:02d}/{str(current_year)[-2:]}")
         
-        # Créer un tableau avec les produits de la facility
+        # Créer un tableau avec les produits livrés depuis Odoo
         table_data = [["PRODUIT"] + month_headers]
         
-        # Récupérer les produits et utiliser le mapping Excel
-        products = facility_data.get("products", [])
-        if products:
-            for product in products:
-                product_name = product.get("name", "")
-                # Mapper vers le nom Excel
-                excel_name = get_excel_product_name(product_name, facility_data)
-                # Utiliser Paragraph pour permettre le retour à la ligne
-                # Cases vides pour les mois futurs, "-" pour les mois passés sans données
-                row = [Paragraph(excel_name.upper(), product_name_style)]
+        # Récupérer les données Odoo
+        odoo_data = facility_data.get("odoo_delivered_products", {})
+        orders = odoo_data.get("orders", [])
+        
+        # Agréger les produits par nom et par mois (année en cours uniquement)
+        products_by_month = {}  # {product_name: {month: qty}}
+        
+        for order in orders:
+            date_order = order.get("date_order", "")
+            if not date_order:
+                continue
+            
+            # Parser la date de commande
+            try:
+                order_date = datetime.strptime(date_order[:10], "%Y-%m-%d")
+            except:
+                continue
+            
+            # Filtrer par année en cours
+            if order_date.year != current_year:
+                continue
+            
+            order_month = order_date.month
+            
+            # Parcourir les lignes de commande
+            for line in order.get("order_lines_details", []):
+                # Récupérer le nom du produit
+                product_id = line.get("product_id")
+                if product_id and isinstance(product_id, list) and len(product_id) > 1:
+                    product_name = product_id[1]  # Format: [id, "nom du produit"]
+                else:
+                    product_name = line.get("name", "")
+                
+                # Ignorer les lignes sans produit ou avec quantité 0
+                qty = line.get("product_uom_qty", 0)
+                if not product_name or qty <= 0:
+                    continue
+                
+                # Agréger par produit et par mois
+                if product_name not in products_by_month:
+                    products_by_month[product_name] = {}
+                
+                if order_month not in products_by_month[product_name]:
+                    products_by_month[product_name][order_month] = 0
+                
+                products_by_month[product_name][order_month] += qty
+        
+        # Créer les lignes du tableau
+        if products_by_month:
+            for product_name in sorted(products_by_month.keys()):
+                monthly_data = products_by_month[product_name]
+                row = [Paragraph(product_name, product_name_style)]
+                
                 for month in range(1, 13):
-                    if month > current_month:
+                    if month in monthly_data:
+                        qty = monthly_data[month]
+                        # Afficher la quantité (entier si pas de décimales)
+                        if qty == int(qty):
+                            row.append(str(int(qty)))
+                        else:
+                            row.append(f"{qty:.1f}")
+                    elif month > current_month:
                         row.append("")  # Mois futur = case vide
                     else:
-                        row.append("-")  # Mois passé sans données
+                        row.append("-")  # Mois passé sans livraison
+                
                 table_data.append(row)
         else:
-            # Ajouter une ligne d'exemple si pas de produits
-            example_row = [Paragraph("AUCUNE DONNÉE DISPONIBLE", product_name_style)]
+            # Aucune donnée Odoo disponible
+            example_row = [Paragraph("AUCUNE LIVRAISON", product_name_style)]
             for month in range(1, 13):
                 if month > current_month:
                     example_row.append("")

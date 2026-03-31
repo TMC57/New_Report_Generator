@@ -6,6 +6,7 @@ from refactored.services.cm2w_service import CM2WService
 from refactored.services.excel_service import ExcelService
 from refactored.services.config_service import ConfigService
 from refactored.services.flowrate_service import FlowrateService
+from refactored.services.odoo_service import OdooService
 from refactored.utils.logger import get_logger
 
 logger = get_logger("Facility_Service")
@@ -18,6 +19,7 @@ class FacilityService:
         self.excel = ExcelService()
         self.config = ConfigService()
         self.flowrate = FlowrateService()
+        self.odoo = OdooService()
     
     def get_complete_facility_data(
         self,
@@ -259,6 +261,23 @@ class FacilityService:
                 logger.warning(f"⚠️ Impossible de récupérer les données flowrate (échec authentification)", facility_id)
         else:
             logger.warning(f"⚠️ Aucun device ID trouvé, pas de données flowrate", facility_id)
+        
+        # Récupération des données Odoo (devis/produits livrés)
+        logger.info(f"📦 Récupération des données Odoo (produits livrés)...", facility_id)
+        try:
+            odoo_data = self.odoo.get_delivered_products_for_facility(
+                facility.facility_name,
+                from_date,
+                to_date
+            )
+            facility.odoo_delivered_products = odoo_data
+            if odoo_data.get("orders_count", 0) > 0:
+                logger.success(f"✅ Données Odoo récupérées: {odoo_data.get('orders_count', 0)} devis, {len(odoo_data.get('products_summary', {}))} produits", facility_id)
+            else:
+                logger.info(f"   Aucun devis Odoo trouvé pour cette facility", facility_id)
+        except Exception as e:
+            logger.warning(f"⚠️ Erreur récupération données Odoo: {e}", facility_id)
+            facility.odoo_delivered_products = {}
         
         zones = set()
         for device in facility.devices:
