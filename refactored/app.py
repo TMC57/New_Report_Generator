@@ -264,56 +264,101 @@ async def upload_file_compat(file: UploadFile = File(...)):
 @app.get("/api/reports/list")
 async def list_reports_compat():
     """
-    Endpoint de compatibilité pour lister les rapports
+    Liste les dossiers de rapports (au lieu des fichiers PDF individuels)
     """
     import os
     from datetime import datetime
+    import re
     
     reports_dir = REFACTORED_DIR / "reports"
-    reports = []
+    folders = []
     
     if not reports_dir.exists():
-        return reports
+        return folders
     
-    for root, dirs, files in os.walk(reports_dir):
-        for file in files:
-            if file.endswith('.pdf'):
-                file_path = os.path.join(root, file)
-                stat = os.stat(file_path)
-                folder_name = os.path.basename(root)
-                
-                # Extraire les dates du nom du dossier
-                import re
-                pattern = r'(\d{4}-\d{2}-\d{2})\s+to\s+(\d{4}-\d{2}-\d{2})'
-                match = re.search(pattern, folder_name)
-                
-                date_range = None
-                if match:
-                    from_date, to_date = match.groups()
-                    date_range = {
-                        "from_date": from_date,
-                        "to_date": to_date,
-                        "formatted": f"Du {from_date} au {to_date}"
-                    }
-                
-                reports.append({
-                    "filename": file,
-                    "name": os.path.splitext(file)[0],
-                    "type": "group" if folder_name.startswith("group") else "individual",
-                    "size": stat.st_size,
-                    "date": datetime.fromtimestamp(stat.st_mtime).isoformat(),
-                    "date_range": date_range,
-                    "folder": folder_name,
-                    "path": file_path
-                })
+    # Lister uniquement les dossiers de premier niveau
+    for folder_name in os.listdir(reports_dir):
+        folder_path = reports_dir / folder_name
+        if not folder_path.is_dir():
+            continue
+        
+        # Compter les fichiers PDF dans le dossier
+        pdf_files = [f for f in os.listdir(folder_path) if f.endswith('.pdf')]
+        pdf_count = len(pdf_files)
+        
+        if pdf_count == 0:
+            continue  # Ignorer les dossiers vides
+        
+        # Calculer la taille totale du dossier
+        total_size = sum(
+            os.path.getsize(folder_path / f) 
+            for f in pdf_files
+        )
+        
+        # Obtenir la date de modification du dossier
+        folder_stat = os.stat(folder_path)
+        
+        # Extraire les dates du nom du dossier
+        pattern = r'(\d{4}-\d{2}-\d{2})\s+to\s+(\d{4}-\d{2}-\d{2})'
+        match = re.search(pattern, folder_name)
+        
+        date_range = None
+        if match:
+            from_date, to_date = match.groups()
+            date_range = {
+                "from_date": from_date,
+                "to_date": to_date,
+                "formatted": f"Du {from_date} au {to_date}"
+            }
+        
+        # Déterminer le type de rapport
+        report_type = "group" if folder_name.startswith("group") else "individual"
+        
+        folders.append({
+            "folder_name": folder_name,
+            "type": report_type,
+            "pdf_count": pdf_count,
+            "total_size": total_size,
+            "date": datetime.fromtimestamp(folder_stat.st_mtime).isoformat(),
+            "date_range": date_range,
+            "files": pdf_files
+        })
     
-    reports.sort(key=lambda x: x['date'], reverse=True)
-    return reports
+    # Trier par date décroissante
+    folders.sort(key=lambda x: x['date'], reverse=True)
+    return folders
+
+@app.delete("/api/reports/folder/{folder_name:path}")
+async def delete_report_folder(folder_name: str):
+    """
+    Supprime un dossier de rapports complet
+    """
+    import os
+    import shutil
+    
+    reports_dir = REFACTORED_DIR / "reports"
+    folder_path = reports_dir / folder_name
+    
+    if not folder_path.exists():
+        raise HTTPException(status_code=404, detail="Dossier non trouvé")
+    
+    if not folder_path.is_dir():
+        raise HTTPException(status_code=400, detail="Ce n'est pas un dossier")
+    
+    # Vérifier que le dossier est bien dans reports_dir (sécurité)
+    try:
+        folder_path.resolve().relative_to(reports_dir.resolve())
+    except ValueError:
+        raise HTTPException(status_code=403, detail="Accès non autorisé")
+    
+    # Supprimer le dossier et son contenu
+    shutil.rmtree(folder_path)
+    return {"success": True, "message": f"Dossier {folder_name} supprimé"}
 
 @app.delete("/api/reports/{filename}")
 async def delete_report_compat(filename: str):
     """
-    Supprime un rapport PDF
+    Supprime un rapport PDF (ancien endpoint pour compatibilité)
     """
     import os
     
@@ -328,10 +373,57 @@ async def delete_report_compat(filename: str):
     
     raise HTTPException(status_code=404, detail="Rapport non trouvé")
 
+@app.get("/api/reports/download-folder/{folder_name:path}")
+async def download_report_folder(folder_name: str):
+    """
+    Télécharge un dossier de rapports complet en ZIP
+    """
+    import os
+    import zipfile
+    from io import BytesIO
+    from fastapi.responses import StreamingResponse
+    
+    reports_dir = REFACTORED_DIR / "reports"
+    folder_path = reports_dir / folder_name
+    
+    if not folder_path.exists():
+        raise HTTPException(status_code=404, detail="Dossier non trouvé")
+    
+    if not folder_path.is_dir():
+        raise HTTPException(status_code=400, detail="Ce n'est pas un dossier")
+    
+    # Vérifier que le dossier est bien dans reports_dir (sécurité)
+    try:
+        folder_path.resolve().relative_to(reports_dir.resolve())
+    except ValueError:
+        raise HTTPException(status_code=403, detail="Accès non autorisé")
+    
+    # Créer un fichier ZIP en mémoire
+    zip_buffer = BytesIO()
+    with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        for file in os.listdir(folder_path):
+            if file.endswith('.pdf'):
+                file_path = folder_path / file
+                zip_file.write(file_path, file)
+    
+    zip_buffer.seek(0)
+    
+    # Nom du fichier ZIP basé sur le nom du dossier
+    zip_filename = f"{folder_name}.zip"
+    
+    return StreamingResponse(
+        zip_buffer,
+        media_type="application/zip",
+        headers={
+            "Content-Disposition": f'attachment; filename="{zip_filename}"',
+            "Cache-Control": "no-cache, no-store, must-revalidate"
+        }
+    )
+
 @app.get("/api/reports/download/{filename}")
 async def download_report_compat(filename: str):
     """
-    Télécharge un rapport PDF
+    Télécharge un rapport PDF (ancien endpoint pour compatibilité)
     """
     import os
     from fastapi.responses import FileResponse
