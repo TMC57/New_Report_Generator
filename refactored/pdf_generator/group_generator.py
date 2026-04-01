@@ -612,7 +612,8 @@ class GroupPDFGenerator:
         # Générer les en-têtes pour l'année en cours (janvier à décembre)
         end_date = datetime.strptime(to_date, "%Y-%m-%d")
         current_year = end_date.year
-        current_month = end_date.month
+        # Utiliser le mois de la date de fin du rapport (to_date) comme limite
+        report_end_month = end_date.month
         
         # Fonction pour extraire la référence produit (numéro entre crochets)
         import re
@@ -659,11 +660,13 @@ class GroupPDFGenerator:
                     year_str, month_str = month_key.split("-")
                     if int(year_str) == current_year:
                         month_int = int(month_str)
-                        # Additionner les quantités si le mois existe déjà
-                        if month_int in products_by_ref[ref]["months"]:
-                            products_by_ref[ref]["months"][month_int] += qty
-                        else:
-                            products_by_ref[ref]["months"][month_int] = qty
+                        # Ne garder que les mois jusqu'à la date de fin du rapport
+                        if month_int <= report_end_month:
+                            # Additionner les quantités si le mois existe déjà
+                            if month_int in products_by_ref[ref]["months"]:
+                                products_by_ref[ref]["months"][month_int] += qty
+                            else:
+                                products_by_ref[ref]["months"][month_int] = qty
                 except:
                     continue
         
@@ -714,8 +717,8 @@ class GroupPDFGenerator:
                             row.append(str(int(qty)))
                         else:
                             row.append(f"{qty:.1f}")
-                    elif month > current_month:
-                        row.append("")  # Mois futur = case vide
+                    elif month > report_end_month:
+                        row.append("")  # Mois après la date de fin du rapport = case vide
                     else:
                         row.append("-")  # Mois passé sans livraison
                 
@@ -724,7 +727,7 @@ class GroupPDFGenerator:
             # Aucune donnée Odoo disponible
             example_row = [Paragraph("AUCUNE LIVRAISON", product_name_style)]
             for month in range(1, 13):
-                if month > current_month:
+                if month > report_end_month:
                     example_row.append("")
                 else:
                     example_row.append("-")
