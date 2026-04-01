@@ -305,6 +305,9 @@ class FacilityService:
         facility.zones = sorted(list(zones))
         logger.debug(f"  → Zones détectées: {facility.zones}", facility_id)
         
+        # Mapper les noms de produits API vers les noms Excel (après récupération de toutes les données)
+        self._map_product_names_to_excel(facility)
+        
         if facility.has_all_required_data():
             logger.success(f"✅ Données complètes pour facility {facility_id}", facility_id)
         else:
@@ -369,3 +372,196 @@ class FacilityService:
             json.dump(data, f, ensure_ascii=False, indent=2, default=str)
         
         logger.success(f"✅ JSON sauvegardé: {output_path}")
+    
+    def _map_product_names_to_excel(self, facility: FacilityData):
+        """
+        Mappe les noms de produits API vers les noms Excel correspondants.
+        Cela permet d'avoir des noms cohérents dans les graphiques et d'éviter
+        les doublons avec des noms légèrement différents.
+        
+        Si un produit API ne trouve pas de match, on lui attribue un nom Excel
+        non utilisé (fallback).
+        """
+        import re
+        import unicodedata
+        
+        def normalize_name(name: str) -> str:
+            """Normalise un nom pour le matching"""
+            if not name:
+                return ""
+            # Retirer les accents
+            name = ''.join(c for c in unicodedata.normalize('NFD', name) if unicodedata.category(c) != 'Mn')
+            # Majuscules, retirer espaces et tirets
+            name = name.upper().replace(" ", "").replace("-", "")
+            return name
+        
+        def find_match(api_name: str, excel_products: list, re_module) -> tuple:
+            """Trouve le meilleur match Excel pour un nom API. Retourne (match_name, excel_prod_index) ou (None, None)"""
+            normalized_api = normalize_name(api_name)
+            
+            # Ignorer les produits qui sont clairement de l'eau (pas un produit chimique)
+            if normalized_api.startswith("EAU") or normalized_api == "EAU":
+                return "SKIP", -1  # Marqueur spécial pour ignorer ce produit
+            
+            for idx, excel_prod in enumerate(excel_products):
+                excel_normalized = excel_prod["normalized"]
+                
+                # Match direct (le nom API est contenu dans le nom Excel ou vice versa)
+                if normalized_api in excel_normalized or excel_normalized in normalized_api:
+                    return excel_prod["name"], idx
+                
+                # Match par type de produit (autoséchant)
+                if excel_prod["type"] == "sechant":
+                    if "AUTOSECHANT" in normalized_api or "SECHANT" in normalized_api:
+                        return excel_prod["name"], idx
+                
+                # Match SHAMP/SHAMPO/SHAMPOING vers produit lavant
+                if excel_prod["type"] == "lavant":
+                    if "SHAMP" in normalized_api or "SHAMPO" in normalized_api or "SHAMPOING" in normalized_api:
+                        return excel_prod["name"], idx
+                
+                # Match par numéro WNC
+                api_wnc_match = re_module.search(r'WNC\s*(\d+)', normalized_api, re_module.IGNORECASE)
+                excel_wnc_match = re_module.search(r'WNC\s*(\d+)', excel_normalized, re_module.IGNORECASE)
+                if api_wnc_match and excel_wnc_match:
+                    api_wnc_num = api_wnc_match.group(1)
+                    excel_wnc_num = excel_wnc_match.group(1)
+                    if api_wnc_num == excel_wnc_num:
+                        # Vérifier aussi UC/ULTRACONCENTRÉ
+                        if "UC" in normalized_api and "ULTRACONCENTRE" in excel_normalized:
+                            return excel_prod["name"], idx
+                        if "UC" not in normalized_api and "ULTRACONCENTRE" not in excel_normalized:
+                            return excel_prod["name"], idx
+            
+            return None, None
+        
+        # Collecter tous les produits Excel de la facility
+        excel_products = []
+        
+        # Produits par zone (zone 1 = sans suffixe, zones 2-5 avec suffixe)
+        for zone_num in range(1, 6):
+            zone_suffix = "" if zone_num == 1 else f"_zone{zone_num}"
+            
+            for prod_type in ["lavant", "sechant", "jantes"]:
+                key = f"produit_{prod_type}{zone_suffix}"
+                excel_name = getattr(facility, key, None)
+                if excel_name:
+                    excel_products.append({
+                        "type": prod_type,
+                        "zone": zone_num,
+                        "name": excel_name,
+                        "normalized": normalize_name(excel_name),
+                        "used": False
+                    })
+            
+            # Autre produit lavant
+            autre_key = f"autre_produit_lavant{zone_suffix}"
+            autre_name = getattr(facility, autre_key, None)
+            if autre_name:
+                excel_products.append({
+                    "type": "autre_lavant",
+                    "zone": zone_num,
+                    "name": autre_name,
+                    "normalized": normalize_name(autre_name),
+                    "used": False
+                })
+        
+        if not excel_products:
+            logger.debug(f"  → Aucun produit Excel trouvé, pas de mapping", facility.facility_id)
+            return
+        
+        logger.info(f"  📝 Mapping des noms de produits vers Excel ({len(excel_products)} produits Excel)", facility.facility_id)
+        
+        # Liste des produits sans match (pour le fallback)
+        unmatched_products = []
+        
+        # Premier passage : mapper les produits avec les règles de matching
+        for product in facility.products:
+            api_name = product.name
+            match_name, match_idx = find_match(api_name, excel_products, re)
+            
+            if match_name == "SKIP":
+                # Produit à ignorer (ex: EAU) - on garde le nom original
+                logger.debug(f"    ⏭️ Ignoré (eau/autre): '{api_name}'", facility.facility_id)
+                continue
+            elif match_name and match_name != api_name:
+                logger.debug(f"    🔄 '{api_name}' → '{match_name}'", facility.facility_id)
+                product.name = match_name
+                excel_products[match_idx]["used"] = True
+            elif not match_name:
+                # Pas de match trouvé, on garde pour le fallback
+                unmatched_products.append(product)
+        
+        # Deuxième passage : attribuer les noms Excel non utilisés aux produits sans match
+        unused_excel = [ep for ep in excel_products if not ep["used"]]
+        for product in unmatched_products:
+            if unused_excel:
+                # Attribuer le premier nom Excel non utilisé
+                fallback = unused_excel.pop(0)
+                logger.info(f"    🔄 Fallback: '{product.name}' → '{fallback['name']}'", facility.facility_id)
+                product.name = fallback["name"]
+                fallback["used"] = True
+            else:
+                logger.warning(f"    ⚠️ Pas de nom Excel disponible pour '{product.name}'", facility.facility_id)
+        
+        # Faire la même chose pour les produits en stock
+        unmatched_stock = []
+        for product in facility.stock_products:
+            api_name = product.name
+            match_name, match_idx = find_match(api_name, excel_products, re)
+            
+            if match_name == "SKIP":
+                logger.debug(f"    ⏭️ Ignoré Stock (eau/autre): '{api_name}'", facility.facility_id)
+                continue
+            elif match_name and match_name != api_name:
+                logger.debug(f"    🔄 Stock: '{api_name}' → '{match_name}'", facility.facility_id)
+                product.name = match_name
+                excel_products[match_idx]["used"] = True
+            elif not match_name:
+                unmatched_stock.append(product)
+        
+        # Fallback pour les produits en stock
+        unused_excel = [ep for ep in excel_products if not ep["used"]]
+        for product in unmatched_stock:
+            if unused_excel:
+                fallback = unused_excel.pop(0)
+                logger.info(f"    🔄 Fallback Stock: '{product.name}' → '{fallback['name']}'", facility.facility_id)
+                product.name = fallback["name"]
+                fallback["used"] = True
+        
+        # Faire la même chose pour les données flowrate
+        unmatched_flowrate = []
+        if facility.flowrate_data:
+            for device_id, device_data in facility.flowrate_data.items():
+                if not isinstance(device_data, dict):
+                    continue
+                data = device_data.get("data", {})
+                results = data.get("results", [])
+                
+                for result in results:
+                    if not isinstance(result, dict):
+                        continue
+                    api_name = result.get("productName", "")
+                    if not api_name:
+                        continue
+                    
+                    match_name, match_idx = find_match(api_name, excel_products, re)
+                    
+                    if match_name == "SKIP":
+                        logger.debug(f"    ⏭️ Ignoré Flowrate (eau/autre): '{api_name}'", facility.facility_id)
+                        continue
+                    elif match_name and match_name != api_name:
+                        logger.debug(f"    🔄 Flowrate: '{api_name}' → '{match_name}'", facility.facility_id)
+                        result["productName"] = match_name
+                        excel_products[match_idx]["used"] = True
+                    elif not match_name:
+                        unmatched_flowrate.append(result)
+        
+        # Fallback pour les données flowrate
+        unused_excel = [ep for ep in excel_products if not ep["used"]]
+        for result in unmatched_flowrate:
+            if unused_excel:
+                fallback = unused_excel.pop(0)
+                logger.info(f"    🔄 Fallback Flowrate: '{result.get('productName', '')}' → '{fallback['name']}'", facility.facility_id)
+                result["productName"] = fallback["name"]
+                fallback["used"] = True
