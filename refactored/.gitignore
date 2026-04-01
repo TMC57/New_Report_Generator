@@ -35,3 +35,7 @@ venv/
 
 # Logs
 *.log
+
+# Configuration et images
+config/configJson.json
+uploads/
