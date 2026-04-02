@@ -1,11 +1,14 @@
 import os
+import shutil
 from fastapi import APIRouter, HTTPException
-from typing import Optional
+from fastapi.responses import FileResponse
+from typing import Optional, List
+from pathlib import Path
 from refactored.services.facility_service import FacilityService
 from refactored.services.config_service import ConfigService
 from refactored.pdf_generator.generator import PDFGenerator
 from refactored.utils.logger import get_logger
-from refactored.config.settings import DATA_CACHE_DIR
+from refactored.config.settings import DATA_CACHE_DIR, REPORTS_DIR
 
 router = APIRouter(prefix="/api/v2", tags=["Reports V2"])
 logger = get_logger("API_Routes")
@@ -249,4 +252,223 @@ def reports_generation_v2(
         logger.error(f"Erreur: {e}")
         import traceback
         traceback.print_exc()
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# ENDPOINTS POUR LA GESTION DES DOSSIERS ET RAPPORTS
+# ============================================================================
+
+@router.get("/folders")
+def list_folders():
+    """
+    Liste tous les dossiers de rapports avec leurs métadonnées
+    """
+    logger.info("📁 Récupération de la liste des dossiers")
+    
+    try:
+        folders = []
+        
+        if not REPORTS_DIR.exists():
+            return {"success": True, "folders": []}
+        
+        for folder_path in sorted(REPORTS_DIR.iterdir(), reverse=True):
+            if folder_path.is_dir():
+                # Compter les fichiers PDF dans le dossier
+                pdf_files = list(folder_path.glob("*.pdf"))
+                
+                # Calculer la taille totale
+                total_size = sum(f.stat().st_size for f in pdf_files)
+                
+                # Date de modification du dossier
+                mtime = folder_path.stat().st_mtime
+                
+                folders.append({
+                    "name": folder_path.name,
+                    "path": str(folder_path),
+                    "reports_count": len(pdf_files),
+                    "total_size": total_size,
+                    "total_size_mb": round(total_size / (1024 * 1024), 2),
+                    "modified_timestamp": mtime
+                })
+        
+        logger.success(f"✅ {len(folders)} dossiers trouvés")
+        return {"success": True, "folders": folders}
+    
+    except Exception as e:
+        logger.error(f"❌ Erreur lors de la récupération des dossiers: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/folders/{folder_name}/reports")
+def list_folder_reports(
+    folder_name: str,
+    search: Optional[str] = None,
+    page: int = 1,
+    per_page: int = 50
+):
+    """
+    Liste les rapports d'un dossier avec pagination et recherche
+    """
+    logger.info(f"📄 Récupération des rapports du dossier: {folder_name}")
+    
+    try:
+        folder_path = REPORTS_DIR / folder_name
+        
+        if not folder_path.exists() or not folder_path.is_dir():
+            raise HTTPException(status_code=404, detail=f"Dossier '{folder_name}' non trouvé")
+        
+        # Récupérer tous les PDFs
+        pdf_files = list(folder_path.glob("*.pdf"))
+        
+        # Filtrer par recherche si fourni
+        if search:
+            search_lower = search.lower()
+            pdf_files = [f for f in pdf_files if search_lower in f.name.lower()]
+        
+        # Trier par nom
+        pdf_files = sorted(pdf_files, key=lambda f: f.name)
+        
+        # Pagination
+        total_count = len(pdf_files)
+        total_pages = (total_count + per_page - 1) // per_page
+        start_idx = (page - 1) * per_page
+        end_idx = start_idx + per_page
+        paginated_files = pdf_files[start_idx:end_idx]
+        
+        # Construire la liste des rapports
+        reports = []
+        for pdf_path in paginated_files:
+            stat = pdf_path.stat()
+            reports.append({
+                "name": pdf_path.name,
+                "path": str(pdf_path),
+                "size": stat.st_size,
+                "size_kb": round(stat.st_size / 1024, 1),
+                "modified_timestamp": stat.st_mtime
+            })
+        
+        logger.success(f"✅ {len(reports)} rapports (page {page}/{total_pages})")
+        return {
+            "success": True,
+            "folder_name": folder_name,
+            "reports": reports,
+            "pagination": {
+                "page": page,
+                "per_page": per_page,
+                "total_count": total_count,
+                "total_pages": total_pages
+            }
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur lors de la récupération des rapports: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/folders/{folder_name}/reports/{report_name}/download")
+def download_report(folder_name: str, report_name: str):
+    """
+    Télécharge un rapport PDF
+    """
+    logger.info(f"⬇️ Téléchargement du rapport: {folder_name}/{report_name}")
+    
+    try:
+        file_path = REPORTS_DIR / folder_name / report_name
+        
+        if not file_path.exists():
+            raise HTTPException(status_code=404, detail=f"Rapport '{report_name}' non trouvé")
+        
+        return FileResponse(
+            path=str(file_path),
+            filename=report_name,
+            media_type="application/pdf"
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur lors du téléchargement: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/folders/{folder_name}/reports/{report_name}/view")
+def view_report(folder_name: str, report_name: str):
+    """
+    Affiche un rapport PDF dans le navigateur
+    """
+    logger.info(f"👁️ Consultation du rapport: {folder_name}/{report_name}")
+    
+    try:
+        file_path = REPORTS_DIR / folder_name / report_name
+        
+        if not file_path.exists():
+            raise HTTPException(status_code=404, detail=f"Rapport '{report_name}' non trouvé")
+        
+        return FileResponse(
+            path=str(file_path),
+            media_type="application/pdf",
+            headers={"Content-Disposition": f"inline; filename={report_name}"}
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur lors de la consultation: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/folders/{folder_name}/reports/{report_name}")
+def delete_report(folder_name: str, report_name: str):
+    """
+    Supprime un rapport PDF
+    """
+    logger.info(f"🗑️ Suppression du rapport: {folder_name}/{report_name}")
+    
+    try:
+        file_path = REPORTS_DIR / folder_name / report_name
+        
+        if not file_path.exists():
+            raise HTTPException(status_code=404, detail=f"Rapport '{report_name}' non trouvé")
+        
+        file_path.unlink()
+        logger.success(f"✅ Rapport supprimé: {report_name}")
+        
+        return {"success": True, "message": f"Rapport '{report_name}' supprimé"}
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur lors de la suppression: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.delete("/folders/{folder_name}")
+def delete_folder(folder_name: str):
+    """
+    Supprime un dossier et tous ses rapports
+    """
+    logger.info(f"🗑️ Suppression du dossier: {folder_name}")
+    
+    try:
+        folder_path = REPORTS_DIR / folder_name
+        
+        if not folder_path.exists():
+            raise HTTPException(status_code=404, detail=f"Dossier '{folder_name}' non trouvé")
+        
+        # Compter les fichiers avant suppression
+        pdf_count = len(list(folder_path.glob("*.pdf")))
+        
+        # Supprimer le dossier et son contenu
+        shutil.rmtree(folder_path)
+        logger.success(f"✅ Dossier supprimé: {folder_name} ({pdf_count} rapports)")
+        
+        return {"success": True, "message": f"Dossier '{folder_name}' supprimé ({pdf_count} rapports)"}
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Erreur lors de la suppression du dossier: {e}")
         raise HTTPException(status_code=500, detail=str(e))
