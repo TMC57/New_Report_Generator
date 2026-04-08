@@ -414,7 +414,7 @@ class GroupPDFGenerator:
             alignment=TA_CENTER
         )
         elements.append(Paragraph(
-            f"PÉRIODE DU {from_date_formatted} au {to_date_formatted}",
+            f"PÉRIODE DU {from_date_formatted} AU {to_date_formatted}",
             subtitle_style
         ))
         elements.append(Spacer(1, 0.5*cm))
