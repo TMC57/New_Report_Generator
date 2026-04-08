@@ -13,11 +13,58 @@ from reportlab.platypus import (
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from PIL import Image as PILImage
 from refactored.utils.logger import get_logger
 from refactored.pdf_generator.consumption_charts import ConsumptionChartGenerator
 from refactored.pdf_generator.generator import get_excel_product_name
 from refactored.services.excel_service import ExcelService
+import unicodedata
+
+logger = get_logger("Group_PDF_Generator")
+
+# Fonction pour normaliser les caractères spéciaux
+def normalize_text(text: str) -> str:
+    """
+    Normalise le texte pour éviter les problèmes d'encodage.
+    Remplace les caractères problématiques par leurs équivalents ASCII.
+    """
+    if not text:
+        return text
+    
+    # Normaliser les caractères Unicode (décomposer puis recomposer)
+    text = unicodedata.normalize('NFKD', text)
+    
+    # Remplacer les caractères spéciaux courants
+    replacements = {
+        'œ': 'oe',
+        'Œ': 'OE',
+        'æ': 'ae',
+        'Æ': 'AE',
+        '€': 'EUR',
+        '°': ' deg',
+        '…': '...',
+        '–': '-',
+        '—': '-',
+        ''': "'",
+        ''': "'",
+        '"': '"',
+        '"': '"',
+        '«': '"',
+        '»': '"',
+    }
+    
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    
+    # Encoder en ASCII en ignorant les caractères non supportés
+    try:
+        text = text.encode('ascii', 'ignore').decode('ascii')
+    except:
+        pass
+    
+    return text
 
 logger = get_logger("Group_PDF_Generator")
 
@@ -367,7 +414,7 @@ class GroupPDFGenerator:
             alignment=TA_CENTER
         )
         elements.append(Paragraph(
-            f"Période du {from_date_formatted} au {to_date_formatted}",
+            f"PÉRIODE DU {from_date_formatted} au {to_date_formatted}",
             subtitle_style
         ))
         elements.append(Spacer(1, 0.5*cm))
@@ -413,8 +460,8 @@ class GroupPDFGenerator:
         
         # Créer le tableau (lignes = produits, colonnes = facilities)
         if facility_names and product_names:
-            # Entête: vide + noms des facilities
-            header_row = ["PRODUITS"] + facility_names
+            # Entête: vide + noms des facilities (normaliser les caractères spéciaux)
+            header_row = ["PRODUITS"] + [normalize_text(name) for name in facility_names]
             
             # Lignes de données
             table_data = [header_row]
@@ -426,10 +473,10 @@ class GroupPDFGenerator:
                     row.append(qty_str)
                 table_data.append(row)
             
-            # Calculer les largeurs de colonnes
+            # Calculer les largeurs de colonnes - optimiser l'espace disponible
             num_cols = len(header_row)
-            first_col_width = 4*cm
-            remaining_width = 22*cm
+            first_col_width = 3.5*cm  # Réduire légèrement la première colonne
+            remaining_width = 22.5*cm  # Augmenter l'espace pour les facilities
             other_col_width = remaining_width / max(num_cols - 1, 1)
             col_widths = [first_col_width] + [other_col_width] * (num_cols - 1)
             
@@ -440,25 +487,28 @@ class GroupPDFGenerator:
                 ('BACKGROUND', (0, 0), (-1, 0), colors.Color(0.85, 0.85, 0.85)),
                 ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
                 ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, 0), 8),
+                ('FONTSIZE', (0, 0), (-1, 0), 7),  # Réduire pour permettre plus de texte
                 ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
                 ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
+                ('WORDWRAP', (0, 0), (-1, 0), 'LTR'),  # Permettre le retour à la ligne
                 # Première colonne (noms produits)
                 ('BACKGROUND', (0, 1), (0, -1), colors.Color(0.95, 0.95, 0.95)),
                 ('FONTNAME', (0, 1), (0, -1), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 1), (0, -1), 8),
+                ('FONTSIZE', (0, 1), (0, -1), 7),
                 ('ALIGN', (0, 1), (0, -1), 'LEFT'),
                 # Données
                 ('FONTNAME', (1, 1), (-1, -1), 'Helvetica'),
-                ('FONTSIZE', (1, 1), (-1, -1), 8),
+                ('FONTSIZE', (1, 1), (-1, -1), 7),
                 ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
                 ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
                 # Bordures
                 ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
                 ('BOX', (0, 0), (-1, -1), 1, colors.black),
-                # Padding
-                ('TOPPADDING', (0, 0), (-1, -1), 4),
-                ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+                # Padding réduit pour optimiser l'espace
+                ('TOPPADDING', (0, 0), (-1, -1), 3),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+                ('LEFTPADDING', (0, 0), (-1, -1), 2),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 2),
             ]))
             elements.append(table)
             elements.append(Spacer(1, 0.5*cm))  # Espace entre tableau et texte explicatif

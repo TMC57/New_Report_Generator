@@ -13,6 +13,10 @@ from typing import List, Dict, Tuple, Optional
 from refactored.utils.product_colors import get_color_service
 import matplotlib.ticker as mticker
 
+# Configuration de matplotlib pour supporter les caractères UTF-8
+plt.rcParams['font.family'] = 'DejaVu Sans'
+plt.rcParams['axes.unicode_minus'] = False
+
 
 class ConsumptionChartGenerator:
     """Générateur de graphiques de consommation"""
@@ -561,6 +565,44 @@ class ConsumptionChartGenerator:
         
         return series, pump_names
     
+    def _normalize_for_display(self, text: str) -> str:
+        """
+        Normalise le texte pour l'affichage dans matplotlib.
+        Remplace les caractères spéciaux qui ne s'affichent pas correctement.
+        """
+        if not text:
+            return text
+        
+        # Remplacer les caractères spéciaux courants
+        replacements = {
+            'œ': 'oe',
+            'Œ': 'OE',
+            'æ': 'ae',
+            'Æ': 'AE',
+            '€': 'EUR',
+            '°': ' deg',
+            '…': '...',
+            '–': '-',
+            '—': '-',
+            ''': "'",
+            ''': "'",
+            '"': '"',
+            '"': '"',
+            '«': '"',
+            '»': '"',
+        }
+        
+        for old, new in replacements.items():
+            text = text.replace(old, new)
+        
+        # Encoder en latin-1 (compatible avec DejaVu Sans) en ignorant les caractères non supportés
+        try:
+            text = text.encode('latin-1', 'ignore').decode('latin-1')
+        except:
+            pass
+        
+        return text
+    
     def _get_base_product_name(self, product_name: str) -> str:
         """
         Extrait le nom de base d'un produit en supprimant le suffixe après '-'.
@@ -684,11 +726,14 @@ class ConsumptionChartGenerator:
         facility_names = []
         for f in aggregated_data:
             name = f.get("facilityName", "")
-            # Extraire un nom court (après le dernier "|" ou les 20 premiers caractères)
+            # Extraire un nom court (après le dernier "|")
             if "|" in name:
                 name = name.split("|")[-1].strip()
-            if len(name) > 20:
-                name = name[:17] + "..."
+            # Augmenter la limite à 40 caractères pour mieux utiliser l'espace
+            if len(name) > 40:
+                name = name[:37] + "..."
+            # Normaliser les caractères spéciaux pour matplotlib
+            name = self._normalize_for_display(name)
             facility_names.append(name.upper())  # MAJUSCULES
         
         ax.set_xticks(x_positions)
@@ -730,7 +775,15 @@ class ConsumptionChartGenerator:
             
             # Texte centré dans le rectangle (MAJUSCULES) - ajuster la taille selon la longueur
             display_name = name.upper()
-            font_size = 7 if len(display_name) > 15 else 8
+            # Taille de police adaptative selon la longueur du texte
+            if len(display_name) > 30:
+                font_size = 6
+            elif len(display_name) > 20:
+                font_size = 6.5
+            elif len(display_name) > 15:
+                font_size = 7
+            else:
+                font_size = 8
             ax.text(
                 idx, box_y + box_height / 2,
                 display_name,
@@ -784,8 +837,9 @@ class ConsumptionChartGenerator:
             facility_name = facility.get("facilityName", "")
             if "|" in facility_name:
                 facility_name = facility_name.split("|")[-1].strip()
-            if len(facility_name) > 20:
-                facility_name = facility_name[:17] + "..."
+            # Augmenter la limite à 40 caractères pour le tableau
+            if len(facility_name) > 40:
+                facility_name = facility_name[:37] + "..."
             
             facility_products = {}
             for product in facility.get("products", []):
