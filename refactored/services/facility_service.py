@@ -420,6 +420,23 @@ class FacilityService:
                     if "SHAMP" in normalized_api or "SHAMPO" in normalized_api or "SHAMPOING" in normalized_api:
                         return excel_prod["name"], idx
                 
+                # Match spécial pour jantes (ex: "Nettoyant jante bmw P" -> "Nettoyant jantes purple")
+                if excel_prod["type"] == "jantes":
+                    if "JANTE" in normalized_api or "JANTES" in normalized_api:
+                        # Vérifier si les mots clés correspondent
+                        api_words = set(normalized_api.split())
+                        excel_words = set(excel_prod["normalized"].split())
+                        
+                        # Si "PURPLE" ou "P" dans API et "PURPLE" dans Excel
+                        if ("PURPLE" in api_words or "P" in api_words) and "PURPLE" in excel_prod["normalized"]:
+                            return excel_prod["name"], idx
+                        # Si "BMW" dans les deux
+                        if "BMW" in api_words and "BMW" in excel_words:
+                            return excel_prod["name"], idx
+                        # Match générique pour jantes si pas d'autres spécificités
+                        if "NETTOYANT" in normalized_api and "NETTOYANT" in excel_prod["normalized"]:
+                            return excel_prod["name"], idx
+                
                 # Match par numéro WNC
                 api_wnc_match = re_module.search(r'WNC\s*(\d+)', normalized_api, re_module.IGNORECASE)
                 excel_wnc_match = re_module.search(r'WNC\s*(\d+)', excel_normalized, re_module.IGNORECASE)

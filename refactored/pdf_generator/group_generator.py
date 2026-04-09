@@ -146,9 +146,19 @@ class GroupPDFGenerator:
         output_folder = self.reports_dir / f"group_reports {from_date} to {to_date}"
         output_folder.mkdir(parents=True, exist_ok=True)
         
-        # Nom du fichier PDF
+        # Récupérer le numéro client (facilityId) d'une des facilities du groupe
+        client_number = "UNKNOWN"
+        facilities = owner_data.get("facilities", [])
+        if facilities and len(facilities) > 0:
+            # Prendre le facilityId de la première facility
+            first_facility = facilities[0]
+            facility_id = first_facility.get("facilityId")
+            if facility_id:
+                client_number = str(facility_id)
+        
+        # Nom du fichier PDF : Rapports de consommation_N°client_Nom du groupe
         safe_owner_name = owner_name.replace("/", "-").replace("\\", "-")
-        pdf_filename = f"Rapport_Groupe_{safe_owner_name}.pdf"
+        pdf_filename = f"Rapports de consommation_{client_number}_{safe_owner_name}.pdf"
         pdf_path = output_folder / pdf_filename
         
         # Créer le document PDF - MÊME FORMAT QUE LES RAPPORTS INDIVIDUELS (paysage)

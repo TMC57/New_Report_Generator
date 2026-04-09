@@ -40,6 +40,9 @@ def get_excel_product_name(api_product_name: str, facility_data: dict) -> str:
     Returns:
         Nom du produit Excel ou le nom API si pas de match
     """
+    from refactored.utils.logger import get_logger
+    logger = get_logger("Product_Matching")
+    
     # Extraire tous les produits Excel de la facility
     excel_products = []
     
@@ -49,33 +52,63 @@ def get_excel_product_name(api_product_name: str, facility_data: dict) -> str:
             key = f"produit_{prod_type}_zone{zone_num}"
             excel_name = facility_data.get(key)
             if excel_name:
-                excel_products.append((prod_type, excel_name))
+                excel_products.append((prod_type, excel_name, key))
     
     # Produits globaux (sans zone)
     for prod_type in ["lavant", "sechant", "jantes", "mousse"]:
         key = f"produit_{prod_type}"
         excel_name = facility_data.get(key)
         if excel_name:
-            excel_products.append((prod_type, excel_name))
+            excel_products.append((prod_type, excel_name, key))
     
     # Normaliser le nom API
     normalized_api = normalize_product_name(api_product_name)
     
+    logger.debug(f"🔍 Matching '{api_product_name}' (normalisé: '{normalized_api}')")
+    logger.debug(f"   Produits Excel disponibles: {len(excel_products)}")
+    
     # Chercher le meilleur match
-    for prod_type, excel_name in excel_products:
+    for prod_type, excel_name, key in excel_products:
         if not excel_name:
             continue
         
         normalized_excel = normalize_product_name(excel_name)
         
+        logger.debug(f"   Comparaison avec {prod_type} ({key}): '{excel_name}' (normalisé: '{normalized_excel}')")
+        
         # Match direct
-        if normalized_api in normalized_excel:
+        if normalized_api in normalized_excel or normalized_excel in normalized_api:
+            logger.info(f"   ✅ Match direct: '{api_product_name}' → '{excel_name}'")
             return excel_name
         
         # Match spécial pour autoséchant
         if prod_type == "sechant":
             if "AUTOSECHANT" in normalized_api or "SECHANT" in normalized_api:
+                logger.info(f"   ✅ Match séchant: '{api_product_name}' → '{excel_name}'")
                 return excel_name
+        
+        # Match spécial pour jantes (ex: "Nettoyant jante bmw P" -> "Nettoyant jantes purple")
+        if prod_type == "jantes":
+            if "JANTE" in normalized_api or "JANTES" in normalized_api:
+                # Vérifier si les mots clés correspondent
+                api_words = set(normalized_api.split())
+                excel_words = set(normalized_excel.split())
+                
+                logger.debug(f"      Mots API: {api_words}")
+                logger.debug(f"      Mots Excel: {excel_words}")
+                
+                # Si "PURPLE" ou "P" dans API et "PURPLE" dans Excel
+                if ("PURPLE" in api_words or "P" in api_words) and "PURPLE" in normalized_excel:
+                    logger.info(f"   ✅ Match jantes PURPLE: '{api_product_name}' → '{excel_name}'")
+                    return excel_name
+                # Si "BMW" dans les deux
+                if "BMW" in api_words and "BMW" in excel_words:
+                    logger.info(f"   ✅ Match jantes BMW: '{api_product_name}' → '{excel_name}'")
+                    return excel_name
+                # Match générique pour jantes si pas d'autres spécificités
+                if "NETTOYANT" in normalized_api and "NETTOYANT" in normalized_excel:
+                    logger.info(f"   ✅ Match jantes générique: '{api_product_name}' → '{excel_name}'")
+                    return excel_name
         
         # Match par numéro WNC
         api_wnc_match = re.search(r'WNC\s*(\d+)', normalized_api, re.IGNORECASE)
@@ -86,11 +119,14 @@ def get_excel_product_name(api_product_name: str, facility_data: dict) -> str:
             if api_wnc_num == excel_wnc_num:
                 # Vérifier aussi UC/ULTRACONCENTRÉ
                 if "UC" in normalized_api and "ULTRACONCENTRE" in normalized_excel:
+                    logger.info(f"   ✅ Match WNC UC: '{api_product_name}' → '{excel_name}'")
                     return excel_name
                 if "UC" not in normalized_api and "ULTRACONCENTRE" not in normalized_excel:
+                    logger.info(f"   ✅ Match WNC: '{api_product_name}' → '{excel_name}'")
                     return excel_name
     
     # Pas de match trouvé, retourner le nom API
+    logger.warning(f"   ⚠️ Aucun match trouvé pour '{api_product_name}', utilisation du nom API")
     return api_product_name
 
 class PDFGenerator:
