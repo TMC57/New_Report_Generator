@@ -102,9 +102,17 @@ class GroupPDFGenerator:
         # Créer un dictionnaire owner -> config pour un accès rapide
         config_by_owner = {cfg.get("owner"): cfg for cfg in group_configs}
         
+        # Blacklist de groupes à ne pas générer
+        BLACKLIST = ["GGE", "STA", "Kermovant Automobiles"]
+        
         # Parcourir tous les owners avec des données
         for owner_data in grouped_quantities.get("owners", []):
             owner_name = owner_data.get("owner")
+            
+            # Ignorer les groupes dans la blacklist
+            if owner_name in BLACKLIST:
+                logger.info(f"⏭️  Groupe '{owner_name}' ignoré (blacklist)")
+                continue
             
             # Récupérer la config de ce owner
             owner_config = config_by_owner.get(owner_name, {})
@@ -146,19 +154,12 @@ class GroupPDFGenerator:
         output_folder = self.reports_dir / f"group_reports {from_date} to {to_date}"
         output_folder.mkdir(parents=True, exist_ok=True)
         
-        # Récupérer le numéro client (facilityId) d'une des facilities du groupe
-        client_number = "UNKNOWN"
-        facilities = owner_data.get("facilities", [])
-        if facilities and len(facilities) > 0:
-            # Prendre le facilityId de la première facility
-            first_facility = facilities[0]
-            facility_id = first_facility.get("facilityId")
-            if facility_id:
-                client_number = str(facility_id)
-        
-        # Nom du fichier PDF : Rapports de consommation_N°client_Nom du groupe
+        # Nom du fichier PDF : Rapports de consommation E-wash_GROUPE Nom du groupe
         safe_owner_name = owner_name.replace("/", "-").replace("\\", "-")
-        pdf_filename = f"Rapports de consommation_{client_number}_{safe_owner_name}.pdf"
+        # Ajouter "GROUPE" au début si ce n'est pas déjà présent
+        if not safe_owner_name.upper().startswith("GROUPE"):
+            safe_owner_name = f"GROUPE {safe_owner_name}"
+        pdf_filename = f"Rapports de consommation E-wash_{safe_owner_name}.pdf"
         pdf_path = output_folder / pdf_filename
         
         # Créer le document PDF - MÊME FORMAT QUE LES RAPPORTS INDIVIDUELS (paysage)

@@ -388,7 +388,15 @@
     "facilities": [
       {
         "facilityId": 39151,
-        "facilityName": "1070446250\tGÉNÉRAL AUTOMOBILE ORVAULT"
+        "facilityName": "1070446250 Général automobile Orvault"
+      },
+      {
+        "facilityId": 43815,
+        "facilityName": "1070194240 Général Automobile Guérande"
+      },
+      {
+        "facilityId": 43818,
+        "facilityName": "1070093697 Général Automobile Sautron"
       }
     ],
     "cover_picture": "/uploads/Général Automobile.jpg",
@@ -485,12 +493,8 @@
     "owner": "GROUPE GENIN",
     "facilities": [
       {
-        "facilityId": 39562,
-        "facilityName": "1070262035 GENIN zone 1"
-      },
-      {
         "facilityId": 39565,
-        "facilityName": "1070262035 GENIN zone 2"
+        "facilityName": "1070262035 GENIN"
       }
     ],
     "cover_picture": "/uploads/Croix rouge.jpg",
@@ -917,8 +921,8 @@
     "owner": "TMH corporation",
     "facilities": [
       {
-        "facilityId": 19035,
-        "facilityName": "ID E-SERVICE"
+        "facilityId": 23276,
+        "facilityName": "GEN AUT"
       }
     ],
     "cover_picture": "/uploads/Croix rouge.jpg",
@@ -1027,10 +1031,6 @@
       {
         "facilityId": 13283,
         "facilityName": "WURTH France VL"
-      },
-      {
-        "facilityId": 23276,
-        "facilityName": "GENERAL AUTOMOBILE"
       },
       {
         "facilityId": 26757,
