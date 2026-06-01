@@ -38,4 +38,5 @@ venv/
 
 # Configuration et images
 config/configJson.json
+config/GroupConfigJson.json
 uploads/
