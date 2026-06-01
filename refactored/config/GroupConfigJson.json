@@ -445,7 +445,7 @@
         "facilityName": "1070541875\tGGE | Rambouillet"
       }
     ],
-    "cover_picture": "/uploads/SAGA GGE.jpg",
+    "cover_picture": "/uploads/Croix rouge.jpg",
     "inventory_monitoring_manager": {
       "full_name": "Lamia Messadia",
       "mail_adresse": "lamia.messadia@wurth.fr",
@@ -1075,7 +1075,7 @@
         "facilityName": "1070563456 Kermorvant automobile"
       }
     ],
-    "cover_picture": ""
+    "cover_picture": "/uploads/Croix rouge.jpg"
   },
   {
     "owner": "STA",
@@ -1085,6 +1085,6 @@
         "facilityName": "1070917624 STA 91"
       }
     ],
-    "cover_picture": ""
+    "cover_picture": "/uploads/Croix rouge.jpg"
   }
 ]
