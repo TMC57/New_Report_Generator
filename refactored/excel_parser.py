@@ -42,6 +42,9 @@ def parse_listing_clients_excel(file_path: str) -> Dict[int, dict]:
     # Lire les en-têtes
     headers = [cell.value for cell in ws[1]]
     
+    # Debug: afficher les colonnes trouvées
+    print(f"[Excel Parser] Colonnes trouvées: {headers[:10]}...")  # Afficher les 10 premières
+    
     # Mapping des données par facility_id (N° client)
     facilities_data = {}
     
@@ -55,8 +58,8 @@ def parse_listing_clients_excel(file_path: str) -> Dict[int, dict]:
             if i < len(row):
                 row_data[header] = row[i]
         
-        # Extraire le facility_id (N° client)
-        facility_id = row_data.get('N° client')
+        # Extraire le facility_id (N° client) - avec fallback pour encodage cassé
+        facility_id = row_data.get('N° client') or row_data.get('N� client')
         
         if facility_id:
             # Convertir en int si possible
@@ -70,10 +73,10 @@ def parse_listing_clients_excel(file_path: str) -> Dict[int, dict]:
                 'client_name': row_data.get('Client (automatique)', ''),
                 'group': row_data.get('Groupe (automatique)', ''),
                 'installation_date': row_data.get('Date installation') or row_data.get('Date installation (automatique)'),
-                'zone_number': row_data.get('N° de zone de lavage') or row_data.get('N� de zone de lavage'),
+                'zone_number': row_data.get('N° de zone de lavage') or row_data.get('N� de zone de lavage') or row_data.get('N° de zone de lavage (automatique)') or row_data.get('N� de zone de lavage (automatique)'),
                 'address': row_data.get('Adresse (automatique)', ''),
                 'router_number': row_data.get('N° de routeur') or row_data.get('N� de routeur') or row_data.get('N° de routeur (automatique)') or row_data.get('N� de routeur (automatique)'),
-                'last_intervention': row_data.get('Date dernière intervention') or row_data.get('Date derni�re intervention'),
+                'last_intervention': row_data.get('Date dernière intervention') or row_data.get('Date derni�re intervention') or row_data.get('Date dernière intervention (automatique)') or row_data.get('Date derni�re intervention (automatique)'),
                 
                 # Zone 1 (principale)
                 'produit_lavant': row_data.get('Produit lavant'),
@@ -165,10 +168,10 @@ def _parse_csv(file_path: str) -> Dict[int, dict]:
                         'client_name': row.get('Client (automatique)', ''),
                         'group': row.get('Groupe (automatique)', ''),
                         'installation_date': row.get('Date installation') or row.get('Date installation (automatique)'),
-                        'zone_number': row.get('N° de zone de lavage') or row.get('N� de zone de lavage'),
+                        'zone_number': row.get('N° de zone de lavage') or row.get('N� de zone de lavage') or row.get('N° de zone de lavage (automatique)') or row.get('N� de zone de lavage (automatique)'),
                         'address': row.get('Adresse (automatique)', ''),
                         'router_number': row.get('N° de routeur') or row.get('N� de routeur') or row.get('N° de routeur (automatique)') or row.get('N� de routeur (automatique)'),
-                        'last_intervention': row.get('Date dernière intervention') or row.get('Date derni�re intervention'),
+                        'last_intervention': row.get('Date dernière intervention') or row.get('Date derni�re intervention') or row.get('Date dernière intervention (automatique)') or row.get('Date derni�re intervention (automatique)'),
                         
                         # Zone 1 (principale)
                         'produit_lavant': row.get('Produit lavant'),
