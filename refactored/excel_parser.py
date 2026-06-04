@@ -69,19 +69,19 @@ def parse_listing_clients_excel(file_path: str) -> Dict[int, dict]:
             facilities_data[facility_id] = {
                 'client_name': row_data.get('Client (automatique)', ''),
                 'group': row_data.get('Groupe (automatique)', ''),
-                'installation_date': row_data.get('Date installation'),
-                'zone_number': row_data.get('N° de zone de lavage'),
+                'installation_date': row_data.get('Date installation') or row_data.get('Date installation (automatique)'),
+                'zone_number': row_data.get('N° de zone de lavage') or row_data.get('N� de zone de lavage'),
                 'address': row_data.get('Adresse (automatique)', ''),
-                'router_number': row_data.get('N° de routeur'),
-                'last_intervention': row_data.get('Date dernière intervention'),
+                'router_number': row_data.get('N° de routeur') or row_data.get('N� de routeur') or row_data.get('N° de routeur (automatique)') or row_data.get('N� de routeur (automatique)'),
+                'last_intervention': row_data.get('Date dernière intervention') or row_data.get('Date derni�re intervention'),
                 
                 # Zone 1 (principale)
                 'produit_lavant': row_data.get('Produit lavant'),
                 'dilution_lavant': row_data.get('Dilution lavant'),
                 'couleur_buse_lavant': row_data.get('Couleur buse lavant'),
-                'produit_sechant': row_data.get('Produit séchant'),
-                'dilution_sechant': row_data.get('Dilution séchant'),
-                'couleur_buse_sechant': row_data.get('Couleur buse séchant'),
+                'produit_sechant': row_data.get('Produit séchant') or row_data.get('Produit s�chant'),
+                'dilution_sechant': row_data.get('Dilution séchant') or row_data.get('Dilution s�chant'),
+                'couleur_buse_sechant': row_data.get('Couleur buse séchant') or row_data.get('Couleur buse s�chant'),
                 'autre_produit_lavant': row_data.get('Autre produit lavant'),
                 'autre_dilution_lavant': row_data.get('Autre dilution lavant'),
                 'autre_couleur_buse_lavant': row_data.get('Autre couleur buse lavant'),
@@ -92,9 +92,9 @@ def parse_listing_clients_excel(file_path: str) -> Dict[int, dict]:
                 'produit_lavant_zone2': row_data.get('Produit lavant Zone 2'),
                 'dilution_lavant_zone2': row_data.get('Dilution lavant Zone 2'),
                 'couleur_buse_lavant_zone2': row_data.get('Couleur buse lavant Zone 2'),
-                'produit_sechant_zone2': row_data.get('Produit séchant Zone 2'),
-                'dilution_sechant_zone2': row_data.get('Dilution séchant Zone 2'),
-                'couleur_buse_sechant_zone2': row_data.get('Couleur buse séchant Zone 2'),
+                'produit_sechant_zone2': row_data.get('Produit séchant Zone 2') or row_data.get('Produit s�chant Zone 2'),
+                'dilution_sechant_zone2': row_data.get('Dilution séchant Zone 2') or row_data.get('Dilution s�chant Zone 2'),
+                'couleur_buse_sechant_zone2': row_data.get('Couleur buse séchant Zone 2') or row_data.get('Couleur buse s�chant Zone 2'),
                 'autre_produit_lavant_zone2': row_data.get('Autre produit lavant Zone 2'),
                 'autre_dilution_lavant_zone2': row_data.get('Autre dilution lavant Zone 2'),
                 'autre_couleur_buse_lavant_zone2': row_data.get('Autre couleur buse lavant Zone 2'),
@@ -103,25 +103,25 @@ def parse_listing_clients_excel(file_path: str) -> Dict[int, dict]:
                 'produit_lavant_zone3': row_data.get('Produit lavant Zone 3'),
                 'dilution_lavant_zone3': row_data.get('Dilution lavant Zone 3'),
                 'couleur_buse_lavant_zone3': row_data.get('Couleur buse lavant Zone 3'),
-                'produit_sechant_zone3': row_data.get('Produit séchant Zone 3'),
-                'dilution_sechant_zone3': row_data.get('Dilution séchant Zone 3'),
-                'couleur_buse_sechant_zone3': row_data.get('Couleur buse séchant Zone 3'),
+                'produit_sechant_zone3': row_data.get('Produit séchant Zone 3') or row_data.get('Produit s�chant Zone 3'),
+                'dilution_sechant_zone3': row_data.get('Dilution séchant Zone 3') or row_data.get('Dilution s�chant Zone 3'),
+                'couleur_buse_sechant_zone3': row_data.get('Couleur buse séchant Zone 3') or row_data.get('Couleur buse s�chant Zone 3'),
                 
                 # Zone 4
                 'produit_lavant_zone4': row_data.get('Produit lavant Zone 4'),
                 'dilution_lavant_zone4': row_data.get('Dilution lavant Zone 4'),
                 'couleur_buse_lavant_zone4': row_data.get('Couleur buse lavant Zone 4'),
-                'produit_sechant_zone4': row_data.get('Produit séchant Zone 4'),
-                'dilution_sechant_zone4': row_data.get('Dilution séchant Zone 4'),
-                'couleur_buse_sechant_zone4': row_data.get('Couleur buse séchant Zone 4'),
+                'produit_sechant_zone4': row_data.get('Produit séchant Zone 4') or row_data.get('Produit s�chant Zone 4'),
+                'dilution_sechant_zone4': row_data.get('Dilution séchant Zone 4') or row_data.get('Dilution s�chant Zone 4'),
+                'couleur_buse_sechant_zone4': row_data.get('Couleur buse séchant Zone 4') or row_data.get('Couleur buse s�chant Zone 4'),
                 
                 # Zone 5
                 'produit_lavant_zone5': row_data.get('Produit lavant Zone 5'),
                 'dilution_lavant_zone5': row_data.get('Dilution lavant Zone 5'),
                 'couleur_buse_lavant_zone5': row_data.get('Couleur buse lavant Zone 5'),
-                'produit_sechant_zone5': row_data.get('Produit séchant Zone 5'),
-                'dilution_sechant_zone5': row_data.get('Dilution séchant Zone 5'),
-                'couleur_buse_sechant_zone5': row_data.get('Couleur buse séchant Zone 5'),
+                'produit_sechant_zone5': row_data.get('Produit séchant Zone 5') or row_data.get('Produit s�chant Zone 5'),
+                'dilution_sechant_zone5': row_data.get('Dilution séchant Zone 5') or row_data.get('Dilution s�chant Zone 5'),
+                'couleur_buse_sechant_zone5': row_data.get('Couleur buse séchant Zone 5') or row_data.get('Couleur buse s�chant Zone 5'),
             }
     
     wb.close()
@@ -164,10 +164,10 @@ def _parse_csv(file_path: str) -> Dict[int, dict]:
                     facilities_data[facility_id] = {
                         'client_name': row.get('Client (automatique)', ''),
                         'group': row.get('Groupe (automatique)', ''),
-                        'installation_date': row.get('Date installation'),
+                        'installation_date': row.get('Date installation') or row.get('Date installation (automatique)'),
                         'zone_number': row.get('N° de zone de lavage') or row.get('N� de zone de lavage'),
                         'address': row.get('Adresse (automatique)', ''),
-                        'router_number': row.get('N° de routeur') or row.get('N� de routeur'),
+                        'router_number': row.get('N° de routeur') or row.get('N� de routeur') or row.get('N° de routeur (automatique)') or row.get('N� de routeur (automatique)'),
                         'last_intervention': row.get('Date dernière intervention') or row.get('Date derni�re intervention'),
                         
                         # Zone 1 (principale)
