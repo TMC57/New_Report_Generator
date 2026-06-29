@@ -12,6 +12,7 @@ from refactored.api.routes import router as reports_router
 from refactored.api.upload_routes import router as upload_router
 from refactored.api.config_routes import router as config_router
 from refactored.api.group_routes import router as group_router
+from refactored.api.alerts_routes import router as alerts_router
 from refactored.auth import verify_odoo_token, get_current_user, require_auth
 
 # Créer l'application FastAPI
@@ -28,6 +29,7 @@ app.include_router(reports_router)
 app.include_router(upload_router)
 app.include_router(config_router)
 app.include_router(group_router)
+app.include_router(alerts_router)
 
 # Chemins des dossiers
 BASE_DIR = Path(__file__).parent.parent
