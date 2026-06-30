@@ -20,5 +20,8 @@ Pillow==10.4.0
 # Excel Processing
 openpyxl==3.1.5
 
+# Scheduler
+apscheduler==3.10.4
+
 # Templates (si nécessaire)
 jinja2==3.1.3

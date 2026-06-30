@@ -14,6 +14,7 @@ from refactored.api.config_routes import router as config_router
 from refactored.api.group_routes import router as group_router
 from refactored.api.alerts_routes import router as alerts_router
 from refactored.auth import verify_odoo_token, get_current_user, require_auth
+from refactored.services.alerts_scheduler import start_scheduler, stop_scheduler, get_scheduler_status
 
 # Créer l'application FastAPI
 app = FastAPI(
@@ -23,6 +24,18 @@ app = FastAPI(
     docs_url="/api/docs",
     redoc_url="/api/redoc"
 )
+
+
+@app.on_event("startup")
+async def startup_event():
+    """Demarre le scheduler des alertes au demarrage de l'application"""
+    start_scheduler()
+
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Arrete le scheduler des alertes a l'arret de l'application"""
+    stop_scheduler()
 
 # Monter tous les routers
 app.include_router(reports_router)

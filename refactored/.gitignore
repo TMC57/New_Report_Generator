@@ -39,6 +39,7 @@ venv/
 # Configuration facilities et groupes (ne pas écraser)
 config/configJson.json
 config/GroupConfigJson.json
+config/alerts_config.json
 
 # Uploads (fichiers uploadés par l'utilisateur)
 uploads/
