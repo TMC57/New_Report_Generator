@@ -153,14 +153,7 @@ def test_email_notification():
             raise HTTPException(status_code=400, detail="Aucun email de notification configure")
         
         # Envoyer un email de test
-        test_alert = [{
-            "facility_id": 0,
-            "facility_name": "Test Facility",
-            "owner": "Test",
-            "days_inactive": 10
-        }]
-        
-        success = email_service.send_alert_email(emails, test_alert, test_alert)
+        success = email_service.send_test_email(emails)
         
         if success:
             return {"message": f"Email de test envoye a {len(emails)} destinataire(s)"}

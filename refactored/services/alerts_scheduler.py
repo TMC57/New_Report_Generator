@@ -59,7 +59,7 @@ def run_daily_check():
             emails = config_service.get_notification_emails()
             if emails:
                 logger.info(f"[SCHEDULER] Envoi d'email a {len(emails)} destinataire(s)")
-                email_service.send_alert_email(emails, new_alerts, current_alerts)
+                email_service.send_alert_email(emails, new_alerts, current_alerts, inactivity_days)
             else:
                 logger.warning("[SCHEDULER] Nouvelles alertes mais aucun email configure")
         
