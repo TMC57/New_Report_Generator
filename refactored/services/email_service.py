@@ -83,10 +83,17 @@ class EmailService:
             msg.attach(MIMEText(html_content, "html", "utf-8"))
             
             # Envoyer l'email
-            with smtplib.SMTP(self.host, self.port) as server:
-                server.starttls()
-                server.login(self.user, self.password)
-                server.sendmail(self.from_email, recipients, msg.as_string())
+            if self.port == 465:
+                # SSL
+                with smtplib.SMTP_SSL(self.host, self.port) as server:
+                    server.login(self.user, self.password)
+                    server.sendmail(self.from_email, recipients, msg.as_string())
+            else:
+                # STARTTLS (port 587)
+                with smtplib.SMTP(self.host, self.port) as server:
+                    server.starttls()
+                    server.login(self.user, self.password)
+                    server.sendmail(self.from_email, recipients, msg.as_string())
             
             logger.success(f"Email d'alerte envoye a {len(recipients)} destinataire(s)")
             return True
@@ -128,10 +135,17 @@ class EmailService:
             msg.attach(MIMEText(html_content, "html", "utf-8"))
             
             # Envoyer l'email
-            with smtplib.SMTP(self.host, self.port) as server:
-                server.starttls()
-                server.login(self.user, self.password)
-                server.sendmail(self.from_email, recipients, msg.as_string())
+            if self.port == 465:
+                # SSL
+                with smtplib.SMTP_SSL(self.host, self.port) as server:
+                    server.login(self.user, self.password)
+                    server.sendmail(self.from_email, recipients, msg.as_string())
+            else:
+                # STARTTLS (port 587)
+                with smtplib.SMTP(self.host, self.port) as server:
+                    server.starttls()
+                    server.login(self.user, self.password)
+                    server.sendmail(self.from_email, recipients, msg.as_string())
             
             logger.success(f"Email de test envoye a {len(recipients)} destinataire(s)")
             return True
