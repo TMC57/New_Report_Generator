@@ -192,20 +192,17 @@ class EmailService:
                 <div style="padding: 25px 20px;">
                     
                     <!-- Logo E-Wash -->
-                    <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="text-align: center; margin-bottom: 25px;">
                         <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 350px; height: auto;">
                     </div>
                     
-                    <!-- Bandeau d'alerte -->
-                    <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff9800; padding: 15px 20px; border-radius: 6px; margin-bottom: 25px;">
-                        <h2 style="margin: 0 0 8px 0; color: #d84315; font-size: 20px; display: flex; align-items: center;">
-                            <span style="font-size: 24px; margin-right: 10px;">⚠️</span>
-                            Absence de données depuis {inactivity_days} jours
-                        </h2>
-                        <p style="margin: 0; color: #5d4037; font-size: 14px;">
-                            {len(new_alerts)} installation(s) n'ont enregistré aucune consommation de produits
-                        </p>
-                    </div>
+                    <!-- Titre d'alerte -->
+                    <h2 style="margin: 0 0 10px 0; color: #d84315; font-size: 20px; text-align: center;">
+                        ⚠️ Absence de données depuis {inactivity_days} jours
+                    </h2>
+                    <p style="margin: 0 0 25px 0; color: #5d4037; font-size: 14px; text-align: center;">
+                        {len(new_alerts)} installation(s) n'ont enregistré aucune consommation de produits
+                    </p>
                     
                     <!-- Tableau des alertes -->
                     <div style="overflow-x: auto;">
@@ -304,19 +301,17 @@ class EmailService:
                     <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 16px;">Exemple d'alerte réelle :</h3>
                     
                     <!-- Logo E-Wash -->
-                    <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="text-align: center; margin-bottom: 25px;">
                         <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 350px; height: auto;">
                     </div>
                     
-                    <!-- Bandeau d'alerte exemple -->
-                    <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff9800; padding: 15px 20px; border-radius: 6px; margin-bottom: 20px;">
-                        <h2 style="margin: 0 0 8px 0; color: #d84315; font-size: 18px;">
-                            ⚠️ Absence de données depuis {days_inactive} jours
-                        </h2>
-                        <p style="margin: 0; color: #5d4037; font-size: 14px;">
-                            1 installation n'a enregistré aucune consommation de produits
-                        </p>
-                    </div>
+                    <!-- Titre d'alerte exemple -->
+                    <h2 style="margin: 0 0 10px 0; color: #d84315; font-size: 18px; text-align: center;">
+                        ⚠️ Absence de données depuis {days_inactive} jours
+                    </h2>
+                    <p style="margin: 0 0 20px 0; color: #5d4037; font-size: 14px; text-align: center;">
+                        1 installation n'a enregistré aucune consommation de produits
+                    </p>
                     
                     <!-- Tableau exemple -->
                     <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
