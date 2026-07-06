@@ -137,10 +137,11 @@ def remove_notification_email(email: str):
 
 @router.post("/test-email")
 def test_email_notification():
-    """Envoie un email de test"""
+    """Envoie un email de test avec la derniere facility en alerte"""
     try:
         config_service = AlertsConfigService()
         email_service = EmailService()
+        monitor_service = ConsumptionMonitorService()
         
         if not email_service.is_configured():
             raise HTTPException(
@@ -152,8 +153,14 @@ def test_email_notification():
         if not emails:
             raise HTTPException(status_code=400, detail="Aucun email de notification configure")
         
+        # Recuperer les alertes actuelles pour utiliser la derniere
+        inactivity_days = config_service.get_inactivity_days()
+        only_configured = config_service.get_only_configured()
+        result = monitor_service.check_all_facilities(inactivity_days, only_configured)
+        current_alerts = result.get("alerts", [])
+        
         # Envoyer un email de test
-        success = email_service.send_test_email(emails)
+        success = email_service.send_test_email(emails, current_alerts[-1:] if current_alerts else None)
         
         if success:
             return {"message": f"Email de test envoye a {len(emails)} destinataire(s)"}

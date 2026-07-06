@@ -61,8 +61,13 @@ class EmailService:
         try:
             # Construire le sujet avec le premier client
             first_alert = new_alerts[0]
+            facility_name = first_alert.get('facility_name', 'Client')
+            # Extraire uniquement le nom sans le numéro au début
+            name_parts = facility_name.split(maxsplit=1)
+            clean_name = name_parts[1] if len(name_parts) > 1 else facility_name
+            
             if len(new_alerts) == 1:
-                subject = f"Absence de donnees_{first_alert.get('facility_id')}_{first_alert.get('facility_name', 'Client')}"
+                subject = f"Absence de donnees_{first_alert.get('facility_id')}_{clean_name}"
             else:
                 subject = f"Absence de donnees - {len(new_alerts)} facilities sans consommation"
             
@@ -90,12 +95,13 @@ class EmailService:
             logger.error(f"Erreur lors de l'envoi de l'email: {e}")
             return False
     
-    def send_test_email(self, recipients: List[str]) -> bool:
+    def send_test_email(self, recipients: List[str], real_alert: List[Dict] = None) -> bool:
         """
         Envoie un email de test aux destinataires
         
         Args:
             recipients: Liste des emails destinataires
+            real_alert: Liste contenant une vraie facility en alerte (optionnel)
             
         Returns:
             True si l'envoi a reussi, False sinon
@@ -110,7 +116,7 @@ class EmailService:
         
         try:
             subject = "[E-Wash] Email de test - Systeme d'alertes"
-            html_content = self._build_test_email_html()
+            html_content = self._build_test_email_html(real_alert)
             
             # Creer le message
             msg = MIMEMultipart("alternative")
@@ -149,19 +155,19 @@ class EmailService:
             
             new_alerts_html += f"""
             <tr style="background-color: #fff3cd;">
-                <td style="padding: 12px; border: 1px solid #e0e0e0; font-weight: 600; color: #2c3e50;">
+                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; font-weight: 600; color: #2c3e50; font-size: 13px; word-wrap: break-word;">
                     {alert.get('facility_id')}
                 </td>
-                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #34495e;">
+                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #34495e; font-size: 13px; word-wrap: break-word;">
                     {alert.get('facility_name')}
                 </td>
-                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #7f8c8d;">
+                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #7f8c8d; font-size: 13px; word-wrap: break-word;">
                     {alert.get('owner', '-')}
                 </td>
-                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #e74c3c; font-weight: bold; text-align: center;">
+                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #e74c3c; font-weight: bold; text-align: center; font-size: 13px;">
                     {first_inactive_date}
                 </td>
-                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #e67e22; font-weight: bold; text-align: center;">
+                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #e67e22; font-weight: bold; text-align: center; font-size: 13px;">
                     {days_inactive} jours
                 </td>
             </tr>
@@ -174,17 +180,17 @@ class EmailService:
             <meta charset="utf-8">
         </head>
         <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9;">
-            <div style="max-width: 700px; margin: 30px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <div style="max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 
                 <!-- Header avec gradient -->
-                <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%); padding: 30px 25px; text-align: center;">
-                    <div style="font-size: 48px; margin-bottom: 10px;">⚠️</div>
-                    <h1 style="margin: 0; color: white; font-size: 26px; font-weight: 600;">Alerte Consommation E-Wash</h1>
-                    <p style="margin: 10px 0 0 0; color: rgba(255,255,255,0.9); font-size: 14px;">Vérification du {now_str}</p>
+                <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%); padding: 25px 20px; text-align: center;">
+                    <div style="font-size: 40px; margin-bottom: 8px;">⚠️</div>
+                    <h1 style="margin: 0; color: white; font-size: 24px; font-weight: 600;">Alerte Consommation E-Wash</h1>
+                    <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 13px;">Vérification du {now_str}</p>
                 </div>
                 
                 <!-- Corps du message -->
-                <div style="padding: 30px 25px;">
+                <div style="padding: 25px 20px;">
                     
                     <!-- Bandeau d'alerte -->
                     <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff9800; padding: 15px 20px; border-radius: 6px; margin-bottom: 25px;">
@@ -198,20 +204,22 @@ class EmailService:
                     </div>
                     
                     <!-- Tableau des alertes -->
-                    <table style="width: 100%; border-collapse: collapse; margin: 20px 0; border-radius: 8px; overflow: hidden;">
-                        <thead>
-                            <tr style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
-                                <th style="padding: 14px 12px; text-align: left; color: white; font-weight: 600; font-size: 13px;">N° Client</th>
-                                <th style="padding: 14px 12px; text-align: left; color: white; font-weight: 600; font-size: 13px;">Facility</th>
-                                <th style="padding: 14px 12px; text-align: left; color: white; font-weight: 600; font-size: 13px;">Groupe</th>
-                                <th style="padding: 14px 12px; text-align: center; color: white; font-weight: 600; font-size: 13px;">1ère Inactivité</th>
-                                <th style="padding: 14px 12px; text-align: center; color: white; font-weight: 600; font-size: 13px;">Durée</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {new_alerts_html}
-                        </tbody>
-                    </table>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; max-width: 100%; border-collapse: collapse; margin: 20px 0; table-layout: fixed;">
+                            <thead>
+                                <tr style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 12%;">N° Client</th>
+                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 35%;">Facility</th>
+                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 23%;">Groupe</th>
+                                    <th style="padding: 12px 8px; text-align: center; color: white; font-weight: 600; font-size: 12px; width: 15%;">1ère Inactivité</th>
+                                    <th style="padding: 12px 8px; text-align: center; color: white; font-weight: 600; font-size: 12px; width: 15%;">Durée</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {new_alerts_html}
+                            </tbody>
+                        </table>
+                    </div>
                     
                     <!-- Statistiques -->
                     <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50; padding: 18px 20px; border-radius: 6px; margin-top: 25px;">
@@ -242,9 +250,27 @@ class EmailService:
         
         return html
     
-    def _build_test_email_html(self) -> str:
+    def _build_test_email_html(self, real_alert: List[Dict] = None) -> str:
         """Construit le contenu HTML de l'email de test"""
-        now_str = datetime.now().strftime("%d/%m/%Y à %H:%M")
+        from datetime import timedelta
+        
+        now = datetime.now()
+        now_str = now.strftime("%d/%m/%Y à %H:%M")
+        
+        # Utiliser une vraie facility si disponible, sinon exemple fictif
+        if real_alert and len(real_alert) > 0:
+            alert = real_alert[0]
+            facility_id = alert.get('facility_id', 12345)
+            facility_name = alert.get('facility_name', 'Client ABC - Site Principal')
+            owner = alert.get('owner', 'Groupe Nord')
+            days_inactive = alert.get('days_inactive', 3)
+            first_inactive_date = (now - timedelta(days=days_inactive)).strftime("%d/%m/%Y")
+        else:
+            facility_id = 12345
+            facility_name = "Client ABC - Site Principal"
+            owner = "Groupe Nord"
+            days_inactive = 3
+            first_inactive_date = "03/07/2026"
         
         html = f"""
         <!DOCTYPE html>
@@ -253,19 +279,19 @@ class EmailService:
             <meta charset="utf-8">
         </head>
         <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9;">
-            <div style="max-width: 700px; margin: 30px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <div style="max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 
                 <!-- Header avec gradient bleu -->
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px 25px; text-align: center;">
-                    <h1 style="margin: 0; color: white; font-size: 26px; font-weight: 600;">Email de Test</h1>
-                    <p style="margin: 10px 0 0 0; color: rgba(255,255,255,0.9); font-size: 14px;">Système d'Alertes E-Wash</p>
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px 20px; text-align: center;">
+                    <h1 style="margin: 0; color: white; font-size: 24px; font-weight: 600;">Email de Test</h1>
+                    <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 13px;">Système d'Alertes E-Wash</p>
                 </div>
                 
                 <!-- Corps du message -->
-                <div style="padding: 30px 25px;">
+                <div style="padding: 25px 20px;">
                     
                     <!-- Message de test simple -->
-                    <p style="margin: 0 0 25px 0; color: #2c3e50; font-size: 15px; line-height: 1.6;">
+                    <p style="margin: 0 0 20px 0; color: #2c3e50; font-size: 15px; line-height: 1.6;">
                         <strong>Ceci est un Email de Test</strong><br>
                         Si vous recevez ce message, cela signifie que le système d'alertes est correctement configuré et fonctionnel.
                     </p>
@@ -284,29 +310,31 @@ class EmailService:
                     </div>
                     
                     <!-- Tableau exemple -->
-                    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-                        <thead>
-                            <tr style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
-                                <th style="padding: 14px 12px; text-align: left; color: white; font-weight: 600; font-size: 13px;">N° Client</th>
-                                <th style="padding: 14px 12px; text-align: left; color: white; font-weight: 600; font-size: 13px;">Facility</th>
-                                <th style="padding: 14px 12px; text-align: left; color: white; font-weight: 600; font-size: 13px;">Groupe</th>
-                                <th style="padding: 14px 12px; text-align: center; color: white; font-weight: 600; font-size: 13px;">1ère Inactivité</th>
-                                <th style="padding: 14px 12px; text-align: center; color: white; font-weight: 600; font-size: 13px;">Durée</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background-color: #fff3cd;">
-                                <td style="padding: 12px; border: 1px solid #e0e0e0; font-weight: 600; color: #2c3e50;">12345</td>
-                                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #34495e;">Client ABC - Site Principal</td>
-                                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #7f8c8d;">Groupe Nord</td>
-                                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #e74c3c; font-weight: bold; text-align: center;">03/07/2026</td>
-                                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #e67e22; font-weight: bold; text-align: center;">3 jours</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; max-width: 100%; border-collapse: collapse; margin: 20px 0; table-layout: fixed;">
+                            <thead>
+                                <tr style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 12%;">N° Client</th>
+                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 35%;">Facility</th>
+                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 23%;">Groupe</th>
+                                    <th style="padding: 12px 8px; text-align: center; color: white; font-weight: 600; font-size: 12px; width: 15%;">1ère Inactivité</th>
+                                    <th style="padding: 12px 8px; text-align: center; color: white; font-weight: 600; font-size: 12px; width: 15%;">Durée</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #fff3cd;">
+                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; font-weight: 600; color: #2c3e50; font-size: 13px; word-wrap: break-word;">{facility_id}</td>
+                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #34495e; font-size: 13px; word-wrap: break-word;">{facility_name}</td>
+                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #7f8c8d; font-size: 13px; word-wrap: break-word;">{owner}</td>
+                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #e74c3c; font-weight: bold; text-align: center; font-size: 13px;">{first_inactive_date}</td>
+                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #e67e22; font-weight: bold; text-align: center; font-size: 13px;">{days_inactive} jours</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     
                     <!-- Statistiques exemple -->
-                    <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50; padding: 18px 20px; border-radius: 6px; margin-top: 25px;">
+                    <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50; padding: 18px 20px; border-radius: 6px; margin-top: 20px;">
                         <p style="margin: 0; color: #2e7d32; font-size: 14px; font-weight: 600;">📊 Statistiques</p>
                         <p style="margin: 5px 0 0 0; color: #1b5e20; font-size: 13px;">
                             Total des alertes actives : <strong style="font-size: 16px;">5</strong> facilities
