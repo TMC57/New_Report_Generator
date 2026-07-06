@@ -257,7 +257,6 @@ class EmailService:
                 
                 <!-- Header avec gradient bleu -->
                 <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px 25px; text-align: center;">
-                    <div style="font-size: 48px; margin-bottom: 10px;">✉️</div>
                     <h1 style="margin: 0; color: white; font-size: 26px; font-weight: 600;">Email de Test</h1>
                     <p style="margin: 10px 0 0 0; color: rgba(255,255,255,0.9); font-size: 14px;">Système d'Alertes E-Wash</p>
                 </div>
@@ -265,60 +264,62 @@ class EmailService:
                 <!-- Corps du message -->
                 <div style="padding: 30px 25px;">
                     
-                    <!-- Message de test -->
-                    <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 4px solid #2196f3; padding: 20px; border-radius: 6px; margin-bottom: 25px; text-align: center;">
-                        <div style="font-size: 64px; margin-bottom: 15px;">✅</div>
-                        <h2 style="margin: 0 0 10px 0; color: #1565c0; font-size: 22px;">
-                            Ceci est un Email de Test
+                    <!-- Message de test simple -->
+                    <p style="margin: 0 0 25px 0; color: #2c3e50; font-size: 15px; line-height: 1.6;">
+                        <strong>Ceci est un Email de Test</strong><br>
+                        Si vous recevez ce message, cela signifie que le système d'alertes est correctement configuré et fonctionnel.
+                    </p>
+                    
+                    <!-- Exemple d'alerte réelle -->
+                    <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 16px;">Exemple d'alerte réelle :</h3>
+                    
+                    <!-- Bandeau d'alerte exemple -->
+                    <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff9800; padding: 15px 20px; border-radius: 6px; margin-bottom: 20px;">
+                        <h2 style="margin: 0 0 8px 0; color: #d84315; font-size: 18px;">
+                            1 Nouvelle Facility Sans Données
                         </h2>
-                        <p style="margin: 0; color: #0d47a1; font-size: 15px; line-height: 1.6;">
-                            Si vous recevez ce message, cela signifie que le système d'alertes<br>
-                            est correctement configuré et fonctionnel.
+                        <p style="margin: 0; color: #5d4037; font-size: 14px;">
+                            L'installation suivante n'a enregistré aucune consommation de produits
                         </p>
                     </div>
                     
-                    <!-- Informations -->
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 6px; border: 1px solid #e0e0e0;">
-                        <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 16px; display: flex; align-items: center;">
-                            <span style="font-size: 20px; margin-right: 8px;">ℹ️</span>
-                            Informations sur le Test
-                        </h3>
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <tr>
-                                <td style="padding: 8px 0; color: #6c757d; font-size: 14px; width: 40%;">📅 Date et heure :</td>
-                                <td style="padding: 8px 0; color: #2c3e50; font-size: 14px; font-weight: 600;">{now_str}</td>
+                    <!-- Tableau exemple -->
+                    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                        <thead>
+                            <tr style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+                                <th style="padding: 14px 12px; text-align: left; color: white; font-weight: 600; font-size: 13px;">N° Client</th>
+                                <th style="padding: 14px 12px; text-align: left; color: white; font-weight: 600; font-size: 13px;">Facility</th>
+                                <th style="padding: 14px 12px; text-align: left; color: white; font-weight: 600; font-size: 13px;">Groupe</th>
+                                <th style="padding: 14px 12px; text-align: center; color: white; font-weight: 600; font-size: 13px;">1ère Inactivité</th>
+                                <th style="padding: 14px 12px; text-align: center; color: white; font-weight: 600; font-size: 13px;">Durée</th>
                             </tr>
-                            <tr>
-                                <td style="padding: 8px 0; color: #6c757d; font-size: 14px;">🔔 Type d'alerte :</td>
-                                <td style="padding: 8px 0; color: #2c3e50; font-size: 14px; font-weight: 600;">Email de Test</td>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #fff3cd;">
+                                <td style="padding: 12px; border: 1px solid #e0e0e0; font-weight: 600; color: #2c3e50;">12345</td>
+                                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #34495e;">Client ABC - Site Principal</td>
+                                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #7f8c8d;">Groupe Nord</td>
+                                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #e74c3c; font-weight: bold; text-align: center;">03/07/2026</td>
+                                <td style="padding: 12px; border: 1px solid #e0e0e0; color: #e67e22; font-weight: bold; text-align: center;">3 jours</td>
                             </tr>
-                            <tr>
-                                <td style="padding: 8px 0; color: #6c757d; font-size: 14px;">⚙️ Système :</td>
-                                <td style="padding: 8px 0; color: #2c3e50; font-size: 14px; font-weight: 600;">TMH Reports - E-Wash Monitoring</td>
-                            </tr>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                     
-                    <!-- Prochaines étapes -->
-                    <div style="margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%); border-radius: 6px; border-left: 4px solid #fbc02d;">
-                        <h3 style="margin: 0 0 12px 0; color: #f57f17; font-size: 16px; display: flex; align-items: center;">
-                            <span style="font-size: 20px; margin-right: 8px;">💡</span>
-                            Prochaines Étapes
-                        </h3>
-                        <ul style="margin: 0; padding-left: 20px; color: #6d4c41; font-size: 14px; line-height: 1.8;">
-                            <li>Le système vérifie automatiquement les consommations chaque jour à 9h00</li>
-                            <li>Vous recevrez un email uniquement si de nouvelles facilities sans données sont détectées</li>
-                            <li>Vous pouvez configurer les paramètres depuis l'interface TMH Reports</li>
-                        </ul>
+                    <!-- Statistiques exemple -->
+                    <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50; padding: 18px 20px; border-radius: 6px; margin-top: 25px;">
+                        <p style="margin: 0; color: #2e7d32; font-size: 14px; font-weight: 600;">📊 Statistiques</p>
+                        <p style="margin: 5px 0 0 0; color: #1b5e20; font-size: 13px;">
+                            Total des alertes actives : <strong style="font-size: 16px;">5</strong> facilities
+                        </p>
                     </div>
                     
                 </div>
                 
                 <!-- Footer -->
-                <div style="background: #f8f9fa; padding: 20px 25px; border-top: 1px solid #e0e0e0; text-align: center;">
+                <div style="background: #f8f9fa; padding: 20px 25px; border-top: 1px solid #e0e0e0;">
                     <p style="margin: 0; color: #6c757d; font-size: 12px; line-height: 1.6;">
-                        <strong>✅ Configuration Réussie</strong><br>
-                        Le système d'alertes E-Wash est opérationnel
+                        <strong>ℹ️ Information :</strong> Cet email a été envoyé automatiquement par le système de monitoring E-Wash.<br>
+                        Pour modifier les paramètres de notification, connectez-vous à l'interface TMH Reports.
                     </p>
                 </div>
                 
