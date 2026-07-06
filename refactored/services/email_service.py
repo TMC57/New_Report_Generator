@@ -193,7 +193,7 @@ class EmailService:
                     
                     <!-- Logo E-Wash -->
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 250px; height: auto;">
+                        <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 350px; height: auto;">
                     </div>
                     
                     <!-- Bandeau d'alerte -->
@@ -305,7 +305,7 @@ class EmailService:
                     
                     <!-- Logo E-Wash -->
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 250px; height: auto;">
+                        <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 350px; height: auto;">
                     </div>
                     
                     <!-- Bandeau d'alerte exemple -->
