@@ -310,28 +310,26 @@ class EmailService:
                     </div>
                     
                     <!-- Tableau exemple -->
-                    <div style="overflow-x: auto;">
-                        <table style="width: 100%; max-width: 100%; border-collapse: collapse; margin: 20px 0; table-layout: fixed;">
-                            <thead>
-                                <tr style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
-                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 12%;">N° Client</th>
-                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 35%;">Facility</th>
-                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 23%;">Groupe</th>
-                                    <th style="padding: 12px 8px; text-align: center; color: white; font-weight: 600; font-size: 12px; width: 15%;">1ère Inactivité</th>
-                                    <th style="padding: 12px 8px; text-align: center; color: white; font-weight: 600; font-size: 12px; width: 15%;">Durée</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="background-color: #fff3cd;">
-                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; font-weight: 600; color: #2c3e50; font-size: 13px; word-wrap: break-word;">{facility_id}</td>
-                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #34495e; font-size: 13px; word-wrap: break-word;">{facility_name}</td>
-                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #7f8c8d; font-size: 13px; word-wrap: break-word;">{owner}</td>
-                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #e74c3c; font-weight: bold; text-align: center; font-size: 13px;">{first_inactive_date}</td>
-                                    <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #e67e22; font-weight: bold; text-align: center; font-size: 13px;">{days_inactive} jours</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                        <thead>
+                            <tr style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+                                <th style="padding: 10px 6px; text-align: left; color: white; font-weight: 600; font-size: 11px;">N° Client</th>
+                                <th style="padding: 10px 6px; text-align: left; color: white; font-weight: 600; font-size: 11px;">Facility</th>
+                                <th style="padding: 10px 6px; text-align: left; color: white; font-weight: 600; font-size: 11px;">Groupe</th>
+                                <th style="padding: 10px 6px; text-align: center; color: white; font-weight: 600; font-size: 11px;">1ère Inactivité</th>
+                                <th style="padding: 10px 6px; text-align: center; color: white; font-weight: 600; font-size: 11px;">Durée</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #fff3cd;">
+                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; font-weight: 600; color: #2c3e50; font-size: 12px;">{facility_id}</td>
+                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; color: #34495e; font-size: 12px;">{facility_name}</td>
+                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; color: #7f8c8d; font-size: 12px;">{owner}</td>
+                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; color: #e74c3c; font-weight: bold; text-align: center; font-size: 12px;">{first_inactive_date}</td>
+                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; color: #e67e22; font-weight: bold; text-align: center; font-size: 12px;">{days_inactive} jours</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     
                     <!-- Statistiques exemple -->
                     <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50; padding: 18px 20px; border-radius: 6px; margin-top: 20px;">
