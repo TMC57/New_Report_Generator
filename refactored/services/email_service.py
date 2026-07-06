@@ -182,9 +182,9 @@ class EmailService:
         <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9;">
             <div style="max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 
-                <!-- Header avec gradient -->
+                <!-- Header avec gradient et logo -->
                 <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%); padding: 25px 20px; text-align: center;">
-                    <div style="font-size: 40px; margin-bottom: 8px;">⚠️</div>
+                    <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/TMH_Logo.png" alt="TMH Logo" style="max-width: 120px; height: auto; margin-bottom: 15px;">
                     <h1 style="margin: 0; color: white; font-size: 24px; font-weight: 600;">Alerte Consommation E-Wash</h1>
                     <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 13px;">Vérification du {now_str}</p>
                 </div>
@@ -195,11 +195,11 @@ class EmailService:
                     <!-- Bandeau d'alerte -->
                     <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff9800; padding: 15px 20px; border-radius: 6px; margin-bottom: 25px;">
                         <h2 style="margin: 0 0 8px 0; color: #d84315; font-size: 20px; display: flex; align-items: center;">
-                            <span style="font-size: 24px; margin-right: 10px;">🚨</span>
-                            {len(new_alerts)} Nouvelle(s) Facility(s) Sans Données
+                            <span style="font-size: 24px; margin-right: 10px;">⚠️</span>
+                            Absence de données depuis {inactivity_days} jours
                         </h2>
                         <p style="margin: 0; color: #5d4037; font-size: 14px;">
-                            Les installations suivantes n'ont enregistré aucune consommation de produits
+                            {len(new_alerts)} installation(s) n'ont enregistré aucune consommation de produits
                         </p>
                     </div>
                     
@@ -281,8 +281,9 @@ class EmailService:
         <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9;">
             <div style="max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 
-                <!-- Header avec gradient bleu -->
+                <!-- Header avec gradient bleu et logo -->
                 <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px 20px; text-align: center;">
+                    <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/TMH_Logo.png" alt="TMH Logo" style="max-width: 120px; height: auto; margin-bottom: 15px;">
                     <h1 style="margin: 0; color: white; font-size: 24px; font-weight: 600;">Email de Test</h1>
                     <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 13px;">Système d'Alertes E-Wash</p>
                 </div>
@@ -302,10 +303,10 @@ class EmailService:
                     <!-- Bandeau d'alerte exemple -->
                     <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff9800; padding: 15px 20px; border-radius: 6px; margin-bottom: 20px;">
                         <h2 style="margin: 0 0 8px 0; color: #d84315; font-size: 18px;">
-                            1 Nouvelle Facility Sans Données
+                            ⚠️ Absence de données depuis {days_inactive} jours
                         </h2>
                         <p style="margin: 0; color: #5d4037; font-size: 14px;">
-                            L'installation suivante n'a enregistré aucune consommation de produits
+                            1 installation n'a enregistré aucune consommation de produits
                         </p>
                     </div>
                     
