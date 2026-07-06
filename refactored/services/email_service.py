@@ -182,15 +182,19 @@ class EmailService:
         <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9;">
             <div style="max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 
-                <!-- Header avec gradient et logo -->
+                <!-- Header avec gradient -->
                 <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%); padding: 25px 20px; text-align: center;">
-                    <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/TMH_Logo.png" alt="TMH Logo" style="max-width: 120px; height: auto; margin-bottom: 15px;">
                     <h1 style="margin: 0; color: white; font-size: 24px; font-weight: 600;">Alerte Consommation E-Wash</h1>
                     <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 13px;">Vérification du {now_str}</p>
                 </div>
                 
                 <!-- Corps du message -->
                 <div style="padding: 25px 20px;">
+                    
+                    <!-- Logo E-Wash -->
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 250px; height: auto;">
+                    </div>
                     
                     <!-- Bandeau d'alerte -->
                     <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff9800; padding: 15px 20px; border-radius: 6px; margin-bottom: 25px;">
@@ -281,9 +285,8 @@ class EmailService:
         <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9;">
             <div style="max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 
-                <!-- Header avec gradient bleu et logo -->
+                <!-- Header avec gradient bleu -->
                 <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px 20px; text-align: center;">
-                    <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/TMH_Logo.png" alt="TMH Logo" style="max-width: 120px; height: auto; margin-bottom: 15px;">
                     <h1 style="margin: 0; color: white; font-size: 24px; font-weight: 600;">Email de Test</h1>
                     <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 13px;">Système d'Alertes E-Wash</p>
                 </div>
@@ -299,6 +302,11 @@ class EmailService:
                     
                     <!-- Exemple d'alerte réelle -->
                     <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 16px;">Exemple d'alerte réelle :</h3>
+                    
+                    <!-- Logo E-Wash -->
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 250px; height: auto;">
+                    </div>
                     
                     <!-- Bandeau d'alerte exemple -->
                     <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%); border-left: 4px solid #ff9800; padding: 15px 20px; border-radius: 6px; margin-bottom: 20px;">
