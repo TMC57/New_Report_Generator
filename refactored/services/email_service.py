@@ -76,8 +76,10 @@ class EmailService:
             # Creer le message
             msg = MIMEMultipart("alternative")
             msg["Subject"] = subject
-            msg["From"] = self.from_email
+            msg["From"] = f"E-Wash Alertes <{self.from_email}>"
             msg["To"] = ", ".join(recipients)
+            msg["Reply-To"] = self.from_email
+            msg["X-Mailer"] = "TMH E-Wash Monitoring System"
             
             # Ajouter le contenu HTML
             msg.attach(MIMEText(html_content, "html", "utf-8"))
@@ -128,8 +130,10 @@ class EmailService:
             # Creer le message
             msg = MIMEMultipart("alternative")
             msg["Subject"] = subject
-            msg["From"] = self.from_email
+            msg["From"] = f"E-Wash Alertes <{self.from_email}>"
             msg["To"] = ", ".join(recipients)
+            msg["Reply-To"] = self.from_email
+            msg["X-Mailer"] = "TMH E-Wash Monitoring System"
             
             # Ajouter le contenu HTML
             msg.attach(MIMEText(html_content, "html", "utf-8"))
