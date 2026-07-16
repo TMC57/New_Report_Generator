@@ -90,7 +90,17 @@ async def get_home(request: Request):
     
     react_index = REACT_BUILD_DIR / "index.html"
     if react_index.exists():
-        return FileResponse(react_index)
+        # Ne jamais mettre index.html en cache : il reference les assets hashes
+        # (index-<hash>.js/css). Sans ca, les navigateurs gardent l'ancienne page
+        # d'entree apres un deploiement et affichent une UI perimee.
+        return FileResponse(
+            react_index,
+            headers={
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+                "Pragma": "no-cache",
+                "Expires": "0",
+            },
+        )
     else:
         return HTMLResponse("""
         <html>
