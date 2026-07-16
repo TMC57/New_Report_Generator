@@ -1,0 +1,12 @@
+{
+  "inactivity_days": 10,
+  "only_configured": true,
+  "schedule_time": "09:00",
+  "notification_emails": [
+    "3.3thomasmoreau@gmail.com"
+  ],
+  "last_check_date": null,
+  "last_alerts": [],
+  "last_email_sent": null,
+  "last_email_recipients": 0
+}

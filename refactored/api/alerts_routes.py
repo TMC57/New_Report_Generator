@@ -47,10 +47,26 @@ def get_inactive_facilities(
             inactivity_days=days,
             only_configured=only_configured
         )
-        
+
+        # Marquer les nouvelles alertes (facilities absentes de la derniere verification)
+        last_alerts = config_service.get_last_alerts()
+        last_facility_ids = {a.get("facility_id") for a in last_alerts}
+        for alert in result.get("alerts", []):
+            alert["is_new"] = alert.get("facility_id") not in last_facility_ids
+
+        # Trier: nouvelles alertes en premier, puis par duree d'inactivite decroissante
+        result["alerts"].sort(key=lambda a: (not a.get("is_new", False), -a.get("days_inactive", 0)))
+
+        # Ajouter les infos de suivi (dernier check / dernier email)
+        full_config = config_service.get_config()
+        result["new_alerts_count"] = sum(1 for a in result.get("alerts", []) if a.get("is_new"))
+        result["last_check_date"] = full_config.get("last_check_date")
+        result["last_email_sent"] = full_config.get("last_email_sent")
+        result["last_email_recipients"] = full_config.get("last_email_recipients", 0)
+
         logger.success(f"Verification terminee: {result['alerts_count']} alertes")
         return result
-        
+
     except Exception as e:
         logger.error(f"Erreur lors de la verification: {e}")
         raise HTTPException(status_code=500, detail=str(e))

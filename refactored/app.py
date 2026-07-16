@@ -4,6 +4,16 @@ Serveur autonome avec tous les endpoints nécessaires
 """
 import os
 from pathlib import Path
+
+# Charger le .env AVANT tout import applicatif (email_service lit les variables SMTP
+# des l'import). encoding utf-8-sig = tolerant a un eventuel BOM. En Docker, les
+# variables sont deja fournies par docker-compose et ne sont pas ecrasees.
+try:
+    from dotenv import load_dotenv
+    load_dotenv(dotenv_path=Path(__file__).parent / ".env", encoding="utf-8-sig")
+except ImportError:
+    pass
+
 from fastapi import FastAPI, UploadFile, File, HTTPException, Request, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse

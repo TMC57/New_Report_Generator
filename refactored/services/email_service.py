@@ -5,6 +5,8 @@ import smtplib
 import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
+from pathlib import Path
 from typing import List, Dict
 from datetime import datetime
 from refactored.utils.logger import get_logger
@@ -17,6 +19,11 @@ SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
 SMTP_USER = os.getenv("SMTP_USER", "")
 SMTP_PASSWORD = os.getenv("SMTP_PASSWORD", "")
 SMTP_FROM = os.getenv("SMTP_FROM", "alerts@e-wash.fr")
+
+# Logo E-Wash : embarque en inline (CID) si le fichier local existe (meilleure
+# delivrabilite), sinon repli sur le lien externe GitHub.
+LOGO_PATH = Path(__file__).parent.parent / "images" / "Logo - Solution de lavage connecté.png"
+LOGO_REMOTE_URL = "https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png"
 
 
 class EmailService:
@@ -32,6 +39,48 @@ class EmailService:
     def is_configured(self) -> bool:
         """Verifie si le service email est configure"""
         return bool(self.user and self.password)
+
+    def _logo_src(self) -> str:
+        """Source du logo a utiliser dans le HTML : CID si embarque, sinon URL externe."""
+        return "cid:logo" if LOGO_PATH.exists() else LOGO_REMOTE_URL
+
+    def _create_message(self, subject: str, recipients: List[str], html_content: str) -> MIMEMultipart:
+        """Construit le message. Si le logo local existe, il est embarque en inline (CID)
+        via un conteneur multipart/related pour ameliorer la delivrabilite."""
+        outer = MIMEMultipart("related")
+        outer["Subject"] = subject
+        outer["From"] = f"E-Wash Alertes <{self.from_email}>"
+        outer["To"] = ", ".join(recipients)
+        outer["Reply-To"] = self.from_email
+        outer["X-Mailer"] = "TMH E-Wash Monitoring System"
+
+        alt = MIMEMultipart("alternative")
+        alt.attach(MIMEText(html_content, "html", "utf-8"))
+        outer.attach(alt)
+
+        if LOGO_PATH.exists():
+            try:
+                with open(LOGO_PATH, "rb") as f:
+                    img = MIMEImage(f.read())
+                img.add_header("Content-ID", "<logo>")
+                img.add_header("Content-Disposition", "inline", filename="logo.png")
+                outer.attach(img)
+            except Exception as e:
+                logger.warning(f"Logo non embarque (repli sur lien externe): {e}")
+
+        return outer
+
+    def _send_message(self, msg: MIMEMultipart, recipients: List[str]) -> None:
+        """Envoie le message via SMTP (SSL sur 465, sinon STARTTLS)."""
+        if self.port == 465:
+            with smtplib.SMTP_SSL(self.host, self.port) as server:
+                server.login(self.user, self.password)
+                server.sendmail(self.from_email, recipients, msg.as_string())
+        else:
+            with smtplib.SMTP(self.host, self.port) as server:
+                server.starttls()
+                server.login(self.user, self.password)
+                server.sendmail(self.from_email, recipients, msg.as_string())
     
     def send_alert_email(self, recipients: List[str], new_alerts: List[Dict], all_alerts: List[Dict], inactivity_days: int = 10) -> bool:
         """
@@ -72,31 +121,11 @@ class EmailService:
                 subject = f"Absence de donnees - {len(new_alerts)} facilities sans consommation"
             
             html_content = self._build_alert_html(new_alerts, all_alerts, inactivity_days)
-            
-            # Creer le message
-            msg = MIMEMultipart("alternative")
-            msg["Subject"] = subject
-            msg["From"] = f"E-Wash Alertes <{self.from_email}>"
-            msg["To"] = ", ".join(recipients)
-            msg["Reply-To"] = self.from_email
-            msg["X-Mailer"] = "TMH E-Wash Monitoring System"
-            
-            # Ajouter le contenu HTML
-            msg.attach(MIMEText(html_content, "html", "utf-8"))
-            
-            # Envoyer l'email
-            if self.port == 465:
-                # SSL
-                with smtplib.SMTP_SSL(self.host, self.port) as server:
-                    server.login(self.user, self.password)
-                    server.sendmail(self.from_email, recipients, msg.as_string())
-            else:
-                # STARTTLS (port 587)
-                with smtplib.SMTP(self.host, self.port) as server:
-                    server.starttls()
-                    server.login(self.user, self.password)
-                    server.sendmail(self.from_email, recipients, msg.as_string())
-            
+
+            # Creer le message (logo embarque en inline si disponible) et l'envoyer
+            msg = self._create_message(subject, recipients, html_content)
+            self._send_message(msg, recipients)
+
             logger.success(f"Email d'alerte envoye a {len(recipients)} destinataire(s)")
             return True
             
@@ -126,31 +155,11 @@ class EmailService:
         try:
             subject = "[E-Wash] Email de test - Systeme d'alertes"
             html_content = self._build_test_email_html(real_alert)
-            
-            # Creer le message
-            msg = MIMEMultipart("alternative")
-            msg["Subject"] = subject
-            msg["From"] = f"E-Wash Alertes <{self.from_email}>"
-            msg["To"] = ", ".join(recipients)
-            msg["Reply-To"] = self.from_email
-            msg["X-Mailer"] = "TMH E-Wash Monitoring System"
-            
-            # Ajouter le contenu HTML
-            msg.attach(MIMEText(html_content, "html", "utf-8"))
-            
-            # Envoyer l'email
-            if self.port == 465:
-                # SSL
-                with smtplib.SMTP_SSL(self.host, self.port) as server:
-                    server.login(self.user, self.password)
-                    server.sendmail(self.from_email, recipients, msg.as_string())
-            else:
-                # STARTTLS (port 587)
-                with smtplib.SMTP(self.host, self.port) as server:
-                    server.starttls()
-                    server.login(self.user, self.password)
-                    server.sendmail(self.from_email, recipients, msg.as_string())
-            
+
+            # Creer le message (logo embarque en inline si disponible) et l'envoyer
+            msg = self._create_message(subject, recipients, html_content)
+            self._send_message(msg, recipients)
+
             logger.success(f"Email de test envoye a {len(recipients)} destinataire(s)")
             return True
             
@@ -172,101 +181,102 @@ class EmailService:
             first_inactive_date = (now - timedelta(days=days_inactive)).strftime("%d/%m/%Y")
             
             new_alerts_html += f"""
-            <tr style="background-color: #fff3cd;">
-                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; font-weight: 600; color: #2c3e50; font-size: 13px; word-wrap: break-word;">
-                    {alert.get('facility_id')}
-                </td>
-                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #34495e; font-size: 13px; word-wrap: break-word;">
-                    {alert.get('facility_name')}
-                </td>
-                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #7f8c8d; font-size: 13px; word-wrap: break-word;">
-                    {alert.get('owner', '-')}
-                </td>
-                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #e74c3c; font-weight: bold; text-align: center; font-size: 13px;">
-                    {first_inactive_date}
-                </td>
-                <td style="padding: 10px 8px; border: 1px solid #e0e0e0; color: #e67e22; font-weight: bold; text-align: center; font-size: 13px;">
-                    {days_inactive} jours
-                </td>
+            <tr>
+                <td style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#2c3e50;font-weight:bold;">{alert.get('facility_id')}</td>
+                <td style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#34495e;">{alert.get('facility_name')}</td>
+                <td style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#7f8c8d;">{alert.get('owner', '-')}</td>
+                <td align="center" style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#c0392b;font-weight:bold;white-space:nowrap;">{first_inactive_date}</td>
+                <td align="center" style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#d35400;font-weight:bold;white-space:nowrap;">{days_inactive} j</td>
             </tr>
             """
         
-        html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-        </head>
-        <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9;">
-            <div style="max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                
-                <!-- Header avec gradient -->
-                <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #c44569 100%); padding: 25px 20px; text-align: center;">
-                    <h1 style="margin: 0; color: white; font-size: 24px; font-weight: 600;">Alerte Consommation E-Wash</h1>
-                    <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 13px;">Vérification du {now_str}</p>
-                </div>
-                
-                <!-- Corps du message -->
-                <div style="padding: 25px 20px;">
-                    
-                    <!-- Logo E-Wash -->
-                    <div style="text-align: center; margin-bottom: 25px;">
-                        <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 350px; height: auto;">
-                    </div>
-                    
-                    <!-- Titre d'alerte -->
-                    <h2 style="margin: 0 0 10px 0; color: #d84315; font-size: 20px; text-align: center;">
-                        ⚠️ Absence de données depuis {inactivity_days} jours
-                    </h2>
-                    <p style="margin: 0 0 25px 0; color: #5d4037; font-size: 14px; text-align: center;">
-                        {len(new_alerts)} installation(s) n'ont enregistré aucune consommation de produits
-                    </p>
-                    
-                    <!-- Tableau des alertes -->
-                    <div style="overflow-x: auto;">
-                        <table style="width: 100%; max-width: 100%; border-collapse: collapse; margin: 20px 0; table-layout: fixed;">
-                            <thead>
-                                <tr style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
-                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 12%;">N° Client</th>
-                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 35%;">Facility</th>
-                                    <th style="padding: 12px 8px; text-align: left; color: white; font-weight: 600; font-size: 12px; width: 23%;">Groupe</th>
-                                    <th style="padding: 12px 8px; text-align: center; color: white; font-weight: 600; font-size: 12px; width: 15%;">1ère Inactivité</th>
-                                    <th style="padding: 12px 8px; text-align: center; color: white; font-weight: 600; font-size: 12px; width: 15%;">Durée</th>
+        html = f"""<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Alerte Consommation E-Wash</title>
+    <!--[if mso]>
+    <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+    <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#f4f6f9;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f6f9;">
+        <tr>
+            <td align="center" style="padding:24px 12px;">
+                <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e6e8ec;border-radius:8px;">
+                    <!-- Header -->
+                    <tr>
+                        <td bgcolor="#2c3e50" style="background-color:#2c3e50;padding:22px 24px;text-align:center;border-radius:8px 8px 0 0;">
+                            <div style="font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:bold;color:#ffffff;">Alerte Consommation E-Wash</div>
+                            <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#c8d0da;padding-top:6px;">Vérification du {now_str}</div>
+                        </td>
+                    </tr>
+                    <!-- Logo -->
+                    <tr>
+                        <td style="padding:28px 24px 6px 24px;text-align:center;">
+                            <img src="{self._logo_src()}" alt="Solution de lavage connecté 2.0" width="240" style="width:240px;max-width:80%;height:auto;display:inline-block;border:0;">
+                        </td>
+                    </tr>
+                    <!-- Bandeau d'alerte -->
+                    <tr>
+                        <td style="padding:10px 24px 0 24px;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#fff8ec;border-left:4px solid #e67e22;">
+                                <tr>
+                                    <td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;">
+                                        <div style="font-size:16px;font-weight:bold;color:#c0392b;">Absence de données depuis {inactivity_days} jours</div>
+                                        <div style="font-size:13px;color:#7f5a3a;padding-top:4px;">{len(new_alerts)} installation(s) sans consommation de produits enregistrée</div>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Tableau des alertes -->
+                    <tr>
+                        <td style="padding:20px 24px 4px 24px;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;border:1px solid #e6e8ec;">
+                                <tr>
+                                    <td bgcolor="#2c3e50" width="14%" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">N° Client</td>
+                                    <td bgcolor="#2c3e50" width="36%" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">Facility</td>
+                                    <td bgcolor="#2c3e50" width="22%" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">Groupe</td>
+                                    <td bgcolor="#2c3e50" width="16%" align="center" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">1ère inactivité</td>
+                                    <td bgcolor="#2c3e50" width="12%" align="center" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">Durée</td>
+                                </tr>
                                 {new_alerts_html}
-                            </tbody>
-                        </table>
-                    </div>
-                    
+                            </table>
+                        </td>
+                    </tr>
                     <!-- Statistiques -->
-                    <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50; padding: 18px 20px; border-radius: 6px; margin-top: 25px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <p style="margin: 0; color: #2e7d32; font-size: 14px; font-weight: 600;">📊 Statistiques</p>
-                                <p style="margin: 5px 0 0 0; color: #1b5e20; font-size: 13px;">
-                                    Total des alertes actives : <strong style="font-size: 18px;">{len(all_alerts)}</strong> facilities
-                                </p>
+                    <tr>
+                        <td style="padding:16px 24px 0 24px;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#eef7f0;border:1px solid #d6ebd9;">
+                                <tr>
+                                    <td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#2e7d32;">
+                                        Total des alertes actives : <span style="font-size:18px;font-weight:bold;color:#1b5e20;">{len(all_alerts)}</span> facilities
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding:20px 24px 24px 24px;">
+                            <div style="border-top:1px solid #e6e8ec;padding-top:16px;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#9aa2ac;">
+                                Cet email a été envoyé automatiquement par le système de monitoring E-Wash.<br>
+                                Pour modifier les paramètres de notification, connectez-vous à l'interface TMH Reports.
                             </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                
-                <!-- Footer -->
-                <div style="background: #f8f9fa; padding: 20px 25px; border-top: 1px solid #e0e0e0;">
-                    <p style="margin: 0; color: #6c757d; font-size: 12px; line-height: 1.6;">
-                        <strong>ℹ️ Information :</strong> Cet email a été envoyé automatiquement par le système de monitoring E-Wash.<br>
-                        Pour modifier les paramètres de notification, connectez-vous à l'interface TMH Reports.
-                    </p>
-                </div>
-                
-            </div>
-        </body>
-        </html>
-        """
-        
+                        </td>
+                    </tr>
+                </table>
+                <!--[if mso]></td></tr></table><![endif]-->
+            </td>
+        </tr>
+    </table>
+</body>
+</html>"""
+
         return html
     
     def _build_test_email_html(self, real_alert: List[Dict] = None) -> str:
@@ -291,89 +301,85 @@ class EmailService:
             days_inactive = 3
             first_inactive_date = "03/07/2026"
         
-        html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-        </head>
-        <body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f9;">
-            <div style="max-width: 700px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                
-                <!-- Header avec gradient bleu -->
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px 20px; text-align: center;">
-                    <h1 style="margin: 0; color: white; font-size: 24px; font-weight: 600;">Email de Test</h1>
-                    <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.9); font-size: 13px;">Système d'Alertes E-Wash</p>
-                </div>
-                
-                <!-- Corps du message -->
-                <div style="padding: 25px 20px;">
-                    
-                    <!-- Message de test simple -->
-                    <p style="margin: 0 0 20px 0; color: #2c3e50; font-size: 15px; line-height: 1.6;">
-                        <strong>Ceci est un Email de Test</strong><br>
-                        Si vous recevez ce message, cela signifie que le système d'alertes est correctement configuré et fonctionnel.
-                    </p>
-                    
-                    <!-- Exemple d'alerte réelle -->
-                    <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 16px;">Exemple d'alerte réelle :</h3>
-                    
-                    <!-- Logo E-Wash -->
-                    <div style="text-align: center; margin-bottom: 25px;">
-                        <img src="https://raw.githubusercontent.com/TMC57/New_Report_Generator/main/refactored/images/Logo%20-%20Solution%20de%20lavage%20connect%C3%A9.png" alt="E-Wash Solution de lavage connecté" style="max-width: 350px; height: auto;">
-                    </div>
-                    
-                    <!-- Titre d'alerte exemple -->
-                    <h2 style="margin: 0 0 10px 0; color: #d84315; font-size: 18px; text-align: center;">
-                        ⚠️ Absence de données depuis {days_inactive} jours
-                    </h2>
-                    <p style="margin: 0 0 20px 0; color: #5d4037; font-size: 14px; text-align: center;">
-                        1 installation n'a enregistré aucune consommation de produits
-                    </p>
-                    
+        html = f"""<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Email de test E-Wash</title>
+    <!--[if mso]>
+    <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+    <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#f4f6f9;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f6f9;">
+        <tr>
+            <td align="center" style="padding:24px 12px;">
+                <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background-color:#ffffff;border:1px solid #e6e8ec;border-radius:8px;">
+                    <!-- Header -->
+                    <tr>
+                        <td bgcolor="#2c3e50" style="background-color:#2c3e50;padding:22px 24px;text-align:center;border-radius:8px 8px 0 0;">
+                            <div style="font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:bold;color:#ffffff;">Email de test</div>
+                            <div style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#c8d0da;padding-top:6px;">Système d'alertes E-Wash</div>
+                        </td>
+                    </tr>
+                    <!-- Logo -->
+                    <tr>
+                        <td style="padding:28px 24px 6px 24px;text-align:center;">
+                            <img src="{self._logo_src()}" alt="Solution de lavage connecté 2.0" width="240" style="width:240px;max-width:80%;height:auto;display:inline-block;border:0;">
+                        </td>
+                    </tr>
+                    <!-- Message de test -->
+                    <tr>
+                        <td style="padding:8px 24px 0 24px;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#eef7f0;border-left:4px solid #4caf50;">
+                                <tr>
+                                    <td style="padding:14px 16px;font-family:Arial,Helvetica,sans-serif;">
+                                        <div style="font-size:15px;font-weight:bold;color:#2e7d32;">Configuration validée</div>
+                                        <div style="font-size:13px;color:#3c6b40;padding-top:4px;">Si vous recevez ce message, le système d'alertes est correctement configuré et fonctionnel. Voici un aperçu d'une alerte réelle :</div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
                     <!-- Tableau exemple -->
-                    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-                        <thead>
-                            <tr style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
-                                <th style="padding: 10px 6px; text-align: left; color: white; font-weight: 600; font-size: 11px;">N° Client</th>
-                                <th style="padding: 10px 6px; text-align: left; color: white; font-weight: 600; font-size: 11px;">Facility</th>
-                                <th style="padding: 10px 6px; text-align: left; color: white; font-weight: 600; font-size: 11px;">Groupe</th>
-                                <th style="padding: 10px 6px; text-align: center; color: white; font-weight: 600; font-size: 11px;">1ère Inactivité</th>
-                                <th style="padding: 10px 6px; text-align: center; color: white; font-weight: 600; font-size: 11px;">Durée</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr style="background-color: #fff3cd;">
-                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; font-weight: 600; color: #2c3e50; font-size: 12px;">{facility_id}</td>
-                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; color: #34495e; font-size: 12px;">{facility_name}</td>
-                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; color: #7f8c8d; font-size: 12px;">{owner}</td>
-                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; color: #e74c3c; font-weight: bold; text-align: center; font-size: 12px;">{first_inactive_date}</td>
-                                <td style="padding: 8px 6px; border: 1px solid #e0e0e0; color: #e67e22; font-weight: bold; text-align: center; font-size: 12px;">{days_inactive} jours</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <!-- Statistiques exemple -->
-                    <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 4px solid #4caf50; padding: 18px 20px; border-radius: 6px; margin-top: 20px;">
-                        <p style="margin: 0; color: #2e7d32; font-size: 14px; font-weight: 600;">📊 Statistiques</p>
-                        <p style="margin: 5px 0 0 0; color: #1b5e20; font-size: 13px;">
-                            Total des alertes actives : <strong style="font-size: 16px;">5</strong> facilities
-                        </p>
-                    </div>
-                    
-                </div>
-                
-                <!-- Footer -->
-                <div style="background: #f8f9fa; padding: 20px 25px; border-top: 1px solid #e0e0e0;">
-                    <p style="margin: 0; color: #6c757d; font-size: 12px; line-height: 1.6;">
-                        <strong>ℹ️ Information :</strong> Cet email a été envoyé automatiquement par le système de monitoring E-Wash.<br>
-                        Pour modifier les paramètres de notification, connectez-vous à l'interface TMH Reports.
-                    </p>
-                </div>
-                
-            </div>
-        </body>
-        </html>
-        """
-        
+                    <tr>
+                        <td style="padding:20px 24px 4px 24px;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;border:1px solid #e6e8ec;">
+                                <tr>
+                                    <td bgcolor="#2c3e50" width="14%" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">N° Client</td>
+                                    <td bgcolor="#2c3e50" width="36%" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">Facility</td>
+                                    <td bgcolor="#2c3e50" width="22%" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">Groupe</td>
+                                    <td bgcolor="#2c3e50" width="16%" align="center" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">1ère inactivité</td>
+                                    <td bgcolor="#2c3e50" width="12%" align="center" style="background-color:#2c3e50;padding:10px;font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:bold;color:#ffffff;text-transform:uppercase;">Durée</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#2c3e50;font-weight:bold;">{facility_id}</td>
+                                    <td style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#34495e;">{facility_name}</td>
+                                    <td style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#7f8c8d;">{owner}</td>
+                                    <td align="center" style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#c0392b;font-weight:bold;white-space:nowrap;">{first_inactive_date}</td>
+                                    <td align="center" style="padding:12px 10px;border-bottom:1px solid #eceef1;font-family:Arial,Helvetica,sans-serif;font-size:13px;color:#d35400;font-weight:bold;white-space:nowrap;">{days_inactive} j</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- Footer -->
+                    <tr>
+                        <td style="padding:20px 24px 24px 24px;">
+                            <div style="border-top:1px solid #e6e8ec;padding-top:16px;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.6;color:#9aa2ac;">
+                                Cet email a été envoyé automatiquement par le système de monitoring E-Wash.<br>
+                                Pour modifier les paramètres de notification, connectez-vous à l'interface TMH Reports.
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if mso]></td></tr></table><![endif]-->
+            </td>
+        </tr>
+    </table>
+</body>
+</html>"""
+
         return html

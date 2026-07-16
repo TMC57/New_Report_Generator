@@ -18,7 +18,9 @@ DEFAULT_CONFIG = {
     "schedule_time": "09:00",
     "notification_emails": [],
     "last_check_date": None,
-    "last_alerts": []
+    "last_alerts": [],
+    "last_email_sent": None,
+    "last_email_recipients": 0
 }
 
 
@@ -132,6 +134,15 @@ class AlertsConfigService:
         config["last_check_date"] = datetime.now().isoformat()
         config["last_alerts"] = alerts
         self._save_config(config)
+        return config
+
+    def mark_email_sent(self, recipients_count: int) -> Dict:
+        """Enregistre la date d'envoi du dernier email d'alerte et le nombre de destinataires"""
+        config = self._load_config()
+        config["last_email_sent"] = datetime.now().isoformat()
+        config["last_email_recipients"] = recipients_count
+        self._save_config(config)
+        logger.info(f"Email d'alerte marque comme envoye a {recipients_count} destinataire(s)")
         return config
     
     def get_last_alerts(self) -> List[Dict]:
