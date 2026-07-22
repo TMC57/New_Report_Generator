@@ -341,19 +341,22 @@ class ConsumptionChartGenerator:
         device_serial: str,
         zone: str,
         from_date: str,
-        to_date: str
+        to_date: str,
+        water_filter: Optional[bool] = None
     ) -> Optional[io.BytesIO]:
         """
         Crée un graphique de débit (flowrate) pour un device
         Basé sur l'ancien scatter.py
-        
+
         Args:
             events_data: Données d'événements de débit depuis l'API
             device_serial: Numéro de série du device
             zone: Nom de la zone
             from_date: Date de début (YYYY-MM-DD)
             to_date: Date de fin (YYYY-MM-DD)
-            
+            water_filter: None = tous les produits, True = eau uniquement,
+                False = tous les produits sauf l'eau
+
         Returns:
             BytesIO contenant l'image PNG du graphique ou None si pas de données
         """
@@ -418,7 +421,22 @@ class ConsumptionChartGenerator:
             # Toujours utiliser les séries filtrées (même si vide)
             series = filtered_series
             pump_names = filtered_pump_names
-        
+
+        # Filtrer eau / autres produits si demandé (même detection que le reste du projet:
+        # nom normalise commencant par "EAU")
+        if water_filter is not None:
+            def is_water(name: str) -> bool:
+                normalized = name.strip().upper().replace(" ", "")
+                import unicodedata
+                normalized = ''.join(
+                    c for c in unicodedata.normalize('NFD', normalized)
+                    if unicodedata.category(c) != 'Mn'
+                )
+                return normalized.startswith("EAU")
+
+            series = {k: v for k, v in series.items() if is_water(k) == water_filter}
+            pump_names = {k: v for k, v in pump_names.items() if is_water(k) == water_filter}
+
         if not series:
             print(f"   ⚠️ Aucun produit pour la zone {zone}, pas de graphique")
             return None

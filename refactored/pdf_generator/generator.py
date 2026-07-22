@@ -1431,53 +1431,49 @@ class PDFGenerator:
         if not all_events["data"]["results"]:
             return elements
         
+        explanation_style = ParagraphStyle(
+            'FlowrateExplanation',
+            fontName='Helvetica',
+            fontSize=8,
+            alignment=TA_LEFT,
+            textColor=colors.black
+        )
+        detailed_explanation = (
+            "LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.<br/>"
+            "LES CONSOMMATIONS SONT EXPRIMÉES EN ML PAR UTILISATION DANS LA JOURNÉE. "
+            "EXEMPLE : UN POINT À 200 ML SIGNIFIE QU'IL A FALLU EN MOYENNE 200 ML POUR LAVER CHAQUE VOITURE DANS LA JOURNÉE"
+        )
+
+        def add_flowrate_page(chart_buf, zone, page_title):
+            elements.append(PageBreak())
+            elements.append(Paragraph(page_title, title_style))
+            elements.append(Spacer(1, 0.3*cm))
+            explanation_text = f"GRAPHIQUE DE DÉBIT POUR LA <b>{zone.upper()}</b>"
+            elements.append(Paragraph(explanation_text, text_style))
+            elements.append(Spacer(1, 0.5*cm))
+            img = Image(chart_buf, width=24*cm, height=12*cm)
+            img.hAlign = 'CENTER'
+            elements.append(img)
+            elements.append(Spacer(1, 0.3*cm))
+            elements.append(Paragraph(detailed_explanation, explanation_style))
+            elements.append(Spacer(1, 0.5*cm))
+
         # Créer une page par zone - le filtrage par produit se fait dans create_flowrate_chart
+        # Dissocier l'eau des autres produits : la consommation d'eau ecrase l'echelle
+        # et masque le debit reel des produits chimiques
         for zone in zones:
-            # Créer le graphique pour cette zone (le filtrage par nom de produit se fait dans create_flowrate_chart)
-            chart_buf = chart_gen.create_flowrate_chart(
-                all_events,
-                "",  # Pas de serial number
-                zone,
-                from_date,
-                to_date
+            products_chart_buf = chart_gen.create_flowrate_chart(
+                all_events, "", zone, from_date, to_date, water_filter=False
             )
-            
-            if chart_buf:
-                # Nouvelle page pour cette zone
-                elements.append(PageBreak())
-                
-                # Titre de la page
-                elements.append(Paragraph("DÉBIT MOYEN JOURNALIER", title_style))
-                elements.append(Spacer(1, 0.3*cm))
-                
-                # Texte explicatif avec ZONE en gras - zone contient déjà "Zone X"
-                # Donc on affiche juste la zone en gras
-                explanation_text = f"GRAPHIQUE DE DÉBIT POUR LA <b>{zone.upper()}</b>"
-                elements.append(Paragraph(explanation_text, text_style))
-                elements.append(Spacer(1, 0.5*cm))
-                
-                # Ajouter le graphique (même taille que les graphiques de consommation)
-                img = Image(chart_buf, width=24*cm, height=12*cm)
-                img.hAlign = 'CENTER'
-                elements.append(img)
-                elements.append(Spacer(1, 0.3*cm))
-                
-                # Texte explicatif détaillé
-                explanation_style = ParagraphStyle(
-                    'FlowrateExplanation',
-                    fontName='Helvetica',
-                    fontSize=8,
-                    alignment=TA_LEFT,
-                    textColor=colors.black
-                )
-                detailed_explanation = (
-                    "LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.<br/>"
-                    "LES CONSOMMATIONS SONT EXPRIMÉES EN ML PAR UTILISATION DANS LA JOURNÉE. "
-                    "EXEMPLE : UN POINT À 200 ML SIGNIFIE QU'IL A FALLU EN MOYENNE 200 ML POUR LAVER CHAQUE VOITURE DANS LA JOURNÉE"
-                )
-                elements.append(Paragraph(detailed_explanation, explanation_style))
-                elements.append(Spacer(1, 0.5*cm))
-        
+            water_chart_buf = chart_gen.create_flowrate_chart(
+                all_events, "", zone, from_date, to_date, water_filter=True
+            )
+
+            if products_chart_buf:
+                add_flowrate_page(products_chart_buf, zone, "DÉBIT MOYEN JOURNALIER")
+            if water_chart_buf:
+                add_flowrate_page(water_chart_buf, zone, "DÉBIT MOYEN JOURNALIER - EAU")
+
         return elements
     
     def _create_consumption_pages(self, facility_data: dict, from_date: str, to_date: str, styles):
