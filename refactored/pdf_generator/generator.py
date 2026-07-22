@@ -1057,9 +1057,17 @@ class PDFGenerator:
                     products_by_name[product_name][key] += qty_l
         
         # Créer les lignes du tableau
+        # Memoriser l'ordre des lignes pour aligner le tableau PRODUITS LIVRES dessus
+        self._monthly_table_order = []
         for product_name, monthly_data in products_by_name.items():
             # Mapper vers le nom Excel
             excel_name = get_excel_product_name(product_name, facility_data)
+            # Extraire le code produit en fin de nom Excel (ex: "... 200L - 08904711")
+            code_match = re.search(r'(\d{6,})\s*$', excel_name)
+            self._monthly_table_order.append({
+                "code": code_match.group(1) if code_match else "",
+                "norm": normalize_product_name(excel_name),
+            })
             # Utiliser Paragraph pour permettre le retour à la ligne
             row = [Paragraph(excel_name.upper(), product_name_style)]
             
@@ -1204,14 +1212,42 @@ class PDFGenerator:
         # Supprimer les produits sans données pour l'année en cours
         products_by_ref = {k: v for k, v in products_by_ref.items() if v["months"]}
         
-        # Convertir en format pour l'affichage: {display_name: {month: qty}}
+        # Convertir en format pour l'affichage: {display_name: {month: qty, "_ref": ref}}
         products_by_month = {}
+        display_refs = {}
         for ref, data in products_by_ref.items():
             products_by_month[data["name"]] = data["months"]
-        
+            display_refs[data["name"]] = ref
+
+        def order_key(display_name: str):
+            """Aligne l'ordre sur le tableau CONSOMMATION GLOBALE MENSUELLE.
+            Matching par code produit (ref Odoo commence par le code Excel),
+            sinon par mots-cles (WNC n°, SECHANT, JANTES/PURPLE, MOUSSE),
+            sinon en fin de tableau par ordre alphabetique."""
+            order = getattr(self, "_monthly_table_order", [])
+            ref = display_refs.get(display_name, "")
+            norm = normalize_product_name(display_name)
+            wnc = re.search(r'WNC(\d+)', norm)
+            for idx, entry in enumerate(order):
+                code = entry.get("code", "")
+                if code and ref and (ref.startswith(code) or code.startswith(ref)):
+                    return (0, idx, display_name)
+            for idx, entry in enumerate(order):
+                enorm = entry.get("norm", "")
+                ewnc = re.search(r'WNC(\d+)', enorm)
+                if wnc and ewnc and wnc.group(1) == ewnc.group(1):
+                    return (0, idx, display_name)
+                if "SECHANT" in norm and "SECHANT" in enorm:
+                    return (0, idx, display_name)
+                if ("JANTE" in norm or "PURPLE" in norm) and ("JANTE" in enorm or "PURPLE" in enorm):
+                    return (0, idx, display_name)
+                if "MOUSSE" in norm and "MOUSSE" in enorm:
+                    return (0, idx, display_name)
+            return (1, 0, display_name)
+
         # Créer les lignes du tableau
         if products_by_month:
-            for product_name in sorted(products_by_month.keys()):
+            for product_name in sorted(products_by_month.keys(), key=order_key):
                 monthly_data = products_by_month[product_name]
                 row = [Paragraph(product_name, product_name_style)]
                 
@@ -1470,14 +1506,46 @@ class PDFGenerator:
         
         zones = facility_data.get("zones", ["GLOBAL"])
         products = facility_data.get("products", [])
-        
+
+        explanation_style = ParagraphStyle(
+            'ChartExplanation',
+            fontName='Helvetica',
+            fontSize=8,
+            alignment=TA_LEFT,
+            textColor=colors.black
+        )
+        legend_text = "LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES. LE GRAPHIQUE VOUS PERMET DE SUIVRE LES PICS D'ACTIVITÉ SUR LE MOIS."
+
+        def is_water_product(name: str) -> bool:
+            """Detecte les produits 'eau' (meme regle que facility_service)"""
+            return normalize_product_name(name).startswith("EAU")
+
+        def add_chart_page(chart_products, zone, section_title):
+            """Ajoute une page titre + graphique multi-produits + legende"""
+            elements.append(PageBreak())
+            elements.append(Paragraph(section_title, title_style))
+            elements.append(Spacer(1, 0.5*cm))
+            elements.append(Paragraph(
+                f"<b>ZONE:</b> {zone.upper()} | <b>PRODUITS:</b> {len(chart_products)} PRODUIT(S)",
+                text_style
+            ))
+            elements.append(Spacer(1, 0.3*cm))
+
+            chart_buffer = chart_gen.create_multi_product_chart(
+                chart_products, zone, from_date, to_date
+            )
+            elements.append(Image(chart_buffer, width=24*cm, height=12*cm))
+            elements.append(Spacer(1, 0.3*cm))
+            elements.append(Paragraph(legend_text, explanation_style))
+            elements.append(Spacer(1, 0.5*cm))
+
         # Grouper par zone : un graphique par zone avec tous les produits
         for zone in zones:
             zone_products = [p for p in products if p.get("zone") == zone or (p.get("zone") is None and zone == "GLOBAL")]
-            
+
             if not zone_products:
                 continue
-            
+
             # Préparer les données pour le graphique multi-produits
             products_data = []
             for product in zone_products:
@@ -1487,49 +1555,24 @@ class PDFGenerator:
                         "name": product.get("name", "PRODUITS INCONNUS"),
                         "daily_data": daily_quantities
                     })
-            
+
             if not products_data:
                 continue
-            
-            # Nouvelle page pour chaque zone pour éviter que le titre soit séparé du graphique
-            elements.append(PageBreak())
-            
-            # Titre de la section
-            elements.append(Paragraph(
-                f"SUIVI DE LA CONSOMMATION QUOTIDIENNE TOTALE PAR PRODUITS",
-                title_style
-            ))
-            elements.append(Spacer(1, 0.5*cm))
-            
-            elements.append(Paragraph(
-                f"<b>ZONE:</b> {zone.upper()} | <b>PRODUITS:</b> {len(products_data)} PRODUIT(S)",
-                text_style
-            ))
-            elements.append(Spacer(1, 0.3*cm))
-            
-            # Créer le graphique avec tous les produits de la zone
-            chart_buffer = chart_gen.create_multi_product_chart(
-                products_data,
-                zone,
-                from_date,
-                to_date
-            )
-            
-            chart_img = Image(chart_buffer, width=24*cm, height=12*cm)
-            elements.append(chart_img)
-            elements.append(Spacer(1, 0.3*cm))
-            
-            # Texte explicatif avec le même style que sous les tableaux
-            explanation_style = ParagraphStyle(
-                'ChartExplanation',
-                fontName='Helvetica',
-                fontSize=8,
-                alignment=TA_LEFT,
-                textColor=colors.black
-            )
-            legend_text = "LES PARTIES GRISÉES CORRESPONDENT AUX WEEK-ENDS ET JOURS FÉRIÉS.<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES. LE GRAPHIQUE VOUS PERMET DE SUIVRE LES PICS D'ACTIVITÉ SUR LE MOIS."
-            
-            elements.append(Paragraph(legend_text, explanation_style))
-            elements.append(Spacer(1, 0.5*cm))
-        
+
+            # Dissocier l'eau des autres produits : la consommation d'eau ecrase
+            # l'echelle et masque la consommation reelle des produits chimiques
+            water_data = [p for p in products_data if is_water_product(p.get("name", ""))]
+            other_data = [p for p in products_data if not is_water_product(p.get("name", ""))]
+
+            if other_data:
+                add_chart_page(
+                    other_data, zone,
+                    "SUIVI DE LA CONSOMMATION QUOTIDIENNE TOTALE PAR PRODUITS"
+                )
+            if water_data:
+                add_chart_page(
+                    water_data, zone,
+                    "SUIVI DE LA CONSOMMATION QUOTIDIENNE D'EAU"
+                )
+
         return elements
