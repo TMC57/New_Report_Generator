@@ -111,12 +111,19 @@ class EmailService:
             # Construire le sujet avec le premier client
             first_alert = new_alerts[0]
             facility_name = first_alert.get('facility_name', 'Client')
-            # Extraire uniquement le nom sans le numéro au début
+            # Le nom de facility commence par le numero client (ex: "1071198653 JEANNIN ...").
+            # Ce numero parle aux clients, contrairement au facility_id interne.
             name_parts = facility_name.split(maxsplit=1)
-            clean_name = name_parts[1] if len(name_parts) > 1 else facility_name
-            
+            if len(name_parts) > 1 and name_parts[0].isdigit():
+                client_number = name_parts[0]
+                clean_name = name_parts[1]
+            else:
+                # Repli sur l'ID interne si le nom ne commence pas par un numero
+                client_number = first_alert.get('facility_id')
+                clean_name = facility_name
+
             if len(new_alerts) == 1:
-                subject = f"Absence de donnees_{first_alert.get('facility_id')}_{clean_name}"
+                subject = f"Absence de donnees_{client_number}_{clean_name}"
             else:
                 subject = f"Absence de donnees - {len(new_alerts)} facilities sans consommation"
             
