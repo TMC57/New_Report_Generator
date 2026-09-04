@@ -232,7 +232,8 @@ async def upload_excel_listing_compat(file: UploadFile = File(...)):
         excel_data_path = excel_listings_dir / "listing_data.json"
         with open(excel_data_path, "w", encoding="utf-8") as f:
             json_data = {str(k): v for k, v in excel_data.items()}
-            json.dump(json_data, f, ensure_ascii=False, indent=2)
+            # default=str : filet de securite pour les types non serialisables (datetime...)
+            json.dump(json_data, f, ensure_ascii=False, indent=2, default=str)
         
         # Sauvegarder les métadonnées
         metadata_path = excel_listings_dir / "metadata.json"

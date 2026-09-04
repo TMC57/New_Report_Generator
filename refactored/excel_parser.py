@@ -53,10 +53,17 @@ def parse_listing_clients_excel(file_path: str) -> Dict[int, dict]:
             continue
             
         # Créer un dictionnaire pour cette ligne
+        # Les cellules Excel typees "date" arrivent en datetime : les convertir en
+        # texte JJ/MM/AAAA (meme format que les anciens fichiers saisis en texte,
+        # et serialisable en JSON)
+        from datetime import datetime as _dt, date as _date
         row_data = {}
         for i, header in enumerate(headers):
             if i < len(row):
-                row_data[header] = row[i]
+                value = row[i]
+                if isinstance(value, (_dt, _date)):
+                    value = value.strftime("%d/%m/%Y")
+                row_data[header] = value
         
         # Extraire le facility_id (N° client) - avec fallback pour encodage cassé
         facility_id = row_data.get('N° client') or row_data.get('N� client')
