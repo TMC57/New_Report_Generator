@@ -8,6 +8,7 @@ from refactored.services.config_service import ConfigService
 from refactored.services.flowrate_service import FlowrateService
 from refactored.services.odoo_service import OdooService
 from refactored.utils.logger import get_logger
+from refactored.utils.product_naming import canonical_product_name, site_has_overrides
 
 logger = get_logger("Facility_Service")
 
@@ -285,7 +286,6 @@ class FacilityService:
                 zones.add(device.zone)
         
         import re
-        from refactored.utils.product_naming import site_has_overrides
         # Detection de zone a partir du nom CM2W (noms d'ORIGINE, avant renommage).
         # - Sites standards : motif strict "Zone N" (comportement historique inchange).
         # - Sites non standards declares (SITE_PRODUCT_NAME_OVERRIDES) : on reconnait
@@ -505,8 +505,12 @@ class FacilityService:
         # Premier passage : mapper les produits avec les règles de matching
         for product in facility.products:
             api_name = product.name
-            match_name, match_idx = find_match(api_name, excel_products, re)
-            
+            # Sites non standards : matcher sur le nom canonique (ex: "Auto sech z2"
+            # -> "Auto-séchant...") pour eviter qu'un produit non reconnu soit repris
+            # a tort par le fallback (ex: renomme en WNC50). Sans effet sinon.
+            lookup_name = canonical_product_name(facility.facility_id, api_name)
+            match_name, match_idx = find_match(lookup_name, excel_products, re)
+
             if match_name == "SKIP":
                 # Produit à ignorer (ex: EAU) - on garde le nom original
                 logger.debug(f"    ⏭️ Ignoré (eau/autre): '{api_name}'", facility.facility_id)
@@ -535,8 +539,9 @@ class FacilityService:
         unmatched_stock = []
         for product in facility.stock_products:
             api_name = product.name
-            match_name, match_idx = find_match(api_name, excel_products, re)
-            
+            lookup_name = canonical_product_name(facility.facility_id, api_name)
+            match_name, match_idx = find_match(lookup_name, excel_products, re)
+
             if match_name == "SKIP":
                 logger.debug(f"    ⏭️ Ignoré Stock (eau/autre): '{api_name}'", facility.facility_id)
                 continue
@@ -571,9 +576,10 @@ class FacilityService:
                     api_name = result.get("productName", "")
                     if not api_name:
                         continue
-                    
-                    match_name, match_idx = find_match(api_name, excel_products, re)
-                    
+
+                    lookup_name = canonical_product_name(facility.facility_id, api_name)
+                    match_name, match_idx = find_match(lookup_name, excel_products, re)
+
                     if match_name == "SKIP":
                         logger.debug(f"    ⏭️ Ignoré Flowrate (eau/autre): '{api_name}'", facility.facility_id)
                         continue
