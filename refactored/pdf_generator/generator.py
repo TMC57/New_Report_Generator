@@ -18,6 +18,7 @@ import io
 import re
 import unicodedata
 from refactored.config.settings import REPORTS_OUTPUT_DIR, REFACTORED_DIR
+from refactored.utils.product_naming import canonical_product_name, merge_products_by_canonical, site_has_overrides
 
 def normalize_product_name(name: str) -> str:
     """Normalise un nom de produit pour le matching"""
@@ -1015,7 +1016,8 @@ class PDFGenerator:
         elements.append(Spacer(1, 0.5*cm))
         
         products = facility_data.get("products", [])
-        
+        facility_id = facility_data.get("facility_id")
+
         # Récupérer les données mensuelles
         # Générer les en-têtes pour l'année en cours uniquement (janvier à décembre)
         end_date = datetime.strptime(to_date, "%Y-%m-%d")
@@ -1038,8 +1040,11 @@ class PDFGenerator:
             product_name_full = product.get("name", "")
             # Extraire le nom sans la zone (retirer " - ZONE X")
             product_name = re.sub(r'\s*-\s*ZONE\s+\d+\s*$', '', product_name_full, flags=re.IGNORECASE).strip()
+            # Nom canonique pour les sites au nommage non standard (regroupe les
+            # alias comme "Auto sech..."). Sans effet sur les autres sites.
+            product_name = canonical_product_name(facility_id, product_name)
             monthly_quantities = product.get("monthly_quantities", [])
-            
+
             if product_name not in products_by_name:
                 products_by_name[product_name] = {}
             
@@ -1461,12 +1466,18 @@ class PDFGenerator:
         # Créer une page par zone - le filtrage par produit se fait dans create_flowrate_chart
         # Dissocier l'eau des autres produits : la consommation d'eau ecrase l'echelle
         # et masque le debit reel des produits chimiques
-        for zone in zones:
+        facility_id = facility_data.get("facility_id")
+        # Le flowrate CM2W de certains sites non standards a des noms de produits
+        # incoherents (produit parfois renomme -> tag de zone perdu). Un decoupage
+        # par zone y ferait disparaitre les produits sans tag. On reste donc en GLOBAL
+        # pour ces sites (les graphiques de CONSOMMATION, eux, restent bien zones).
+        flowrate_zones = ["GLOBAL"] if site_has_overrides(facility_id) else zones
+        for zone in flowrate_zones:
             products_chart_buf = chart_gen.create_flowrate_chart(
-                all_events, "", zone, from_date, to_date, water_filter=False
+                all_events, "", zone, from_date, to_date, water_filter=False, facility_id=facility_id
             )
             water_chart_buf = chart_gen.create_flowrate_chart(
-                all_events, "", zone, from_date, to_date, water_filter=True
+                all_events, "", zone, from_date, to_date, water_filter=True, facility_id=facility_id
             )
 
             if products_chart_buf:
@@ -1502,6 +1513,7 @@ class PDFGenerator:
         
         zones = facility_data.get("zones", ["GLOBAL"])
         products = facility_data.get("products", [])
+        facility_id = facility_data.get("facility_id")
 
         explanation_style = ParagraphStyle(
             'ChartExplanation',
@@ -1554,6 +1566,11 @@ class PDFGenerator:
 
             if not products_data:
                 continue
+
+            # Regrouper les produits au nom canonique identique (sites au nommage
+            # CM2W non standard uniquement : doublons au nom identique, alias
+            # "Auto sech..."). Sans effet sur les autres sites.
+            products_data = merge_products_by_canonical(facility_id, products_data)
 
             # Dissocier l'eau des autres produits : la consommation d'eau ecrase
             # l'echelle et masque la consommation reelle des produits chimiques

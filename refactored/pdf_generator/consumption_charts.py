@@ -11,6 +11,7 @@ import numpy as np
 import io
 from typing import List, Dict, Tuple, Optional
 from refactored.utils.product_colors import get_color_service
+from refactored.utils.product_naming import canonical_product_name, site_has_overrides
 import matplotlib.ticker as mticker
 
 # Configuration de matplotlib pour supporter les caractères UTF-8
@@ -342,7 +343,8 @@ class ConsumptionChartGenerator:
         zone: str,
         from_date: str,
         to_date: str,
-        water_filter: Optional[bool] = None
+        water_filter: Optional[bool] = None,
+        facility_id=None
     ) -> Optional[io.BytesIO]:
         """
         Crée un graphique de débit (flowrate) pour un device
@@ -379,8 +381,8 @@ class ConsumptionChartGenerator:
                 print(f"   📊 {results_count} événements flowrate, produits uniques: {product_names}")
         
         # Extraire les données par pompe
-        series, pump_names = self._extract_flowrate_series(events_data)
-        
+        series, pump_names = self._extract_flowrate_series(events_data, facility_id)
+
         if not series:
             return None
         
@@ -394,12 +396,18 @@ class ConsumptionChartGenerator:
             print(f"🔍 Filtrage flowrate pour zone: {zone} (num={requested_zone_num})")
             print(f"   Produits disponibles: {list(pump_names.values())}")
             
+            # Sites non standards : reconnaitre aussi le nommage abrege "z1/z2".
+            if site_has_overrides(facility_id):
+                prod_zone_re = re.compile(r'\b(?:zone\s*|z)([1-5])\b', re.IGNORECASE)
+            else:
+                prod_zone_re = re.compile(r'Zone\s*(\d+)', re.IGNORECASE)
+
             filtered_series = {}
             filtered_pump_names = {}
             for pump_idx, pts in series.items():
                 prod_name = pump_names.get(pump_idx, "")
                 # Extraire le numéro de zone du nom du produit (ex: "WNC50 - Zone 1" -> "1")
-                product_zone_match = re.search(r'Zone\s*(\d+)', prod_name, re.IGNORECASE)
+                product_zone_match = prod_zone_re.search(prod_name)
                 product_zone_num = product_zone_match.group(1) if product_zone_match else None
                 
                 print(f"   → Produit '{prod_name}' zone_num={product_zone_num} vs requested={requested_zone_num}")
@@ -437,6 +445,20 @@ class ConsumptionChartGenerator:
             series = {k: v for k, v in series.items() if is_water(k) == water_filter}
             pump_names = {k: v for k, v in pump_names.items() if is_water(k) == water_filter}
 
+        # Regrouper les series de meme nom canonique en UNE seule serie (points combines,
+        # tries par date). Sites non standards : les pompes "Auto Sech z1/z2" + le nom
+        # catalogue -> une seule serie "Auto-séchant...". Pour les autres sites, ne
+        # fusionne que d'eventuels doublons au nom strictement identique (sans effet sinon).
+        if series:
+            merged_series = {}
+            for name, pts in series.items():
+                cname = canonical_product_name(facility_id, name)
+                merged_series.setdefault(cname, []).extend(pts)
+            for cname in merged_series:
+                merged_series[cname].sort(key=lambda x: x[0])
+            series = merged_series
+            pump_names = {cname: cname for cname in merged_series}
+
         if not series:
             print(f"   ⚠️ Aucun produit pour la zone {zone}, pas de graphique")
             return None
@@ -463,20 +485,25 @@ class ConsumptionChartGenerator:
         # Tracer chaque produit
         default_colors = color_service.get_default_colors()
         for idx, (product_name, pts) in enumerate(series.items()):
+            # Nom canonique pour l'affichage/couleur (sites non standards : "Auto sech..."
+            # s'affiche comme l'auto-sechant reference). Le filtrage zone/eau a deja eu
+            # lieu sur le nom d'origine. Sans effet sur les autres sites.
+            display_name = canonical_product_name(facility_id, product_name)
+
             # Convertir timestamps en dates
             dates = [datetime.fromtimestamp(ts / 1000.0) for ts, _ in pts]
             # Valeurs en mL (division par 10 comme dans l'ancien code)
             values = [v / 10.0 for _, v in pts]
-            
+
             # Calculer la moyenne
             avg_value = sum(values) / len(values) if values else 0
-            
+
             # Nom du produit en majuscules avec la moyenne
             avg_str = f"{int(avg_value):,} ml".replace(',', ' ')
-            label = f"{product_name.upper()} (MOY: {avg_str})"
-            
+            label = f"{display_name.upper()} (MOY: {avg_str})"
+
             # Obtenir la couleur du produit
-            color = color_service.get_color_for_product(product_name)
+            color = color_service.get_color_for_product(display_name)
             if not color:
                 color = default_colors[idx % len(default_colors)]
             
@@ -528,7 +555,7 @@ class ConsumptionChartGenerator:
         
         return buf
     
-    def _extract_flowrate_series(self, events_data: Dict) -> Tuple[Dict, Dict]:
+    def _extract_flowrate_series(self, events_data: Dict, facility_id=None) -> Tuple[Dict, Dict]:
         """
         Extrait les séries de données par produit depuis les événements
         
@@ -570,7 +597,8 @@ class ConsumptionChartGenerator:
             except Exception:
                 continue
             
-            # Clé = nom du produit (pour regrouper par produit, pas par pompe)
+            # Clé = nom d'ORIGINE du produit (on garde le tag de zone "z1/z2" pour le
+            # filtrage par zone et eau ; la canonicalisation d'affichage se fait plus tard).
             key = name
             series.setdefault(key, []).append((ts, val))
         

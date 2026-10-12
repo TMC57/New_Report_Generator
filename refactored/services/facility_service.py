@@ -285,15 +285,25 @@ class FacilityService:
                 zones.add(device.zone)
         
         import re
+        from refactored.utils.product_naming import site_has_overrides
+        # Detection de zone a partir du nom CM2W (noms d'ORIGINE, avant renommage).
+        # - Sites standards : motif strict "Zone N" (comportement historique inchange).
+        # - Sites non standards declares (SITE_PRODUCT_NAME_OVERRIDES) : on reconnait
+        #   EN PLUS le nommage abrege "z1"/"z2"/... (ex: "Wnc50 z1 car espace").
+        #   Scope pour ne pas modifier le decoupage en zones des autres sites.
+        if site_has_overrides(facility_id):
+            zone_pattern = re.compile(r'\b(?:zone\s*|z)([1-5])\b', re.IGNORECASE)
+        else:
+            zone_pattern = re.compile(r'Zone\s+(\d+)', re.IGNORECASE)
         for product in facility.products:
-            zone_match = re.search(r'Zone\s+(\d+)', product.name, re.IGNORECASE)
+            zone_match = zone_pattern.search(product.name)
             if zone_match:
                 zone_num = zone_match.group(1)
                 zones.add(f"ZONE {zone_num}")
                 product.zone = f"ZONE {zone_num}"
-        
+
         for product in facility.stock_products:
-            zone_match = re.search(r'Zone\s+(\d+)', product.name, re.IGNORECASE)
+            zone_match = zone_pattern.search(product.name)
             if zone_match:
                 zone_num = zone_match.group(1)
                 zones.add(f"ZONE {zone_num}")
