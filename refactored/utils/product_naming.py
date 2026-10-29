@@ -114,6 +114,11 @@ GROUP_CANONICAL_PRODUCTS = [
         "keywords": ["WNC40"],
     },
     {
+        "name": "WNC 50 Nettoyant carrosserie 200L - 08904711",
+        "refs": ["08904711"],
+        "keywords": ["WNC50"],
+    },
+    {
         "name": "AUTO-SÉCHANT ULTRACONCENTRÉ 20L – 0893025020",
         "refs": ["0893025020", "0893025650"],
         "keywords": ["AUTOSECHANT", "AUTOSECH", "SECHANT"],
