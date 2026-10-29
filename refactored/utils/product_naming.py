@@ -9,7 +9,8 @@ données inchangées -> aucun impact sur le reste des rapports.
 """
 import re
 import unicodedata
-from typing import List, Dict
+from typing import List, Dict, Optional
+from difflib import SequenceMatcher
 
 # ---------------------------------------------------------------------------
 # Configuration par site.
@@ -98,3 +99,92 @@ def merge_products_by_canonical(facility_id, products: List[Dict]) -> List[Dict]
         daily = [{"date": d, "qty": q} for d, q in sorted(merged[cname].items())]
         result.append({"name": cname, "daily_data": daily})
     return result
+
+
+# ---------------------------------------------------------------------------
+# Liste canonique des produits pour les RAPPORTS DE GROUPE.
+# Tout produit (meme mal nomme) est rapproche de cette liste et renomme en
+# consequence, pour un regroupement propre dans les graphiques et tableaux.
+# Chaque entree: nom affiche, references produit (prefixes), mots-cles.
+# ---------------------------------------------------------------------------
+GROUP_CANONICAL_PRODUCTS = [
+    {
+        "name": "WNC 40 NETTOYANT CARROSSERIE ULTRACONCENTRÉ 20 L – 089047020",
+        "refs": ["089047020", "08904701"],
+        "keywords": ["WNC40"],
+    },
+    {
+        "name": "AUTO-SÉCHANT ULTRACONCENTRÉ 20L – 0893025020",
+        "refs": ["0893025020", "0893025650"],
+        "keywords": ["AUTOSECHANT", "AUTOSECH", "SECHANT"],
+    },
+    {
+        "name": "NETTOYANT JANTES PURPLE 200 L - 0893477009073",
+        "refs": ["0893477009"],
+        "keywords": ["JANTE", "PURPLE"],
+    },
+    {
+        "name": "EAU",
+        "refs": [],
+        "keywords": ["EAU"],
+        "water": True,
+    },
+]
+
+# Mots indiquant du MATERIEL / SERVICE (pas un produit chimique de la liste).
+# Evite les faux positifs (ex: "Lance auto sechant", "Pistolet nettoyant jante").
+_HARDWARE_WORDS = [
+    "LANCE", "PISTOLET", "TUYAU", "POMPE", "BOITIER", "SUPPORT", "VENTURI",
+    "COUPLEUR", "EMBOUT", "REDUCTEUR", "ENROULEUR", "FLOWMETER", "ROUTEUR",
+    "SAV", "EXPEDITION", "INSTALLATION", "OEUVRE", "SYSTEME", "POIGNEE",
+    "JUMBO", "DIVERS", "TELESCOPIC", "DECONTAMINANT",
+]
+
+_MATCH_THRESHOLD = 35.0
+
+
+def match_group_canonical(raw_name: str) -> Optional[str]:
+    """
+    Rapproche un nom de produit de la liste canonique GROUP_CANONICAL_PRODUCTS
+    (rapports de groupe uniquement).
+
+    Algorithme de plus haute correspondance : reference produit (prefixe commun,
+    poids fort) + mots-cles + similarite textuelle. Le materiel/service est exclu.
+
+    Renvoie le nom canonique, ou None si aucune correspondance suffisante.
+    """
+    if not raw_name:
+        return None
+    norm = _normalize(raw_name)
+
+    # Eau : regle stricte (nom normalise commencant par EAU)
+    if norm.startswith("EAU"):
+        return "EAU"
+
+    # Materiel / service -> jamais un produit chimique de la liste
+    if any(w in norm for w in _HARDWARE_WORDS):
+        return None
+
+    raw_refs = re.findall(r'\d{5,}', raw_name or "")
+    best_name, best_score = None, 0.0
+
+    for product in GROUP_CANONICAL_PRODUCTS:
+        if product.get("water"):
+            continue
+        score = 0.0
+        # Correspondance par reference (prefixe commun entre ref produit et nom)
+        for cref in product["refs"]:
+            if any(rr.startswith(cref) or cref.startswith(rr) for rr in raw_refs):
+                score += 100.0
+                break
+        # Correspondance par mots-cles
+        if any(kw in norm for kw in product["keywords"]):
+            score += 40.0
+        # Similarite textuelle (depart de tie-break, faible poids)
+        score += SequenceMatcher(None, norm, _normalize(product["name"])).ratio() * 10.0
+
+        if score > best_score:
+            best_score, best_name = score, product["name"]
+
+    # Exiger au moins une correspondance ref/mot-cle (la similarite seule < seuil)
+    return best_name if best_score >= _MATCH_THRESHOLD else None

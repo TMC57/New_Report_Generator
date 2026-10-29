@@ -20,6 +20,7 @@ from PIL import Image as PILImage
 from refactored.utils.logger import get_logger
 from refactored.pdf_generator.consumption_charts import ConsumptionChartGenerator
 from refactored.pdf_generator.generator import get_excel_product_name
+from refactored.utils.product_naming import match_group_canonical
 from refactored.services.excel_service import ExcelService
 import unicodedata
 
@@ -676,43 +677,19 @@ class GroupPDFGenerator:
         
         # Fonction pour extraire la référence produit (numéro entre crochets)
         import re
-        def extract_product_ref(name: str) -> str:
-            """Extrait la référence produit (ex: [0893025650073] -> 0893025650073)"""
-            if not name:
-                return ""
-            match = re.search(r'\[(\d+)\]', name)
-            if match:
-                return match.group(1)
-            return ""
-        
-        def clean_product_name(name: str) -> str:
-            """Nettoie le nom du produit pour l'affichage"""
-            if not name:
-                return ""
-            name = name.replace('\n', ' ').replace('\r', ' ')
-            name = re.sub(r'\s+', ' ', name)
-            return name.strip().upper()
-        
-        # Convertir les clés de mois "YYYY-MM" en numéro de mois
-        # Regrouper par RÉFÉRENCE PRODUIT (numéro), garder le premier nom rencontré
-        products_by_ref = {}  # {ref: {"name": first_name, "months": {month_int: qty}}}
-        
+        # Regrouper par PRODUIT CANONIQUE (liste des rapports de groupe) et ne GARDER
+        # QUE les produits chimiques de cette liste (le materiel/service est exclu).
+        # Les variantes d'un meme produit (ecocube/200L, "L"/"litres"...) sont fusionnees.
+        products_by_month = {}  # {nom_canonique: {month_int: qty}}
+
         for product_name, months_data in products_by_month_raw.items():
-            # Extraire la référence produit
-            ref = extract_product_ref(product_name)
-            if not ref:
-                # Si pas de référence, utiliser le nom nettoyé comme clé
-                ref = clean_product_name(product_name)
-            if not ref:
-                continue
-            
-            # Initialiser si nécessaire, garder le premier nom rencontré
-            if ref not in products_by_ref:
-                products_by_ref[ref] = {
-                    "name": clean_product_name(product_name),
-                    "months": {}
-                }
-            
+            canonical = match_group_canonical(product_name)
+            if not canonical:
+                continue  # produit hors liste (materiel, consommable, SAV...) -> exclu
+
+            if canonical not in products_by_month:
+                products_by_month[canonical] = {}
+
             for month_key, qty in months_data.items():
                 try:
                     # month_key est au format "YYYY-MM"
@@ -721,21 +698,13 @@ class GroupPDFGenerator:
                         month_int = int(month_str)
                         # Ne garder que les mois jusqu'à la date de fin du rapport
                         if month_int <= report_end_month:
-                            # Additionner les quantités si le mois existe déjà
-                            if month_int in products_by_ref[ref]["months"]:
-                                products_by_ref[ref]["months"][month_int] += qty
-                            else:
-                                products_by_ref[ref]["months"][month_int] = qty
-                except:
+                            products_by_month[canonical][month_int] = \
+                                products_by_month[canonical].get(month_int, 0) + qty
+                except Exception:
                     continue
-        
+
         # Supprimer les produits sans données pour l'année en cours
-        products_by_ref = {k: v for k, v in products_by_ref.items() if v["months"]}
-        
-        # Convertir en format pour l'affichage: {display_name: {month: qty}}
-        products_by_month = {}
-        for ref, data in products_by_ref.items():
-            products_by_month[data["name"]] = data["months"]
+        products_by_month = {k: v for k, v in products_by_month.items() if v}
         
         # Calculer la hauteur approximative du tableau
         num_products = max(len(products_by_month), 1)

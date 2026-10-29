@@ -11,7 +11,7 @@ import numpy as np
 import io
 from typing import List, Dict, Tuple, Optional
 from refactored.utils.product_colors import get_color_service
-from refactored.utils.product_naming import canonical_product_name, site_has_overrides
+from refactored.utils.product_naming import canonical_product_name, site_has_overrides, match_group_canonical
 import matplotlib.ticker as mticker
 
 # Configuration de matplotlib pour supporter les caractères UTF-8
@@ -697,7 +697,7 @@ class ConsumptionChartGenerator:
             facility_products = {}
             for product in facility.get("products", []):
                 raw_name = product.get("name", "PRODUITS INCONNUS")
-                base_name = self._get_base_product_name(raw_name)
+                base_name = match_group_canonical(raw_name) or self._get_base_product_name(raw_name)
                 raw_qty = product.get("qty", 0) or product.get("total_qty", 0) or 0
                 qty_liters = raw_qty / 10000
                 
@@ -890,7 +890,7 @@ class ConsumptionChartGenerator:
             facility_products = {}
             for product in facility.get("products", []):
                 raw_name = product.get("name", "PRODUITS INCONNUS")
-                base_name = self._get_base_product_name(raw_name)
+                base_name = match_group_canonical(raw_name) or self._get_base_product_name(raw_name)
                 raw_qty = product.get("qty", 0) or product.get("total_qty", 0) or 0
                 qty_liters = raw_qty / 10000
                 
@@ -945,7 +945,7 @@ class ConsumptionChartGenerator:
         for facility in facilities_data:
             for product in facility.get("products", []):
                 raw_name = product.get("name", "PRODUITS INCONNUS")
-                base_name = self._get_base_product_name(raw_name)
+                base_name = match_group_canonical(raw_name) or self._get_base_product_name(raw_name)
                 raw_qty = product.get("qty", 0) or product.get("total_qty", 0) or 0
                 qty_liters = raw_qty / 10000
                 
