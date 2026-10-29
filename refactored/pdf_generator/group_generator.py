@@ -464,6 +464,51 @@ class GroupPDFGenerator:
         legend_text = "CE GRAPHIQUE ET CE TABLEAU PRÉSENTENT LA CONSOMMATION TOTALE PAR PRODUIT POUR CHAQUE SITE DU GROUPE SUR LA PÉRIODE SÉLECTIONNÉE.<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES."
         elements.append(Paragraph(legend_text, explanation_style))
 
+    def _filter_facilities_products(self, facilities_data: List, water: bool) -> List:
+        """Renvoie les facilities avec leurs produits filtres : eau seule (water=True)
+        ou tout sauf l'eau (water=False). L'eau est identifiee via le canonique EAU."""
+        result = []
+        for f in facilities_data:
+            prods = [
+                p for p in f.get("products", [])
+                if (match_group_canonical(p.get("name", "")) == "EAU") == water
+            ]
+            result.append({"facilityName": f.get("facilityName", ""), "products": prods})
+        return result
+
+    def _render_consumption_section(self, elements, owner_name, facilities_data, from_date, to_date, title):
+        """Rend une section 'consommation par site' (graphique + tableau) sous un titre
+        donne, paginee par MAX_SITES_PER_PAGE sites."""
+        styles = getSampleStyleSheet()
+        title_style = ParagraphStyle('ChartTitle', parent=styles['Title'], fontName='Helvetica-Bold', fontSize=14, alignment=TA_CENTER)
+        subtitle_style = ParagraphStyle('ChartSubtitle', parent=styles['Normal'], fontName='Helvetica', fontSize=10, alignment=TA_CENTER)
+        sites_style = ParagraphStyle('ChartSites', parent=styles['Normal'], fontName='Helvetica-Oblique', fontSize=8, alignment=TA_CENTER, textColor=colors.Color(0.3, 0.3, 0.3))
+
+        from_date_formatted = datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+        to_date_formatted = datetime.strptime(to_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+        periode = f"PÉRIODE DU {from_date_formatted} AU {to_date_formatted}"
+
+        paginate = len(facilities_data) > self.MAX_SITES_PER_PAGE
+        chunks = [
+            facilities_data[i:i + self.MAX_SITES_PER_PAGE]
+            for i in range(0, len(facilities_data), self.MAX_SITES_PER_PAGE)
+        ]
+
+        for idx, chunk in enumerate(chunks):
+            elements.append(PageBreak())
+            elements.append(Spacer(1, 0.15*cm if paginate else 0.5*cm))
+            elements.append(Paragraph(title, title_style))
+            elements.append(Spacer(1, 0.2*cm if paginate else 0.3*cm))
+            elements.append(Paragraph(periode, subtitle_style))
+            if paginate:
+                sites_line = " · ".join(
+                    normalize_text(self._short_site_name(f["facilityName"])) for f in chunk
+                )
+                elements.append(Spacer(1, 0.1*cm))
+                elements.append(Paragraph(f"Page {idx + 1}/{len(chunks)} - Sites : {sites_line}", sites_style))
+            elements.append(Spacer(1, 0.4*cm if paginate else 0.5*cm))
+            self._render_facility_consumption_body(elements, chunk, owner_name)
+
     def _add_facility_consumption_chart(
         self,
         elements: List,
@@ -473,37 +518,21 @@ class GroupPDFGenerator:
         to_date: str
     ):
         """
-        Ajoute la page "REPARTITION DES CONSOMMATIONS DE PRODUITS PAR SITE".
-        Axe X = sites, barres groupées par produit + tableau (colonnes = sites).
-        Si le groupe a plus de MAX_SITES_PER_PAGE sites, la page est decoupee en
-        plusieurs pages (4 sites max par page) pour rester lisible.
+        Page "REPARTITION DES CONSOMMATIONS DE PRODUITS PAR SITE".
+        L'eau (bien superieure aux produits) est mise sur une page separee pour ne pas
+        ecraser les produits. Chaque section est paginee par 4 sites max.
         """
         styles = getSampleStyleSheet()
-
-        title_style = ParagraphStyle(
-            'ChartTitle', parent=styles['Title'],
-            fontName='Helvetica-Bold', fontSize=14, alignment=TA_CENTER
-        )
-        subtitle_style = ParagraphStyle(
-            'ChartSubtitle', parent=styles['Normal'],
-            fontName='Helvetica', fontSize=10, alignment=TA_CENTER
-        )
-        sites_style = ParagraphStyle(
-            'ChartSites', parent=styles['Normal'],
-            fontName='Helvetica-Oblique', fontSize=8, alignment=TA_CENTER,
-            textColor=colors.Color(0.3, 0.3, 0.3)
-        )
-
+        title_style = ParagraphStyle('ChartTitleE', parent=styles['Title'], fontName='Helvetica-Bold', fontSize=14, alignment=TA_CENTER)
+        subtitle_style = ParagraphStyle('ChartSubtitleE', parent=styles['Normal'], fontName='Helvetica', fontSize=10, alignment=TA_CENTER)
         from_date_formatted = datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")
         to_date_formatted = datetime.strptime(to_date, "%Y-%m-%d").strftime("%d/%m/%Y")
         periode = f"PÉRIODE DU {from_date_formatted} AU {to_date_formatted}"
 
-        facilities_data = []
-        for facility in owner_data.get("facilities", []):
-            facilities_data.append({
-                "facilityName": facility.get("facilityName", ""),
-                "products": facility.get("products", [])
-            })
+        facilities_data = [
+            {"facilityName": f.get("facilityName", ""), "products": f.get("products", [])}
+            for f in owner_data.get("facilities", [])
+        ]
 
         if not facilities_data:
             elements.append(PageBreak())
@@ -515,34 +544,45 @@ class GroupPDFGenerator:
             elements.append(Paragraph("Aucune donnée de consommation disponible pour ce groupe.", subtitle_style))
             return
 
-        # Decoupage en lots de MAX_SITES_PER_PAGE sites (uniquement si trop de sites)
-        paginate = len(facilities_data) > self.MAX_SITES_PER_PAGE
-        chunks = [
-            facilities_data[i:i + self.MAX_SITES_PER_PAGE]
-            for i in range(0, len(facilities_data), self.MAX_SITES_PER_PAGE)
-        ]
-        logger.info(f"📊 Graphique pour {owner_name}: {len(facilities_data)} sites -> {len(chunks)} page(s)")
+        products_data = self._filter_facilities_products(facilities_data, water=False)
+        water_data = self._filter_facilities_products(facilities_data, water=True)
 
-        for idx, chunk in enumerate(chunks):
-            elements.append(PageBreak())
-            # Titre remonté sur les rapports pagines
-            elements.append(Spacer(1, 0.15*cm if paginate else 0.5*cm))
-            elements.append(Paragraph("REPARTITION DES CONSOMMATIONS DE PRODUITS PAR SITE", title_style))
-            elements.append(Spacer(1, 0.2*cm if paginate else 0.3*cm))
-            elements.append(Paragraph(periode, subtitle_style))
-            if paginate:
-                sites_line = " · ".join(
-                    normalize_text(self._short_site_name(f["facilityName"])) for f in chunk
-                )
-                elements.append(Spacer(1, 0.1*cm))
-                elements.append(Paragraph(
-                    f"Page {idx + 1}/{len(chunks)} - Sites : {sites_line}",
-                    sites_style
-                ))
-            elements.append(Spacer(1, 0.4*cm if paginate else 0.5*cm))
-
-            self._render_facility_consumption_body(elements, chunk, owner_name)
+        if any(f["products"] for f in products_data):
+            self._render_consumption_section(
+                elements, owner_name, products_data, from_date, to_date,
+                "REPARTITION DES CONSOMMATIONS DE PRODUITS PAR SITE"
+            )
+        if any(f["products"] for f in water_data):
+            self._render_consumption_section(
+                elements, owner_name, water_data, from_date, to_date,
+                "REPARTITION DE LA CONSOMMATION D'EAU PAR SITE"
+            )
     
+    def _render_product_total_page(self, elements, owner_name, facilities_data, from_date, to_date, title):
+        """Rend une page 'consommation totale par produit' (une barre par produit)."""
+        styles = getSampleStyleSheet()
+        title_style = ParagraphStyle('ChartTitle2', parent=styles['Title'], fontName='Helvetica-Bold', fontSize=14, alignment=TA_CENTER)
+        subtitle_style = ParagraphStyle('ChartSubtitle2', parent=styles['Normal'], fontName='Helvetica', fontSize=10, alignment=TA_CENTER)
+
+        from_date_formatted = datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+        to_date_formatted = datetime.strptime(to_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+
+        elements.append(PageBreak())
+        elements.append(Spacer(1, 0.5*cm))
+        elements.append(Paragraph(title, title_style))
+        elements.append(Spacer(1, 0.3*cm))
+        elements.append(Paragraph(f"PÉRIODE DU {from_date_formatted} AU {to_date_formatted}", subtitle_style))
+        elements.append(Spacer(1, 2*cm))
+
+        chart_gen = ConsumptionChartGenerator()
+        chart_buffer = chart_gen.create_group_product_total_chart(facilities_data, owner_name)
+        elements.append(Image(chart_buffer, width=26*cm, height=10*cm))
+        elements.append(Spacer(1, 0.5*cm))
+
+        explanation_style = ParagraphStyle('ChartExplanation2', fontName='Helvetica', fontSize=8, alignment=TA_LEFT, textColor=colors.black)
+        legend_text = "CE GRAPHIQUE PRÉSENTE LA CONSOMMATION TOTALE PAR PRODUIT POUR L'ENSEMBLE DES SITES DU GROUPE SUR LA PÉRIODE SÉLECTIONNÉE.<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES."
+        elements.append(Paragraph(legend_text, explanation_style))
+
     def _add_product_total_chart(
         self,
         elements: List,
@@ -552,92 +592,36 @@ class GroupPDFGenerator:
         to_date: str
     ):
         """
-        Ajoute une page avec le graphique de consommation totale par produit
-        Axe X = produits, une barre par produit avec le total pour tout le owner
+        Page "SUIVI DE LA CONSOMMATION TOTALE PAR PRODUIT".
+        L'eau est mise sur une page separee (sinon elle ecrase les produits).
         """
         styles = getSampleStyleSheet()
-        
-        title_style = ParagraphStyle(
-            'ChartTitle2',
-            parent=styles['Title'],
-            fontName='Helvetica-Bold',
-            fontSize=14,
-            alignment=TA_CENTER
-        )
-        
-        # Nouvelle page
-        elements.append(PageBreak())
-        
-        # Titre en haut de page (pas d'espace avant)
-        elements.append(Spacer(1, 0.5*cm))
-        
-        # Titre
-        elements.append(Paragraph(
-            "SUIVI DE LA CONSOMMATION TOTALE PAR PRODUIT",
-            title_style
-        ))
-        elements.append(Spacer(1, 0.3*cm))
-        
-        # Sous-titre avec période
-        from_date_formatted = datetime.strptime(from_date, "%Y-%m-%d").strftime("%d/%m/%Y")
-        to_date_formatted = datetime.strptime(to_date, "%Y-%m-%d").strftime("%d/%m/%Y")
-        
-        subtitle_style = ParagraphStyle(
-            'ChartSubtitle2',
-            parent=styles['Normal'],
-            fontName='Helvetica',
-            fontSize=10,
-            alignment=TA_CENTER
-        )
-        elements.append(Paragraph(
-            f"PÉRIODE DU {from_date_formatted} AU {to_date_formatted}",
-            subtitle_style
-        ))
-        
-        # Espace pour centrer le graphique verticalement sur la page
-        # Page paysage A4 hauteur utile ~14cm (après marges et header)
-        # Graphique ~10cm, donc espace avant = (14 - 10) / 2 = ~2cm
-        elements.append(Spacer(1, 2*cm))
-        
-        # Préparer les données pour le graphique
-        facilities_data = []
-        for facility in owner_data.get("facilities", []):
-            facility_info = {
-                "facilityName": facility.get("facilityName", ""),
-                "products": facility.get("products", [])
-            }
-            facilities_data.append(facility_info)
-        
+        subtitle_style = ParagraphStyle('ChartSubtitle2b', parent=styles['Normal'], fontName='Helvetica', fontSize=10, alignment=TA_CENTER)
+
+        facilities_data = [
+            {"facilityName": f.get("facilityName", ""), "products": f.get("products", [])}
+            for f in owner_data.get("facilities", [])
+        ]
+
         if not facilities_data:
-            elements.append(Paragraph(
-                "AUCUNE DONNÉE DE CONSOMMATION DISPONIBLE POUR CE GROUPE.",
-                subtitle_style
-            ))
+            elements.append(PageBreak())
+            elements.append(Spacer(1, 2*cm))
+            elements.append(Paragraph("AUCUNE DONNÉE DE CONSOMMATION DISPONIBLE POUR CE GROUPE.", subtitle_style))
             return
-        
-        # Créer le graphique
-        chart_gen = ConsumptionChartGenerator()
-        chart_buffer = chart_gen.create_group_product_total_chart(
-            facilities_data,
-            owner_name
-        )
-        
-        # Ajouter le graphique au PDF
-        chart_img = Image(chart_buffer, width=26*cm, height=10*cm)
-        elements.append(chart_img)
-        elements.append(Spacer(1, 0.5*cm))
-        
-        # Texte explicatif
-        explanation_style = ParagraphStyle(
-            'ChartExplanation2',
-            fontName='Helvetica',
-            fontSize=8,
-            alignment=TA_LEFT,
-            textColor=colors.black
-        )
-        legend_text = "CE GRAPHIQUE PRÉSENTE LA CONSOMMATION TOTALE PAR PRODUIT POUR L'ENSEMBLE DES SITES DU GROUPE SUR LA PÉRIODE SÉLECTIONNÉE.<br/>LES CONSOMMATIONS SONT EXPRIMÉES EN LITRES."
-        
-        elements.append(Paragraph(legend_text, explanation_style))
+
+        products_data = self._filter_facilities_products(facilities_data, water=False)
+        water_data = self._filter_facilities_products(facilities_data, water=True)
+
+        if any(f["products"] for f in products_data):
+            self._render_product_total_page(
+                elements, owner_name, products_data, from_date, to_date,
+                "SUIVI DE LA CONSOMMATION TOTALE PAR PRODUIT"
+            )
+        if any(f["products"] for f in water_data):
+            self._render_product_total_page(
+                elements, owner_name, water_data, from_date, to_date,
+                "SUIVI DE LA CONSOMMATION TOTALE D'EAU"
+            )
     
     def _add_delivered_products_page(
         self,
