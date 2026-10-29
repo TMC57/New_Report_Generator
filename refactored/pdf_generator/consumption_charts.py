@@ -756,11 +756,11 @@ class ConsumptionChartGenerator:
             # Calculer le décalage pour ce produit
             offset = (product_idx - num_products / 2 + 0.5) * bar_width
             
-            # Tracer les barres
+            # Tracer les barres (largeur reduite de moitie pour un rendu plus fin)
             bars = ax.bar(
                 x_positions + offset,
                 quantities,
-                width=bar_width * 0.9,
+                width=bar_width * 0.45,
                 color=color,
                 label=base_product_name.upper(),
                 alpha=0.85
@@ -991,7 +991,7 @@ class ConsumptionChartGenerator:
         bars = ax.bar(
             x_positions,
             quantities,
-            width=0.6,
+            width=0.3,
             color=colors,
             alpha=0.85
         )
