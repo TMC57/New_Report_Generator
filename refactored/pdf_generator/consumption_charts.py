@@ -789,7 +789,10 @@ class ConsumptionChartGenerator:
         
         ax.set_xticks(x_positions)
         ax.set_xticklabels([])  # On va dessiner les labels manuellement
-        
+
+        # Fixer les limites X (1 unite par site) : mise en page stable meme avec 1 seul site
+        ax.set_xlim(-0.5, num_facilities - 0.5)
+
         # Retirer les bordures du graphique
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
@@ -1005,14 +1008,18 @@ class ConsumptionChartGenerator:
         
         ax.set_xticks(x_positions)
         ax.set_xticklabels([])  # Labels manuels
-        
+
+        # Fixer les limites X (1 unite par produit) : evite l'ecrasement de la mise
+        # en page quand il n'y a qu'un seul produit (ex: page EAU).
+        ax.set_xlim(-0.5, num_products - 0.5)
+
         # Retirer les bordures
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
         ax.spines['left'].set_visible(False)
         ax.spines['bottom'].set_visible(True)
         ax.spines['bottom'].set_linewidth(1.5)
-        
+
         # Grille horizontale
         ax.grid(True, axis='y', alpha=0.3, linestyle='-', linewidth=0.8)
         
