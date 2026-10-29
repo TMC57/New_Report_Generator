@@ -802,7 +802,12 @@ class ConsumptionChartGenerator:
         
         # Grille horizontale
         ax.grid(True, axis='y', alpha=0.3, linestyle='-', linewidth=0.8)
-        
+
+        # Si toutes les valeurs sont nulles (periode vide), forcer une echelle par
+        # defaut pour que axes/labels/cases restent visibles (graphique vide mais structure).
+        if max((v for fac in aggregated_data for v in fac["products"].values()), default=0) <= 0:
+            ax.set_ylim(0, 1)
+
         # 4) Dessiner les cases de l'axe X comme un tableau
         # Calculer les limites du graphique
         y_min, y_max = ax.get_ylim()
@@ -1022,7 +1027,11 @@ class ConsumptionChartGenerator:
 
         # Grille horizontale
         ax.grid(True, axis='y', alpha=0.3, linestyle='-', linewidth=0.8)
-        
+
+        # Periode vide (toutes valeurs nulles) -> echelle par defaut pour garder la structure
+        if max(quantities, default=0) <= 0:
+            ax.set_ylim(0, 1)
+
         # 4) Dessiner les cases de l'axe X avec nom du produit ET valeur en litres
         y_min, y_max = ax.get_ylim()
         box_height = (y_max - y_min) * 0.10
