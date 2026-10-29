@@ -114,7 +114,7 @@ GROUP_CANONICAL_PRODUCTS = [
         "keywords": ["WNC40"],
     },
     {
-        "name": "WNC 50 Nettoyant carrosserie 200L - 08904711",
+        "name": "WNC 50 NETTOYANT CARROSSERIE 200L - 08904711",
         "refs": ["08904711"],
         "keywords": ["WNC50"],
     },

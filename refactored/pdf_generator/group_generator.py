@@ -34,7 +34,10 @@ def normalize_text(text: str) -> str:
     """
     if not text:
         return text
-    
+
+    # Supprimer tabulations / retours a la ligne / espaces multiples (carres ■)
+    text = re.sub(r'\s+', ' ', text).strip()
+
     # Normaliser les caractères Unicode (décomposer puis recomposer)
     text = unicodedata.normalize('NFKD', text)
     
@@ -404,44 +407,49 @@ class GroupPDFGenerator:
 
         facility_names, product_names, product_facility_qty = chart_gen.get_aggregated_facility_data(facilities_chunk)
         if facility_names and product_names:
-            header_row = ["PRODUITS"] + [normalize_text(name) for name in facility_names]
+            # Cellules en Paragraph -> le texte revient a la ligne et la cellule
+            # s'adapte a la hauteur du nom (sites/produits qui ne rentraient pas).
+            header_cell_style = ParagraphStyle(
+                'GrpHeaderCell', fontName='Helvetica-Bold', fontSize=7,
+                alignment=TA_CENTER, leading=8, textColor=colors.black
+            )
+            product_cell_style = ParagraphStyle(
+                'GrpProductCell', fontName='Helvetica-Bold', fontSize=7,
+                alignment=TA_LEFT, leading=8, textColor=colors.black
+            )
+            qty_cell_style = ParagraphStyle(
+                'GrpQtyCell', fontName='Helvetica', fontSize=7,
+                alignment=TA_CENTER, leading=8, textColor=colors.black
+            )
+
+            header_row = [Paragraph("PRODUITS", header_cell_style)]
+            for name in facility_names:
+                header_row.append(Paragraph(normalize_text(name).upper(), header_cell_style))
             table_data = [header_row]
             for product_name in product_names:
-                row = [product_name.upper()]
+                row = [Paragraph(product_name.upper(), product_cell_style)]
                 for fac_name in facility_names:
                     qty = product_facility_qty.get(product_name, {}).get(fac_name, 0)
-                    row.append(f"{qty:.2f} L".replace('.', ','))
+                    row.append(Paragraph(f"{qty:.2f} L".replace('.', ','), qty_cell_style))
                 table_data.append(row)
 
             num_cols = len(header_row)
-            first_col_width = 3.5*cm
-            remaining_width = 22.5*cm
+            first_col_width = 5.5*cm
+            remaining_width = 20.5*cm
             other_col_width = remaining_width / max(num_cols - 1, 1)
             col_widths = [first_col_width] + [other_col_width] * (num_cols - 1)
 
             table = Table(table_data, colWidths=col_widths)
             table.setStyle(TableStyle([
                 ('BACKGROUND', (0, 0), (-1, 0), colors.Color(0.85, 0.85, 0.85)),
-                ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
-                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, 0), 7),
-                ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
-                ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
-                ('WORDWRAP', (0, 0), (-1, 0), 'LTR'),
                 ('BACKGROUND', (0, 1), (0, -1), colors.Color(0.95, 0.95, 0.95)),
-                ('FONTNAME', (0, 1), (0, -1), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 1), (0, -1), 7),
-                ('ALIGN', (0, 1), (0, -1), 'LEFT'),
-                ('FONTNAME', (1, 1), (-1, -1), 'Helvetica'),
-                ('FONTSIZE', (1, 1), (-1, -1), 7),
-                ('ALIGN', (1, 1), (-1, -1), 'CENTER'),
                 ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
                 ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
                 ('BOX', (0, 0), (-1, -1), 1, colors.black),
                 ('TOPPADDING', (0, 0), (-1, -1), 3),
                 ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
-                ('LEFTPADDING', (0, 0), (-1, -1), 2),
-                ('RIGHTPADDING', (0, 0), (-1, -1), 2),
+                ('LEFTPADDING', (0, 0), (-1, -1), 3),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 3),
             ]))
             elements.append(table)
             elements.append(Spacer(1, 0.5*cm))

@@ -9,6 +9,7 @@ import matplotlib.dates as mdates
 from matplotlib.patches import Rectangle
 import numpy as np
 import io
+import re
 from typing import List, Dict, Tuple, Optional
 from refactored.utils.product_colors import get_color_service
 from refactored.utils.product_naming import canonical_product_name, site_has_overrides, match_group_canonical
@@ -618,7 +619,11 @@ class ConsumptionChartGenerator:
         """
         if not text:
             return text
-        
+
+        # Supprimer tabulations / retours a la ligne / espaces multiples
+        # (sinon ils apparaissent comme des carres ■ dans le PDF)
+        text = re.sub(r'\s+', ' ', text).strip()
+
         # Remplacer les caractères spéciaux courants
         replacements = {
             'œ': 'oe',
